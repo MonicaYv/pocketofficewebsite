@@ -1,0 +1,393 @@
+/* ── Design tokens ─────────────────────────────────────────── */
+:root {
+  --ink:       #0d1117;
+  --ink-soft:  #3a3f4a;
+  --ink-muted: #6b7280;
+  --rule:      #e5e7eb;
+  --accent:    #0694B7;
+  --accent-bg: #E6F6FA;
+  --surface:   #ffffff;
+  --warm:      #fafaf8;
+  --reading-w: 760px;
+  --radius:    12px;
+}
+
+/* ── Reading progress bar ──────────────────────────────────── */
+#read-progress {
+  position: fixed;
+  top: 0; left: 0;
+  height: 3px;
+  width: 0%;
+  background: var(--accent);
+  z-index: 9999;
+  transition: width 0.1s linear;
+  border-radius: 0 2px 2px 0;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   HERO
+═══════════════════════════════════════════════════════════ */
+.bd-hero {
+  position: relative;
+  background: var(--ink);
+  min-height: 68vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow: hidden;
+}
+
+.bd-hero-img {
+  position: absolute;
+  inset: 0;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  opacity: 0.38;
+}
+
+.bd-hero-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(13, 17, 23, 0.97) 0%,
+    rgba(13, 17, 23, 0.50) 55%,
+    rgba(13, 17, 23, 0.12) 100%
+  );
+}
+
+.bd-hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: var(--reading-w);
+  margin: 0 auto;
+  width: 100%;
+  padding: 0 32px 60px;
+  animation: bdFadeUp 0.7s ease both;
+}
+
+.bd-category-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 5px 14px;
+  border-radius: 999px;
+  margin-bottom: 22px;
+}
+
+.bd-hero-title {
+  font-family: var(--serif);
+  font-size: clamp(1.9rem, 4.5vw, 3.1rem);
+  line-height: 1.2;
+  color: #fff;
+  margin-bottom: 22px;
+  letter-spacing: -0.01em;
+}
+
+.bd-hero-meta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.bd-hero-meta span {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.62);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.bd-hero-meta span i { font-size: 11px; }
+
+.bd-hero-meta .dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.28);
+  flex-shrink: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ARTICLE PAGE WRAPPER
+═══════════════════════════════════════════════════════════ */
+.bd-page {
+  max-width: var(--reading-w);
+  margin: 0 auto;
+  padding: 56px 32px 96px;
+  animation: bdFadeUp 0.6s ease 0.15s both;
+}
+
+/* ── Back link ─────────────────────────────────────────────── */
+.bd-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink-muted);
+  text-decoration: none;
+  margin-bottom: 40px;
+  transition: color 0.2s;
+  letter-spacing: 0.02em;
+}
+.bd-back:hover { color: var(--accent); }
+.bd-back i { font-size: 11px; }
+
+/* ═══════════════════════════════════════════════════════════
+   ARTICLE BODY TYPOGRAPHY
+═══════════════════════════════════════════════════════════ */
+.bd-body p {
+  font-size: 17px;
+  line-height: 1.88;
+  color: var(--ink-soft);
+  margin-bottom: 26px;
+  font-weight: 300;
+}
+
+.bd-body h4 {
+  font-family: var(--serif);
+  font-size: 1.6rem;
+  color: var(--ink);
+  margin: 48px 0 16px;
+  letter-spacing: -0.01em;
+}
+
+.bd-body ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 28px;
+}
+
+.bd-body ul li {
+  position: relative;
+  padding: 11px 0 11px 26px;
+  font-size: 16px;
+  line-height: 1.72;
+  color: var(--ink-soft);
+  font-weight: 300;
+  border-bottom: 1px solid var(--rule);
+}
+
+.bd-body ul li:first-child { border-top: 1px solid var(--rule); }
+
+.bd-body ul li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.bd-body ul li strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+/* ── Pull quote ────────────────────────────────────────────── */
+.bd-pull-quote {
+  border-left: 3px solid var(--accent);
+  margin: 44px 0;
+  padding: 22px 28px;
+  background: var(--accent-bg);
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+
+.bd-pull-quote p {
+  font-family: var(--serif);
+  font-size: 1.18rem !important;
+  font-style: italic;
+  color: var(--ink) !important;
+  margin: 0 !important;
+  line-height: 1.62 !important;
+  font-weight: 400 !important;
+}
+
+/* ── Highlight / verdict box ───────────────────────────────── */
+.bd-verdict {
+  background: var(--ink);
+  border-radius: var(--radius);
+  padding: 30px 34px;
+  margin-top: 48px;
+}
+
+.bd-verdict strong {
+  display: block;
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  margin-bottom: 12px;
+  color: #0694B7;
+}
+
+.bd-verdict p {
+  font-size: 15.5px !important;
+  color: rgba(255, 255, 255, 0.76) !important;
+  margin: 0 !important;
+  line-height: 1.72 !important;
+  font-weight: 300 !important;
+}
+
+/* ── Scenario / timeline block ─────────────────────────────── */
+.bd-scenario {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  padding: 28px 32px;
+  margin: 40px 0;
+}
+
+.bd-scenario-title {
+  font-family: var(--serif);
+  font-size: 1.05rem;
+  color: var(--ink);
+  margin-bottom: 18px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.bd-scenario ul {
+  margin: 0 !important;
+}
+
+.bd-scenario ul li {
+  border-color: #f3f4f6 !important;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SHARE STRIP
+═══════════════════════════════════════════════════════════ */
+.bd-share {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 56px;
+  padding-top: 32px;
+  border-top: 1px solid var(--rule);
+}
+
+.bd-share-label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-right: 4px;
+}
+
+.bd-share-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 18px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1.5px solid var(--rule);
+  background: var(--surface);
+  color: var(--ink-soft);
+  text-decoration: none;
+  transition: all 0.2s;
+  font-family: var(--sans);
+}
+
+.bd-share-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-bg);
+  transform: translateY(-2px);
+}
+
+.bd-copy-btn {
+  margin-left: auto;
+  background: var(--ink);
+  color: #fff;
+  border-color: var(--ink);
+}
+
+.bd-copy-btn:hover,
+.bd-copy-btn.copied {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   AUTHOR CARD
+═══════════════════════════════════════════════════════════ */
+.bd-author-card {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 26px;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  margin-top: 48px;
+}
+
+.bd-author-avatar {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent) 0%, #166534 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--serif);
+  font-size: 1.4rem;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.bd-author-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 3px;
+}
+
+.bd-author-role {
+  font-size: 13px;
+  color: var(--ink-muted);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ANIMATION
+═══════════════════════════════════════════════════════════ */
+@keyframes bdFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(26px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════════════════════ */
+@media (max-width: 640px) {
+  .bd-hero { min-height: 58vh; }
+  .bd-hero-content { padding: 0 20px 40px; }
+  .bd-page { padding: 36px 20px 72px; }
+  .bd-copy-btn { margin-left: 0; }
+  .bd-body h4 { font-size: 1.35rem; margin-top: 36px; }
+  .bd-verdict { padding: 22px 22px; }
+  .bd-scenario { padding: 20px 20px; }
+}

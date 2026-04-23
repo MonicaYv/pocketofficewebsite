@@ -1,0 +1,48 @@
+.sbs-testimonial-slider {
+    background-image: url(assets/img/client/testimonial.png);
+    background-size: cover;
+    background-position: center;
+    padding: 40px;
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+}
+
+.choose_slider {
+    position: relative;
+    height: 300px;
+}
+
+.choose_slider_items {
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* Fix the testimonial items to show horizontally */
+.choose_slider_items ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    height: 100%;
+    width: 50%;
+}
+
+.choose_slider_items li {
+    flex: 0 0 100%;
+    min-width: 100%;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 10px;
+    margin-right: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    position: relative;
+    display: block !important;
+    transform: none !important;
+    opacity: 1 !important;
+    top: auto !important;
+    left: auto !important;
+    z-index: auto !important;
+}
