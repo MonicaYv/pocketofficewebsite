@@ -59,7 +59,6 @@ export default defineConfig({
                 'resources/js/bootstrap.min.js',
                 'resources/js/slick.js',
                 'resources/js/testimonial-slider.js',
-                'resources/js/pricing.js',
                 'resources/js/countries.js',
                 'resources/js/search-data.js',
             ],

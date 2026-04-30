@@ -20,59 +20,130 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use App\Notifications\GeneralNotification;
 use Illuminate\Support\Facades\Notification;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Mail;
 
 
 class UserLicenseController extends Controller
 {
-    //using for stoarge 
-    public function formatStorage($bytes)
-    {
-        if ($bytes < 1024) {
-            return $bytes . ' B';
-        } elseif ($bytes < 1048576) {
-            return round($bytes / 1024, 2) . ' KB';
-        } elseif ($bytes < 1073741824) {
-            return round($bytes / 1048576, 2) . ' MB';
-        } else {
-            return round($bytes / 1073741824, 2) . ' GB';
-        }
-    }
-
-    //using for user license --- L
-    public function formatStorageUL($storageInGB)
-    {
-        $units = ['GB', 'TB', 'PB', 'EB']; // Extendable for very large storage
-        $index = 0;
-        $storage = $storageInGB;
-
-        while ($storage >= 1024 && $index < count($units) - 1) {
-            $storage = $storage / 1024;
-            $index++;
-        }
-
-        return round($storage, 2) . ' ' . $units[$index];
-    }
-
-
     public function index(Request $request)
     {
-        // if (!Auth::check()) {
-        //     return redirect('/');
-        // } else {
-            // $user = Auth::user();
-            // $userType = $user->usertype;
-            $userType = 'company';
-            //start plan updation code 
-            $currency = config('constants.CURRENCY');
-            $price_per_user = (float) config('constants.PRICE_PER_USER');
-            $additional_disc_year = (float) config('constants.EXTRA_DISC_YEAR');
-            $additional_disc_month = (float) config('constants.EXTRA_DISC_MONTH');
+        $userType = 'company';
+        //start plan updation code 
+        $currency = config('constants.CURRENCY');
+        $price_per_user = (float) config('constants.PRICE_PER_USER');
+        $additional_disc_year = (float) config('constants.EXTRA_DISC_YEAR');
+        $additional_disc_month = (float) config('constants.EXTRA_DISC_MONTH');
 
-            $tracker = DB::table('users_license_plans_tracker')
-                ->orderByDesc('id')
-                ->first();
+        $tracker = DB::table('users_license_plans_tracker')
+            ->orderByDesc('id')
+            ->first();
 
-            $currentPlans = DB::table('users_license_plans')
+        $currentPlans = DB::table('users_license_plans')
+            ->where('plans_status', 1)
+            ->get()
+            ->map(function ($p) {
+                return [
+                    'id' => $p->id,
+                    'plans_name' => $p->plans_name,
+                    'subscription_type' => $p->plans_subscription_type,
+                    'plans_license' => $p->plans_license,
+                    'plans_users' => $p->plans_users,
+                    'discount' => $p->discount,
+                    'extra_disc' => $p->extra_disc,
+                    'plans_amount' => $p->plans_amount,
+                    'currency' => $p->currency,
+                    'storage_unit' => $p->storage_unit,
+                    'pool_storage' => $p->pool_storage
+                ];
+            })
+            ->toArray();
+
+        $currentPlansJson = json_encode($currentPlans);
+
+        // Check if constants or plans data changed
+        $constantsChanged = !$tracker ||
+            $tracker->price_per_user != $price_per_user ||
+            $tracker->additional_disc_year != $additional_disc_year ||
+            $tracker->additional_disc_month != $additional_disc_month ||
+            $tracker->currency != $currency;
+
+        $planDataChanged = false;
+        if ($tracker && $tracker->plan_data !== null) {
+            if ($tracker->plan_data !== $currentPlansJson) {
+                $planDataChanged = true;
+            }
+        } else {
+            $planDataChanged = true;
+        }
+
+        if ($constantsChanged || $planDataChanged) {
+            $monthPlans = DB::table('users_license_plans')
+                ->where('plans_status', 1)
+                ->where('for_usertype', 'company')
+                ->where('plans_subscription_type', 'month')
+                ->get();
+
+            foreach ($monthPlans as $plan) {
+                // ---- MONTH CALCULATION ----
+                $baseAmount = $price_per_user * (int)$plan->plans_license;
+                $discountPercent = $baseAmount - ($baseAmount * ($plan->discount / 100));
+                $finalAmount = round($discountPercent - ($discountPercent * ($additional_disc_month / 100)));
+
+                $poolStorageMonthData = $plan->plans_license * $plan->plans_users;
+                $poolStorageMonth = $this->formatStorageUL($poolStorageMonthData);
+
+                DB::table('users_license_plans')
+                    ->where('id', $plan->id)
+                    ->update([
+                        'plans_amount' => $finalAmount,
+                        'currency' => $currency,
+                        'extra_disc' => $additional_disc_month,
+                        'pool_storage' => $poolStorageMonth,
+                        'updated_at' => now(),
+                    ]);
+            }
+
+            $yearPlans = DB::table('users_license_plans')
+                ->where('plans_status', 1)
+                ->where('for_usertype', 'company')
+                ->where('plans_subscription_type', 'year')
+                ->get();
+
+            foreach ($yearPlans as $plan) {
+                // ---- YEAR CALCULATION ----
+                $baseAmountYear = $price_per_user * (int)$plan->plans_license;
+                $yearBaseAmount = $baseAmountYear * 12;
+
+                $amountAfterFirstDiscount = $yearBaseAmount - ($yearBaseAmount * ($plan->discount / 100));
+                $finalYearAmount = round($amountAfterFirstDiscount - ($amountAfterFirstDiscount * ($additional_disc_year / 100)));
+
+                $poolStorageYearData = $plan->plans_license * $plan->plans_users;
+                $poolStorageYear = $this->formatStorageUL($poolStorageYearData);
+
+                DB::table('users_license_plans')->updateOrInsert(
+                    [
+                        'plans_name' => $plan->plans_name,
+                        'extra_disc' => $additional_disc_year,
+                        'plans_subscription_type' => 'year',
+                    ],
+                    [
+                        'plans_amount' => $finalYearAmount,
+                        'plans_license' => $plan->plans_license,
+                        'discount' => $plan->discount,
+                        'extra_disc' => $additional_disc_year,
+                        'currency' => $currency,
+                        'pool_storage' => $poolStorageYear,
+                        'plans_status' => 1,
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ]
+                );
+            }
+
+
+
+            $updatedPlans = DB::table('users_license_plans')
                 ->where('plans_status', 1)
                 ->get()
                 ->map(function ($p) {
@@ -92,132 +163,28 @@ class UserLicenseController extends Controller
                 })
                 ->toArray();
 
-            $currentPlansJson = json_encode($currentPlans);
+            DB::table('users_license_plans_tracker')->insert([
+                'user_id' => Auth::id(),
+                'price_per_user' => $price_per_user,
+                'currency' => $currency,
+                'additional_disc_month' => $additional_disc_month,
+                'additional_disc_year' => $additional_disc_year,
+                'plan_data' => json_encode($updatedPlans),
+                'last_update' => now(),
+            ]);
+        }
+        //end plan updation code 
 
-            // Check if constants or plans data changed
-            $constantsChanged = !$tracker ||
-                $tracker->price_per_user != $price_per_user ||
-                $tracker->additional_disc_year != $additional_disc_year ||
-                $tracker->additional_disc_month != $additional_disc_month ||
-                $tracker->currency != $currency;
+        $userLicenseData = [
+            'userLicenseDetails' => $this->getUserLicenseDetails($request),
+            'allAppsDetailsMaster' => $this->getAllAppsDetailsMaster($request),
+            'allAppsDetails' => $this->getAllAppsDetails($request),
+            'freeAppsDetails' => $this->getFreeAppsDetails($request),
+            'inAppsDetails' => $this->getInAppsDetails($request),
+            'essAppsDetails' => $this->getEssAppsDetails($request),
+        ];
 
-            $planDataChanged = false;
-            if ($tracker && $tracker->plan_data !== null) {
-                if ($tracker->plan_data !== $currentPlansJson) {
-                    $planDataChanged = true;
-                }
-            } else {
-                $planDataChanged = true;
-            }
-
-            if ($constantsChanged || $planDataChanged) {
-                $monthPlans = DB::table('users_license_plans')
-                    ->where('plans_status', 1)
-                    ->where('plans_subscription_type', 'month')
-                    ->get();
-
-                foreach ($monthPlans as $plan) {
-                    // ---- MONTH CALCULATION ----
-                    $baseAmount = $price_per_user * (int)$plan->plans_license;
-                    $discountPercent = $baseAmount - ($baseAmount * ($plan->discount / 100));
-                    $finalAmount = round($discountPercent - ($discountPercent * ($additional_disc_month / 100)));
-
-                    $poolStorageMonthData = $plan->plans_license * $plan->plans_users;
-                    $poolStorageMonth = $this->formatStorageUL($poolStorageMonthData);
-
-                    DB::table('users_license_plans')
-                        ->where('id', $plan->id)
-                        ->update([
-                            'plans_amount' => $finalAmount,
-                            'currency' => $currency,
-                            'extra_disc' => $additional_disc_month,
-                            'pool_storage' => $poolStorageMonth,
-                            'updated_at' => now(),
-                        ]);
-                }
-
-                $yearPlans = DB::table('users_license_plans')
-                    ->where('plans_status', 1)
-                    ->where('plans_subscription_type', 'year')
-                    ->get();
-
-                foreach ($yearPlans as $plan) {
-                    // ---- YEAR CALCULATION ----
-                    $baseAmountYear = $price_per_user * (int)$plan->plans_license;
-                    $yearBaseAmount = $baseAmountYear * 12;
-
-                    $amountAfterFirstDiscount = $yearBaseAmount - ($yearBaseAmount * ($plan->discount / 100));
-                    $finalYearAmount = round($amountAfterFirstDiscount - ($amountAfterFirstDiscount * ($additional_disc_year / 100)));
-
-                    $poolStorageYearData = $plan->plans_license * $plan->plans_users;
-                    $poolStorageYear = $this->formatStorageUL($poolStorageYearData);
-
-                    DB::table('users_license_plans')->updateOrInsert(
-                        [
-                            'plans_name' => $plan->plans_name,
-                            'extra_disc' => $additional_disc_year,
-                            'plans_subscription_type' => 'year',
-                        ],
-                        [
-                            'plans_amount' => $finalYearAmount,
-                            'plans_license' => $plan->plans_license,
-                            'discount' => $plan->discount,
-                            'extra_disc' => $additional_disc_year,
-                            'currency' => $currency,
-                            'pool_storage' => $poolStorageYear,
-                            'plans_status' => 1,
-                            'created_at' => now(),
-                            'updated_at' => now(),
-                        ]
-                    );
-                }
-
-                $updatedPlans = DB::table('users_license_plans')
-                    ->where('plans_status', 1)
-                    ->get()
-                    ->map(function ($p) {
-                        return [
-                            'id' => $p->id,
-                            'plans_name' => $p->plans_name,
-                            'subscription_type' => $p->plans_subscription_type,
-                            'plans_license' => $p->plans_license,
-                            'plans_users' => $p->plans_users,
-                            'discount' => $p->discount,
-                            'extra_disc' => $p->extra_disc,
-                            'plans_amount' => $p->plans_amount,
-                            'currency' => $p->currency,
-                            'storage_unit' => $p->storage_unit,
-                            'pool_storage' => $p->pool_storage
-                        ];
-                    })
-                    ->toArray();
-
-                DB::table('users_license_plans_tracker')->insert([
-                    'user_id' => Auth::id(),
-                    'price_per_user' => $price_per_user,
-                    'currency' => $currency,
-                    'additional_disc_month' => $additional_disc_month,
-                    'additional_disc_year' => $additional_disc_year,
-                    'plan_data' => json_encode($updatedPlans),
-                    'last_update' => now(),
-                ]);
-            }
-            //end plan updation code 
-
-            $userLicenseData = [
-                'userLicenseDetails' => $this->getUserLicenseDetails($request),
-                'allAppsDetailsMaster' => $this->getAllAppsDetailsMaster($request),
-                'allAppsDetails' => $this->getAllAppsDetails($request),
-                'freeAppsDetails' => $this->getFreeAppsDetails($request),
-                'inAppsDetails' => $this->getInAppsDetails($request),
-                'essAppsDetails' => $this->getEssAppsDetails($request),
-            ];
-
-    
-
-
-            return view('market-place.main', compact('userLicenseData', 'userType', 'additional_disc_month', 'additional_disc_year'));
-        // }
+        return view('marketplace.pricing', compact('userLicenseData', 'userType', 'additional_disc_month', 'additional_disc_year'));
     }
 
     public function getUserLicenseDetails(Request $request)
@@ -228,11 +195,25 @@ class UserLicenseController extends Controller
 
             $planLists = DB::table('users_license_plans')
                 ->where('plans_status', 1)
+                ->where('for_usertype', 'company')
                 ->where('plans_subscription_type', 'month')
                 ->get();
 
             $planListsYear = DB::table('users_license_plans')
                 ->where('plans_status', 1)
+                ->where('for_usertype', 'company')
+                ->where('plans_subscription_type', 'year')
+                ->get();
+
+            $monthPlansForSingleUser = DB::table('users_license_plans')
+                ->where('plans_status', 1)
+                ->where('for_usertype', 'special_user')
+                ->where('plans_subscription_type', 'month')
+                ->get();
+
+            $yearPlansForSingleUser = DB::table('users_license_plans')
+                ->where('plans_status', 1)
+                ->where('for_usertype', 'special_user')
                 ->where('plans_subscription_type', 'year')
                 ->get();
 
@@ -260,7 +241,7 @@ class UserLicenseController extends Controller
 
                 $planName   = $plan->plan->plans_name ?? 'Your Plan';
                 $orderIdFormat = 'ORDERID#LIC2025';
-                $orderId   = $orderIdFormat.$plan->order_id;
+                $orderId   = $orderIdFormat . $plan->order_id;
                 $planExpiry = Carbon::parse($plan->plan_expiry_date);
 
                 $daysRemaining = now()
@@ -298,7 +279,7 @@ class UserLicenseController extends Controller
 
             if ($latestPlan) {
                 $orderIdFormat = 'ORDERID#LIC2025';
-                $orderId   = $orderIdFormat.$latestPlan->order_id;
+                $orderId   = $orderIdFormat . $latestPlan->order_id;
 
                 $planName   = $latestPlan->plan->plans_name ?? 'Your Plan';
                 $planExpiry = Carbon::parse($latestPlan->plan_expiry_date);
@@ -323,6 +304,8 @@ class UserLicenseController extends Controller
             return [
                 'planLists'      => $planLists,
                 'planListsYear'  => $planListsYear,
+                'monthPlansForSingleUser'  => $monthPlansForSingleUser,
+                'yearPlansForSingleUser'  => $yearPlansForSingleUser,
                 'latestPlan'     => $latestPlan,
                 'expiryMessage'  => $expiryMessage,
                 'bgColorClass'   => $bgColorClass,
@@ -335,153 +318,12 @@ class UserLicenseController extends Controller
         }
     }
 
-
-    public function getUserLicenseDetails_old1(Request $request)
-    {
-        try {
-
-            $userObj = User::find(Auth::id());
-
-            $planLists = DB::table('users_license_plans')
-                ->where('plans_status', 1)
-                ->where('plans_subscription_type', 'month')
-                ->get();
-
-            $planListsYear = DB::table('users_license_plans')
-                ->where('plans_status', 1)
-                ->where('plans_subscription_type', 'year')
-                ->get();
-
-            $latestPlan = UsersLicensePayment::where('user_id', Auth::id())
-                // ->orderByDesc('order_id')
-                ->orderByDesc('payment_date')
-                ->with('plan')
-                ->first();
-
-            //for notification
-            $plans = UsersLicensePayment::where('user_id', Auth::id())
-                ->orderByDesc('payment_date')
-                ->with('plan')
-                ->get();
-
-            //expiry msg
-            $expiryMessage = 'Choose the perfect plan to unlock premium features and enhance your experience.';
-            $bgColorClass = 'bg-c-light-green';
-
-            $expiringSoonDays = 3;
-
-            $subscriptionMap = [
-                'month' => 'Monthly',
-                'year'  => 'Annually',
-            ];
-
-            foreach ($plans as $plan) {
-
-                $planName   = $plan->plan->plans_name ?? 'Your Plan';
-                $planExpiry = Carbon::parse($plan->plan_expiry_date);
-
-                // FIX: no decimals
-                $daysRemaining = now()
-                    ->startOfDay()
-                    ->diffInDays($planExpiry->startOfDay(), false);
-
-                $showSubs = $subscriptionMap[$plan->plan_subscription] ?? '';
-
-                //EXPIRED
-                if ($daysRemaining < 0) {
-                    $bgColorClass = 'bg-light-pink';
-                    $expiryMessage = "Your plan <strong>{$showSubs} {$planName}</strong> expired on <strong>" .
-                        $planExpiry->format('d M Y') .
-                        "</strong>. Please renew or upgrade to continue enjoying premium features.";
-                    Notification::send(
-                        $userObj,
-                        new GeneralNotification(
-                            "Your plan {$showSubs} {$planName} expired",
-                            "Your plan expired on " . $planExpiry->format('d M Y')
-                        )
-                    );
-                }
-                //EXPIRING SOON
-                elseif ($daysRemaining >= 0 && $daysRemaining <= $expiringSoonDays) {
-                    $bgColorClass = 'bg-light-pink';
-                    $expiryMessage = "Within <strong>{$expiringSoonDays} days</strong>, your plan <strong>{$showSubs} {$planName}</strong> will expire. Please purchase or renew your plan.";
-                    Notification::send(
-                        $userObj,
-                        new GeneralNotification(
-                            "Plan expiring soon",
-                            "Your {$showSubs} {$planName} plan will expire in {$expiringSoonDays} days. Please renew to continue your services."
-                        )
-                    );
-                }
-                //ACTIVE
-                else {
-                    $bgColorClass = 'bg-c-light-green';
-                    $expiryMessage = "Your plan <strong>{$showSubs} {$planName}</strong> is active until <strong>" .
-                        $planExpiry->format('d M Y') .
-                        "</strong>.";
-                }
-            }
-
-            return [
-                'planLists' => $planLists,
-                'planListsYear' => $planListsYear,
-                'latestPlan' => $latestPlan,
-                'expiryMessage'   => $expiryMessage,
-                'bgColorClass'    => $bgColorClass,
-            ];
-        } catch (\Exception $e) {
-            return response()->json([
-                'error' => true,
-                'message' => 'Something went wrong! Please contact support.'
-            ], 500);
-            // return response()->json(['error' => true,'message' => $e->getMessage()], 500);
-        }
-    }
-
-    public function getUserLicenseDetails_old(Request $request)
-    {
-        try {
-            // $planLists = DB::table('users_license_plans')
-            //     ->where('plans_status', 1)
-            //     ->get();
-
-            $planLists = DB::table('users_license_plans')
-                ->where('plans_status', 1)
-                ->where('plans_subscription_type', 'month')
-                ->get();
-
-            $planListsYear = DB::table('users_license_plans')
-                ->where('plans_status', 1)
-                ->where('plans_subscription_type', 'year')
-                ->get();
-
-            $latestPlan = UsersLicensePayment::where('user_id', Auth::id())
-                ->orderByDesc('order_id')
-                ->with('plan')
-                ->first();
-
-            return [
-                'planLists' => $planLists,
-                'planListsYear' => $planListsYear,
-                'latestPlan' => $latestPlan,
-            ];
-        } catch (\Exception $e) {
-            return response()->json([
-                'error' => true,
-                'message' => 'Something went wrong! Please contact support.'
-            ], 500);
-            // return response()->json(['error' => true,'message' => $e->getMessage()], 500);
-        }
-    }
-
     public function store(Request $request)
     {
         $userId = Auth::user()->id;
         $planId = $request->input('plan_id');
         $now = Carbon::now();
         $subscriptionType =  $request->subscription;
-
-
 
         // Get subscription type of selected plan (e.g. month, year)
         // $subscriptionType = DB::table('users_license_plans')
@@ -622,91 +464,6 @@ class UserLicenseController extends Controller
             'status' => $status,
             'message' => $message,
         ], 200);
-    }
-
-    /**
-     * Save card details if it doesn't already exist.
-     */
-    private function saveCardIfNotExists(Request $request, int $userId)
-    {
-        $cardNumber = $request->input('card_number');
-        $cardExpiry = $request->input('card_expiry_date');
-        $cardCvv = $request->input('card_cvv');
-        $cardPin = $request->input('card_pin');
-
-        // Check for existing card by decrypting stored card details
-        $existingCard = UsersLicenseCardDetail::where('user_id', $userId)
-            ->get()
-            ->filter(function ($card) use ($cardNumber, $cardExpiry, $cardCvv) {
-                try {
-                    return Crypt::decryptString($card->card_number) === $cardNumber &&
-                        Crypt::decryptString($card->card_cvv) === $cardCvv &&
-                        $card->card_expiry_date === $cardExpiry;
-                } catch (\Exception $e) {
-                    return false;
-                }
-            })->first();
-
-        if (!$existingCard) {
-            // Deactivate previous cards
-            UsersLicenseCardDetail::where('user_id', $userId)->update(['status' => 0]);
-
-            // Save new card
-            UsersLicenseCardDetail::create([
-                'user_id' => $userId,
-                'card_holder_name' => $request->input('card_holder_name'),
-                'card_number' => Crypt::encryptString($cardNumber),
-                'card_cvv' => Crypt::encryptString($cardCvv),
-                'card_pin' => Crypt::encryptString($cardPin),
-                'card_expiry_date' => $cardExpiry,
-                'card_save' => 1,
-                'status' => 1,
-            ]);
-        }
-    }
-
-    private function normalizeSubscriptionType(string $type): string
-    {
-        $type = strtolower(trim($type));
-
-        // Yearly variations
-        $yearWords = ['year', 'yearly', 'annually', 'annual'];
-
-        // Monthly variations
-        $monthWords = ['month', 'monthly'];
-
-        if (in_array($type, $yearWords)) {
-            return 'year';
-        }
-
-        if (in_array($type, $monthWords)) {
-            return 'month';
-        }
-
-        // Default fallback (optional)
-        return 'month';  // you can change default
-    }
-
-    /**
-     * Calculate expiry date based on start date and subscription type.
-     */
-    private function calculateExpiryDate(Carbon $startDate, string $subscriptionType): Carbon
-    {
-        $subscriptionType = $this->normalizeSubscriptionType($subscriptionType);
-
-        $expiryDate = $startDate->copy();
-
-        switch ($subscriptionType) {
-            case 'month':
-                $expiryDate->addMonth();
-                break;
-
-            case 'year':
-                $expiryDate->addYear();
-                break;
-        }
-
-        return $expiryDate;
     }
 
     public function getSavedCard()
@@ -1491,7 +1248,7 @@ class UserLicenseController extends Controller
         $user = User::find($request->id);
         if (!$user) {
             return response()->json(['error' => 'User not found'], 404);
-        }        
+        }
 
         // Check user limit before editing and creating user
         $getUserId = $user->id;
@@ -1501,5 +1258,778 @@ class UserLicenseController extends Controller
             return response()->json(['error' => $limitCheck['error']], 403);
         }
         return response()->json(['success' => 'License plan updated successfully']);
+    }
+
+    //using for stoarge 
+    public function formatStorage($bytes)
+    {
+        if ($bytes < 1024) {
+            return $bytes . ' B';
+        } elseif ($bytes < 1048576) {
+            return round($bytes / 1024, 2) . ' KB';
+        } elseif ($bytes < 1073741824) {
+            return round($bytes / 1048576, 2) . ' MB';
+        } else {
+            return round($bytes / 1073741824, 2) . ' GB';
+        }
+    }
+
+    //using for user license --- L
+    public function formatStorageUL($storageInGB)
+    {
+        $units = ['GB', 'TB', 'PB', 'EB']; // Extendable for very large storage
+        $index = 0;
+        $storage = $storageInGB;
+
+        while ($storage >= 1024 && $index < count($units) - 1) {
+            $storage = $storage / 1024;
+            $index++;
+        }
+
+        return round($storage, 2) . ' ' . $units[$index];
+    }
+
+    /**
+     * Save card details if it doesn't already exist.
+     */
+    private function saveCardIfNotExists(Request $request, int $userId)
+    {
+        $cardNumber = $request->input('card_number');
+        $cardExpiry = $request->input('card_expiry_date');
+        $cardCvv = $request->input('card_cvv');
+        $cardPin = $request->input('card_pin');
+
+        // Check for existing card by decrypting stored card details
+        $existingCard = UsersLicenseCardDetail::where('user_id', $userId)
+            ->get()
+            ->filter(function ($card) use ($cardNumber, $cardExpiry, $cardCvv) {
+                try {
+                    return Crypt::decryptString($card->card_number) === $cardNumber &&
+                        Crypt::decryptString($card->card_cvv) === $cardCvv &&
+                        $card->card_expiry_date === $cardExpiry;
+                } catch (\Exception $e) {
+                    return false;
+                }
+            })->first();
+
+        if (!$existingCard) {
+            // Deactivate previous cards
+            UsersLicenseCardDetail::where('user_id', $userId)->update(['status' => 0]);
+
+            // Save new card
+            UsersLicenseCardDetail::create([
+                'user_id' => $userId,
+                'card_holder_name' => $request->input('card_holder_name'),
+                'card_number' => Crypt::encryptString($cardNumber),
+                'card_cvv' => Crypt::encryptString($cardCvv),
+                'card_pin' => Crypt::encryptString($cardPin),
+                'card_expiry_date' => $cardExpiry,
+                'card_save' => 1,
+                'status' => 1,
+            ]);
+        }
+    }
+
+    private function normalizeSubscriptionType(string $type): string
+    {
+        $type = strtolower(trim($type));
+
+        // Yearly variations
+        $yearWords = ['year', 'yearly', 'annually', 'annual'];
+
+        // Monthly variations
+        $monthWords = ['month', 'monthly'];
+
+        if (in_array($type, $yearWords)) {
+            return 'year';
+        }
+
+        if (in_array($type, $monthWords)) {
+            return 'month';
+        }
+
+        // Default fallback (optional)
+        return 'month';  // you can change default
+    }
+
+    /**
+     * Calculate expiry date based on start date and subscription type.
+     */
+    private function calculateExpiryDate(Carbon $startDate, string $subscriptionType): Carbon
+    {
+        $subscriptionType = $this->normalizeSubscriptionType($subscriptionType);
+
+        $expiryDate = $startDate->copy();
+
+        switch ($subscriptionType) {
+            case 'month':
+                $expiryDate->addMonth();
+                break;
+
+            case 'year':
+                $expiryDate->addYear();
+                break;
+        }
+
+        return $expiryDate;
+    }
+
+    //single user form submit 
+    public function saveSubscription(Request $request)
+    {
+
+        DB::beginTransaction();
+
+        try {
+
+            // =========================
+            // 1. CREATE USER
+            // =========================
+            $userId = DB::table('users')->insertGetId([
+                'name' => $request->contactPerson,
+                'username' => $request->username,
+                'phone' => $request->phone,
+                'email' => $request->email,
+                'designation' => $request->designation,
+                'password' => Hash::make('Password@123'),
+                'usertype' => 'special_user',
+                'created_at' => now()
+            ]);
+
+            DB::table('users_license_card_details')->insert([
+                'user_id' => $userId,
+                'card_holder_name' => $request->card_name,
+                'card_number' => Crypt::encryptString($request->card_number),
+                'card_expiry_date' => $request->card_expiry,
+                'card_cvv' => Crypt::encryptString($request->card_cvv),
+                'card_pin' => null,
+                'card_save' => 1,
+                'status' => 1,
+                'created_at' => now()
+            ]);
+
+            // =========================
+            // 2. GENERATE ORDER ID
+            // =========================
+            $orderId = UsersLicensePayment::generateOrderId();
+
+
+            // =========================
+            // 3. CALCULATE EXPIRY DATE
+            // =========================
+            $subscriptionType = $request->subscription_type;
+
+            if ($subscriptionType == 'month') {
+                $expiryDate = Carbon::now()->addMonth();
+            } else {
+                $expiryDate = Carbon::now()->addYear();
+            }
+
+
+            // =========================
+            // 4. CALCULATE FINAL AMOUNT
+            // =========================
+            $amount = $request->price * $request->quantity;
+            $discount = $request->discount ?? 0;
+
+            $finalAmount = $amount - $discount;
+
+
+            // =========================
+            // 5. INSERT PAYMENT
+            // =========================
+
+            $couponData = DB::table('coupons')->where('code', $request->coupon_id)->first();
+            // $couponId = $couponData->id;
+            if ($couponData) {
+                $couponId = $couponData->id;
+            } else {
+                $couponId = null;
+            }
+
+            UsersLicensePayment::create([
+                'user_id' => $userId,
+                'plan_id' => $request->planId,
+                'order_id' => $orderId,
+                'quantity' => $request->quantity,
+                'total_pool_storage' => $request->storage . ' ' . $request->storage_unit,
+                'plan_subscription' => $subscriptionType,
+                'plan_expiry_date' => $expiryDate,
+                'total_amount' => $finalAmount,
+                'payment_date' => now(),
+                'payment_mode' => 'card',
+                'status' => 1,
+                'used_license' => 0,
+                'remaining_license' => $request->license,
+                'coupon_id' => $couponId,
+                'created_at' => now()
+            ]);
+
+            // 6. UPDATE COUPON USAGE ✅
+            if ($request->coupon_id) {
+                DB::table('coupons')
+                    ->where('id', $couponId)
+                    ->increment('used_count');
+            }
+
+            //generate pdf
+            $user = DB::table('users')->where('id', $userId)->first();
+
+            $pdf = Pdf::loadView('marketplace.invoices', [
+                'user' => $user,
+                'plan_name' => $request->plan_name,
+                'price' => $request->price,
+                'subscription_type' => $request->subscription_type,
+                'license' => $request->license,
+                'storage' => $request->storage,
+                'unit' => $request->storage_unit,
+                'qty' => $request->quantity,
+                'total_amount' => $finalAmount,
+                'promocode' => $request->coupon_id ?? 'N/A',
+                'company_email' => 'support@sizaf.com',
+                'company_phone' => '9999999999',
+                'payment_mode' => 'Card',
+                'payment_status' => 'Paid',
+                'payment_date' => now()->format('d M Y'),
+            ])->setPaper('a4', 'portrait');
+
+            //Send to admin
+            
+            // officelescloud@gmail.com
+            $pdfPath = storage_path('app/invoice.pdf');
+            file_put_contents($pdfPath, $pdf->output());
+
+            Mail::send(
+                'mail-templates.purchase-email-admin',
+                [
+                    'name' => $request->contactPerson,
+                    'username' => $request->username,
+                    'phone' => $request->phone,
+                    'email' => $request->email,
+                    'designation' => $request->designation,
+                    'password' => 'Password@123',
+                    'usertype' => 'special_user',
+                ],
+                function ($message) use ($request, $pdfPath) {
+                    $message->to('officelescloud@gmail.com');
+                    $message->replyTo($request->email);
+                    $message->subject('Purchase Details');
+                    $message->attach($pdfPath);
+                }
+            );
+
+            //Send to user
+            Mail::send(
+                'mail-templates.purchase-email',
+                [
+                    'name' => $request->contactPerson,
+                    'username' => $request->username,
+                    'password' => 'Password@123',
+                ],
+                function ($message) use ($request, $pdfPath) {
+                    $message->to($request->email);
+                    $message->subject('We received your enquiry');
+                    $message->attach($pdfPath);
+                }
+            );
+
+            DB::commit();
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Subscription saved successfully'
+            ]);
+        } catch (\Exception $e) {
+
+            DB::rollBack();
+            dd($e->getMessage());
+
+            return response()->json([
+                'status' => false,
+                'message' => $e->getMessage()
+            ]);
+        }
+    }
+
+    //apply coupon
+    public function applyCoupon(Request $request)
+    {
+        $coupon = DB::table('coupons')
+            ->where('code', $request->code)
+            ->where('status', 1)
+            ->first();
+
+        if (!$coupon) {
+            return response()->json(['status' => false, 'message' => 'Invalid coupon']);
+        }
+
+        if ($coupon->expiry_date && now()->gt($coupon->expiry_date)) {
+            return response()->json(['status' => false, 'message' => 'Coupon expired']);
+        }
+
+        if ($request->amount < $coupon->min_amount) {
+            return response()->json(['status' => false, 'message' => 'Minimum amount not met']);
+        }
+
+        if ($coupon->usage_limit && $coupon->used_count >= $coupon->usage_limit) {
+            return response()->json(['status' => false, 'message' => 'Usage limit reached']);
+        }
+
+        $discount = 0;
+
+        if ($coupon->discount_type == 'percent') {
+            $discount = ($request->amount * $coupon->discount_value) / 100;
+
+            if ($coupon->max_discount) {
+                $discount = min($discount, $coupon->max_discount);
+            }
+        } else {
+            $discount = $coupon->discount_value;
+        }
+
+        return response()->json([
+            'status' => true,
+            'discount' => round($discount, 2),
+            'coupon_id' => $coupon->id,
+            'type' => $coupon->discount_type,
+            'value' => $coupon->discount_value
+        ]);
+    }
+
+    //for team -------------------------------------
+    // public function paymentForTeam(Request $request)
+    // {
+    //     $planLists = DB::table('users_license_plans')
+    //         ->where('plans_status', 1)
+    //         ->where('for_usertype', 'company')
+    //         ->where('plans_subscription_type', 'month')
+    //         ->get();
+
+    //     $planListsYear = DB::table('users_license_plans')
+    //         ->where('plans_status', 1)
+    //         ->where('for_usertype', 'company')
+    //         ->where('plans_subscription_type', 'year')
+    //         ->get();
+
+    //     return view('marketplace.payment', [
+    //         'planLists' => $planLists,
+    //         'planListsYear' => $planListsYear
+    //     ]);
+    // }
+
+    // public function applyCouponForTeam(Request $request)
+    // {
+    //     $coupon = DB::table('coupons')
+    //         ->where('code', $request->code)
+    //         ->where('status', 1)
+    //         ->first();
+
+    //     if (!$coupon) {
+    //         return response()->json(['success' => false, 'message' => 'Invalid code']);
+    //     }
+
+    //     if ($coupon->expiry_date && now()->gt($coupon->expiry_date)) {
+    //         return response()->json(['success' => false, 'message' => 'Expired']);
+    //     }
+
+    //     if ($coupon->usage_limit && $coupon->used_count >= $coupon->usage_limit) {
+    //         return response()->json(['success' => false, 'message' => 'Limit reached']);
+    //     }
+
+    //     if ($request->amount < $coupon->min_amount) {
+    //         return response()->json(['success' => false, 'message' => 'Minimum amount not met']);
+    //     }
+
+    //     // calculate discount
+    //     if ($coupon->discount_type == 'percent') {
+    //         $discount = ($request->amount * $coupon->discount_value) / 100;
+    //     } else {
+    //         $discount = $coupon->discount_value;
+    //     }
+
+    //     if ($coupon->max_discount && $discount > $coupon->max_discount) {
+    //         $discount = $coupon->max_discount;
+    //     }
+
+    //     return response()->json([
+    //         'success' => true,
+    //         'discount' => $discount,
+    //         'coupon_id' => $coupon->id
+    //     ]);
+    // }
+
+
+    // public function savePaymentForTeam(Request $request)
+    // {
+    //     try {
+
+    //         $user_id = auth()->id() ?? 1; // temporary if not logged in
+
+    //         // --------------------------
+    //         // PLAN DETAILS
+    //         // --------------------------
+    //         $plan = DB::table('users_license_plans')
+    //             ->where('id', $request->plan_id)
+    //             ->first();
+
+    //         if (!$plan) {
+    //             return response()->json(['success' => false, 'message' => 'Invalid plan']);
+    //         }
+
+    //         // --------------------------
+    //         // CALCULATIONS
+    //         // --------------------------
+    //         $quantity = $request->quantity;
+    //         $total_amount = $request->total;
+    //         $subscription = $request->subscription;
+
+    //         // expiry date
+    //         $expiry_date = $subscription == 'year'
+    //             ? Carbon::now()->addYear()
+    //             : Carbon::now()->addMonth();
+
+    //         // --------------------------
+    //         // ORDER ID (simple)
+    //         // --------------------------
+    //         $order_id = 'ORD-' . time();
+
+    //         // --------------------------
+    //         // SAVE PAYMENT
+    //         // --------------------------
+    //         $payment_id = DB::table('users_license_payments')->insertGetId([
+    //             'user_id' => $user_id,
+    //             'plan_id' => $request->plan_id,
+    //             'order_id' => $order_id,
+    //             'quantity' => $quantity,
+    //             'total_pool_storage' => $request->storage,
+    //             'plan_subscription' => $subscription,
+    //             'plan_expiry_date' => $expiry_date,
+    //             'total_amount' => $total_amount,
+    //             'payment_date' => now(),
+    //             'payment_mode' => 'card',
+    //             'status' => 1,
+    //             'used_license' => 0,
+    //             'remaining_license' => $quantity,
+    //             'coupon_id' => $request->coupon_id,
+    //             'created_at' => now(),
+    //             'updated_at' => now(),
+    //         ]);
+
+    //         // --------------------------
+    //         // UPDATE COUPON USAGE
+    //         // --------------------------
+    //         if ($request->coupon_id) {
+    //             DB::table('coupons')
+    //                 ->where('id', $request->coupon_id)
+    //                 ->increment('used_count');
+    //         }
+
+    //         // --------------------------
+    //         // SAVE CARD DETAILS
+    //         // --------------------------
+    //         DB::table('users_license_card_details')->insert([
+    //             'user_id' => $user_id,
+    //             'card_holder_name' => $request->card_name,
+    //             'card_number' => encrypt($request->card_number),
+    //             'card_expiry_date' => $request->card_expiry,
+    //             'card_cvv' => encrypt($request->card_cvv),
+    //             'card_pin' => null,
+    //             'card_save' => 1,
+    //             'status' => 1,
+    //             'created_at' => now(),
+    //             'updated_at' => now(),
+    //         ]);
+
+    //         return response()->json([
+    //             'success' => true,
+    //             'message' => 'Payment saved successfully'
+    //         ]);
+    //     } catch (\Exception $e) {
+    //         return response()->json([
+    //             'success' => false,
+    //             'message' => $e->getMessage()
+    //         ]);
+    //     }
+    // }
+
+
+
+
+
+
+
+    public function paymentForTeam(Request $request)
+    {
+        $planLists = DB::table('users_license_plans')
+            ->where('plans_status', 1)
+            ->where('for_usertype', 'company')
+            ->where('plans_subscription_type', 'month')
+            ->get();
+
+        $planListsYear = DB::table('users_license_plans')
+            ->where('plans_status', 1)
+            ->where('for_usertype', 'company')
+            ->where('plans_subscription_type', 'year')
+            ->get();
+
+        return view('marketplace.payment', compact('planLists', 'planListsYear'));
+    }
+
+    // =========================================
+    // APPLY COUPON (TEAM)
+    // =========================================
+    public function applyCouponForTeam(Request $request)
+    {
+        $request->validate([
+            'code' => 'required',
+            'amount' => 'required|numeric|min:0'
+        ]);
+
+        $coupon = DB::table('coupons')
+            ->where('code', $request->code)
+            ->where('status', 1)
+            ->first();
+
+        if (!$coupon) {
+            return response()->json(['success' => false, 'message' => 'Invalid coupon code']);
+        }
+
+        // expiry check
+        if ($coupon->expiry_date && now()->gt($coupon->expiry_date)) {
+            return response()->json(['success' => false, 'message' => 'Coupon expired']);
+        }
+
+        // usage limit
+        if ($coupon->usage_limit && $coupon->used_count >= $coupon->usage_limit) {
+            return response()->json(['success' => false, 'message' => 'Coupon usage limit reached']);
+        }
+
+        // minimum amount
+        if ($request->amount < $coupon->min_amount) {
+            return response()->json(['success' => false, 'message' => 'Minimum amount not met']);
+        }
+
+        // calculate discount
+        $discount = 0;
+
+        if ($coupon->discount_type == 'percent') {
+            $discount = ($request->amount * $coupon->discount_value) / 100;
+        } else {
+            $discount = $coupon->discount_value;
+        }
+
+        // max discount cap
+        if ($coupon->max_discount && $discount > $coupon->max_discount) {
+            $discount = $coupon->max_discount;
+        }
+
+        return response()->json([
+            'success' => true,
+            'discount' => round($discount, 2),
+            'coupon_id' => $coupon->id
+        ]);
+    }
+
+    // =========================================
+    // SAVE TEAM PAYMENT
+    // =========================================
+    public function savePaymentForTeam(Request $request)
+    {
+        try {
+
+            DB::beginTransaction(); // 🔥 important
+
+            // =========================
+            // VALIDATION
+            // =========================
+            // $request->validate([
+            //     'plan_id' => 'required|integer',
+            //     'quantity' => 'required|integer|min:1',
+            //     'total' => 'required|numeric',
+            //     'subscription' => 'required|in:month,year',
+
+            //     // company
+            //     'company_name' => 'required',
+            //     'address' => 'required',
+
+            //     // contact (user)
+            //     'contactPerson' => 'required',
+            //     'phone' => 'required',
+            //     'email' => 'required|email',
+            //     'username' => 'required',
+
+            //     // card
+            //     'card_name' => 'required',
+            //     'card_number' => 'required',
+            //     'card_expiry' => 'required',
+            //     'card_cvv' => 'required'
+            // ]);
+
+            // =========================
+            // 1. CREATE COMPANY
+            // =========================
+            $company_id = DB::table('companies')->insertGetId([
+                'name' => $request->company_name,
+                // 'company_type' => $request->company_type,
+                'industry' => $request->industry_type,
+                // 'address' => $request->address,
+                'contact' => $request->company_number,
+                'email' => $request->company_email,
+                'website' => $request->website,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+
+            // =========================
+            // 2. CREATE USER (COMPANY HEAD)
+            // =========================
+            $user_id = DB::table('users')->insertGetId([
+                'name' => $request->contactPerson,
+                // 'email' => $request->email,
+                'email' => 'duummymail@mail.com',
+                'phone' => $request->phone,
+                'username' => $request->username,
+                'password' => Hash::make('123456'), // 🔥 change if needed
+                'company_id' => $company_id,
+                'designation' => $request->designation,
+                // 'security_question' => $request->security_question,
+                // 'security_answer' => $request->security_answer,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+
+            // =========================
+            // 3. UPDATE COMPANY HEAD
+            // =========================
+            DB::table('companies')
+                ->where('id', $company_id)
+                ->update([
+                    'company_head' => $user_id
+                ]);
+
+            // =========================
+            // 4. PLAN
+            // =========================
+            $plan = DB::table('users_license_plans')
+                ->where('id', $request->plan_id)
+                ->first();
+
+            if (!$plan) {
+                throw new \Exception("Invalid plan");
+            }
+
+            // =========================
+            // 5. CALCULATION
+            // =========================
+            $quantity = $request->quantity;
+            $total_amount = $request->total;
+
+            $expiry_date = $request->subscription == 'year'
+                ? Carbon::now()->addYear()
+                : Carbon::now()->addMonth();
+
+            $order_id = 'TEAM-' . time();
+
+            // =========================
+            // 6. SAVE PAYMENT
+            // =========================
+            $payment_id = DB::table('users_license_payments')->insertGetId([
+                'user_id' => $user_id,
+                'plan_id' => $request->plan_id,
+                'order_id' => $order_id,
+                'quantity' => $quantity,
+                'total_pool_storage' => $request->storage,
+                'plan_subscription' => $request->subscription,
+                'plan_expiry_date' => $expiry_date,
+                'total_amount' => $total_amount,
+                'payment_date' => now(),
+                'payment_mode' => 'card',
+                'status' => 1,
+                'used_license' => 0,
+                'remaining_license' => $quantity,
+                'coupon_id' => $request->coupon_id,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+
+            // =========================
+            // 7. UPDATE COUPON
+            // =========================
+            if ($request->coupon_id) {
+                DB::table('coupons')
+                    ->where('id', $request->coupon_id)
+                    ->increment('used_count');
+            }
+
+            // =========================
+            // 8. SAVE CARD
+            // =========================
+            DB::table('users_license_card_details')->insert([
+                'user_id' => $user_id,
+                'card_holder_name' => $request->card_name,
+                'card_number' => encrypt($request->card_number),
+                'card_expiry_date' => $request->card_expiry,
+                'card_cvv' => encrypt($request->card_cvv),
+                'card_pin' => null,
+                'card_save' => 1,
+                'status' => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+
+             // officelescloud@gmail.com
+            $pdfPath = storage_path('app/invoice_' . time() . '.pdf');
+            file_put_contents($pdfPath, $pdf->output());
+
+            Mail::send(
+                'mail-templates.purchase-email-admin',
+                [
+                    'name' => $request->contactPerson,
+                    'username' => $request->username,
+                    'phone' => $request->phone,
+                    'email' => $request->email,
+                    'designation' => $request->designation,
+                    'password' => 'Password@123',
+                    'usertype' => 'company',
+                ],
+                function ($message) use ($request, $pdfPath) {
+                    $message->to('officelescloud@gmail.com');
+                    $message->replyTo($request->email);
+                    $message->subject('Purchase Details');
+                    $message->attach($pdfPath);
+                }
+            );
+
+            //Send to user
+            Mail::send(
+                'mail-templates.purchase-email',
+                [
+                    'name' => $request->contactPerson,
+                    'username' => $request->username,
+                    'password' => 'Password@123',
+                ],
+                function ($message) use ($request, $pdfPath) {
+                    $message->to($request->email);
+                    $message->subject('We received your enquiry');
+                    $message->attach($pdfPath);
+                }
+            );
+            
+
+            DB::commit();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Company + User + Payment saved successfully'
+            ]);
+        } catch (\Exception $e) {
+
+            DB::rollBack();
+
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ]);
+        }
     }
 }

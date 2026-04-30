@@ -1,18 +1,15 @@
 @extends('layouts.backendsettings')
-@section('title', 'Home')
-@section('content') 
-
+@section('title', 'Cloud Desktop That Runs Anywhere | Pocket Office')
+@section('content')
 <!-- header area start -->
 <section class="hero-header">
     <!-- Background Image -->
     <div class="hero-bg">
-        
-        <img src="{{ asset($constants['IMAGEFILEPATH'] . 'Hero Section.webp') }}"
-            srcset="{{ asset($constants['IMAGEFILEPATH'] . 'Hero Section.webp') }} 480w,{{ asset($constants['IMAGEFILEPATH'] . 'Hero Section.webp') }} 1200w"
+        <img src="assets/img/Hero Section.webp"
+            srcset="assets/img/Hero Section.webp 480w,assets/img/Hero Section.webp 1200w"
             sizes="(max-width: 768px) 100vw, 1200px"
             alt="Digital productivity interface with modern workspace layout" width="1200" height="900"
-            loading="lazy" />
-       
+            loading="eager" />
     </div>
     <div class="">
         <div class="hero-wrapper">
@@ -30,7 +27,7 @@
                 </p>
 
                 <div class="hero-buttons">
-                    <a href="/contact-us.html" class="btn-primary">Start Building</a>
+                    <a href="/pricing.html" class="btn-primary">Start Building</a>
                     <a href="/core-features.html" class="btn-secondary">
                         Explore Features →
                     </a>
@@ -55,7 +52,7 @@
             <div class="how-card">
                 <div class="how-card-img">
                     <video autoplay muted loop playsinline preload="metadata">
-                        <source src="{{ asset($constants['IMAGEFILEPATH'] . 'animated-videos/index/access-from-anywhere.mp4') }}" type="video/mp4">
+                        <source src="/assets/animated-videos/index/access-from-anywhere.mp4" type="video/mp4">
                     </video>
                 </div>
 
@@ -71,7 +68,7 @@
             <div class="how-card">
                 <div class="how-card-img">
                     <video autoplay muted loop playsinline preload="metadata">
-                        <source src="{{ asset($constants['IMAGEFILEPATH'] . 'animated-videos/index/work-without-distraction-video.mp4') }}"
+                        <source src="/assets/animated-videos/index/work-without-distraction-video.mp4"
                             type="video/mp4">
                     </video>
                 </div>
@@ -88,7 +85,7 @@
             <div class="how-card">
                 <div class="how-card-img">
                     <video autoplay muted loop playsinline preload="metadata">
-                        <source src="{{ asset($constants['IMAGEFILEPATH'] . 'animated-videos/index/secure-by-design-video.mp4') }}" type="video/mp4">
+                        <source src="/assets/animated-videos/index/secure-by-design-video.mp4" type="video/mp4">
                     </video>
                 </div>
 
@@ -110,8 +107,8 @@
         <!-- HEADER -->
         <div class="core-feature-header">
 
-            <h2>Core Features That Power Your Cloud Workspace
-            </h2>
+            <h3>Core Features That Power Your Cloud Workspace
+            </h3>
             <p>
                 Explore the essential tools and capabilities designed to enhance file management, collaboration and
                 multitasking within your PocketOffice desktop environment.
@@ -223,7 +220,7 @@
             <div class="core-feature-right">
                 <div class="feature-image-wrapper">
                     <video autoplay muted loop playsinline preload="auto">
-                        <source src="{{ asset($constants['IMAGEFILEPATH'] . 'animated-videos/index/index-core-features-video.mp4') }}" type="video/mp4">
+                        <source src="/assets/animated-videos/index/index-core-features-video.mp4" type="video/mp4">
                     </video>
                 </div>
             </div>
@@ -236,7 +233,7 @@
 <section class="sector-adaptive-section">
     <div class="sector-adaptive-wrapper">
         <div class="sector-main-header">
-            <h2>Built for Diverse Industries & Workflows</h2>
+            <h3>Built for Diverse Industries & Workflows</h3>
         </div>
 
 
@@ -244,21 +241,21 @@
         <div class="sector-tabs">
 
             <button class="sector-tab active" data-target="education"
-                data-img="{{ asset($constants['IMAGEFILEPATH'] . 'sectors/education-workspace.webp') }}" data-number="01">
+                data-img="/assets/img/sectors/education-workspace.webp" data-number="01">
                 01. 🎓 Education
             </button>
 
             <button class="sector-tab" data-target="healthcare"
-                data-img="{{ asset($constants['IMAGEFILEPATH'] . 'sectors/healthcare-records.webp') }}" data-number="02">
+                data-img="/assets/img/sectors/healthcare-records.webp" data-number="02">
                 02. 🏥 Healthcare
             </button>
 
-            <button class="sector-tab" data-target="finance" data-img="{{ asset($constants['IMAGEFILEPATH'] . 'sectors/finance-documents.webp') }}"
+            <button class="sector-tab" data-target="finance" data-img="/assets/img/sectors/finance-documents.webp"
                 data-number="03">
                 03. 🏦 Finance & Legal
             </button>
 
-            <button class="sector-tab" data-target="it" data-img="{{ asset($constants['IMAGEFILEPATH'] . 'sectors/it-documentation.webp') }}"
+            <button class="sector-tab" data-target="it" data-img="/assets/img/sectors/it-documentation.webp"
                 data-number="04">
                 04. 🖥️ IT & Software
             </button>
@@ -293,7 +290,7 @@
 
                 <div class="sector-right">
                     <video autoplay muted loop playsinline loading="lazy">
-                        <source src="{{ asset($constants['IMAGEFILEPATH'] . 'animated-videos/index/education.mp4') }}" type="video/mp4">
+                        <source src="/assets/animated-videos/index/education.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
                 </div>
@@ -328,7 +325,7 @@
 
                 <div class="sector-right">
                     <video autoplay muted loop playsinline loading="lazy">
-                        <source src="{{ asset($constants['IMAGEFILEPATH'] . 'animated-videos/index/healthcare.mp4') }}" type="video/mp4">
+                        <source src="/assets/animated-videos/index/healthcare.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
                 </div>
@@ -363,7 +360,7 @@
 
                 <div class="sector-right">
                     <video autoplay muted loop playsinline loading="lazy">
-                        <source src="{{ asset($constants['IMAGEFILEPATH'] . 'animated-videos/index/finance-legal.mp4') }}" type="video/mp4">
+                        <source src="/assets/animated-videos/index/finance-legal.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
                 </div>
@@ -396,7 +393,7 @@
 
                 <div class="sector-right">
                     <video autoplay muted loop playsinline loading="lazy">
-                        <source src="{{ asset($constants['IMAGEFILEPATH'] . 'animated-videos/index/it-software.mp4') }}" type="video/mp4">
+                        <source src="/assets/animated-videos/index/it-software.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
                 </div>
@@ -422,7 +419,7 @@
 
                 <!-- 1 -->
                 <div class="storage-item active"
-                    data-video="public/assets/animated-videos/index/works-with-your-cloud-storage.mp4">
+                    data-video="/assets/animated-videos/index/works-with-your-cloud-storage.mp4">
 
                     <div class="storage-header">
                         🔗 Works With Your Cloud Storage
@@ -439,13 +436,19 @@
                                 Dropbox, MinIO, and more. Your data stays where it is — Pocketoffice simply makes it
                                 easier to access and manage.
                             </p>
+                            <div class="storage-video-mobile">
+                                <video autoplay muted loop playsinline preload="auto">
+                                    <source src="/assets/animated-videos/index/works-with-your-cloud-storage.mp4"
+                                        type="video/mp4">
+                                </video>
+                            </div>
                         </div>
                     </div>
 
                 </div>
 
                 <!-- 2 -->
-                <div class="storage-item" data-video="public/assets/animated-videos/index/one-unified-desktop-view.mp4">
+                <div class="storage-item" data-video="/assets/animated-videos/index/one-unified-desktop-view.mp4">
 
                     <div class="storage-header">
                         📁 One Unified Desktop View
@@ -460,15 +463,20 @@
                                 Bring multiple storage systems into one clean desktop interface. Access buckets,
                                 folders, and files from different providers without switching platforms or
                                 duplicating data.
-
                             </p>
+                            <div class="storage-video-mobile">
+                                <video autoplay muted loop playsinline preload="auto">
+                                    <source src="/assets/animated-videos/index/one-unified-desktop-view.mp4"
+                                        type="video/mp4">
+                                </video>
+                            </div>
                         </div>
                     </div>
 
                 </div>
 
                 <!-- 3 -->
-                <div class="storage-item" data-video="public/assets/animated-videos/index/enterprise-on-prem-support.mp4">
+                <div class="storage-item" data-video="/assets/animated-videos/index/enterprise-on-prem-support.mp4">
 
                     <div class="storage-header">
                         ⚙️ Enterprise & On-Prem Support
@@ -482,15 +490,20 @@
                             <p>
                                 Connect on-prem storage like XSKY SDS or enterprise systems like Sangfor EDS and
                                 Tianyi Cloud securely through your browser-based desktop.
-
                             </p>
+                            <div class="storage-video-mobile">
+                                <video autoplay muted loop playsinline preload="auto">
+                                    <source src="/assets/animated-videos/index/enterprise-on-prem-support.mp4"
+                                        type="video/mp4">
+                                </video>
+                            </div>
                         </div>
                     </div>
 
                 </div>
 
                 <!-- 4 -->
-                <div class="storage-item" data-video="public/assets/animated-videos/index/no-migration-required.mp4">
+                <div class="storage-item" data-video="/assets/animated-videos/index/no-migration-required.mp4">
 
                     <div class="storage-header">
                         🚀 No Migration Required
@@ -506,8 +519,13 @@
                                 interact with it — without disrupting existing infrastructure.Bring multiple storage
                                 systems into one clean desktop interface. Access buckets, folders, and files from
                                 different providers without switching platforms or duplicating data.
-
                             </p>
+                            <div class="storage-video-mobile">
+                                <video autoplay muted loop playsinline preload="auto">
+                                    <source src="/assets/animated-videos/index/no-migration-required.mp4"
+                                        type="video/mp4">
+                                </video>
+                            </div>
                         </div>
                     </div>
 
@@ -520,7 +538,7 @@
                 <video id="storage-video" autoplay muted loop playsinline preload="auto">
 
                     <source id="storage-video-source"
-                        src="{{ asset($constants['IMAGEFILEPATH'] . 'animated-videos/index/works-with-your-cloud-storage.mp4') }}" type="video/mp4">
+                        src="/assets/animated-videos/index/works-with-your-cloud-storage.mp4" type="video/mp4">
 
                 </video>
             </div>
@@ -529,7 +547,8 @@
 
     </div>
 </section>
-
+</div>
+</div>
 <!-- Products & Partners Section -->
 <section class="partners-section">
     <div class="partners-container">
@@ -562,55 +581,49 @@
             <div class="partners-marquee-track">
                 <!-- Strip 1 -->
                 <div class="partners-logo-strip">
-                    <img src="{{ asset($constants['IMAGEFILEPATH'] . 'acronis-logo.png') }}" alt="Acronis" />
-                    <img src="{{ asset($constants['IMAGEFILEPATH'] . 'kaspersky-logo.png') }}" alt="Kaspersky" />
-                    <img src="{{ asset($constants['IMAGEFILEPATH'] . 'microsoft-logo.png') }}" alt="Microsoft" />
-                    <img src="{{ asset($constants['IMAGEFILEPATH'] . 'dell-logo.png') }}" alt="Dell" />
-                    <img src="{{ asset($constants['IMAGEFILEPATH'] . 'amazon-logo.png') }}" alt="Amazon" />
-                    <img src="{{ asset($constants['IMAGEFILEPATH'] . 'quick-heal-logo.png') }}" alt="Quick Heal" />
-                    <img src="{{ asset($constants['IMAGEFILEPATH'] . 'escan-logo.png') }}" alt="Escan" />
-                    <img src="{{ asset($constants['IMAGEFILEPATH'] . 'sonic-wall-logo.png') }}" alt="SonicWall" />
-                    <img src="{{ asset($constants['IMAGEFILEPATH'] . 'hp-logo.png') }}" alt="HP" />
-                    <img src="{{ asset($constants['IMAGEFILEPATH'] . 'fortinet-logo.png') }}" alt="Fortinet" />
-                    <img src="{{ asset($constants['IMAGEFILEPATH'] . 'eset-logo.png') }}" alt="ESET" />
-                    <img src="{{ asset($constants['IMAGEFILEPATH'] . 'cisco-logo.png') }}" alt="Cisco" />
-                    <img src="{{ asset($constants['IMAGEFILEPATH'] . 'alibaba-cloud-logo.png') }}" alt="Alibaba Cloud" />
-                    <img src="{{ asset($constants['IMAGEFILEPATH'] . 'sophos-logo.png') }}" alt="Sophos" />
-                    <img src="{{ asset($constants['IMAGEFILEPATH'] . 'symantec-logo.png') }}" alt="Symantec" />
-                    <img src="{{ asset($constants['IMAGEFILEPATH'] . 'trend-micro-logo.png') }}" alt="Trend Micro" />
-                    <img src="{{ asset($constants['IMAGEFILEPATH'] . 'veeam-logo.png') }}" alt="Veeam" />
-                    <img src="{{ asset($constants['IMAGEFILEPATH'] . 'watchguard-logo.png') }}" alt="Watchguard" />
+                    <img src="/assets/img/acronis-logo.png" alt="Acronis" loading="lazy" />
+                    <img src="/assets/img/kaspersky-logo.png" alt="Kaspersky" loading="lazy" />
+                    <img src="/assets/img/microsoft-logo.png" alt="Microsoft" loading="lazy" />
+                    <img src="/assets/img/dell-logo.png" alt="Dell" loading="lazy" />
+                    <img src="/assets/img/amazon-logo.png" alt="Amazon" loading="lazy" />
+                    <img src="/assets/img/quick-heal-logo.png" alt="Quick Heal" loading="lazy" />
+                    <img src="/assets/img/escan-logo.png" alt="Escan" loading="lazy" />
+                    <img src="/assets/img/sonic-wall-logo.png" alt="SonicWall" loading="lazy" />
+                    <img src="/assets/img/hp-logo.png" alt="HP" loading="lazy" />
+                    <img src="/assets/img/fortinet-logo.png" alt="Fortinet" loading="lazy" />
+                    <img src="/assets/img/eset-logo.png" alt="ESET" loading="lazy" />
+                    <img src="/assets/img/cisco-logo.png" alt="Cisco" />
+                    <img src="/assets/img/alibaba-cloud-logo.png" alt="Alibaba Cloud" loading="lazy" />
+                    <img src="/assets/img/sophos-logo.png" alt="Sophos" loading="lazy" />
+                    <img src="/assets/img/symantec-logo.png" alt="Symantec" loading="lazy" />
+                    <img src="/assets/img/trend-micro-logo.png" alt="Trend Micro" loading="lazy" />
+                    <img src="/assets/img/veeam-logo.png" alt="Veeam" loading="lazy" />
+                    <img src="/assets/img/watchguard-logo.png" alt="Watchguard" loading="lazy" />
                 </div>
 
                 <!-- Duplicate strip for seamless loop -->
                 <div class="partners-logo-strip">
-                    <img src="{{ asset($constants['IMAGEFILEPATH'] . 'acronis-logo.png') }}" alt="Acronis" />
-                    <img src="{{ asset($constants['IMAGEFILEPATH'] . 'kaspersky-logo.png') }}" alt="Kaspersky" />
-                    <img src="{{ asset($constants['IMAGEFILEPATH'] . 'microsoft-logo.png') }}" alt="Microsoft" />
-                    <img src="{{ asset($constants['IMAGEFILEPATH'] . 'dell-logo.png') }}" alt="Dell" />
-                    <img src="{{ asset($constants['IMAGEFILEPATH'] . 'amazon-logo.png') }}" alt="Amazon" />
-                    <img src="{{ asset($constants['IMAGEFILEPATH'] . 'quick-heal-logo.png') }}" alt="Quick Heal" />
-                    <img src="{{ asset($constants['IMAGEFILEPATH'] . 'escan-logo.png') }}" alt="Escan" />
-                    <img src="{{ asset($constants['IMAGEFILEPATH'] . 'sonic-wall-logo.png') }}" alt="SonicWall" />
-                    <img src="{{ asset($constants['IMAGEFILEPATH'] . 'hp-logo.png') }}" alt="HP" />
-                    <img src="{{ asset($constants['IMAGEFILEPATH'] . 'fortinet-logo.png') }}" alt="Fortinet" />
-                    <img src="{{ asset($constants['IMAGEFILEPATH'] . 'eset-logo.png') }}" alt="ESET" />
-                    <img src="{{ asset($constants['IMAGEFILEPATH'] . 'cisco-logo.png') }}" alt="Cisco" />
-                    <img src="{{ asset($constants['IMAGEFILEPATH'] . 'alibaba-cloud-logo.png') }}" alt="Alibaba Cloud" />
-                    <img src="{{ asset($constants['IMAGEFILEPATH'] . 'sophos-logo.png') }}" alt="Sophos" />
-                    <img src="{{ asset($constants['IMAGEFILEPATH'] . 'symantec-logo.png') }}" alt="Symantec" />
-                    <img src="{{ asset($constants['IMAGEFILEPATH'] . 'trend-micro-logo.png') }}" alt="Trend Micro" />
-                    <img src="{{ asset($constants['IMAGEFILEPATH'] . 'veeam-logo.png') }}" alt="Veeam" />
-                    <img src="{{ asset($constants['IMAGEFILEPATH'] . 'watchguard-logo.png') }}" alt="Watchguard" />
+                    <img src="/assets/img/acronis-logo.png" alt="Acronis" loading="lazy" />
+                    <img src="/assets/img/kaspersky-logo.png" alt="Kaspersky" loading="lazy" />
+                    <img src="/assets/img/microsoft-logo.png" alt="Microsoft" loading="lazy" />
+                    <img src="/assets/img/dell-logo.png" alt="Dell" loading="lazy" />
+                    <img src="/assets/img/amazon-logo.png" alt="Amazon" loading="lazy" />
+                    <img src="/assets/img/quick-heal-logo.png" alt="Quick Heal" loading="lazy" />
+                    <img src="/assets/img/escan-logo.png" alt="Escan" loading="lazy" />
+                    <img src="/assets/img/sonic-wall-logo.png" alt="SonicWall" loading="lazy" />
+                    <img src="/assets/img/hp-logo.png" alt="HP" loading="lazy" />
+                    <img src="/assets/img/fortinet-logo.png" alt="Fortinet" loading="lazy" />
+                    <img src="/assets/img/eset-logo.png" alt="ESET" loading="lazy" />
+                    <img src="/assets/img/cisco-logo.png" alt="Cisco" loading="lazy" />
+                    <img src="/assets/img/alibaba-cloud-logo.png" alt="Alibaba Cloud" loading="lazy" />
+                    <img src="/assets/img/sophos-logo.png" alt="Sophos" loading="lazy" />
+                    <img src="/assets/img/symantec-logo.png" alt="Symantec" loading="lazy" />
+                    <img src="/assets/img/trend-micro-logo.png" alt="Trend Micro" loading="lazy" />
+                    <img src="/assets/img/veeam-logo.png" alt="Veeam" loading="lazy" />
+                    <img src="/assets/img/watchguard-logo.png" alt="Watchguard" loading="lazy" />
                 </div>
             </div>
         </div>
     </div>
 </section>
-
-<!-- back to top area start -->
-<div class="back-to-top">
-    <span class="back-top"><i class="fa fa-angle-up"></i></span>
-</div>
-
 @endsection

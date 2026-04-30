@@ -13,7 +13,7 @@
                 </div>
                 <div class="col-md-3 text-md-end">
                     <div class="nav-right">
-                        <a href="{{ url('pricing') }}" class="order-now-btn btn-radius btn-green s-animate-3">Order now</a>
+                        <a href="{{ route('marketplace.pricing') }}" class="order-now-btn btn-radius btn-green s-animate-3">Order now</a>
                         <a href="https://pocketoffice.sizaf.com/login" target="_blank"
                             class="order-now-btn btn-radius btn-green s-animate-3">Customer Login</a>
                         <a href="https://helpdesk.pocketoffice.sizaf.com/staff/login" target="_blank"
@@ -395,7 +395,7 @@
                     </div>
                 </li>
                 <li>
-                    <a href="{{ route('market-place.main') }}">Pricing</a>
+                    <a href="{{ route('marketplace.pricing') }}">Pricing</a>
 
                 </li>
                 <li class="mega-menu-item">

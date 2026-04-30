@@ -1,45 +1,15 @@
   @extends('layouts.backendsettings')
-  @section('title', 'Privacy')
+  @section('title', 'Privacy Policy | Pocket Office Cloud Desktop')
   @section('content')
-
-  <!-- preloader area start -->
-  <!-- <div class="preloader" id="preloader">
-    <div class="preloader-inner">
-      <div class="spinner">
-        <div class="dot1"></div>
-        <div class="dot2"></div>
-      </div>
-    </div>
-  </div> -->
-  <!-- preloader area end -->
-
-  <!-- search Popup -->
-  <div class="body-overlay" id="body-overlay"></div>
-  <div class="search-popup" id="search-popup">
-    <form onsubmit="searchPage(event)" class="search-form">
-      <div class="form-group">
-        <input type="text" class="form-control" id="search-input" placeholder="Search....." />
-      </div>
-      <button type="submit" class="submit-btn">
-        <i class="fa fa-search"></i>
-      </button>
-      <div id="search-results" class="search-results"></div>
-    </form>
-  </div>
-  <!-- //. search Popup -->
-
-
-
-
   <!-- breadcrumb area start -->
-  <div class="breadcrumb-area" style="background-image: url(assets/img/hero-images/Privacy-Policy.svg)">
+  <div
+    class="breadcrumb-area"
+    style="background-image: url(assets/img/hero-images/Privacy-Policy.svg)">
     <div class="container">
       <div class="row">
         <div class="col-lg-12">
           <div class="breadcrumb-inner">
             <h1 class="page-title">Privacy Policy</h1>
-
-
           </div>
         </div>
       </div>
@@ -49,7 +19,6 @@
 
   <!--Terms & Conditions Area Start-->
   <div class="terms-container">
-
     <!-- Sidebar -->
     <div class="sidebar-section">
       <aside class="sidebar">
@@ -76,7 +45,8 @@
           <i class="fa fa-archive mr-2"></i> Data Retention
         </a>
         <a href="#cookies">
-          <i class="fa fa-cookie-bite mr-2"></i> Cookies & Similar Technologies
+          <i class="fa fa-cookie-bite mr-2"></i> Cookies & Similar
+          Technologies
         </a>
         <a href="#international-access">
           <i class="fa fa-globe mr-2"></i> International Access
@@ -91,18 +61,6 @@
           <i class="fa fa-envelope mr-2"></i> Contact Us
         </a>
       </aside>
-
-
-      <div class="promo-box-terms">
-        <h4>Need Help</h4>
-        <p>
-          Have questions about these terms? We're here to help clarify
-          anything.
-        </p>
-        <div class="cta">
-          <a href="contact-us.html">Contact Support</a>
-        </div>
-      </div>
     </div>
 
     <div class="content-section">
@@ -113,13 +71,11 @@
             <i class="fa fa-file-text"></i>
           </div>
           <div>
-            <h2>1. Scope of This Policy</h2>
+            <h3>1. Scope of This Policy</h3>
           </div>
         </div>
         <div class="card-body">
-          <p>
-            This Privacy Policy applies to:
-          </p>
+          <p>This Privacy Policy applies to:</p>
           <ul>
             <li>PocketOffice websites</li>
             <li>Cloud desktop environments</li>
@@ -127,7 +83,9 @@
             <li>Support, documentation, and related services</li>
           </ul>
           <p>
-            This policy does not cover third-party services that you may connect to PocketOffice independently.</p>
+            This policy does not cover third-party services that you may
+            connect to PocketOffice independently.
+          </p>
         </div>
       </section>
 
@@ -138,48 +96,67 @@
             <i class="fa fa-database"></i>
           </div>
           <div>
-            <h2>2. Information We Collect</h2>
+            <h3>2. Information We Collect</h3>
           </div>
         </div>
         <div class="card-body">
-          <p>We collect only the information necessary to deliver, operate, secure, and improve our Services.</p>
+          <p>
+            We collect only the information necessary to deliver, operate,
+            secure, and improve our Services.
+          </p>
           <ul>
             <p class="privacy-sub-heading">2.1 Account Information</p>
-            <p>When you create or manage a PocketOffice account, we may collect:</p>
-            <li>
-              Name
-            </li>
+            <p>
+              When you create or manage a PocketOffice account, we may
+              collect:
+            </p>
+            <li>Name</li>
             <li>Email address</li>
-            <li> Organization or workspace name</li>
+            <li>Organization or workspace name</li>
             <li>User roles and permissions</li>
             <li>Authentication and login credentials</li>
-            <p class="mt-2">This information is used to identify users, manage access, and provide account-related
-              services.</p>
+            <p class="mt-2">
+              This information is used to identify users, manage access, and
+              provide account-related services.
+            </p>
           </ul>
           <ul>
             <p class="privacy-sub-heading">2.2 Workspace Content & Files</p>
-            <li>PocketOffice processes files and content stored within your cloud workspace solely to provide the
-              requested functionality, such as access, syncing, collaboration, and backup.
+            <li>
+              PocketOffice processes files and content stored within your
+              cloud workspace solely to provide the requested functionality,
+              such as access, syncing, collaboration, and backup.
             </li>
             <li>We do not claim ownership of your content</li>
             <li>Content is not used for advertising or profiling</li>
           </ul>
           <ul>
             <p class="privacy-sub-heading">2.3 Usage & Activity Data</p>
-            <p>To maintain reliability and security, we collect limited usage information, including:</p>
+            <p>
+              To maintain reliability and security, we collect limited usage
+              information, including:
+            </p>
             <li>Application usage within the cloud desktop</li>
             <li>Login timestamps and session duration</li>
             <li>System interactions and feature usage</li>
-            <p class="mt-2">This data helps us monitor performance, prevent misuse, and improve the user experience.</p>
+            <p class="mt-2">
+              This data helps us monitor performance, prevent misuse, and
+              improve the user experience.
+            </p>
           </ul>
           <ul>
-            <p class="privacy-sub-heading">2.4 Device & Technical Information</p>
+            <p class="privacy-sub-heading">
+              2.4 Device & Technical Information
+            </p>
             <p>For security and operational purposes, we may collect:</p>
             <li>Browser type and version</li>
             <li>Operating system</li>
             <li>IP address</li>
             <li>Device identifiers related to session management</li>
-            <p class="mt-2">This data is used for access control, fraud prevention, and troubleshooting.</p>
+            <p class="mt-2">
+              This data is used for access control, fraud prevention, and
+              troubleshooting.
+            </p>
           </ul>
         </div>
       </section>
@@ -191,17 +168,15 @@
             <i class="fa fa-cogs"></i>
           </div>
           <div>
-            <h2>3. How We Use Information</h2>
+            <h3>3. How We Use Information</h3>
           </div>
         </div>
         <div class="card-body">
           <p>We use collected information to:</p>
           <ul>
-            <li>
-              Provide and operate PocketOffice Services
-            </li>
+            <li>Provide and operate PocketOffice Services</li>
             <li>Authenticate users and manage secure access</li>
-            <li> Enable collaboration, sharing, and permissions</li>
+            <li>Enable collaboration, sharing, and permissions</li>
             <li>Monitor system health and prevent unauthorized activity</li>
             <li>Improve product features, usability, and performance</li>
             <li>Provide customer support and service communications</li>
@@ -218,23 +193,25 @@
             <i class="fa fa-key"></i>
           </div>
           <div>
-            <h2>4. Data Ownership & Control</h2>
+            <h3>4. Data Ownership & Control</h3>
           </div>
         </div>
         <div class="card-body">
           <ul>
-            <p class="privacy-sub-heading">4.1 Ownership </p>
+            <p class="privacy-sub-heading">4.1 Ownership</p>
             <li>
-              You retain full ownership of all files, data, and content stored in your workspace
+              You retain full ownership of all files, data, and content stored
+              in your workspace
             </li>
-            <li>PocketOffice acts only as a service provider processing data on your behalf</li>
+            <li>
+              PocketOffice acts only as a service provider processing data on
+              your behalf
+            </li>
           </ul>
           <ul>
-            <p class="privacy-sub-heading">4.2 User Controls </p>
+            <p class="privacy-sub-heading">4.2 User Controls</p>
             <p>Depending on your role and plan, you may:</p>
-            <li>
-              View and update account details
-            </li>
+            <li>View and update account details</li>
             <li>Manage user access and permissions</li>
             <li>Control file sharing and collaboration settings</li>
             <li>Export or delete your data where applicable</li>
@@ -249,22 +226,24 @@
             <i class="fa fa-shield"></i>
           </div>
           <div>
-            <h2>5. Data Security</h2>
+            <h3>5. Data Security</h3>
           </div>
         </div>
         <div class="card-body">
-          <p>We implement reasonable administrative, technical, and organizational safeguards to protect data,
-            including:</p>
+          <p>
+            We implement reasonable administrative, technical, and
+            organizational safeguards to protect data, including:
+          </p>
           <ul>
-            <li>
-              Role-based access controls
-            </li>
+            <li>Role-based access controls</li>
             <li>Encrypted data transmission</li>
             <li>Secure authentication mechanisms</li>
             <li>Activity monitoring and audit logging</li>
           </ul>
-          <p>While we strive to protect your data, no system can guarantee absolute security. Users are encouraged to
-            maintain strong credentials and follow security best practices.
+          <p>
+            While we strive to protect your data, no system can guarantee
+            absolute security. Users are encouraged to maintain strong
+            credentials and follow security best practices.
           </p>
         </div>
       </section>
@@ -276,21 +255,28 @@
             <i class="fa fa-share-alt"></i>
           </div>
           <div>
-            <h2>6. Data Sharing & Disclosure</h2>
+            <h3>6. Data Sharing & Disclosure</h3>
           </div>
         </div>
         <div class="card-body">
-          <p>We only share personal or workspace data under the following circumstances:</p>
+          <p>
+            We only share personal or workspace data under the following
+            circumstances:
+          </p>
           <ul>
+            <li>When necessary to deliver the Services you request</li>
             <li>
-              When necessary to deliver the Services you request
+              To comply with applicable laws, regulations, or legal processes
             </li>
             <li>
-              To comply with applicable laws, regulations, or legal processes</li>
-            <li>To protect the rights, safety, or integrity of PocketOffice or its users</li>
+              To protect the rights, safety, or integrity of PocketOffice or
+              its users
+            </li>
             <li>With your explicit consent</li>
           </ul>
-          <p>We do not share data for advertising or unrelated commercial purposes.
+          <p>
+            We do not share data for advertising or unrelated commercial
+            purposes.
           </p>
         </div>
       </section>
@@ -302,21 +288,23 @@
             <i class="fa fa-archive"></i>
           </div>
           <div>
-            <h2>7. Data Retention</h2>
+            <h3>7. Data Retention</h3>
           </div>
         </div>
         <div class="card-body">
           <p>We retain information only for as long as necessary to:</p>
           <ul>
+            <li>Provide the Services</li>
             <li>
-              Provide the Services
+              Features, functionality, or interfaces may change, improve, or
+              be discontinued over time
             </li>
-            <li>
-              Features, functionality, or interfaces may change, improve, or be discontinued over time</li>
             <li>Meet legal or regulatory requirements</li>
             <li>Resolve disputes and enforce agreements</li>
           </ul>
-          <p>When data is no longer required, it is securely deleted or anonymized according to our retention practices.
+          <p>
+            When data is no longer required, it is securely deleted or
+            anonymized according to our retention practices.
           </p>
         </div>
       </section>
@@ -328,22 +316,20 @@
             <i class="fa fa-cookie-bite"></i>
           </div>
           <div>
-            <h2>8. Cookies & Similar Technologies</h2>
+            <h3>8. Cookies & Similar Technologies</h3>
           </div>
         </div>
         <div class="card-body">
           <p>PocketOffice may use cookies or similar technologies to:</p>
           <ul>
-            <li>
-              Maintain login sessions
-            </li>
-            <li>
-              Improve site performance
-            </li>
+            <li>Maintain login sessions</li>
+            <li>Improve site performance</li>
             <li>Enhance usability and security</li>
           </ul>
-          <p>You can manage cookie preferences through your browser settings. Disabling cookies may affect certain
-            features.</p>
+          <p>
+            You can manage cookie preferences through your browser settings.
+            Disabling cookies may affect certain features.
+          </p>
         </div>
       </section>
 
@@ -354,12 +340,16 @@
             <i class="fa fa-globe"></i>
           </div>
           <div>
-            <h2>9. International Access</h2>
+            <h3>9. International Access</h3>
           </div>
         </div>
         <div class="card-body">
-          <p>PocketOffice may operate across regions. By using the Services, you acknowledge that data may be processed
-            in locations where our systems or service providers operate, subject to appropriate safeguards.</p>
+          <p>
+            PocketOffice may operate across regions. By using the Services,
+            you acknowledge that data may be processed in locations where our
+            systems or service providers operate, subject to appropriate
+            safeguards.
+          </p>
         </div>
       </section>
 
@@ -370,12 +360,15 @@
             <i class="fa fa-child"></i>
           </div>
           <div>
-            <h2>10. Children’s Privacy</h2>
+            <h3>10. Children’s Privacy</h3>
           </div>
         </div>
         <div class="card-body">
-          <p>PocketOffice is not intended for use by individuals below the age required by applicable law. We do not
-            knowingly collect personal data from minors.</p>
+          <p>
+            PocketOffice is not intended for use by individuals below the age
+            required by applicable law. We do not knowingly collect personal
+            data from minors.
+          </p>
         </div>
       </section>
 
@@ -386,18 +379,19 @@
             <i class="fa fa-refresh"></i>
           </div>
           <div>
-            <h2>11. Changes to This Policy</h2>
+            <h3>11. Changes to This Policy</h3>
           </div>
         </div>
         <div class="card-body">
-          <p>We may update this Privacy Policy periodically to reflect changes in technology, legal requirements, or our
-            Services. Updates will be posted on this page with a revised “Last Updated” date.
-            Continued use of PocketOffice after updates indicates acceptance of the revised policy.
+          <p>
+            We may update this Privacy Policy periodically to reflect changes
+            in technology, legal requirements, or our Services. Updates will
+            be posted on this page with a revised “Last Updated” date.
+            Continued use of PocketOffice after updates indicates acceptance
+            of the revised policy.
           </p>
         </div>
       </section>
-
-
 
       <!-- Contact Us Section-->
       <section id="contact" class="card">
@@ -406,24 +400,21 @@
             <i class="fa fa-envelope"></i>
           </div>
           <div>
-            <h2>12. Contact Us</h2>
+            <h3>12. Contact Us</h3>
           </div>
         </div>
         <div class="card-body">
-          <p>If you have questions about this Privacy Policy or how your data is handled, you may contact us through the
-            support channels provided on the PocketOffice website.
+          <p>
+            If you have questions about this Privacy Policy or how your data
+            is handled, you may contact us through the support channels
+            provided on the PocketOffice website.
           </p>
         </div>
       </section>
     </div>
   </div>
+  @endsection
 
-
-  <!-- back to top area start -->
-  <div class="back-to-top">
-    <span class="back-top"><i class="fa fa-angle-up"></i></span>
-  </div>
-  <!-- back to top area end -->
   <script>
     // RESPONSIVE SCROLL FIX — add this script AFTER the existing script block
     // Overrides only the click handler to work on both desktop and mobile
@@ -456,7 +447,10 @@
 
           if (isMobileLayout()) {
             // On mobile: page itself scrolls
-            const offset = targetSection.getBoundingClientRect().top + window.pageYOffset - 80;
+            const offset =
+              targetSection.getBoundingClientRect().top +
+              window.pageYOffset -
+              80;
             window.scrollTo({
               top: offset,
               behavior: "smooth"
@@ -472,4 +466,3 @@
       });
     })();
   </script>
-  @endsection

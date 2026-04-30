@@ -25,7 +25,7 @@
     'resources/css/bootstrap.min.css',
     'resources/css/animate.css',
     'resources/css/animated-slider.css',
-    'resources/css/login.css',    
+    'resources/css/login.css',
     ])
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css"
@@ -33,7 +33,9 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         .image-section {
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60');
+            background:
+                linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+                url("https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60");
             background-size: cover;
             background-position: center;
             color: white;
@@ -177,7 +179,7 @@
         </div>
     </div>
     <!-- jquery -->
-    
+
     @vite([
     'resources/js/login.js',
     'resources/js/main.js',

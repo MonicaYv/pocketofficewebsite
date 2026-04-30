@@ -1,32 +1,6 @@
   @extends('layouts.backendsettings')
-  @section('title', 'Ticket Details')
+  @section('title', 'Sales Enquiry')
   @section('content')
-  <!-- preloader area start -->
-  <!-- <div class="preloader" id="preloader">
-    <div class="preloader-inner">
-      <div class="spinner">
-        <div class="dot1"></div>
-        <div class="dot2"></div>
-      </div>
-    </div>
-  </div> -->
-  <!-- preloader area end -->
-
-  <!-- search Popup -->
-  <div class="body-overlay" id="body-overlay"></div>
-  <div class="search-popup" id="search-popup">
-    <form onsubmit="searchPage(event)" class="search-form">
-      <div class="form-group">
-        <input type="text" class="form-control" id="search-input" placeholder="Search....." />
-      </div>
-      <button type="submit" class="submit-btn">
-        <i class="fa fa-search"></i>
-      </button>
-      <div id="search-results" class="search-results"></div>
-    </form>
-  </div>
-  <!-- //. search Popup -->
-
 
 
   <!-- Login Section -->
@@ -159,13 +133,10 @@
       </div>
     </div>
   </div>
- 
 
-  <!-- back to top area start -->
-  <div class="back-to-top">
-    <span class="back-top"><i class="fa fa-angle-up"></i></span>
-  </div>
-  <!-- back to top area end -->
+  @endsection
+
+
   <script>
     const nameInput = document.getElementById("name");
     const emailInput = document.getElementById("ticket-email");
@@ -266,4 +237,3 @@
       }
     });
   </script>
-  @endsection

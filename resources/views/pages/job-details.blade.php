@@ -1,41 +1,15 @@
   @extends('layouts.backendsettings')
   @section('title', 'Job Details')
   @section('content')
-  <!-- preloader area start -->
-  <!-- <div class="preloader" id="preloader">
-    <div class="preloader-inner">
-      <div class="spinner">
-        <div class="dot1"></div>
-        <div class="dot2"></div>
-      </div>
-    </div>
-  </div> -->
-  <!-- preloader area end -->
-
-  <!-- search Popup -->
-  <div class="body-overlay" id="body-overlay"></div>
-  <div class="search-popup" id="search-popup">
-    <form onsubmit="searchPage(event)" class="search-form">
-      <div class="form-group">
-        <input type="text" class="form-control" id="search-input" placeholder="Search....." />
-      </div>
-      <button type="submit" class="submit-btn">
-        <i class="fa fa-search"></i>
-      </button>
-      <div id="search-results" class="search-results"></div>
-    </form>
-  </div>
-  <!-- //. search Popup -->
-
-
   <!--Banner area start-->
-  <div class="breadcrumb-area" style="background-image: url('{{ asset($constants['IMAGEFILEPATH'] . 'hero-images/careers.svg') }}')">
+  <div
+    class="breadcrumb-area"
+    style="background-image: url(assets/img/hero-images/careers.svg)">
     <div class="container">
       <div class="row">
         <div class="col-lg-12">
           <div class="breadcrumb-inner">
             <h1 class="page-title">Pocketoffice Jobs</h1>
-
           </div>
         </div>
       </div>
@@ -138,35 +112,35 @@
           <div class="widget widget-job-details">
             <h3 class="widget-title">Job Details</h3>
             <div class="media single-job-details">
-              <img src="{{ asset($constants['IMAGEFILEPATH'] . 'icons/1.svg') }}" alt="icon" />
+              <img src="assets/img/icons/1.svg" alt="icon" loading="lazy" />
               <div class="media-body">
                 <h6>Department</h6>
                 <span>UI Designer</span>
               </div>
             </div>
             <div class="media single-job-details">
-              <img src="{{ asset($constants['IMAGEFILEPATH'] . 'icons/2.svg') }}" alt="icon" />
+              <img src="assets/img/icons/2.svg" alt="icon" loading="lazy" />
               <div class="media-body">
                 <h6>Location</h6>
                 <span>Bangladesh</span>
               </div>
             </div>
             <div class="media single-job-details">
-              <img src="{{ asset($constants['IMAGEFILEPATH'] . 'icons/3.svg') }}" alt="icon" />
+              <img src="assets/img/icons/3.svg" alt="icon" loading="lazy" />
               <div class="media-body">
                 <h6>Job Type</h6>
                 <span>Full Time</span>
               </div>
             </div>
             <div class="media single-job-details">
-              <img src="{{ asset($constants['IMAGEFILEPATH'] . 'icons/4.svg') }}" alt="icon" />
+              <img src="assets/img/icons/4.svg" alt="icon" loading="lazy" />
               <div class="media-body">
                 <h6>Experience</h6>
                 <span>2 years</span>
               </div>
             </div>
             <div class="media single-job-details mb-0">
-              <img src="{{ asset($constants['IMAGEFILEPATH'] . 'icons/5.svg') }}" alt="icon" />
+              <img src="assets/img/icons/5.svg" alt="icon" loading="lazy" />
               <div class="media-body">
                 <h6>Salary</h6>
                 <span>$2000</span>
@@ -177,11 +151,4 @@
       </div>
     </div>
   </div>
-  
-
-  <!-- back to top area start -->
-  <div class="back-to-top">
-    <span class="back-top"><i class="fa fa-angle-up"></i></span>
-  </div>
-  <!-- back to top area end -->
   @endsection

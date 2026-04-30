@@ -1,5 +1,105 @@
 $(document).ready(function () {
-    // increment n decrement code
+    //---------- User License js -------------------
+    //qunatity increase decrease
+    // $(".ul-quantity-container").each(function () {
+    //     let container = $(this);
+    //     let input = container.find(".ul-quantity-input");
+    //     let incrementBtn = container.find(".ul-increment");
+    //     let decrementBtn = container.find(".ul-decrement");
+
+    //     // Find total license from corresponding text
+    //     let totalLicenseText = container
+    //         .closest(".cards")
+    //         .find(".selected-storage:contains('Total License')")
+    //         .text();
+
+    //     let totalLimit = parseInt(totalLicenseText.replace(/[^\d]/g, "")); // Extract number
+
+    //     incrementBtn.click(function () {
+    //         let value = parseInt(input.val());
+    //         if (value < totalLimit) {
+    //             input.val(value + 1);
+    //             container
+    //                 .siblings(".selected-span")
+    //                 .text("Selected: " + (value + 1) + " TB");
+    //         }
+    //     });
+
+    //     decrementBtn.click(function () {
+    //         let value = parseInt(input.val());
+    //         if (value > 1) {
+    //             input.val(value - 1);
+    //             container
+    //                 .siblings(".selected-span")
+    //                 .text("Selected: " + (value - 1) + " TB");
+    //         }
+    //     });
+    // });
+
+    //    // Quantity increase/decrease
+    // $(".ul-quantity-container").each(function () {
+    //     let container = $(this);
+    //     let input = container.find(".ul-quantity-input");
+    //     let incrementBtn = container.find(".ul-increment");
+    //     let decrementBtn = container.find(".ul-decrement");
+
+    //     // Find total license from corresponding text
+    //     let totalLicenseText = container.closest(".cards")
+    //         .find(".selected-storage")
+    //         .text();
+
+    //     let totalLimit = parseInt(totalLicenseText.replace(/[^\d]/g, "")) || 1;
+
+    //     incrementBtn.click(function () {
+    //         let value = parseInt(input.val()) || 1;
+    //         if (value < totalLimit) {
+    //             value++;
+    //             input.val(value);
+    //             container.siblings(".selected-span")
+    //                 .text("Selected: " + value + " TB");
+    //         }
+    //     });
+
+    //     decrementBtn.click(function () {
+    //         let value = parseInt(input.val()) || 1;
+    //         if (value > 1) {
+    //             value--;
+    //             input.val(value);
+    //             container.siblings(".selected-span")
+    //                 .text("Selected: " + value + " TB");
+    //         }
+    //     });
+    // });
+
+    // function formatStorageUL(storageInGB) {
+    //     let units = ["GB", "TB", "PB", "EB"];
+    //     let index = 0;
+    //     let storage = storageInGB;
+
+    //     while (storage >= 1024 && index < units.length - 1) {
+    //         storage = storage / 1024;
+    //         index++;
+    //     }
+    //     return storage.toFixed(2) + " " + units[index];
+    // }
+
+    // function formatStorageUL(storageInGB) {
+    //     let units = ["GB", "TB", "PB", "EB"];
+    //     let index = 0;
+    //     let storage = storageInGB;
+
+    //     while (storage >= 1024 && index < units.length - 1) {
+    //         storage = storage / 1024;
+    //         index++;
+    //     }
+
+    //     // If number is round, remove decimals
+    //     return (storage % 1 === 0
+    //         ? parseInt(storage)
+    //         : storage.toFixed(2)) + " " + units[index];
+    // }
+
+    // Format storage dynamically with units
     function formatStorageUL(input) {
         if (!input) return "";
 
@@ -33,88 +133,95 @@ $(document).ready(function () {
         return value.toFixed(2) + " " + units[index];
     }
 
+    // Quantity increase/decrease
     $(".ul-quantity-container").each(function () {
-        console.log("click00");
-
+        console.log("click");
         let container = $(this);
         let input = container.find(".ul-quantity-input");
+        let incrementBtn = container.find(".ul-increment");
+        let decrementBtn = container.find(".ul-decrement");
 
         // Get required values from hidden spans inside same card
-        let card = container.closest(".ul-cards");
-
+        let card = container.closest(".cards");
         let currency = card.find(".incr-currency-data").text().trim();
         let amount =
             parseFloat(card.find(".incr-amount-data").text().trim()) || 0;
-        let subscription = card.find(".incr-subscription-data").text().trim();
+        let subscription = card.find(".incr-subscription-data").text().trim(); // month/year
         let licenseCount =
             parseInt(card.find(".incr-license-count-data").text().trim()) || 1;
+        // let poolStorageCount = parseInt(card.find(".incr-poolstorage-count-data").text().trim()) || 1;
         let poolStorageRaw =
-            card.find(".incr-poolstorage-count-data").text().trim() || "0GB";
+            card.find(".incr-poolstorage-count-data").text().trim() || "0GB"; // can be "100GB", "1.44TB"
 
         // Output display spans
         let viewCurrency = card.find(".view-currency");
         let viewAmount = card.find(".view-total-amount-count");
         let viewTotalLicense = card.find(".view-total-license-count");
+        // let viewTotalPoolStorage = card.find(".view-total-poolstorage-count");
         let viewTotalPoolStorage = card.find(".view-total-poolstorage-count");
 
         // Find max selectable TB
         let totalLicenseText = card.find(".selected-storage").text();
-        let totalLimit =
-            parseInt(totalLicenseText.replace(/[^\d]/g, "")) || 9999;
+        let totalLimit = parseInt(totalLicenseText.replace(/[^\d]/g, "")) || 1;
 
         function calculate(value) {
             let totalLicenses = licenseCount * value;
             let totalAmount = amount * value;
 
-            // Storage conversion
-            let poolValue = parseFloat(poolStorageRaw) || 0;
+            // Multiply pool storage by value
+            // Convert raw input with units to GB number first
+            let poolValue = parseFloat(poolStorageRaw);
             let poolUnit = poolStorageRaw
                 .replace(/[0-9.]/g, "")
                 .trim()
                 .toUpperCase();
-
             const units = ["GB", "TB", "PB", "EB"];
             let unitIndex = units.indexOf(poolUnit);
             if (unitIndex === -1) unitIndex = 0;
 
+            // Convert to GB first
             let totalPoolGB = poolValue;
             for (let i = 0; i < unitIndex; i++) {
                 totalPoolGB *= 1024;
             }
 
-            totalPoolGB = totalPoolGB * value;
+            totalPoolGB = totalPoolGB * value; // multiply by increment/decrement
 
             let formattedStorage = formatStorageUL(totalPoolGB);
 
-            viewCurrency.text(currency || "₹");
-            viewAmount.text(totalAmount || 0);
-            viewTotalLicense.text(totalLicenses || 0);
-            viewTotalPoolStorage.text(formattedStorage || "0GB");
+            viewCurrency.text(currency);
+            viewAmount.text(totalAmount);
+            viewTotalLicense.text(totalLicenses);
+            viewTotalPoolStorage.text(formattedStorage);
         }
 
-        // ✅ FIXED: use delegated events INSIDE each (scoped per card)
-
-        container.on("click", ".ul-increment", function () {
+        // + button click
+        incrementBtn.click(function () {
             let value = parseInt(input.val()) || 1;
-
             if (value < totalLimit) {
                 value++;
                 input.val(value);
                 calculate(value);
+                container
+                    .siblings(".selected-span")
+                    .text("Selected: " + value + " TB");
             }
         });
 
-        container.on("click", ".ul-decrement", function () {
+        // - button click
+        decrementBtn.click(function () {
             let value = parseInt(input.val()) || 1;
-
             if (value > 1) {
                 value--;
                 input.val(value);
                 calculate(value);
+                container
+                    .siblings(".selected-span")
+                    .text("Selected: " + value + " TB");
             }
         });
 
-        // Initial load
+        // Initial load calculation
         calculate(parseInt(input.val()) || 1);
     });
 
@@ -190,7 +297,7 @@ $(document).ready(function () {
         $(".quantity-details").val(tempPurchaseData.quantity);
         $(".mp-plan-name").text("Subscription Name: " + tempPurchaseData.plan);
         $(".mp-subs-type").text(
-            "Subscription Type: " + tempPurchaseData.subscription,
+            "Subscription Type: " + tempPurchaseData.subscription
         );
 
         $(".mp-selected-gb").text("Total License: " + tempPurchaseData.storage);
@@ -198,10 +305,10 @@ $(document).ready(function () {
             "Total Per User Storage: " +
                 tempPurchaseData.users +
                 " " +
-                tempPurchaseData.storageunit,
+                tempPurchaseData.storageunit
         );
         $(".mp-quantity-details").text(
-            "Total Quantity: " + tempPurchaseData.quantity,
+            "Total Quantity: " + tempPurchaseData.quantity
         );
         $(".mp-discount-details").text(
             "Total Discount: " +
@@ -211,7 +318,7 @@ $(document).ready(function () {
                 tempPurchaseData.discount +
                 " + " +
                 tempPurchaseData.extradiscount +
-                ")",
+                ")"
         );
 
         // $(".mp-extradiscount-details").text(
@@ -245,7 +352,7 @@ $(document).ready(function () {
                     "Starter User Plan",
                     selectedGB + " TB",
                     price,
-                    "300",
+                    "300"
                 );
                 break;
             case "enhanced":
@@ -253,7 +360,7 @@ $(document).ready(function () {
                     "Enhanced User Plan",
                     selectedGB + " TB",
                     price,
-                    "600",
+                    "600"
                 );
                 break;
             case "premium":
@@ -261,7 +368,7 @@ $(document).ready(function () {
                     "Premium User Plan",
                     selectedGB + " TB",
                     price,
-                    "900",
+                    "900"
                 );
                 break;
         }
@@ -278,7 +385,7 @@ $(document).ready(function () {
                     $("#card_save").prop("checked", true);
                 } else {
                     $(
-                        "#card-holder-name, #ul-card-number, #ul-expiration-date, #ul-cvv",
+                        "#card-holder-name, #ul-card-number, #ul-expiration-date, #ul-cvv"
                     ).val("");
                     $("#card_save").prop("checked", false);
                 }
@@ -374,14 +481,14 @@ $(document).ready(function () {
                 .closest("div")
                 .attr(
                     "style",
-                    "background: var(--color-fog-gray) !important; padding-left: 0.5rem !important; padding-right: 0.5rem !important;",
+                    "background: var(--color-fog-gray) !important; padding-left: 0.5rem !important; padding-right: 0.5rem !important;"
                 );
             $("." + plan)
                 .closest(".cards")
                 .find(".success")
                 .removeClass("hidden");
             $(".ul-plan-note").html(
-                "Your Starter User Plan is set to expire on 25th March 2025. Please take necessary action. [Click <a class='purchase cursor-pointer text-link-blue' data-purchasetitle='Cancel Subscription' data-purchasedesc='Are you sure you want to cancel the Starter User Plan? You’ll lose access to premium features immediately.' >here</a> to cancel]",
+                "Your Starter User Plan is set to expire on 25th March 2025. Please take necessary action. [Click <a class='purchase cursor-pointer text-link-blue' data-purchasetitle='Cancel Subscription' data-purchasedesc='Are you sure you want to cancel the Starter User Plan? You’ll lose access to premium features immediately.' >here</a> to cancel]"
             );
         } else {
             $(".ul-thank-you").addClass("hidden");
@@ -483,7 +590,7 @@ $(document).ready(function () {
             hasError = true;
         } else if (!namePattern.test(name)) {
             $("#ul-name-error").text(
-                "Card holder name should only contain alphabets.",
+                "Card holder name should only contain alphabets."
             );
             hasError = true;
         }
@@ -524,12 +631,12 @@ $(document).ready(function () {
                 $(this).text("Expired");
                 $(this).attr(
                     "style",
-                    "background: var(--color-fog-gray) !important; padding-left: 2.25rem !important; padding-right: 2.25rem !important;",
+                    "background: var(--color-fog-gray) !important; padding-left: 2.25rem !important; padding-right: 2.25rem !important;"
                 );
             }
         });
         $(".ul-plan-note").text(
-            "Your Starter User Plan has expired on 25th March 2025. To continue enjoying premium features, please visit the plan list and select a subscription that suits your needs.",
+            "Your Starter User Plan has expired on 25th March 2025. To continue enjoying premium features, please visit the plan list and select a subscription that suits your needs."
         );
         $(".ul-plan-note").removeClass("md:px-20");
         $(".ul-plan-note").addClass("md:px-4");
@@ -571,7 +678,7 @@ $(document).ready(function () {
                     searchTimeout = setTimeout(() => {
                         fetchLicenseData(1);
                     }, 300);
-                },
+                }
             );
         }
 
@@ -595,13 +702,15 @@ function getPlanStatus(item) {
     const expiryDate = new Date(item.plan_expiry_date);
     expiryDate.setHours(0, 0, 0, 0);
 
-    const diffDays = Math.ceil((expiryDate - today) / (1000 * 60 * 60 * 24));
+    const diffDays = Math.ceil(
+        (expiryDate - today) / (1000 * 60 * 60 * 24)
+    );
 
     //Expired
     if (diffDays < 0) {
         return {
             label: "Expired",
-            class: "bg-red-200 text-red-700",
+            class: "bg-red-200 text-red-700"
         };
     }
 
@@ -609,7 +718,7 @@ function getPlanStatus(item) {
     if (diffDays === 3) {
         return {
             label: "Expiry Soon",
-            class: "bg-yellow-200 text-yellow-800",
+            class: "bg-yellow-200 text-yellow-800"
         };
     }
 
@@ -617,7 +726,7 @@ function getPlanStatus(item) {
     if (diffDays === 2 || diffDays === 1) {
         return {
             label: `${diffDays} Day${diffDays > 1 ? "s" : ""} Left`,
-            class: "bg-yellow-200 text-yellow-800",
+            class: "bg-yellow-200 text-yellow-800"
         };
     }
 
@@ -625,7 +734,7 @@ function getPlanStatus(item) {
     if (diffDays === 0) {
         return {
             label: "Expiring Today",
-            class: "bg-yellow-200 text-yellow-800",
+            class: "bg-yellow-200 text-yellow-800"
         };
     }
 
@@ -638,17 +747,17 @@ function fetchLicenseData(page = 1) {
     const companyId = $("#ul-companyDropdown").val() || "";
     const orderIdFormatUl = $("#license-section").data("order-ul-format");
     const userType = $("#license-section").data("user-type");
-    $.ajax({
+    $.ajax({     
         url: `${userLicenseLists}?page=${page}&client_id=${clientId}&company_id=${companyId}`,
 
         method: "GET",
         dataType: "json",
         success: function (response) {
-            let tbody = "";
+            let tbody = "";           
 
             if (response.data.length > 0) {
                 let index = (response.current_page - 1) * response.per_page + 1;
-                //check specific user
+                //check specific user               
                 response.data.forEach((item, i) => {
                     const planStatus = getPlanStatus(item);
                     tbody += `
@@ -668,8 +777,8 @@ function fetchLicenseData(page = 1) {
                             item.plan_subscription === "month"
                                 ? "Monthly"
                                 : item.plan_subscription === "year"
-                                  ? "Annually"
-                                  : "-"
+                                    ? "Annually"
+                                    : "-"
                         }
                         )</small>
                         </td>                        
@@ -677,8 +786,11 @@ function fetchLicenseData(page = 1) {
                             item.quantity || "-"
                         }</td>
                         <td class="font-normal text-c-black text-center">
-                        Used: <strong> ${item.used_license || "0"}</strong>
+                        Used: <strong> ${
+                            item.used_license || "0"
+                        }</strong>
                         / Left: <strong>${
+
                             item.remaining_license || "-"
                         }</strong>
                         <br>
@@ -692,25 +804,25 @@ function fetchLicenseData(page = 1) {
                         ${item.plan?.currency ?? "-"} 
                         ${item.total_amount || "-"}</td>
                         <td class="font-normal text-c-black text-center">${formatDate(
-                            item.plan_expiry_date,
+                            item.plan_expiry_date
                         )}</td> 
                         <td class="font-normal text-c-black text-center">${formatDate(
-                            item.payment_date,
+                            item.payment_date
                         )}</td>   
                         <td class="font-normal text-c-black text-center">
                             <span class="px-3 py-1 rounded-full text-xs inline-block ${
                                 planStatus
                                     ? planStatus.class
                                     : item.status == 1
-                                      ? "bg-green-200 text-green-700"
-                                      : "bg-red-200 text-red-700"
+                                        ? "bg-green-200 text-green-700"
+                                        : "bg-red-200 text-red-700"
                             }">
                                 ${
                                     planStatus
                                         ? planStatus.label
                                         : item.status == 1
-                                          ? "Active"
-                                          : "Inactive"
+                                            ? "Active"
+                                            : "Inactive"
                                 }
                             </span>
                         </td>
@@ -750,6 +862,7 @@ function fetchLicenseData(page = 1) {
                         </td>
                     </tr>`;
                 });
+                
             } else {
                 tbody = `<tr><td colspan="12" class="text-center py-4">No records found.</td></tr>`;
             }
@@ -759,7 +872,7 @@ function fetchLicenseData(page = 1) {
                 response.current_page,
                 response.last_page,
                 response.per_page,
-                response.total,
+                response.total
             );
             // renderPagination(response.current_page, response.last_page);
 
@@ -768,7 +881,7 @@ function fetchLicenseData(page = 1) {
         },
         error: function () {
             $("#license-data-body").html(
-                `<tr><td colspan="12" class="text-center text-red-500 py-4">Failed to fetch data.</td></tr>`,
+                `<tr><td colspan="12" class="text-center text-red-500 py-4">Failed to fetch data.</td></tr>`
             );
         },
     });
@@ -777,7 +890,7 @@ function fetchLicenseData(page = 1) {
 function showCreateUserToast(formattedLicenseId) {
     toastr.info(
         `No users linked. Create user via User Module using this Order ID: ${formattedLicenseId}`,
-        "Action Required",
+        'Action Required'
     );
 }
 
@@ -877,7 +990,7 @@ function renderPagination_SHOW_WITH_BTNS(
     currentPage,
     lastPage,
     perPage = 0,
-    total = 0,
+    total = 0
 ) {
     let pagination = "";
 
@@ -1018,7 +1131,7 @@ clientDropdownUl.on("change", function () {
                             company.id +
                             '">' +
                             company.name +
-                            "</option>",
+                            "</option>"
                     );
                 });
             },
@@ -1174,7 +1287,7 @@ function renderUserLicenseRows(users) {
                 }
                     <i class="ri-delete-bin-6-line ri-xl text-red-500 cursor-pointer ml-2 deleteUserLicenseModal" 
                         data-user="${btoa(
-                            user.id.toString(),
+                            user.id.toString()
                         )}" title="Delete"></i>
                 </td>
             </tr>
@@ -1316,7 +1429,7 @@ $(document).on(
     "#editUserLicenseModalDiv .closeModalButton",
     function () {
         $("#editUserLicenseModalDiv").addClass("hidden");
-    },
+    }
 );
 
 //update user data
@@ -1490,11 +1603,43 @@ $(document).on("change", "#csvFileInput", function (e) {
     });
 });
 
+// $(document).on('submit', '#editUserLicenseModalDiv form', function(e) {
+//     e.preventDefault();
+
+//     let formData = $(this).serialize();
+//     let userId = $('#edit_user_license_payId').data('user-id'); // set this on modal open
+
+//     $.ajax({
+//         url: editUserLicenseDetails,
+//         method: 'POST',
+//         data: {
+//             _token: $('meta[name="csrf-token"]').attr('content'),
+//             id: userId // pass userId in POST data
+//         },
+//         success: function(res) {
+//             alert(res.success);
+//             $("#editUserLicenseModalDiv").addClass("hidden");
+//             // optionally refresh table/list
+//         },
+//         error: function(err) {
+//             if(err.status === 422){
+//                 let errors = err.responseJSON.errors;
+//                 // show validation errors
+//                 $.each(errors, function(k,v){
+//                     $(`[name="${k}"]`).next('small').text(v[0]);
+//                 });
+//             } else {
+//                 alert(err.responseJSON.error || 'Something went wrong');
+//             }
+//         }
+//     });
+// });
+
 // Payment method
 $(".ul-payment-method").on("change", function () {
     const method = $(this).val();
     $(".ul-card-details, .ul-bank-transfer, .ul-upi-section").addClass(
-        "hidden",
+        "hidden"
     );
 
     if (method === "card") $(".ul-card-details").removeClass("hidden");
@@ -1513,1189 +1658,32 @@ $(document).on("click", ".togglePassword", function (e) {
 const monthlyX = 0;
 const yearlyX = 100;
 
-$(".ul-tab-name").on("click", function () {
-    // Remove active class from both buttons
-    $(".ul-tab-name").removeClass("active");
-
-    // Add active class to clicked button
-    $(this).addClass("active");
-
-    const type = $(this).text().trim().toLowerCase();
-
-    if (type.includes("monthly")) {
+$("input[name='subscription']").on("change", function () {
+    $('input[name="subscription"]')
+        .closest("label")
+        .find(".ul-tab-name")
+        .css({ color: "#8B8B8B", fontWeight: "400" });
+    if ($(this).val() === "monthly") {
         $("#highlight").css({
             transform: `translateX(${monthlyX}px)`,
             width: "90px",
         });
-
         $(".monthly-plans").removeClass("hidden");
         $(".yearly-plans").addClass("hidden");
+        $("input[name='subscription'][value='monthly']")
+            .closest("label")
+            .find(".ul-tab-name")
+            .css({ color: "#0E0E0E", fontWeight: "500" });
     } else {
         $("#highlight").css({
             transform: `translateX(${yearlyX}px)`,
             width: "116px",
         });
-
         $(".monthly-plans").addClass("hidden");
         $(".yearly-plans").removeClass("hidden");
+        $("input[name='subscription'][value='yearly']")
+            .closest("label")
+            .find(".ul-tab-name")
+            .css({ color: "#0E0E0E", fontWeight: "500" });
     }
-});
-
-//single user plan details
-$(document).on("change", ".js-billing-toggle", function () {
-    let isYearly = $(this).is(":checked");
-
-    let currentCard = $(this).closest(".personal-card");
-
-    if (isYearly) {
-        // Hide current (monthly)
-        currentCard.addClass("hidden");
-
-        // Show next yearly card
-        let nextCard = currentCard.next(".js-year-card");
-        nextCard.removeClass("hidden");
-
-        // ✅ Sync toggle in yearly card
-        nextCard.find(".js-billing-toggle").prop("checked", true);
-    } else {
-        // Hide current (yearly)
-        currentCard.addClass("hidden");
-
-        // Show previous monthly card
-        let prevCard = currentCard.prev(".js-month-card");
-        prevCard.removeClass("hidden");
-
-        // ✅ Sync toggle in monthly card
-        prevCard.find(".js-billing-toggle").prop("checked", false);
-    }
-});
-
-$(document).ready(function () {
-    $(".js-month-card").removeClass("hidden");
-    $(".js-year-card").addClass("hidden");
-});
-
-//////////////////////////////////////////////////////////////// single user payment code
-// =============================
-// GLOBAL VARIABLES
-// =============================
-let appliedCoupon = null;
-let currentQty = 1;
-let billingType = "month"; // default
-
-// =============================
-// BLOCK FORM SUBMIT
-// =============================
-$(document).on("submit", "#registrationForm", function (e) {
-    e.preventDefault();
-});
-
-// =============================
-// BLOCK ENTER KEY SUBMIT
-// =============================
-$(document).on("keypress", "#registrationForm input", function (e) {
-    if (e.which === 13) e.preventDefault();
-});
-
-// =============================
-// SELECT PLAN (PAGE 1)
-// =============================
-$(document).on("click", ".js-select-plan", function () {
-    let planData = {
-        name: $(this).data("name"),
-        price: parseFloat($(this).data("price")),
-        currency: $(this).data("currency"),
-        license: $(this).data("license"),
-        storage: $(this).data("storage"),
-        storage_unit: $(this).data("storage-unit"),
-        planId: $(this).data("plan-id"),
-        month_price: parseFloat($(this).data("month-price")),
-        year_price: parseFloat($(this).data("year-price")),
-        type: $(this).data("type"),
-    };
-
-    localStorage.setItem("selectedPlan", JSON.stringify(planData));
-    localStorage.removeItem("appliedCoupon");
-
-    window.location.href = "/single-user";
-});
-
-// =============================
-// LOAD PLAN
-// =============================
-$(document).ready(function () {
-    let plan = JSON.parse(localStorage.getItem("selectedPlan"));
-    let savedCoupon = JSON.parse(localStorage.getItem("appliedCoupon"));
-
-    if (!plan) return;
-
-    $("#summaryPlanName").text(plan.name);
-    $("#summarySymbol").text(plan.currency);
-
-    $("#payQtyInput").val(currentQty);
-
-    loadFeatures(plan);
-
-    if (savedCoupon) {
-        appliedCoupon = savedCoupon;
-
-        $("#discountRow").show();
-        $("#discountAmt").text("- " + plan.currency + savedCoupon.discount);
-        $("#removeCouponWrapper").show();
-        $("#applyPromoBtn").prop("disabled", true);
-
-        calculateTotal(plan, savedCoupon.discount);
-    } else {
-        calculateTotal(plan, 0);
-    }
-});
-
-// =============================
-// LOAD FEATURES
-// =============================
-function loadFeatures(plan) {
-    let price = billingType === "year" ? plan.year_price : plan.month_price;
-
-    $("#planFeatureList").html(`
-        <li>${plan.license} User License</li>
-        <li>${plan.storage} ${plan.storage_unit} Storage</li>
-         <li>${billingType === "year" ? "Yearly Plan" : "Monthly Plan"}</li>
-    `);
-    $("#summaryUnitPrice").text(plan.price.toFixed(2));
-}
-
-// $("#summaryPeriod").text(
-//     billingType === "year" ? "/year" : "/month"
-// );
-
-// =============================
-// BILLING TOGGLE
-// =============================
-$(document).ready(function () {
-    let plan = JSON.parse(localStorage.getItem("selectedPlan"));
-
-    if (!plan) return;
-
-    // ✅ SET billingType from plan
-    billingType = plan.type === "year" ? "year" : "month";
-
-    // ✅ SET toggle state UI
-    if (billingType === "year") {
-        $("#payBillingToggle").prop("checked", true);
-
-        $("#payBillingMonthLabel").css({ color: "#888", fontWeight: "400" });
-        $("#payBillingYearLabel").css({ color: "#057A96", fontWeight: "600" });
-
-        $("#payToggleTrack").css("background", "#057A96");
-        $("#payToggleThumb").css("left", "21px");
-    } else {
-        $("#payBillingToggle").prop("checked", false);
-
-        $("#payBillingMonthLabel").css({ color: "#057A96", fontWeight: "600" });
-        $("#payBillingYearLabel").css({ color: "#888", fontWeight: "400" });
-
-        $("#payToggleTrack").css("background", "#ccc");
-        $("#payToggleThumb").css("left", "3px");
-    }
-
-    // ✅ Load UI based on correct type
-    loadFeatures(plan);
-    calculateTotal(plan, 0);
-});
-
-// =============================
-// QTY CONTROLS
-// =============================
-$(document).on("click", "#payQtyPlus", function () {
-    currentQty++;
-    $("#payQtyInput").val(currentQty);
-
-    let plan = JSON.parse(localStorage.getItem("selectedPlan"));
-
-    resetCoupon();
-    calculateTotal(plan, 0);
-});
-
-$(document).on("click", "#payQtyMinus", function () {
-    if (currentQty > 1) {
-        currentQty--;
-        $("#payQtyInput").val(currentQty);
-
-        let plan = JSON.parse(localStorage.getItem("selectedPlan"));
-
-        resetCoupon();
-        calculateTotal(plan, 0);
-    }
-});
-
-$(document).on("input", "#payQtyInput", function () {
-    let val = parseInt($(this).val());
-
-    if (!val || val < 1) val = 1;
-
-    currentQty = val;
-    $(this).val(val);
-
-    let plan = JSON.parse(localStorage.getItem("selectedPlan"));
-
-    resetCoupon();
-    calculateTotal(plan, 0);
-});
-
-// =============================
-// CALCULATE TOTAL (MAIN LOGIC)
-// =============================
-function calculateTotal(plan, discount = 0) {
-    let basePrice = parseFloat(plan.price);
-
-    basePrice = basePrice;
-
-    let subtotal = basePrice * currentQty;
-    let total = subtotal - discount;
-
-    $("#summaryUnitPrice").text(basePrice.toFixed(2));
-    $("#summarySubtotal").text(plan.currency + subtotal.toFixed(2));
-    $("#summaryTotal").text(plan.currency + " " + total.toFixed(2));
-}
-
-// =============================
-// RESET COUPON
-// =============================
-function resetCoupon() {
-    appliedCoupon = null;
-    localStorage.removeItem("appliedCoupon");
-
-    $("#discountRow").hide();
-    $("#removeCouponWrapper").hide();
-
-    $("#couponMsg").text("").css("color", "orange");
-    $("#couponInput").val("");
-
-    $("#applyPromoBtn").prop("disabled", false);
-}
-
-// =============================
-// APPLY COUPON
-// =============================
-$(document).on("click", "#applyPromoBtn", function (e) {
-    e.preventDefault();
-
-    let code = $("#couponInput").val().trim();
-    let plan = JSON.parse(localStorage.getItem("selectedPlan"));
-
-    if (!code) {
-        $("#couponMsg").text("Enter coupon code").css("color", "red");
-        return;
-    }
-
-    let basePrice = parseFloat(plan.price);
-
-    if (billingType === "year") {
-        basePrice = basePrice * 12 * 0.9;
-    }
-
-    let subtotal = basePrice * currentQty;
-
-    $.ajax({
-        url: "/apply-coupon",
-        type: "POST",
-        data: {
-            code: code,
-            amount: subtotal,
-            _token: $('meta[name="csrf-token"]').attr("content"),
-        },
-        success: function (res) {
-            if (res.status) {
-                appliedCoupon = res;
-                localStorage.setItem("appliedCoupon", JSON.stringify(res));
-
-                $("#couponMsg").text("Coupon applied!").css("color", "green");
-
-                $("#discountRow").show();
-                $("#discountAmt").text("- " + plan.currency + res.discount);
-
-                $("#removeCouponWrapper").show();
-                $("#applyPromoBtn").prop("disabled", true);
-
-                calculateTotal(plan, res.discount);
-            } else {
-                $("#couponMsg").text(res.message).css("color", "red");
-            }
-        },
-    });
-});
-
-// =============================
-// REMOVE COUPON
-// =============================
-$(document).on("click", "#removeCouponBtn", function (e) {
-    e.preventDefault();
-
-    let plan = JSON.parse(localStorage.getItem("selectedPlan"));
-
-    resetCoupon();
-    calculateTotal(plan, 0);
-});
-
-// =============================
-// SUBMIT FORM
-// =============================
-
-$(document).on("click", "#sideSubmitBtn", function (e) {
-    e.preventDefault();
-
-    let plan = JSON.parse(localStorage.getItem("selectedPlan"));
-
-    let basePrice = parseFloat(plan.price);
-
-    let subtotal = basePrice * currentQty;
-    let discount = appliedCoupon ? appliedCoupon.discount : 0;
-    let finalAmount = subtotal - discount;
-
-    // ✅ store data temporarily (global)
-    window.paymentData = {
-        contactPerson: $("#contactPerson").val(),
-        phone: $("#phone").val(),
-        email: $("#useremail").val(),
-        username: $("#username").val(),
-        designation: $("#designation").val(),
-        storage_unit: plan.storage_unit,
-        plan_name: plan.name,
-        price: basePrice,
-        quantity: currentQty,
-        planId: plan.planId,
-        subscription_type: billingType,
-        total_amount: finalAmount,
-        coupon_id: $("#couponInput").val(),
-        discount: discount,
-    };
-
-    // ✅ show modal
-    $("#modalTotal").text(plan.currency + " " + finalAmount.toFixed(2));
-    $("#paymentModal").fadeIn();
-});
-
-$(document).on("click", "#closePayModal", function () {
-    $("#paymentModal").fadeOut();
-});
-
-$(document).on("click", "#confirmPayBtn", function () {
-    let cardNumber = $("#cardNumber").val();
-    let cardExpiry = $("#cardExpiry").val();
-    let cardCvv = $("#cardCvv").val();
-    let cardName = $("#cardName").val();
-
-    // ✅ simple validation
-    if (!cardNumber || !cardExpiry || !cardCvv || !cardName) {
-        $("#payError").show();
-        return;
-    }
-
-    $("#payError").hide();
-
-    let formData = {
-        ...window.paymentData, // ✅ previous data
-        card_number: cardNumber,
-        card_expiry: cardExpiry,
-        card_cvv: cardCvv,
-        card_name: cardName,
-        _token: $('meta[name="csrf-token"]').attr("content"),
-    };
-
-    $.ajax({
-        url: "/store-payment",
-        type: "POST",
-        data: formData,
-        success: function (res) {
-            if (res.status) {
-                alert(res.message);
-
-                $("#paymentModal").fadeOut();
-
-                localStorage.removeItem("selectedPlan");
-                localStorage.removeItem("appliedCoupon");
-
-                // window.location.href = "/thank-you";
-            } else {
-                alert(res.message);
-            }
-        },
-        error: function (xhr) {
-            let message = "Something went wrong";
-
-            if (xhr.responseJSON && xhr.responseJSON.message) {
-                message = xhr.responseJSON.message;
-            }
-
-            alert(message);
-        },
-    });
-});
-
-//for team -----------------------------------------------------------------------------------
-
-// document.querySelectorAll('.team-js-select-plan').forEach(btn => {
-//   btn.addEventListener('click', function () {
-
-//     let plan = {
-//       plan_id: this.dataset.planId,
-//       name: this.dataset.name,
-//       price: parseFloat(this.dataset.price),
-//       currency: this.dataset.currency,
-//       subscription: this.dataset.subscription,
-//       license: parseInt(this.dataset.license),
-//       storage: this.dataset.storage,
-//       quantity: 1
-//     };
-
-//     localStorage.setItem('selectedPlan', JSON.stringify(plan));
-
-//     window.location.href = "/payment-for-team";
-//   });
-// });
-
-// let plan = JSON.parse(localStorage.getItem('selectedPlan'));
-// let discount = 0;
-// let coupon_id = null;
-
-// // Load plan
-// if (plan) {
-//   document.getElementById('summaryPlanName').innerText = plan.name;
-//   document.getElementById('summaryUnitPrice').innerText = plan.price;
-//   document.getElementById('summarySymbol').innerText = plan.currency;
-//   document.getElementById('payQtyInput').value = plan.quantity;
-
-//   updateSummary();
-// }
-
-// // Quantity
-// document.getElementById('payQtyPlus').onclick = () => {
-//   plan.quantity++;
-//   updateSummary();
-// };
-
-// document.getElementById('payQtyMinus').onclick = () => {
-//   if (plan.quantity > 1) {
-//     plan.quantity--;
-//     updateSummary();
-//   }
-// };
-
-// // Toggle
-// document.getElementById('payBillingToggle').onchange = function () {
-//   if (this.checked) {
-//     plan.subscription = 'year';
-//     plan.price = plan.price * 12 * 0.9;
-//   } else {
-//     plan.subscription = 'month';
-//     plan.price = plan.price / 12;
-//   }
-//   updateSummary();
-// };
-
-// // Update summary
-// function updateSummary() {
-//   document.getElementById('payQtyInput').value = plan.quantity;
-
-//   let subtotal = plan.price * plan.quantity;
-//   let total = subtotal - discount;
-
-//   document.getElementById('summarySubtotal').innerText = plan.currency + " " + subtotal.toFixed(2);
-//   document.getElementById('summaryTotal').innerText = plan.currency + " " + total.toFixed(2);
-// }
-
-// // Apply coupon
-// document.getElementById('applyPromoBtn').onclick = function () {
-
-//   let code = document.getElementById('couponInput').value;
-
-//   fetch('/apply-coupon', {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json',
-//       'X-CSRF-TOKEN': '{{ csrf_token() }}'
-//     },
-//     body: JSON.stringify({
-//       code: code,
-//       amount: plan.price * plan.quantity
-//     })
-//   })
-//   .then(res => res.json())
-//   .then(res => {
-
-//     if (res.success) {
-//       discount = res.discount;
-//       coupon_id = res.coupon_id;
-
-//       document.getElementById('discountRow').style.display = 'flex';
-//       document.getElementById('discountAmt').innerText = "- " + plan.currency + " " + discount;
-
-//       document.getElementById('couponMsg').innerText = "✅ Applied";
-
-//       updateSummary();
-//     } else {
-//       document.getElementById('couponMsg').innerText = "❌ " + res.message;
-//     }
-
-//   });
-// };
-
-// // Save payment
-// document.getElementById('sideSubmitBtn').onclick = function () {
-
-//   fetch('/save-payment', {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json',
-//       'X-CSRF-TOKEN': '{{ csrf_token() }}'
-//     },
-//     body: JSON.stringify({
-//       plan_id: plan.plan_id,
-//       quantity: plan.quantity,
-//       storage: plan.storage,
-//       subscription: plan.subscription,
-//       total: (plan.price * plan.quantity) - discount,
-//       coupon_id: coupon_id
-//     })
-//   })
-//   .then(res => res.json())
-//   .then(res => {
-//     if (res.success) {
-//       alert("Payment saved!");
-//       localStorage.removeItem('selectedPlan');
-//     }
-//   });
-// };
-
-// document.addEventListener("DOMContentLoaded", function () {
-
-//   let plan = JSON.parse(localStorage.getItem('selectedPlan'));
-
-//   if (!plan) return;
-
-//   document.querySelectorAll('.pay-plan-tile').forEach(tile => {
-
-//     if (tile.dataset.planId == plan.plan_id) {
-
-//       tile.classList.add('selected');
-
-//     } else {
-//       tile.classList.remove('selected');
-//     }
-
-//   });
-
-// });
-
-// document.querySelectorAll('.pay-plan-tile').forEach(tile => {
-
-//   tile.addEventListener('click', function () {
-
-//     // remove old selection
-//     document.querySelectorAll('.pay-plan-tile').forEach(t => t.classList.remove('selected'));
-
-//     // add new selection
-//     this.classList.add('selected');
-
-//     // update plan object
-//     plan = {
-//       plan_id: this.dataset.planId,
-//       name: this.dataset.name,
-//       price: parseFloat(this.dataset.price),
-//       currency: this.dataset.currency,
-//       subscription: this.dataset.subscription,
-//       license: parseInt(this.dataset.license),
-//       storage: this.dataset.storage,
-//       quantity: 1,
-//       base_price: parseFloat(this.dataset.price)
-//     };
-
-//     // save again
-//     localStorage.setItem('selectedPlan', JSON.stringify(plan));
-
-//     // update UI
-//     document.getElementById('summaryPlanName').innerText = plan.name;
-//     document.getElementById('summaryUnitPrice').innerText = plan.price;
-
-//     updateSummary();
-
-//   });
-
-// });
-
-// document.getElementById('payBillingToggle')?.addEventListener('change', function () {
-
-//   if (this.checked) {
-//     // YEARLY
-//     document.querySelectorAll('.monthly-plan').forEach(el => el.classList.add('hidden'));
-//     document.querySelectorAll('.yearly-plan').forEach(el => el.classList.remove('hidden'));
-
-//     // auto select first yearly plan
-//     let firstYear = document.querySelector('.yearly-plan');
-//     if (firstYear) firstYear.click();
-
-//   } else {
-//     // MONTHLY
-//     document.querySelectorAll('.yearly-plan').forEach(el => el.classList.add('hidden'));
-//     document.querySelectorAll('.monthly-plan').forEach(el => el.classList.remove('hidden'));
-
-//     // auto select first monthly plan
-//     let firstMonth = document.querySelector('.monthly-plan');
-//     if (firstMonth) firstMonth.click();
-//   }
-
-// });
-
-// if (plan) {
-
-//   // set toggle based on subscription
-//   if (plan.subscription === 'year') {
-//     document.getElementById('payBillingToggle').checked = true;
-
-//     document.querySelectorAll('.monthly-plan').forEach(el => el.classList.add('hidden'));
-//     document.querySelectorAll('.yearly-plan').forEach(el => el.classList.remove('hidden'));
-
-//   } else {
-//     document.getElementById('payBillingToggle').checked = false;
-
-//     document.querySelectorAll('.yearly-plan').forEach(el => el.classList.add('hidden'));
-//     document.querySelectorAll('.monthly-plan').forEach(el => el.classList.remove('hidden'));
-//   }
-
-// }
-
-
-//----------------------------------------------------
-// document.addEventListener("DOMContentLoaded", function () {
-//     let plan = JSON.parse(localStorage.getItem("selectedPlan")) || null;
-//     let discount = 0;
-//     let coupon_id = null;
-
-//     const monthlyPlans = document.querySelectorAll(".monthly-plan");
-//     const yearlyPlans = document.querySelectorAll(".yearly-plan");
-//     const toggle = document.getElementById("payBillingToggle");
-
-//     // ---------------------------
-//     // SELECT PLAN (FROM PRICING PAGE)
-//     // ---------------------------
-//     document.querySelectorAll(".team-js-select-plan").forEach((btn) => {
-//         btn.addEventListener("click", function () {
-//             let selectedPlan = {
-//                 plan_id: this.dataset.planId,
-//                 name: this.dataset.name,
-//                 price: parseFloat(this.dataset.price),
-//                 base_price: parseFloat(this.dataset.price),
-//                 currency: this.dataset.currency,
-//                 subscription: this.dataset.subscription,
-//                 license: parseInt(this.dataset.license),
-//                 storage: this.dataset.storage,
-//                 quantity: 1,
-//             };
-
-//             localStorage.setItem("selectedPlan", JSON.stringify(selectedPlan));
-//             window.location.href = "/payment-for-team";
-//         });
-//     });
-
-//     // ---------------------------
-//     // LOAD PLAN INTO SUMMARY
-//     // ---------------------------
-//     if (plan) {
-//         setPlanUI(plan);
-//     }
-
-//     function setPlanUI(plan) {
-//         document.getElementById("summaryPlanName").innerText = plan.name;
-//         document.getElementById("summaryUnitPrice").innerText = plan.price;
-//         document.getElementById("summarySymbol").innerText = plan.currency;
-//         document.getElementById("payQtyInput").value = plan.quantity;
-
-//         highlightSelectedPlan(plan.plan_id);
-//         updateSummary();
-//     }
-
-//     // ---------------------------
-//     // HIGHLIGHT SELECTED PLAN
-//     // ---------------------------
-//     function highlightSelectedPlan(planId) {
-//         document.querySelectorAll(".pay-plan-tile").forEach((tile) => {
-//             tile.classList.remove("selected");
-
-//             if (tile.dataset.planId == planId) {
-//                 tile.classList.add("selected");
-//             }
-//         });
-//     }
-
-//     // ---------------------------
-//     // PLAN CLICK (CHANGE PLAN)
-//     // ---------------------------
-//     document.querySelectorAll(".pay-plan-tile").forEach((tile) => {
-//         tile.addEventListener("click", function () {
-//             document
-//                 .querySelectorAll(".pay-plan-tile")
-//                 .forEach((t) => t.classList.remove("selected"));
-//             this.classList.add("selected");
-
-//             plan = {
-//                 plan_id: this.dataset.planId,
-//                 name: this.dataset.name,
-//                 price: parseFloat(this.dataset.price),
-//                 base_price: parseFloat(this.dataset.price),
-//                 currency: this.dataset.currency,
-//                 subscription: this.dataset.subscription,
-//                 license: parseInt(this.dataset.license),
-//                 storage: this.dataset.storage,
-//                 quantity: 1,
-//             };
-
-//             localStorage.setItem("selectedPlan", JSON.stringify(plan));
-//             setPlanUI(plan);
-//         });
-//     });
-
-//     // ---------------------------
-//     // BILLING TOGGLE (MAIN FIX)
-//     // ---------------------------
-//     toggle?.addEventListener("change", function () {
-//         if (this.checked) {
-//             // YEARLY
-//             monthlyPlans.forEach((el) => el.classList.add("hidden"));
-//             yearlyPlans.forEach((el) => el.classList.remove("hidden"));
-
-//             // auto select first yearly
-//             let first = document.querySelector(".yearly-plan");
-//             if (first) first.click();
-//         } else {
-//             // MONTHLY
-//             yearlyPlans.forEach((el) => el.classList.add("hidden"));
-//             monthlyPlans.forEach((el) => el.classList.remove("hidden"));
-
-//             // auto select first monthly
-//             let first = document.querySelector(".monthly-plan");
-//             if (first) first.click();
-//         }
-//     });
-
-//     // ---------------------------
-//     // INITIAL TOGGLE STATE
-//     // ---------------------------
-//     if (plan && plan.subscription === "year") {
-//         toggle.checked = true;
-//         monthlyPlans.forEach((el) => el.classList.add("hidden"));
-//         yearlyPlans.forEach((el) => el.classList.remove("hidden"));
-//     } else {
-//         toggle.checked = false;
-//         yearlyPlans.forEach((el) => el.classList.add("hidden"));
-//         monthlyPlans.forEach((el) => el.classList.remove("hidden"));
-//     }
-
-//     // ---------------------------
-//     // QUANTITY
-//     // ---------------------------
-//     document.getElementById("payQtyPlus").onclick = () => {
-//         plan.quantity++;
-//         updateSummary();
-//     };
-
-//     document.getElementById("payQtyMinus").onclick = () => {
-//         if (plan.quantity > 1) {
-//             plan.quantity--;
-//             updateSummary();
-//         }
-//     };
-
-//     // ---------------------------
-//     // SUMMARY CALCULATION
-//     // ---------------------------
-//     function updateSummary() {
-//         if (!plan) return;
-
-//         document.getElementById("payQtyInput").value = plan.quantity;
-
-//         let subtotal = plan.price * plan.quantity;
-//         let total = subtotal - discount;
-
-//         document.getElementById("summarySubtotal").innerText =
-//             plan.currency + " " + subtotal.toFixed(2);
-
-//         document.getElementById("summaryTotal").innerText =
-//             plan.currency + " " + total.toFixed(2);
-//     }
-
-//     // ---------------------------
-//     // APPLY COUPON
-//     // ---------------------------
-//     document.getElementById("applyPromoBtn").onclick = function () {
-//         let code = document.getElementById("couponInput").value;
-
-//         fetch("/apply-coupon", {
-//             method: "POST",
-//             headers: {
-//                 "Content-Type": "application/json",
-//                 "X-CSRF-TOKEN": document.querySelector(
-//                     'meta[name="csrf-token"]',
-//                 ).content,
-//             },
-//             body: JSON.stringify({
-//                 code: code,
-//                 amount: plan.price * plan.quantity,
-//             }),
-//         })
-//             .then((res) => res.json())
-//             .then((res) => {
-//                 if (res.success) {
-//                     discount = res.discount;
-//                     coupon_id = res.coupon_id;
-
-//                     document.getElementById("discountRow").style.display =
-//                         "flex";
-//                     document.getElementById("discountAmt").innerText =
-//                         "- " + plan.currency + " " + discount;
-
-//                     document.getElementById("couponMsg").innerText =
-//                         "✅ Applied";
-//                     updateSummary();
-//                 } else {
-//                     document.getElementById("couponMsg").innerText =
-//                         "❌ " + res.message;
-//                 }
-//             });
-//     };
-
-//     // ---------------------------
-//     // SAVE PAYMENT
-//     // ---------------------------
-//     document.getElementById("sideSubmitBtn").onclick = function () {
-//         fetch("/save-payment", {
-//             method: "POST",
-//             headers: {
-//                 "Content-Type": "application/json",
-//                 "X-CSRF-TOKEN": document.querySelector(
-//                     'meta[name="csrf-token"]',
-//                 ).content,
-//             },
-//             body: JSON.stringify({
-//                 plan_id: plan.plan_id,
-//                 quantity: plan.quantity,
-//                 storage: plan.storage,
-//                 subscription: plan.subscription,
-//                 total: plan.price * plan.quantity - discount,
-//                 coupon_id: coupon_id,
-//             }),
-//         })
-//             .then((res) => res.json())
-//             .then((res) => {
-//                 if (res.success) {
-//                     alert("Payment saved!");
-//                     localStorage.removeItem("selectedPlan");
-//                 }
-//             });
-//     };
-
-//     // ---------------------------
-//     // REMOVE COUPON
-//     // ---------------------------
-//     document.getElementById("removeCouponBtn").onclick = function () {
-//         discount = 0;
-//         coupon_id = null;
-
-//         // Hide discount row
-//         document.getElementById("discountRow").style.display = "none";
-
-//         // Clear input + message
-//         document.getElementById("couponInput").value = "";
-//         document.getElementById("couponMsg").innerText = "Coupon removed";
-
-//         // Hide remove button
-//         this.style.display = "none";
-
-//         updateSummary();
-//     };
-
-//     document.getElementById("sideSubmitBtn").onclick = function () {
-//         fetch("/save-payment", {
-//             method: "POST",
-//             headers: {
-//                 "Content-Type": "application/json",
-//                 "X-CSRF-TOKEN": document.querySelector(
-//                     'meta[name="csrf-token"]',
-//                 ).content,
-//             },
-//             body: JSON.stringify({
-//                 // PLAN
-//                 plan_id: plan.plan_id,
-//                 quantity: plan.quantity,
-//                 storage: plan.storage,
-//                 subscription: plan.subscription,
-//                 total: plan.price * plan.quantity - discount,
-//                 coupon_id: coupon_id,
-
-//                 // CARD
-//                 card_name: document.getElementById("cardName").value,
-//                 card_number: document.getElementById("cardNumber").value,
-//                 card_expiry: document.getElementById("cardExpiry").value,
-//                 card_cvv: document.getElementById("cardCvv").value,
-//             }),
-//         })
-//             .then((res) => res.json())
-//             .then((res) => {
-//                 if (res.success) {
-//                     alert("✅ Payment saved!");
-//                     localStorage.removeItem("selectedPlan");
-//                     window.location.reload();
-//                 } else {
-//                     alert(res.message);
-//                 }
-//             });
-//     };
-//     document.getElementById("sideSubmitBtnForTeam").onclick = function () {
-//         fetch("/store-payment-for-team", {
-//             method: "POST",
-//             headers: {
-//                 "Content-Type": "application/json",
-//                 "X-CSRF-TOKEN": document.querySelector(
-//                     'meta[name="csrf-token"]',
-//                 ).content,
-//             },
-//             body: JSON.stringify({
-//                 // PLAN
-//                 plan_id: plan.plan_id,
-//                 quantity: plan.quantity,
-//                 storage: plan.storage,
-//                 subscription: plan.subscription,
-//                 total: plan.price * plan.quantity - discount,
-//                 coupon_id: coupon_id,
-
-//                 // CARD
-//                 card_name: document.getElementById("cardName").value,
-//                 card_number: document.getElementById("cardNumber").value,
-//                 card_expiry: document.getElementById("cardExpiry").value,
-//                 card_cvv: document.getElementById("cardCvv").value,
-//             }),
-//         })
-//             .then((res) => res.json())
-//             .then((res) => {
-//                 if (res.success) {
-//                     alert("✅ Payment saved!");
-//                     localStorage.removeItem("selectedPlan");
-//                     window.location.reload();
-//                 } else {
-//                     alert(res.message);
-//                 }
-//             });
-//     };
-// });
-
-
-
-
-///------------------------------------------
-
-document.addEventListener("DOMContentLoaded", function () {
-
-    let teamPlan = JSON.parse(localStorage.getItem("selectedPlan")) || null;
-    let teamDiscount = 0;
-    let teamCouponId = null;
-
-    const monthlyPlans = document.querySelectorAll(".monthly-plan");
-    const yearlyPlans = document.querySelectorAll(".yearly-plan");
-    const toggle = document.getElementById("payBillingToggle");
-
-    // =============================
-    // LOAD PLAN
-    // =============================
-    if (teamPlan) {
-        setPlanUI(teamPlan);
-    }
-
-    function setPlanUI(plan) {
-        document.getElementById("summaryPlanName").innerText = plan.name;
-        document.getElementById("summaryUnitPrice").innerText = plan.price;
-        document.getElementById("summarySymbol").innerText = plan.currency;
-        document.getElementById("payQtyInput").value = plan.quantity;
-
-        highlightSelectedPlan(plan.plan_id);
-        updateSummary();
-    }
-
-    function highlightSelectedPlan(planId) {
-        document.querySelectorAll(".pay-plan-tile").forEach(tile => {
-            tile.classList.remove("selected");
-            if (tile.dataset.planId == planId) {
-                tile.classList.add("selected");
-            }
-        });
-    }
-
-    // =============================
-    // CHANGE PLAN
-    // =============================
-    document.querySelectorAll(".pay-plan-tile").forEach(tile => {
-        tile.addEventListener("click", function () {
-
-            document.querySelectorAll(".pay-plan-tile").forEach(t => t.classList.remove("selected"));
-            this.classList.add("selected");
-
-            teamPlan = {
-                plan_id: this.dataset.planId,
-                name: this.dataset.name,
-                price: parseFloat(this.dataset.price),
-                currency: this.dataset.currency,
-                subscription: this.dataset.subscription,
-                license: this.dataset.license,
-                storage: this.dataset.storage,
-                quantity: 1,
-            };
-
-            localStorage.setItem("selectedPlan", JSON.stringify(teamPlan));
-            setPlanUI(teamPlan);
-        });
-    });
-
-    // =============================
-    // BILLING TOGGLE
-    // =============================
-    toggle?.addEventListener("change", function () {
-
-        if (this.checked) {
-            monthlyPlans.forEach(el => el.classList.add("hidden"));
-            yearlyPlans.forEach(el => el.classList.remove("hidden"));
-
-            let first = document.querySelector(".yearly-plan");
-            if (first) first.click();
-
-        } else {
-            yearlyPlans.forEach(el => el.classList.add("hidden"));
-            monthlyPlans.forEach(el => el.classList.remove("hidden"));
-
-            let first = document.querySelector(".monthly-plan");
-            if (first) first.click();
-        }
-    });
-
-    // =============================
-    // QUANTITY
-    // =============================
-    document.getElementById("payQtyPlus").onclick = () => {
-        teamPlan.quantity++;
-        updateSummary();
-    };
-
-    document.getElementById("payQtyMinus").onclick = () => {
-        if (teamPlan.quantity > 1) {
-            teamPlan.quantity--;
-            updateSummary();
-        }
-    };
-
-    // =============================
-    // SUMMARY
-    // =============================
-    function updateSummary() {
-        if (!teamPlan) return;
-
-        let subtotal = teamPlan.price * teamPlan.quantity;
-        let total = subtotal - teamDiscount;
-
-        document.getElementById("summarySubtotal").innerText =
-            teamPlan.currency + " " + subtotal.toFixed(2);
-
-        document.getElementById("summaryTotal").innerText =
-            teamPlan.currency + " " + total.toFixed(2);
-    }
-
-    // =============================
-    // APPLY COUPON
-    // =============================
-    document.getElementById("applyPromoBtn").onclick = function () {
-
-        fetch("/apply-coupon-for-team", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').content,
-            },
-            body: JSON.stringify({
-                code: document.getElementById("couponInput").value,
-                amount: teamPlan.price * teamPlan.quantity,
-            }),
-        })
-        .then(res => res.json())
-        .then(res => {
-            if (res.success) {
-                teamDiscount = res.discount;
-                teamCouponId = res.coupon_id;
-
-                document.getElementById("discountRow").style.display = "flex";
-                document.getElementById("discountAmt").innerText =
-                    "- " + teamPlan.currency + " " + teamDiscount;
-
-                updateSummary();
-            } else {
-                document.getElementById("couponMsg").innerText = res.message;
-            }
-        });
-    };
-
-    // =============================
-    // FINAL SUBMIT
-    // =============================
-    document.getElementById("sideSubmitBtnForTeam").onclick = function () {
-
-        let payload = {
-
-            // COMPANY
-            company_name: document.getElementById("companyName").value,
-            company_type: document.getElementById("companyType").value,
-            industry_type: document.getElementById("industryType").value,
-            address: document.getElementById("address").value,
-            company_number: document.getElementById("companyNumber").value,
-            company_email: document.getElementById("companyEmail").value,
-            website: document.getElementById("website").value,
-
-            // CONTACT
-            contact_person: document.getElementById("contactPerson").value,
-            designation: document.getElementById("designation").value,
-            phone: document.getElementById("phone").value,
-            email: document.getElementById("email").value,
-            username: document.getElementById("username").value,
-            security_question: document.getElementById("passwordQuestion").value,
-            security_answer: document.getElementById("securityAnswer").value,
-
-            // PLAN
-            plan_id: teamPlan.plan_id,
-            quantity: teamPlan.quantity,
-            storage: teamPlan.storage,
-            subscription: teamPlan.subscription,
-            total: teamPlan.price * teamPlan.quantity - teamDiscount,
-            coupon_id: teamCouponId,
-
-            // CARD
-            card_name: document.getElementById("cardName").value,
-            card_number: document.getElementById("cardNumber").value,
-            card_expiry: document.getElementById("cardExpiry").value,
-            card_cvv: document.getElementById("cardCvv").value,
-        };
-
-        fetch("/store-payment-for-team", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').content,
-            },
-            body: JSON.stringify(payload),
-        })
-        .then(res => res.json())
-        .then(res => {
-            if (res.success) {
-                alert("✅ Team Payment Saved!");
-                localStorage.removeItem("selectedPlan");
-                window.location.reload();
-            } else {
-                alert(res.message);
-            }
-        });
-    };
-
 });

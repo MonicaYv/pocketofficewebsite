@@ -7,8 +7,6 @@ use App\Http\Controllers\SalesEnquiryController;
 use App\Http\Controllers\UserLicenseController;
 use App\Http\Controllers\PortalLoginController;
 
-
-
 Route::get('/', function () {
     return view('pages.index');
 });
@@ -19,21 +17,31 @@ Route::post('/sales-enquiry-submit', [SalesEnquiryController::class, 'store'])
 
 
 //user license
-Route::get('market-place', [UserLicenseController::class, 'index'])->name('market-place.main');
-Route::post('ul-store-payment', [UserLicenseController::class, 'store'])->name('ul.store.payment');
-Route::get('saved-card', [UserLicenseController::class, 'getSavedCard'])->name('saved.card');
-Route::get('user-license-lists', [UserLicenseController::class, 'getUserLicenseLists'])->name('user.license.lists');
-Route::get('used-license-user-list', [UserLicenseController::class, 'getUsedUserLicenseLists'])->name('used.license.user.list');
-Route::get('users-license-editUser', [UserLicenseController::class, 'getEditUserLicenseDetails'])->name('users.license.editUser');
-Route::post('users-license-editUser-details', [UserLicenseController::class, 'editUserLicenseDetails'])->name('users.license.editUser.details');
-Route::post('users-license-deleteUser-details', [UserLicenseController::class, 'deleteUserLicenseDetails'])->name('users.license.deleteUser.details');
-Route::get('users-license-companies-lists', [UserLicenseController::class, 'getCompaniesByClient'])->name('users.license.fetch.companies.by.client');
-Route::post('ul-upload-csv', [UserLicenseController::class, 'uploadCsv'])->name('ul.upload.csv');
-Route::get('edit-license-manage-settings', [UserLicenseController::class, 'editLicenseViaManageSettings'])->name('edit.license.manage.settings');
+Route::get('pricing', [UserLicenseController::class, 'index'])->name('marketplace.pricing');
+Route::post('store-payment', [UserLicenseController::class, 'saveSubscription'])->name('marketplace.store.payment');
+Route::post('apply-coupon', [UserLicenseController::class, 'applyCoupon'])->name('marketplace.apply.coupon');
 
+Route::post('apply-coupon-for-team', [UserLicenseController::class, 'applyCouponForTeam']);
+Route::get('payment-for-team', [UserLicenseController::class, 'paymentForTeam']);
+Route::post('store-payment-for-team', [UserLicenseController::class, 'savePaymentForTeam']);
+
+// Route::post('ul-store-payment', [UserLicenseController::class, 'store'])->name('ul.store.payment');
+// Route::get('saved-card', [UserLicenseController::class, 'getSavedCard'])->name('saved.card');
+// Route::get('user-license-lists', [UserLicenseController::class, 'getUserLicenseLists'])->name('user.license.lists');
+// Route::get('used-license-user-list', [UserLicenseController::class, 'getUsedUserLicenseLists'])->name('used.license.user.list');
+// Route::get('users-license-editUser', [UserLicenseController::class, 'getEditUserLicenseDetails'])->name('users.license.editUser');
+// Route::post('users-license-editUser-details', [UserLicenseController::class, 'editUserLicenseDetails'])->name('users.license.editUser.details');
+// Route::post('users-license-deleteUser-details', [UserLicenseController::class, 'deleteUserLicenseDetails'])->name('users.license.deleteUser.details');
+// Route::get('users-license-companies-lists', [UserLicenseController::class, 'getCompaniesByClient'])->name('users.license.fetch.companies.by.client');
+// Route::post('ul-upload-csv', [UserLicenseController::class, 'uploadCsv'])->name('ul.upload.csv');
+// Route::get('edit-license-manage-settings', [UserLicenseController::class, 'editLicenseViaManageSettings'])->name('edit.license.manage.settings');
+
+Route::get('/single-user', function () {
+    return view('marketplace.single-user');
+})->name('single-user');
 
 Route::get('/payment', function () {
-    return view('pages.payment');
+    return view('marketplace.payment');
 })->name('payment');
 
 Route::post('/save-company', [CompanyController::class, 'store'])->name('saveCompany');

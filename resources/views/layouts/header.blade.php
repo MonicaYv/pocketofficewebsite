@@ -66,4 +66,8 @@
         font-size: 20px;
         cursor: pointer;
     }
+
+    .hidden {
+        display: none !important;
+    }
 </style>

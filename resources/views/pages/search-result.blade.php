@@ -1,191 +1,36 @@
   @extends('layouts.backendsettings')
   @section('title', 'Search Result')
+  <style>
+    /* Search Results */
+
+    #search-results {
+      max-width: 700px;
+      margin: auto;
+    }
+
+    .search-result-item {
+      padding: 18px;
+      border-bottom: 1px solid #eee;
+      transition: 0.3s;
+      cursor: pointer;
+    }
+
+    .search-result-item:hover {
+      background: #f7f7f7;
+    }
+
+    .search-result-item h5 {
+      margin: 0;
+      font-weight: 600;
+      color: #222;
+    }
+
+    .search-result-item span {
+      font-size: 14px;
+      color: #888;
+    }
+  </style>
   @section('content')
-  <!-- preloader area start -->
-  <!-- <div class="preloader" id="preloader">
-    <div class="preloader-inner">
-      <div class="spinner">
-        <div class="dot1"></div>
-        <div class="dot2"></div>
-      </div>
-    </div>
-  </div> -->
-  <!-- preloader area end -->
-
-  <!-- search Popup -->
-  <div class="body-overlay" id="body-overlay"></div>
-  <div class="search-popup" id="search-popup">
-    <form onsubmit="searchPage(event)" class="search-form">
-      <div class="form-group">
-        <input type="text" class="form-control" id="search-input" placeholder="Search....." />
-      </div>
-      <button type="submit" class="submit-btn">
-        <i class="fa fa-search"></i>
-      </button>
-      <div id="search-results" class="search-results"></div>
-    </form>
-  </div>
-  <!-- //. search Popup -->
-
-  <!-- //. sign in Popup -->
-  <div class="signIn-popup login-register-popup">
-    <div class="login-register-popup-wrap">
-      <div class="row no-gutters">
-        <div class="col-md-6">
-          <div class="thumb">
-            <img src="{{ asset($constants['IMAGEFILEPATH'] . 'others/admin-login.png') }}" alt="img" />
-          </div>
-        </div>
-        <div class="col-md-6 desktop-center-item">
-
-          <!-- Sign In Form -->
-          <form class="MapUI-form-wrap signIn-form needs-validation" id="signInForm" novalidate>
-            <h4 class="widget-title">Sign In</h4>
-
-            <div class="single-input-wrap">
-              <input type="email" class="single-input form-control" name="email" id="email" required />
-              <label>E-mail</label>
-              <div class="invalid-feedback">
-                Please enter a valid email address.
-              </div>
-            </div>
-
-            <div class="single-input-wrap">
-              <input type="password" class="single-input form-control" name="password" id="password" required
-                minlength="6" />
-              <label>Password</label>
-              <div class="invalid-feedback">
-                Please enter your password (minimum 6 characters).
-              </div>
-            </div>
-
-            <div class="remember-text">
-              <div class="checkbox-area-popup">
-                <input id="1checkbox" type="checkbox" class="float-left checkbox" />
-                <span>Remember me</span>
-              </div>
-              <span class="float-right forgot-password-text" id="forgotPasswordBtn">
-                Forgot your password?
-              </span>
-            </div>
-
-            <div class="btn-wrap">
-              <button type="submit" class="btn btn-green">Sign In</button>
-              <div class="dont-have-account-text">
-                <span>You don't have account?</span>
-                <a class="signup" href="registration.html">Sign Up</a>
-              </div>
-            </div>
-          </form>
-
-          <!-- Forgot Password Form -->
-          <form class="MapUI-form-wrap forgot-form needs-validation" id="forgotForm" style="display:none;" novalidate>
-            <div class="popup-widget-title">
-              <span class="forgot-heading">Forgot Password</span>
-              <span class="forgot-text">Please Enter Your Email Address To Receive a Link</span>
-            </div>
-
-            <div class="single-input-wrap">
-              <input type="email" class="single-input form-control" id="forgotEmail" required />
-              <label>Enter your email address</label>
-              <div class="invalid-feedback">
-                Please enter a valid email address.
-              </div>
-            </div>
-
-            <div class="btn-wrap">
-              <button type="submit" class="btn btn-green" id="sendEmailBtn">Send Email</button>
-              <div class="back-to-login" id="backToLoginBtn">
-                <i class="fa-solid fa-chevron-left"></i>
-                <span class="back-to-login-text">Back to Login</span>
-              </div>
-            </div>
-          </form>
-
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- //. sign in Popup End -->
-  <!-- //. client in Popup -->
-  <div class="client-popup login-register-popup">
-    <div class="login-register-popup-wrap">
-      <div class="row no-gutters">
-        <div class="col-md-6">
-          <div class="thumb">
-            <img src="{{ asset($constants['IMAGEFILEPATH'] . 'client-login.png') }}" alt="img" />
-          </div>
-        </div>
-        <div class="col-md-6 desktop-center-item">
-
-          <!-- Sign In Form with Bootstrap Validation -->
-          <form class="MapUI-form-wrap signIn-form needs-validation" novalidate>
-            <h4 class="widget-title">Sign In</h4>
-
-            <div class="single-input-wrap">
-              <input type="email" class="single-input form-control" name="email" required />
-              <label>E-mail</label>
-              <div class="invalid-feedback">
-                Please enter a valid email address.
-              </div>
-            </div>
-
-            <div class="single-input-wrap">
-              <input type="password" class="single-input form-control" name="password" required minlength="6" />
-              <label>Password</label>
-              <div class="invalid-feedback">
-                Please enter your password (minimum 6 characters).
-              </div>
-            </div>
-
-            <div class="remember-text">
-              <div class="checkbox-area-popup">
-                <input id="1checkbox" type="checkbox" class="float-left checkbox" />
-                <span>Remember me</span>
-              </div>
-              <span class="float-right forgot-password-text">Forgot your password?</span>
-            </div>
-
-            <div class="btn-wrap">
-              <button type="submit" class="btn btn-green">Sign In</button>
-              <div class="dont-have-account-text">
-                <span>You don't have an account?</span>
-                <a class="signup" href="registration.html">Sign Up</a>
-              </div>
-            </div>
-          </form>
-
-          <!--Forgot Password Form-->
-          <form class="MapUI-form-wrap forgot-form needs-validation" novalidate style="display:none;">
-            <div class="popup-widget-title">
-              <span class="forgot-heading">Forgot Password</span>
-              <span class="forgot-text">Please Enter Your Email Address To Receive a Link</span>
-            </div>
-
-            <div class="single-input-wrap">
-              <input type="email" class="single-input form-control" required />
-              <label>Enter your email address</label>
-              <div class="invalid-feedback">
-                Please enter a valid email address.
-              </div>
-            </div>
-
-            <div class="btn-wrap">
-              <button type="submit" class="btn btn-green">Send Email</button>
-              <div class="back-to-login">
-                <i class="fa-solid fa-chevron-left"></i>
-                <span class="back-to-login-text">Back to Login</span>
-              </div>
-            </div>
-          </form>
-
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- //. client Popup End -->
-
-
   <!-- breadcrumb area start -->
   <div class="breadcrumb-area" style="background-image: url(assets/img/page-title-bg.png)">
     <div class="container">
@@ -203,9 +48,21 @@
     </div>
   </div>
 
-  <div id="result-div">
-    result
-  </div>
+  <!-- SEARCH SECTION -->
+  <section class="container" style="padding:60px 0">
+
+    <div class="text-center mb-4">
+      <h2>Search the Website</h2>
+
+      <input type="text" id="search-input" placeholder="Search pages, industries, features..."
+        class="form-control" style="max-width:600px;margin:auto;padding:15px;font-size:18px" />
+
+    </div>
+
+    <!-- RESULTS -->
+    <div id="search-results"></div>
+
+  </section>
 
   <!-- Products & Partners Section -->
   <section class="partners-section">
@@ -238,57 +95,49 @@
         <div class="partners-marquee-track">
           <!-- Strip 1 -->
           <div class="partners-logo-strip">
-            <img src="{{ asset($constants['IMAGEFILEPATH'] . 'acronis-logo.png') }}" alt="Acronis" />
-            <img src="{{ asset($constants['IMAGEFILEPATH'] . 'kaspersky-logo.png') }}" alt="Kaspersky" />
-            <img src="{{ asset($constants['IMAGEFILEPATH'] . 'microsoft-logo.png') }}" alt="Microsoft" />
-            <img src="{{ asset($constants['IMAGEFILEPATH'] . 'dell-logo.png') }}" alt="Dell" />
-            <img src="{{ asset($constants['IMAGEFILEPATH'] . 'amazon-logo.png') }}" alt="Amazon" />
-            <img src="{{ asset($constants['IMAGEFILEPATH'] . 'quick-heal-logo.png') }}" alt="Quick Heal" />
-            <img src="{{ asset($constants['IMAGEFILEPATH'] . 'escan-logo.png') }}" alt="Escan" />
-            <img src="{{ asset($constants['IMAGEFILEPATH'] . 'sonic-wall-logo.png') }}" alt="SonicWall" />
-            <img src="{{ asset($constants['IMAGEFILEPATH'] . 'hp-logo.png') }}" alt="HP" />
-            <img src="{{ asset($constants['IMAGEFILEPATH'] . 'fortinet-logo.png') }}" alt="Fortinet" />
-            <img src="{{ asset($constants['IMAGEFILEPATH'] . 'eset-logo.png') }}" alt="ESET" />
-            <img src="{{ asset($constants['IMAGEFILEPATH'] . 'cisco-logo.png') }}" alt="Cisco" />
-            <img src="{{ asset($constants['IMAGEFILEPATH'] . 'alibaba-cloud-logo.png') }}" alt="Alibaba Cloud" />
-            <img src="{{ asset($constants['IMAGEFILEPATH'] . 'sophos-logo.png') }}" alt="Sophos" />
-            <img src="{{ asset($constants['IMAGEFILEPATH'] . 'symantec-logo.png') }}" alt="Symantec" />
-            <img src="{{ asset($constants['IMAGEFILEPATH'] . 'trend-micro-logo.png') }}" alt="Trend Micro" />
-            <img src="{{ asset($constants['IMAGEFILEPATH'] . 'veeam-logo.png') }}" alt="Veeam" />
-            <img src="{{ asset($constants['IMAGEFILEPATH'] . 'watchguard-logo.png') }}" alt="Watchguard" />
+            <img src="/assets/img/acronis-logo.png" alt="Acronis" loading="lazy" />
+            <img src="/assets/img/kaspersky-logo.png" alt="Kaspersky" loading="lazy" />
+            <img src="/assets/img/microsoft-logo.png" alt="Microsoft" loading="lazy" />
+            <img src="/assets/img/dell-logo.png" alt="Dell" loading="lazy" />
+            <img src="/assets/img/amazon-logo.png" alt="Amazon" loading="lazy" />
+            <img src="/assets/img/quick-heal-logo.png" alt="Quick Heal" loading="lazy" />
+            <img src="/assets/img/escan-logo.png" alt="Escan" loading="lazy" />
+            <img src="/assets/img/sonic-wall-logo.png" alt="SonicWall" loading="lazy" />
+            <img src="/assets/img/hp-logo.png" alt="HP" loading="lazy" />
+            <img src="/assets/img/fortinet-logo.png" alt="Fortinet" loading="lazy" />
+            <img src="/assets/img/eset-logo.png" alt="ESET" loading="lazy" />
+            <img src="/assets/img/cisco-logo.png" alt="Cisco" loading="lazy" />
+            <img src="/assets/img/alibaba-cloud-logo.png" alt="Alibaba Cloud" loading="lazy" />
+            <img src="/assets/img/sophos-logo.png" alt="Sophos" loading="lazy" />
+            <img src="/assets/img/symantec-logo.png" alt="Symantec" loading="lazy" />
+            <img src="/assets/img/trend-micro-logo.png" alt="Trend Micro" loading="lazy" />
+            <img src="/assets/img/veeam-logo.png" alt="Veeam" loading="lazy" />
+            <img src="/assets/img/watchguard-logo.png" alt="Watchguard" loading="lazy" />
           </div>
 
           <!-- Duplicate strip for seamless loop -->
           <div class="partners-logo-strip">
-            <img src="{{ asset($constants['IMAGEFILEPATH'] . 'acronis-logo.png') }}" alt="Acronis" />
-            <img src="{{ asset($constants['IMAGEFILEPATH'] . 'kaspersky-logo.png') }}" alt="Kaspersky" />
-            <img src="{{ asset($constants['IMAGEFILEPATH'] . 'microsoft-logo.png') }}" alt="Microsoft" />
-            <img src="{{ asset($constants['IMAGEFILEPATH'] . 'dell-logo.png') }}" alt="Dell" />
-            <img src="{{ asset($constants['IMAGEFILEPATH'] . 'amazon-logo.png') }}" alt="Amazon" />
-            <img src="{{ asset($constants['IMAGEFILEPATH'] . 'quick-heal-logo.png') }}" alt="Quick Heal" />
-            <img src="{{ asset($constants['IMAGEFILEPATH'] . 'escan-logo.png') }}" alt="Escan" />
-            <img src="{{ asset($constants['IMAGEFILEPATH'] . 'sonic-wall-logo.png') }}" alt="SonicWall" />
-            <img src="{{ asset($constants['IMAGEFILEPATH'] . 'hp-logo.png') }}" alt="HP" />
-            <img src="{{ asset($constants['IMAGEFILEPATH'] . 'fortinet-logo.png') }}" alt="Fortinet" />
-            <img src="{{ asset($constants['IMAGEFILEPATH'] . 'eset-logo.png') }}" alt="ESET" />
-            <img src="{{ asset($constants['IMAGEFILEPATH'] . 'cisco-logo.png') }}" alt="Cisco" />
-            <img src="{{ asset($constants['IMAGEFILEPATH'] . 'alibaba-cloud-logo.png') }}" alt="Alibaba Cloud" />
-            <img src="{{ asset($constants['IMAGEFILEPATH'] . 'sophos-logo.png') }}" alt="Sophos" />
-            <img src="{{ asset($constants['IMAGEFILEPATH'] . 'symantec-logo.png') }}" alt="Symantec" />
-            <img src="{{ asset($constants['IMAGEFILEPATH'] . 'trend-micro-logo.png') }}" alt="Trend Micro" />
-            <img src="{{ asset($constants['IMAGEFILEPATH'] . 'veeam-logo.png') }}" alt="Veeam" />
-            <img src="{{ asset($constants['IMAGEFILEPATH'] . 'watchguard-logo.png') }}" alt="Watchguard" />
+            <img src="/assets/img/acronis-logo.png" alt="Acronis" loading="lazy" />
+            <img src="/assets/img/kaspersky-logo.png" alt="Kaspersky" loading="lazy" />
+            <img src="/assets/img/microsoft-logo.png" alt="Microsoft" loading="lazy" />
+            <img src="/assets/img/dell-logo.png" alt="Dell" loading="lazy" />
+            <img src="/assets/img/amazon-logo.png" alt="Amazon" loading="lazy" />
+            <img src="/assets/img/quick-heal-logo.png" alt="Quick Heal" loading="lazy" />
+            <img src="/assets/img/escan-logo.png" alt="Escan" loading="lazy" />
+            <img src="/assets/img/sonic-wall-logo.png" alt="SonicWall" loading="lazy" />
+            <img src="/assets/img/hp-logo.png" alt="HP" loading="lazy" />
+            <img src="/assets/img/fortinet-logo.png" alt="Fortinet" loading="lazy" />
+            <img src="/assets/img/eset-logo.png" alt="ESET" loading="lazy" />
+            <img src="/assets/img/cisco-logo.png" alt="Cisco" loading="lazy" />
+            <img src="/assets/img/alibaba-cloud-logo.png" alt="Alibaba Cloud" loading="lazy" />
+            <img src="/assets/img/sophos-logo.png" alt="Sophos" loading="lazy" />
+            <img src="/assets/img/symantec-logo.png" alt="Symantec" loading="lazy" />
+            <img src="/assets/img/trend-micro-logo.png" alt="Trend Micro" loading="lazy" />
+            <img src="/assets/img/veeam-logo.png" alt="Veeam" loading="lazy" />
+            <img src="/assets/img/watchguard-logo.png" alt="Watchguard" loading="lazy" />
           </div>
         </div>
       </div>
     </div>
   </section>
-
-
-
-  <!-- back to top area start -->
-  <div class="back-to-top">
-    <span class="back-top"><i class="fa fa-angle-up"></i></span>
-  </div>
-  <!-- back to top area end -->
   @endsection

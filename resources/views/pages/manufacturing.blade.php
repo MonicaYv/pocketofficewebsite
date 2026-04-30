@@ -1,35 +1,6 @@
  @extends('layouts.backendsettings')
- @section('title', 'Manufacturing')
+ @section('title', 'Manufacturing Solutions | Smart Industry Services')
  @section('content')
- <!-- preloader area start -->
- <!-- <div class="preloader" id="preloader">
-     <div class="preloader-inner">
-         <div class="spinner">
-             <div class="dot1"></div>
-             <div class="dot2"></div>
-         </div>
-     </div>
- </div> -->
- <!-- preloader area end -->
-
- <!-- search Popup -->
- <div class="body-overlay" id="body-overlay"></div>
- <div class="search-popup" id="search-popup">
-     <form onsubmit="searchPage(event)" class="search-form">
-         <div class="form-group">
-             <input type="text" class="form-control" id="search-input" placeholder="Search....." />
-         </div>
-         <button type="submit" class="submit-btn">
-             <i class="fa fa-search"></i>
-         </button>
-         <div id="search-results" class="search-results"></div>
-     </form>
- </div>
- <!-- //. search Popup -->
-
-
-
-
  <!-- breadcrumb area start -->
  <div class="breadcrumb-area"
      style="background-image: url(assets/img/hero-images/industries/Manufacturing/Manufacturing\ 1.svg)">
@@ -52,48 +23,47 @@
      <aside class="sidebar">
          <h2><strong>Industry Solutions</strong></h2>
 
-         <a href="  {{ url('bpo') }}
-">
+         <a href="bpo.html">
              <i class="fa fa-phone mr-2"></i>BPO Outsourcing
          </a>
 
-         <a href="  {{ url('consulting') }}">
+         <a href="consulting.html">
              <i class="fa fa-briefcase mr-2"></i>Consulting
          </a>
 
-         <a href="{{ url('design') }}">
+         <a href="design.html">
              <i class="fa fa-paint-brush mr-2"></i>Design & Media Studios
          </a>
 
-         <a href="{{ url('education') }}">
+         <a href="education.html">
              <i class="fa fa-graduation-cap mr-2"></i>Education
          </a>
 
-         <a href="{{ url('finance-accounting') }}">
+         <a href="finance-accounting.html">
              <i class="fa fa-line-chart mr-2"></i>Finance & Accounting
          </a>
 
-         <a href="{{ url('healthcare') }}">
+         <a href="healthcare.html">
              <i class="fa fa-heartbeat mr-2"></i>Healthcare
          </a>
 
-         <a href="{{ url('it-software') }}">
+         <a href="it-software.html">
              <i class="fa fa-desktop mr-2"></i>IT & Software Development
          </a>
 
-         <a href="{{ url('legal-services') }}">
+         <a href="legal-services.html">
              <i class="fa fa-balance-scale mr-2"></i>Legal Services
          </a>
 
-         <a href="{{ url('manufacturing') }}">
+         <a href="manufacturing.html">
              <i class="fa fa-industry mr-2"></i>Manufacturing
          </a>
 
-         <a href="{{ url('media-publishing') }}">
+         <a href="media-publishing.html">
              <i class="fa fa-newspaper-o mr-2"></i>Media & Publishing
          </a>
 
-         <a href="{{ url('retail-ecommerce') }}">
+         <a href="retail-ecommerce.html">
              <i class="fa fa-shopping-cart mr-2"></i>Retail & E-commerce
          </a>
 
@@ -109,7 +79,7 @@
              <h1>Manufacturing</h1>
          </div>
          <div class="banner">
-             <img src="{{ asset($constants['IMAGEFILEPATH'] . 'hero-images/industries/Manufacturing/Manufacturing 2.svg') }}" alt="Manufacturing" />
+             <img src="./assets/img/hero-images/industries/Manufacturing/Manufacturing 2.svg" alt="Manufacturing" loading="lazy" />
              <div class="overlay">
                  <div class="overlay-text">
                      <h3>Manufacturing excellence redefined</h3>
@@ -199,12 +169,8 @@
 
      </main>
  </div>
+ @endsection
 
- <!-- back to top area start -->
- <div class="back-to-top">
-     <span class="back-top"><i class="fa fa-angle-up"></i></span>
- </div>
- <!-- back to top area end -->
  <script>
      const currentPage = window.location.pathname.split("/").pop();
      document.querySelectorAll(".sidebar a").forEach((link) => {
@@ -213,4 +179,3 @@
          }
      });
  </script>
- @endsection

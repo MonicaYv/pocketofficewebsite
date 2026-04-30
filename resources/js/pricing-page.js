@@ -195,36 +195,36 @@ $(document).ready(function () {
        STEP 1 — SAVE & VERIFY
     ======================================== */
 
-    $(document).on("click", "#sideSubmitBtn", function () {
+    // $(document).on("click", "#sideSubmitBtn", function () {
 
-        console.log("Save & Verify clicked");
+    //     console.log("Save & Verify clicked");
 
-        $("#registrationForm").hide();
+    //     $("#registrationForm").hide();
 
-        $("#formCol").append(buildReviewHTML());
+    //     $("#formCol").append(buildReviewHTML());
 
-        $("#sideSubmitBtn")
-            .attr("id", "verifyCheckoutBtn")
-            .text("Verify & Checkout");
+    //     $("#sideSubmitBtn")
+    //         .attr("id", "verifyCheckoutBtn")
+    //         .text("Verify & Checkout");
 
-    });
+    // });
 
 
     /* ========================================
        EDIT BUTTON
     ======================================== */
 
-    $(document).on("click", "#editBtn", function () {
+    // $(document).on("click", "#editBtn", function () {
 
-        $("#reviewView").remove();
+    //     $("#reviewView").remove();
 
-        $("#registrationForm").show();
+    //     $("#registrationForm").show();
 
-        $("#verifyCheckoutBtn")
-            .attr("id", "sideSubmitBtn")
-            .text("Save & Verify");
+    //     $("#verifyCheckoutBtn")
+    //         .attr("id", "sideSubmitBtn")
+    //         .text("Save & Verify");
 
-    });
+    // });
 
     function createToast(title, message, desc, time, type) {
 

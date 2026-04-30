@@ -1,40 +1,15 @@
 @extends('layouts.backendsettings')
-@section('title', 'Documentation')
+@section('title', 'Help Center & Documentation | Cloud Desktop Guides | Pocket Office')
 @section('content')
-<!-- preloader area start -->
-<!-- <div class="preloader" id="preloader">
-    <div class="preloader-inner">
-        <div class="spinner">
-            <div class="dot1"></div>
-            <div class="dot2"></div>
-        </div>
-    </div>
-</div> -->
-<!-- preloader area end -->
-<!-- //. search Popup -->
-<div class="body-overlay" id="body-overlay"></div>
-<div class="search-popup" id="search-popup">
-    <form onsubmit="searchPage(event)" class="search-form">
-        <div class="form-group">
-            <input type="text" class="form-control" id="search-input" placeholder="Search....." />
-        </div>
-        <button type="submit" class="submit-btn">
-            <i class="fa fa-search"></i>
-        </button>
-        <div id="search-results" class="search-results"></div>
-    </form>
-</div>
-
-
 <!-- breadcrumb area start -->
-<div class="breadcrumb-area" style="background-image: url(assets/img/hero-images/getting-started.svg)">
+<div
+    class="breadcrumb-area"
+    style="background-image: url(assets/img/hero-images/getting-started.svg)">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
                 <div class="breadcrumb-inner">
                     <h1 class="page-title">Team Setup & Collaboration</h1>
-
-
                 </div>
             </div>
         </div>
@@ -43,7 +18,7 @@
 <!-- breadcrumb area End -->
 
 <section class="docs-wrapper">
-
+    <!-- Sidebar Navigation -->
     <div class="aside-login">
         <aside class="docs-sidebar">
             <h3>Getting Started</h3>
@@ -62,56 +37,60 @@
 
         </aside>
         <div class="mt-4">
-            <a href="{{ route('docs.login') }}"
-                class="btn btn-primary w-100"
-                id="loginBtn">
+            <a href="./docs-login.html" class="btn btn-primary w-100" id="loginBtn">
                 Login to Training Portal
             </a>
         </div>
     </div>
-
     <!-- Main Content -->
     <div class="docs-content">
-
         <!-- Hero Section -->
         <div class="hero">
             <h1>Getting Started</h1>
             <p>
-                Set up your complete PocketOffice cloud desktop in minutes — no installation or complex
-                configuration required.
-                This checklist guides you from your first login to productive use.
+                Set up your complete PocketOffice cloud desktop in minutes — no
+                installation or complex configuration required. This checklist
+                guides you from your first login to productive use.
             </p>
         </div>
 
         <!-- Section 1 -->
         <section id="overview" class="doc-section">
-            <h2>Get a Quick Overview</h2>
+            <h3>Get a Quick Overview</h3>
             <p class="section-intro">
                 Understand the desktop layout and core workflows before customizing.
             </p>
 
             <div class="doc-item">
                 <h3>Intro to PocketOffice</h3>
-                <p>High-level walkthrough of files, apps, multitasking, and system widgets.</p>
+                <p>
+                    High-level walkthrough of files, apps, multitasking, and system
+                    widgets.
+                </p>
             </div>
 
             <div class="doc-item">
                 <h3>Explore the Demo Workspace</h3>
-                <p>Try a live demo of files, folders, apps, and shared workspaces.</p>
+                <p>
+                    Try a live demo of files, folders, apps, and shared workspaces.
+                </p>
                 <span class="note">
-                    Note: Demo changes reset on refresh and may not include advanced admin or security settings.
+                    Note: Demo changes reset on refresh and may not include advanced
+                    admin or security settings.
                 </span>
             </div>
 
             <div class="doc-item">
                 <h3>Watch the Desktop Tour</h3>
-                <p>Learn navigation, window management, and drag-and-drop actions.</p>
+                <p>
+                    Learn navigation, window management, and drag-and-drop actions.
+                </p>
             </div>
         </section>
 
         <!-- Section 2 -->
         <section id="workspace" class="doc-section">
-            <h2>Set Up Your Workspace</h2>
+            <h3>Set Up Your Workspace</h3>
             <p class="section-intro">
                 Customize your workspace solo or with a team.
             </p>
@@ -134,9 +113,10 @@
 
         <!-- Section 3 -->
         <section id="working" class="doc-section">
-            <h2>Start Working</h2>
+            <h3>Start Working</h3>
             <p class="section-intro">
-                Personalize your workspace and start working independently or together with your team.
+                Personalize your workspace and start working independently or
+                together with your team.
             </p>
 
             <div class="doc-item">
@@ -157,9 +137,10 @@
 
         <!-- Section 4 -->
         <section id="collaborate" class="doc-section">
-            <h2>Collaborate & Share</h2>
+            <h3>Collaborate & Share</h3>
             <p class="section-intro">
-                Share resources securely and collaborate with your team to keep work organized and accessible.
+                Share resources securely and collaborate with your team to keep work
+                organized and accessible.
             </p>
 
             <div class="doc-item">
@@ -169,7 +150,10 @@
 
             <div class="doc-item">
                 <h3>Share Files & Folders</h3>
-                <p>Internal or external sharing with permission and time-limited access.</p>
+                <p>
+                    Internal or external sharing with permission and time-limited
+                    access.
+                </p>
             </div>
 
             <div class="doc-item">
@@ -180,7 +164,7 @@
 
         <!-- Section 5 -->
         <section id="secure" class="doc-section">
-            <h2>Secure & Manage Access</h2>
+            <h3>Secure & Manage Access</h3>
 
             <div class="doc-item">
                 <h3>Set Permissions</h3>
@@ -197,14 +181,6 @@
                 <p>Protect and recover your data anytime.</p>
             </div>
         </section>
-
     </div>
 </section>
-
-
-<!-- back to top area start -->
-<div class="back-to-top">
-    <span class="back-top"><i class="fa fa-angle-up"></i></span>
-</div>
-<!-- back to top area end -->
 @endsection

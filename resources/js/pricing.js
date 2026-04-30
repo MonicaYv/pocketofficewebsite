@@ -98,91 +98,98 @@ $(document).ready(function () {
 
   /* ── 6. LOAD CURRENCY DROPDOWN ────────────────────────────── */
   async function loadCurrencies(pinned) {
-    $currencyMenu.find('li[data-currency]').remove();
-    $currencyMenu.append('<li class="currency-loading">Loading…</li>');
-    let entries = [];
-    try {
-      const res = await fetch('https://restcountries.com/v3.1/all?fields=name,currencies');
-      if (!res.ok) throw new Error();
-      const countries = await res.json();
-      const seen = new Set();
-      countries.forEach(c => {
-        if (!c.currencies) return;
-        const code = Object.keys(c.currencies)[0];
-        const symbol = c.currencies[code]?.symbol || code;
-        const key = code + '|' + c.name.common;
-        if (seen.has(key)) return;
-        seen.add(key);
-        entries.push({ code, symbol, name: c.name.common });
-      });
-    } catch (_) {
-      entries = [
-        { code: 'INR', symbol: '₹', name: 'India' },
-        { code: 'USD', symbol: '$', name: 'United States' },
-        { code: 'MYR', symbol: 'RM', name: 'Malaysia' },
-        { code: 'EUR', symbol: '€', name: 'European Union' },
-        { code: 'GBP', symbol: '£', name: 'United Kingdom' },
-        { code: 'SGD', symbol: 'S$', name: 'Singapore' },
-        { code: 'AUD', symbol: 'A$', name: 'Australia' },
-        { code: 'CAD', symbol: 'C$', name: 'Canada' },
-        { code: 'JPY', symbol: '¥', name: 'Japan' },
-      ];
-    }
-    entries.sort((a, b) => a.name.localeCompare(b.name));
-    if (pinned) {
-      const idx = entries.findIndex(e => e.code === pinned);
-      if (idx > -1) { const [p] = entries.splice(idx, 1); entries.unshift(p); }
-    }
-    $currencyMenu.find('.currency-loading').remove();
-    entries.forEach(e => {
-      const $li = $('<li>')
-        .text(`${e.code} (${e.symbol}) – ${e.name}`)
-        .attr({
-          'data-currency': e.code, 'data-symbol': e.symbol,
-          'data-rate': CURRENCY_RATES[e.code] || 1, 'data-country': e.name
-        });
-      if (e.code === currentCurrency) $li.addClass('selected');
-      $currencyMenu.append($li);
-    });
+    // $currencyMenu.find('li[data-currency]').remove();
+    // $currencyMenu.append('<li class="currency-loading">Loading…</li>');
+    // let entries = [];
+    // try {
+    //   const res = await fetch('https://restcountries.com/v3.1/all?fields=name,currencies');
+    //   if (!res.ok) throw new Error();
+    //   const countries = await res.json();
+    //   const seen = new Set();
+    //   countries.forEach(c => {
+    //     if (!c.currencies) return;
+    //     const code = Object.keys(c.currencies)[0];
+    //     const symbol = c.currencies[code]?.symbol || code;
+    //     const key = code + '|' + c.name.common;
+    //     if (seen.has(key)) return;
+    //     seen.add(key);
+    //     entries.push({ code, symbol, name: c.name.common });
+    //   });
+    // } catch (_) {
+    //   entries = [
+    //     { code: 'MYR', symbol: 'RM', name: 'Malaysia' },
+    //     { code: 'INR', symbol: '₹', name: 'India' },
+    //     { code: 'USD', symbol: '$', name: 'United States' },        
+    //     { code: 'EUR', symbol: '€', name: 'European Union' },
+    //     { code: 'GBP', symbol: '£', name: 'United Kingdom' },
+    //     { code: 'SGD', symbol: 'S$', name: 'Singapore' },
+    //     { code: 'AUD', symbol: 'A$', name: 'Australia' },
+    //     { code: 'CAD', symbol: 'C$', name: 'Canada' },
+    //     { code: 'JPY', symbol: '¥', name: 'Japan' },
+    //   ];
+    // }
+    // entries.sort((a, b) => a.name.localeCompare(b.name));
+    // // if (pinned) {
+    // //   const idx = entries.findIndex(e => e.code === pinned);
+    // //   if (idx > -1) { const [p] = entries.splice(idx, 1); entries.unshift(p); }
+    // // }
+    // const idx = entries.findIndex(e => e.code === 'MYR');
+    // if (idx > -1) {
+    //     const [myr] = entries.splice(idx, 1);
+    //     entries.unshift(myr);
+    // }
+
+    // $currencyMenu.find('.currency-loading').remove();
+    // entries.forEach(e => {
+    //   const $li = $('<li>')
+    //     .text(`${e.code} (${e.symbol}) – ${e.name}`)
+    //     .attr({
+    //       'data-currency': e.code, 'data-symbol': e.symbol,
+    //       'data-rate': CURRENCY_RATES[e.code] || 1, 'data-country': e.name
+    //     });
+    //   if (e.code === currentCurrency) $li.addClass('selected');
+    //   $currencyMenu.append($li);
+    // });
   }
 
   /* ── 7. AUTO-DETECT CURRENCY ──────────────────────────────── */
-  async function detectUserCurrency() {
-    let detected = 'INR';
-    try {
-      const d = await (await fetch('https://ipapi.co/json/')).json();
-      if (d.currency) detected = d.currency;
-    } catch (_) { }
-    await loadCurrencies(detected);
-    applyCurrency(detected);
-  }
+  // async function detectUserCurrency() {
+  //   // let detected = 'INR';
+  //   let detected = 'MYR';
+  //   try {
+  //     const d = await (await fetch('https://ipapi.co/json/')).json();
+  //     if (d.currency) detected = d.currency;
+  //   } catch (_) { }
+  //   await loadCurrencies(detected);
+  //   applyCurrency(detected);
+  // }
 
   /* ── 8. APPLY CURRENCY ────────────────────────────────────── */
-  function applyCurrency(code) {
-    currentCurrency = code;
-    const $li = $currencyMenu.find(`li[data-currency="${code}"]`).first();
-    currentSymbol = $li.length ? ($li.data('symbol') || code) : code;
-    currentRate = $li.length ? (parseFloat($li.data('rate')) || 1) : 1;
+  // function applyCurrency(code) {
+  //   currentCurrency = code;
+  //   const $li = $currencyMenu.find(`li[data-currency="${code}"]`).first();
+  //   currentSymbol = $li.length ? ($li.data('symbol') || code) : code;
+  //   currentRate = $li.length ? (parseFloat($li.data('rate')) || 1) : 1;
 
-    const liText = $li.text().trim();
-    const di = liText.indexOf('–');
-    const countryName = di > -1 ? liText.slice(di + 1).trim() : '';
-    $currencyCode.text(countryName ? `${code} – ${countryName}` : code);
+  //   const liText = $li.text().trim();
+  //   const di = liText.indexOf('–');
+  //   const countryName = di > -1 ? liText.slice(di + 1).trim() : '';
+  //   $currencyCode.text(countryName ? `${code} – ${countryName}` : code);
 
-    $currencyMenu.find('li[data-currency]').removeClass('selected');
-    $li.addClass('selected');
+  //   $currencyMenu.find('li[data-currency]').removeClass('selected');
+  //   $li.addClass('selected');
 
-    if ($li.length) {
-      const menu = $currencyMenu[0], item = $li[0];
-      const top = item.offsetTop, bot = top + item.offsetHeight;
-      if (top < menu.scrollTop || bot > menu.scrollTop + menu.clientHeight)
-        menu.scrollTop = top - menu.clientHeight / 2;
-    }
+  //   if ($li.length) {
+  //     const menu = $currencyMenu[0], item = $li[0];
+  //     const top = item.offsetTop, bot = top + item.offsetHeight;
+  //     if (top < menu.scrollTop || bot > menu.scrollTop + menu.clientHeight)
+  //       menu.scrollTop = top - menu.clientHeight / 2;
+  //   }
 
-    $('#currencySearch').val('');
-    $currencyMenu.find('li[data-currency]').show();
-    updateAllPrices();
-  }
+  //   $('#currencySearch').val('');
+  //   $currencyMenu.find('li[data-currency]').show();
+  //   updateAllPrices();
+  // }
 
   /* ── 9. PRICE HELPERS ─────────────────────────────────────── */
   function getMonthlyBase(plan) {
@@ -424,16 +431,16 @@ $(document).ready(function () {
   $(document).on('change', '#personalBillingToggle', updateAllPrices);
 
   /* ── 16. QUANTITY BUTTONS ─────────────────────────────────── */
-  $(document).on('click', '.plus', function () {
-    const $i = $(this).closest('.card-body, .pay-qty-wrapper').find('.qty-input');
-    $i.val(parseInt($i.val()) + 1);
-    updateAllPrices();
-  });
-  $(document).on('click', '.minus', function () {
-    const $i = $(this).closest('.card-body, .pay-qty-wrapper').find('.qty-input');
-    const cur = parseInt($i.val());
-    if (cur > 1) { $i.val(cur - 1); updateAllPrices(); }
-  });
+  // $(document).on('click', '.plus', function () {
+  //   const $i = $(this).closest('.card-body, .pay-qty-wrapper').find('.qty-input');
+  //   $i.val(parseInt($i.val()) + 1);
+  //   updateAllPrices();
+  // });
+  // $(document).on('click', '.minus', function () {
+  //   const $i = $(this).closest('.card-body, .pay-qty-wrapper').find('.qty-input');
+  //   const cur = parseInt($i.val());
+  //   if (cur > 1) { $i.val(cur - 1); updateAllPrices(); }
+  // });
 
   /* ── 17. WIRE GET STARTED BUTTONS ────────────────────────── */
   PLAN_LABELS.forEach(plan => {
@@ -447,31 +454,31 @@ $(document).ready(function () {
   });
 
   /* ── 18. SHARED BILLING TOGGLE (pill above teams cards) ───── */
-  (function () {
-    const $monthly = $('#sharedMonthlyBtn');
-    const $yearly = $('#sharedYearlyBtn');
-    if (!$monthly.length || !$yearly.length) return;
+  // (function () {
+  //   const $monthly = $('#sharedMonthlyBtn');
+  //   const $yearly = $('#sharedYearlyBtn');
+  //   if (!$monthly.length || !$yearly.length) return;
 
-    $monthly.on('click', function () {
-      $monthly.addClass('active');
-      $yearly.removeClass('active');
-      /* Silently sync all hidden per-card checkboxes */
-      $('.teams-section-wrapper .billing-toggle').each(function () {
-        this.checked = false;
-      });
-      updateAllPrices();
-    });
+  //   $monthly.on('click', function () {
+  //     $monthly.addClass('active');
+  //     $yearly.removeClass('active');
+  //     /* Silently sync all hidden per-card checkboxes */
+  //     $('.teams-section-wrapper .billing-toggle').each(function () {
+  //       this.checked = false;
+  //     });
+  //     updateAllPrices();
+  //   });
 
-    $yearly.on('click', function () {
-      $yearly.addClass('active');
-      $monthly.removeClass('active');
-      /* Silently sync all hidden per-card checkboxes */
-      $('.teams-section-wrapper .billing-toggle').each(function () {
-        this.checked = true;
-      });
-      updateAllPrices();
-    });
-  })();
+  //   $yearly.on('click', function () {
+  //     $yearly.addClass('active');
+  //     $monthly.removeClass('active');
+  //     /* Silently sync all hidden per-card checkboxes */
+  //     $('.teams-section-wrapper .billing-toggle').each(function () {
+  //       this.checked = true;
+  //     });
+  //     updateAllPrices();
+  //   });
+  // })();
 
   /* ── 19. BOOT ─────────────────────────────────────────────── */
   detectUserCurrency();

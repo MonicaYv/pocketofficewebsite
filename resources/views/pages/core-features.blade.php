@@ -252,7 +252,7 @@ Office')
                     <div class="core-features-card">
                         <div class="core-features-card-img">
                             <img
-                                src="/assets/img/core-features/share-access.svg"
+                                src="{{ asset($constants['IMAGEFILEPATH'] . 'core-features/share-access.svg') }}"
                                 alt="PocketOffice secure file sharing with role-based access permissions"
                                 title="Secure File Sharing in PocketOffice"
                                 width="600"
@@ -273,7 +273,7 @@ Office')
                     <div class="core-features-card">
                         <div class="core-features-card-img">
                             <img
-                                src="/assets/img/core-features/on-demand.svg"
+                                src="{{ asset($constants['IMAGEFILEPATH'] . 'core-features/on-demand.svg') }}"
                                 alt="PocketOffice on-demand cloud storage with scalable workspace capacity"
                                 title="On-Demand Cloud Storage in PocketOffice"
                                 width="600"
@@ -296,7 +296,7 @@ Office')
                     <div class="core-features-card">
                         <div class="core-features-card-img">
                             <img
-                                src="/assets/img/core-features/no-disruption.svg"
+                                src="{{ asset($constants['IMAGEFILEPATH'] . 'core-features/no-disruption.svg') }}"
                                 alt="PocketOffice seamless workflow with zero disruption during file access and collaboration"
                                 title="Seamless Workflow Without Disruption"
                                 width="600"
@@ -320,7 +320,7 @@ Office')
                     <div class="core-features-card">
                         <div class="core-features-card-img">
                             <img
-                                src="/assets/img/core-features/admin-controlled.svg"
+                                src="{{ asset($constants['IMAGEFILEPATH'] . 'core-features/admin-controlled.svg') }}"
                                 alt="PocketOffice admin control panel with user management and access permissions"
                                 title="Administrative Control & User Management"
                                 width="600"
@@ -349,7 +349,7 @@ Office')
                     <div class="core-features-card">
                         <div class="core-features-card-img">
                             <img
-                                src="/assets/img/core-features/true-desktop.svg"
+                                src="{{ asset($constants['IMAGEFILEPATH'] . 'core-features/true-desktop.svg') }}"
                                 alt="PocketOffice true cloud desktop experience accessible from any browser or device"
                                 title="True Cloud Desktop Experience"
                                 width="600"
@@ -374,7 +374,7 @@ Office')
                     <div class="core-features-card">
                         <div class="core-features-card-img">
                             <img
-                                src="/assets/img/core-features/faster-task-switching.svg"
+                                src="{{ asset($constants['IMAGEFILEPATH'] . 'core-features/faster-task-switching.svg') }}"
                                 alt="PocketOffice optimized performance for faster task execution and workflow efficiency"
                                 title="Faster Task Execution & Optimized Performance"
                                 width="600"
@@ -396,7 +396,7 @@ Office')
                     <div class="core-features-card">
                         <div class="core-features-card-img">
                             <img
-                                src="/assets/img/core-features/better-focus.svg"
+                                src="{{ asset($constants['IMAGEFILEPATH'] . 'core-features/better-focus.svg') }}"
                                 alt="PocketOffice distraction-free cloud desktop designed for better focus and productivity"
                                 title="Distraction-Free Workspace for Better Focus"
                                 width="600"
@@ -423,7 +423,7 @@ Office')
                     <div class="core-features-card">
                         <div class="core-features-card-img">
                             <img
-                                src="/assets/img/core-features/productivity-office-apps.svg"
+                                src="{{ asset($constants['IMAGEFILEPATH'] . 'core-features/productivity-office-apps.svg') }}"
                                 alt="PocketOffice integrated productivity office apps within the cloud desktop workspace"
                                 title="Integrated Productivity Office Apps"
                                 width="600"
@@ -447,7 +447,7 @@ Office')
                     <div class="core-features-card">
                         <div class="core-features-card-img">
                             <img
-                                src="/assets/img/core-features/communication-collaboration.svg"
+                                src="{{ asset($constants['IMAGEFILEPATH'] . 'core-features/communication-collaboration.svg') }}"
                                 alt="PocketOffice real-time collaboration and synchronized work across teams"
                                 title="Work in Sync with Real-Time Collaboration"
                                 width="600"
@@ -471,7 +471,7 @@ Office')
                     <div class="core-features-card">
                         <div class="core-features-card-img">
                             <img
-                                src="/assets/img/core-features/web-custom-applications.svg"
+                                src="{{ asset($constants['IMAGEFILEPATH'] . 'core-features/web-custom-applications.svg') }}"
                                 alt="PocketOffice custom web application integration within the cloud desktop workspace"
                                 title="Custom Web Application Integration"
                                 width="600"
@@ -495,7 +495,7 @@ Office')
                     <div class="core-features-card">
                         <div class="core-features-card-img">
                             <img
-                                src="/assets/img/core-features/move-files.svg"
+                                src="{{ asset($constants['IMAGEFILEPATH'] . 'core-features/move-files.svg') }}"
                                 alt="PocketOffice organized cloud workspace with structured files and folder management"
                                 title="Organize Your Workspace Efficiently"
                                 width="600"
@@ -520,7 +520,7 @@ Office')
                     <div class="core-features-card">
                         <div class="core-features-card-img">
                             <img
-                                src="/assets/img/core-features/seamless-app-file-interaction.svg"
+                                src="{{ asset($constants['IMAGEFILEPATH'] . 'core-features/seamless-app-file-interaction.svg') }}"
                                 alt="PocketOffice seamless integration between apps and files within the cloud workspace"
                                 title="Seamless App and File Integration"
                                 width="600"
@@ -545,7 +545,7 @@ Office')
                     <div class="core-features-card">
                         <div class="core-features-card-img">
                             <img
-                                src="/assets/img/core-features/designed-for-speed.svg"
+                                src="{{ asset($constants['IMAGEFILEPATH'] . 'core-features/designed-for-speed.svg') }}"
                                 alt="PocketOffice cloud desktop designed for speed, accuracy, and efficient task execution"
                                 title="Designed for Speed and Accuracy"
                                 width="600"
@@ -572,7 +572,7 @@ Office')
                     <div class="core-features-card">
                         <div class="core-features-card-img">
                             <img
-                                src="/assets/img/core-features/use-familiar-os-shortcuts.svg"
+                                src="{{ asset($constants['IMAGEFILEPATH'] . 'core-features/use-familiar-os-shortcuts.svg') }}"
                                 alt="PocketOffice cloud desktop with operating system keyboard shortcuts support"
                                 title="Use OS-Level Keyboard Shortcuts"
                                 width="600"
@@ -596,7 +596,7 @@ Office')
                     <div class="core-features-card">
                         <div class="core-features-card-img">
                             <img
-                                src="/assets/img/core-features/speed-up-daily-actions.svg"
+                                src="{{ asset($constants['IMAGEFILEPATH'] . 'core-features/speed-up-daily-actions.svg') }}"
                                 alt="PocketOffice tools that speed up daily actions and improve workflow productivity"
                                 title="Speed Up Daily Actions"
                                 width="600"
@@ -620,7 +620,7 @@ Office')
                     <div class="core-features-card">
                         <div class="core-features-card-img">
                             <img
-                                src="/assets/img/core-features/power-user productivity.svg"
+                                src="{{ asset($constants['IMAGEFILEPATH'] . 'core-features/power-user productivity.svg') }}"
                                 alt="PocketOffice advanced productivity tools designed for power users and efficient workflows"
                                 title="Power User Productivity Features"
                                 width="600"
@@ -648,7 +648,7 @@ Office')
                     <div class="core-features-card">
                         <div class="core-features-card-img">
                             <img
-                                src="/assets/img/core-features/work-across-devices-seamlessly.svg"
+                                src="{{ asset($constants['IMAGEFILEPATH'] . 'core-features/work-across-devices-seamlessly.svg') }}"
                                 alt="PocketOffice cloud desktop that works seamlessly across desktop, laptop, and mobile devices"
                                 title="Work Seamlessly Across Devices"
                                 width="600"
@@ -673,7 +673,7 @@ Office')
                     <div class="core-features-card">
                         <div class="core-features-card-img">
                             <img
-                                src="/assets/img/core-features/a-day-to-day-scenario.svg"
+                                src="{{ asset($constants['IMAGEFILEPATH'] . 'core-features/a-day-to-day-scenario.svg') }}"
                                 alt="PocketOffice cloud desktop designed to support everyday business workflows and daily tasks"
                                 title="Built for Everyday Work Scenarios"
                                 width="600"
@@ -697,7 +697,7 @@ Office')
                     <div class="core-features-card">
                         <div class="core-features-card-img">
                             <img
-                                src="/assets/img/core-features/always-up-to-date.svg"
+                                src="{{ asset($constants['IMAGEFILEPATH'] . 'core-features/always-up-to-date.svg') }}"
                                 alt="PocketOffice cloud desktop that stays automatically updated with the latest features and security improvements"
                                 title="Always Up to Date"
                                 width="600"
@@ -723,7 +723,7 @@ Office')
                     <div class="core-features-card">
                         <div class="core-features-card-img">
                             <img
-                                src="/assets/img/core-features/desktop-laptop.svg"
+                                src="{{ asset($constants['IMAGEFILEPATH'] . 'core-features/desktop-laptop.svg') }}"
                                 alt="PocketOffice device-based access security feature for desktop and laptop"
                                 title="Device-Based Access Control - PocketOffice"
                                 loading="lazy"
@@ -747,7 +747,7 @@ Office')
                     <div class="core-features-card">
                         <div class="core-features-card-img">
                             <img
-                                src="/assets/img/core-features/tablets-mobile-devices.svg"
+                                src="{{ asset($constants['IMAGEFILEPATH'] . 'core-features/tablets-mobile-devices.svg') }}"
                                 alt="PocketOffice cloud workspace interface on tablet and mobile devices"
                                 width="600"
                                 height="400"
@@ -771,7 +771,7 @@ Office')
                     <div class="core-features-card">
                         <div class="core-features-card-img">
                             <img
-                                src="/assets/img/core-features/modern-browsers.svg"
+                                src="{{ asset($constants['IMAGEFILEPATH'] . 'core-features/modern-browsers.svg') }}"
                                 alt="PocketOffice cloud workspace accessible through modern web browsers"
                                 width="600"
                                 height="400"
@@ -791,7 +791,7 @@ Office')
                     <div class="core-features-card">
                         <div class="core-features-card-img">
                             <img
-                                src="/assets/img/core-features/calender-widget.svg"
+                                src="{{ asset($constants['IMAGEFILEPATH'] . 'core-features/calender-widget.svg') }}"
                                 alt="Secure Access"
                                 width="600"
                                 height="400"
@@ -813,7 +813,7 @@ Office')
                     <div class="core-features-card">
                         <div class="core-features-card-img">
                             <img
-                                src="/assets/img/core-features/system-monitor.svg"
+                                src="{{ asset($constants['IMAGEFILEPATH'] . 'core-features/system-monitor.svg') }}"
                                 alt="PocketOffice cloud workspace displayed across multiple system monitors"
                                 width="600"
                                 height="400"
@@ -835,7 +835,7 @@ Office')
                     <div class="core-features-card">
                         <div class="core-features-card-img">
                             <img
-                                src="/assets/img/core-features/notifications.svg"
+                                src="{{ asset($constants['IMAGEFILEPATH'] . 'core-features/notifications.svg') }}"
                                 alt="PocketOffice notification center dashboard with real-time alerts and updates"
                                 width="600"
                                 height="400"
@@ -861,7 +861,7 @@ Office')
                     <div class="core-features-card">
                         <div class="core-features-card-img">
                             <img
-                                src="/assets/img/core-features/view-access.svg"
+                                src="{{ asset($constants['IMAGEFILEPATH'] . 'core-features/view-access.svg') }}"
                                 alt="PocketOffice file sharing and permission-based access control interface"
                                 title="Permission-Based Access Control in PocketOffice"
                                 width="600"
@@ -883,7 +883,7 @@ Office')
                     <div class="core-features-card">
                         <div class="core-features-card-img">
                             <img
-                                src="/assets/img/core-features/edit-access.svg"
+                                src="{{ asset($constants['IMAGEFILEPATH'] . 'core-features/edit-access.svg') }}"
                                 alt="PocketOffice edit access permissions and secure file modification interface"
                                 title="Edit Access Control in PocketOffice"
                                 width="600"
@@ -905,7 +905,7 @@ Office')
                     <div class="core-features-card">
                         <div class="core-features-card-img">
                             <img
-                                src="/assets/img/core-features/share-access.svg"
+                                src="{{ asset($constants['IMAGEFILEPATH'] . 'core-features/share-access.svg') }}"
                                 alt="PocketOffice secure file sharing with role-based access permissions"
                                 title="Secure File Sharing in PocketOffice"
                                 width="600"
@@ -926,7 +926,7 @@ Office')
                     <div class="core-features-card">
                         <div class="core-features-card-img">
                             <img
-                                src="/assets/img/core-features/on-demand.svg"
+                                src="{{ asset($constants['IMAGEFILEPATH'] . 'core-features/on-demand.svg') }}"
                                 alt="PocketOffice on-demand cloud storage with scalable workspace capacity"
                                 title="On-Demand Cloud Storage in PocketOffice"
                                 width="600"
@@ -949,7 +949,7 @@ Office')
                     <div class="core-features-card">
                         <div class="core-features-card-img">
                             <img
-                                src="/assets/img/core-features/no-disruption.svg"
+                                src="{{ asset($constants['IMAGEFILEPATH'] . 'core-features/no-disruption.svg') }}"
                                 alt="PocketOffice seamless workflow with zero disruption during file access and collaboration"
                                 title="Seamless Workflow Without Disruption"
                                 width="600"
@@ -973,7 +973,7 @@ Office')
                     <div class="core-features-card">
                         <div class="core-features-card-img">
                             <img
-                                src="/assets/img/core-features/admin-controlled.svg"
+                                src="{{ asset($constants['IMAGEFILEPATH'] . 'core-features/admin-controlled.svg') }}"
                                 alt="PocketOffice admin control panel with user management and access permissions"
                                 title="Administrative Control & User Management"
                                 width="600"
@@ -1002,7 +1002,7 @@ Office')
                     <div class="core-features-card">
                         <div class="core-features-card-img">
                             <img
-                                src="/assets/img/core-features/true-desktop.svg"
+                                src="{{ asset($constants['IMAGEFILEPATH'] . 'core-features/true-desktop.svg') }}"
                                 alt="PocketOffice true cloud desktop experience accessible from any browser or device"
                                 title="True Cloud Desktop Experience"
                                 width="600"
@@ -1027,7 +1027,7 @@ Office')
                     <div class="core-features-card">
                         <div class="core-features-card-img">
                             <img
-                                src="/assets/img/core-features/faster-task-switching.svg"
+                                src="{{ asset($constants['IMAGEFILEPATH'] . 'core-features/faster-task-switching.svg') }}"
                                 alt="PocketOffice optimized performance for faster task execution and workflow efficiency"
                                 title="Faster Task Execution & Optimized Performance"
                                 width="600"
@@ -1049,7 +1049,7 @@ Office')
                     <div class="core-features-card">
                         <div class="core-features-card-img">
                             <img
-                                src="/assets/img/core-features/better-focus.svg"
+                                src="{{ asset($constants['IMAGEFILEPATH'] . 'core-features/better-focus.svg') }}"
                                 alt="PocketOffice distraction-free cloud desktop designed for better focus and productivity"
                                 title="Distraction-Free Workspace for Better Focus"
                                 width="600"
@@ -1078,7 +1078,7 @@ Office')
                     <div class="core-features-card">
                         <div class="core-features-card-img">
                             <img
-                                src="/assets/img/core-features/productivity-office-apps.svg"
+                                src="{{ asset($constants['IMAGEFILEPATH'] . 'core-features/productivity-office-apps.svg') }}"
                                 alt="PocketOffice integrated productivity office apps within the cloud desktop workspace"
                                 title="Integrated Productivity Office Apps"
                                 width="600"
@@ -1102,7 +1102,7 @@ Office')
                     <div class="core-features-card">
                         <div class="core-features-card-img">
                             <img
-                                src="/assets/img/core-features/communication-collaboration.svg"
+                                src="{{ asset($constants['IMAGEFILEPATH'] . 'core-features/communication-collaboration.svg') }}"
                                 alt="PocketOffice real-time collaboration and synchronized work across teams"
                                 title="Work in Sync with Real-Time Collaboration"
                                 width="600"
@@ -1126,7 +1126,7 @@ Office')
                     <div class="core-features-card">
                         <div class="core-features-card-img">
                             <img
-                                src="/assets/img/core-features/web-custom-applications.svg"
+                                src="{{ asset($constants['IMAGEFILEPATH'] . 'core-features/web-custom-applications.svg') }}"
                                 alt="PocketOffice custom web application integration within the cloud desktop workspace"
                                 title="Custom Web Application Integration"
                                 width="600"
@@ -1152,7 +1152,7 @@ Office')
                     <div class="core-features-card">
                         <div class="core-features-card-img">
                             <img
-                                src="/assets/img/core-features/move-files.svg"
+                                src="{{ asset($constants['IMAGEFILEPATH'] . 'core-features/move-files.svg') }}"
                                 alt="PocketOffice organized cloud workspace with structured files and folder management"
                                 title="Organize Your Workspace Efficiently"
                                 width="600"
@@ -1177,7 +1177,7 @@ Office')
                     <div class="core-features-card">
                         <div class="core-features-card-img">
                             <img
-                                src="/assets/img/core-features/seamless-app-file-interaction.svg"
+                                src="{{ asset($constants['IMAGEFILEPATH'] . 'core-features/seamless-app-file-interaction.svg') }}"
                                 alt="PocketOffice seamless integration between apps and files within the cloud workspace"
                                 title="Seamless App and File Integration"
                                 width="600"
@@ -1202,7 +1202,7 @@ Office')
                     <div class="core-features-card">
                         <div class="core-features-card-img">
                             <img
-                                src="/assets/img/core-features/designed-for-speed.svg"
+                                src="{{ asset($constants['IMAGEFILEPATH'] . 'core-features/designed-for-speed.svg') }}"
                                 alt="PocketOffice cloud desktop designed for speed, accuracy, and efficient task execution"
                                 title="Designed for Speed and Accuracy"
                                 width="600"
@@ -1231,7 +1231,7 @@ Office')
                     <div class="core-features-card">
                         <div class="core-features-card-img">
                             <img
-                                src="/assets/img/core-features/use-familiar-os-shortcuts.svg"
+                                src="{{ asset($constants['IMAGEFILEPATH'] . 'core-features/use-familiar-os-shortcuts.svg') }}"
                                 alt="PocketOffice cloud desktop with operating system keyboard shortcuts support"
                                 title="Use OS-Level Keyboard Shortcuts"
                                 width="600"
@@ -1255,7 +1255,7 @@ Office')
                     <div class="core-features-card">
                         <div class="core-features-card-img">
                             <img
-                                src="/assets/img/core-features/speed-up-daily-actions.svg"
+                                src="{{ asset($constants['IMAGEFILEPATH'] . 'core-features/speed-up-daily-actions.svg') }}"
                                 alt="PocketOffice tools that speed up daily actions and improve workflow productivity"
                                 title="Speed Up Daily Actions"
                                 width="600"
@@ -1279,7 +1279,7 @@ Office')
                     <div class="core-features-card">
                         <div class="core-features-card-img">
                             <img
-                                src="/assets/img/core-features/power-user productivity.svg"
+                                src="{{ asset($constants['IMAGEFILEPATH'] . 'core-features/power-user productivity.svg') }}"
                                 alt="PocketOffice advanced productivity tools designed for power users and efficient workflows"
                                 title="Power User Productivity Features"
                                 width="600"
@@ -1309,7 +1309,7 @@ Office')
                     <div class="core-features-card">
                         <div class="core-features-card-img">
                             <img
-                                src="/assets/img/core-features/work-across-devices-seamlessly.svg"
+                                src="{{ asset($constants['IMAGEFILEPATH'] . 'core-features/work-across-devices-seamlessly.svg') }}"
                                 alt="PocketOffice cloud desktop that works seamlessly across desktop, laptop, and mobile devices"
                                 title="Work Seamlessly Across Devices"
                                 width="600"
@@ -1334,7 +1334,7 @@ Office')
                     <div class="core-features-card">
                         <div class="core-features-card-img">
                             <img
-                                src="/assets/img/core-features/a-day-to-day-scenario.svg"
+                                src="{{ asset($constants['IMAGEFILEPATH'] . 'core-features/a-day-to-day-scenario.svg') }}"
                                 alt="PocketOffice cloud desktop designed to support everyday business workflows and daily tasks"
                                 title="Built for Everyday Work Scenarios"
                                 width="600"
@@ -1358,7 +1358,7 @@ Office')
                     <div class="core-features-card">
                         <div class="core-features-card-img">
                             <img
-                                src="/assets/img/core-features/always-up-to-date.svg"
+                                src="{{ asset($constants['IMAGEFILEPATH'] . 'core-features/always-up-to-date.svg') }}"
                                 alt="PocketOffice cloud desktop that stays automatically updated with the latest features and security improvements"
                                 title="Always Up to Date"
                                 width="600"

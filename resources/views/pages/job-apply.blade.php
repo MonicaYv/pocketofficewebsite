@@ -1,35 +1,6 @@
   @extends('layouts.backendsettings')
-  @section('title', 'Job Apply')
+  @section('title', 'Apply Job')
   @section('content')
-  <!-- preloader area start -->
-  <!-- <div class="preloader" id="preloader">
-    <div class="preloader-inner">
-      <div class="spinner">
-        <div class="dot1"></div>
-        <div class="dot2"></div>
-      </div>
-    </div>
-  </div> -->
-  <!-- preloader area end -->
-
-  <!-- search Popup -->
-  <div class="body-overlay" id="body-overlay"></div>
-  <div class="search-popup" id="search-popup">
-    <form onsubmit="searchPage(event)" class="search-form">
-      <div class="form-group">
-        <input type="text" class="form-control" id="search-input" placeholder="Search....." />
-      </div>
-      <button type="submit" class="submit-btn">
-        <i class="fa fa-search"></i>
-      </button>
-      <div id="search-results" class="search-results"></div>
-    </form>
-  </div>
-  <!-- //. search Popup -->
-
-
-
-
   <!-- Ui element start -->
   <div class="job-listing-page pd-top-190">
     <div class="container">
@@ -43,47 +14,77 @@
             </p>
           </div>
           <div class="job-apply-area">
-            <form id="jobApplyForm" class="MapUI-form-wrap" enctype="multipart/form-data">
+            <form
+              id="jobApplyForm"
+              class="MapUI-form-wrap"
+              enctype="multipart/form-data">
               <div class="row">
                 <div class="col-md-6">
                   <div class="single-input-wrap">
-                    <input type="text" name="firstName" class="single-input" required />
+                    <input
+                      type="text"
+                      name="firstName"
+                      class="single-input"
+                      required />
                     <label>First Name</label>
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="single-input-wrap">
-                    <input type="email" name="email" class="single-input" required />
+                    <input
+                      type="email"
+                      name="email"
+                      class="single-input"
+                      required />
                     <label>E-mail</label>
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="single-input-wrap">
-                    <input type="tel" name="phone" class="single-input" required />
+                    <input
+                      type="tel"
+                      name="phone"
+                      class="single-input"
+                      required />
                     <label>Phone</label>
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="single-input-wrap">
-                    <input type="text" name="position" class="single-input" required />
+                    <input
+                      type="text"
+                      name="position"
+                      class="single-input"
+                      required />
                     <label>Applying for the Position of</label>
                   </div>
                 </div>
                 <div class="col-md-12">
                   <div class="single-input-wrap">
-                    <textarea class="single-input" name="portfolio" cols="20"></textarea>
+                    <textarea
+                      class="single-input"
+                      name="portfolio"
+                      cols="20"></textarea>
                     <label>Portfolio Link</label>
                   </div>
                 </div>
                 <div class="col-md-12">
                   <div class="single-input-wrap">
-                    <textarea class="single-input" name="message" cols="20"></textarea>
+                    <textarea
+                      class="single-input"
+                      name="message"
+                      cols="20"></textarea>
                     <label>Write Your Message</label>
                   </div>
                 </div>
                 <div class="col-12">
                   <div class="custom-file MapUI-file-input-wrap">
-                    <input type="file" name="resume" class="MapUI-file-input" id="sb-file-input" required />
+                    <input
+                      type="file"
+                      name="resume"
+                      class="MapUI-file-input"
+                      id="sb-file-input"
+                      required />
                     <label class="custom-file-label" for="sb-file-input">Upload Your Resume</label>
                   </div>
                 </div>
@@ -98,12 +99,8 @@
     </div>
   </div>
   <!-- Ui element End -->
+  @endsection
 
-  <!-- back to top area start -->
-  <div class="back-to-top">
-    <span class="back-top"><i class="fa fa-angle-up"></i></span>
-  </div>
-  <!-- back to top area end -->
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const applyForm = document.getElementById("jobApplyForm");
@@ -123,16 +120,18 @@
 
         fetch("send_job_application.php", {
             method: "POST",
-            body: formData
+            body: formData,
           })
-          .then(res => res.json())
-          .then(data => {
+          .then((res) => res.json())
+          .then((data) => {
             if (data.result === "success") {
-              toastr.success(data.msg || "Application submitted successfully!");
+              toastr.success(
+                data.msg || "Application submitted successfully!",
+              );
               applyForm.reset();
 
               // Reset custom file input
-              const fileInput = document.getElementById('sb-file-input');
+              const fileInput = document.getElementById("sb-file-input");
               if (fileInput) {
                 fileInput.value = ""; // clears the file
                 const label = fileInput.nextElementSibling; // your custom label
@@ -142,7 +141,7 @@
               }
 
               // Hide modal if using Bootstrap modal
-              const modalEl = document.getElementById('jobApplyModal');
+              const modalEl = document.getElementById("jobApplyModal");
               if (modalEl) {
                 const modal = bootstrap.Modal.getInstance(modalEl);
                 if (modal) modal.hide();
@@ -161,4 +160,3 @@
       });
     });
   </script>
-  @endsection
