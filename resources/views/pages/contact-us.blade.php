@@ -1,5 +1,33 @@
   @extends('layouts.backendsettings')
   @section('title', 'Contact Us | Get in Touch with Pocket Office')
+  @section('meta-title', 'Contact Us | Get in Touch with Pocket Office')
+  @section('meta-description', 'Contact Pocket Office for inquiries about our cloud desktop platform, support, or to learn more about our secure workspace solutions.')
+  @section('meta-keywords', 'contact pocket office, cloud desktop support, workspace inquiries, get in touch')
+  @section('meta-image', 'https://pocketdesk.sizaf.com/assets/img/hero-images/Contact - Us.svg')
+  @section('canonical', 'https://pocketdesk.sizaf.com/contact-us.html')
+  @section('meta-url', 'https://pocketdesk.sizaf.com/contact-us.html')
+  @section('structured-data')
+  @verbatim
+  {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    "name": "Contact Us | Pocket Office",
+    "url": "https://pocketdesk.sizaf.com/contact-us.html",
+    "description": "Contact Pocket Office for inquiries about our cloud desktop platform, support, or to learn more about our secure workspace solutions.",
+    "inLanguage": "en",
+    "image": "https://pocketdesk.sizaf.com/assets/img/hero-images/Contact - Us.svg",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Pocket Office",
+      "url": "https://pocketdesk.sizaf.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://pocketdesk.sizaf.com/assets/img/logo/pocket-office-tm-final-logo.png"
+      }
+    }
+  }
+  @endverbatim
+  @endsection
   @section('content')
   <!-- breadcrumb area start -->
   <div class="breadcrumb-area" style="background-image:url('{{ asset($constants['IMAGEFILEPATH'] . 'hero-images/Contact\ -\ Us.svg') }}');">

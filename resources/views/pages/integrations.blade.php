@@ -1,5 +1,30 @@
   @extends('layouts.backendsettings')
   @section('title', 'Cloud Integrations for S3, OSS, COS, FTP & WebDAV | Pocket Office')
+  @section('meta-title', 'Cloud Integrations for S3, OSS, COS, FTP & WebDAV | Pocket Office')
+  @section('meta-description', 'Discover Pocket Office integrations with Alibaba OSS, Tencent COS, Amazon S3, FTP, WebDAV, and more to unify your cloud storage and enterprise tools.')
+  @section('meta-keywords', 'cloud integrations, S3 integration, OSS integration, COS integration, FTP integration, WebDAV integration, enterprise storage')
+  @section('meta-image', 'https://pocketdesk.sizaf.com/assets/img/hero-images/integrations.svg')
+  @section('canonical', 'https://pocketdesk.sizaf.com/integrations')
+  @section('meta-url', 'https://pocketdesk.sizaf.com/integrations')
+  @section('structured-data')
+  @verbatim
+    {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Integrations | Pocket Office",
+        "url": "https://pocketdesk.sizaf.com/integrations",
+        "description": "Discover Pocket Office integrations with Alibaba OSS, Tencent COS, Amazon S3, FTP, WebDAV, and more to unify your cloud storage and enterprise tools.",
+        "publisher": {
+        "@type": "Organization",
+        "name": "Pocket Office",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://pocketdesk.sizaf.com/assets/img/logo/pocket-office-tm-final-logo.png"
+        }
+        }
+    }
+  @endverbatim
+  @endsection
   @section('content')
 
   <!-- breadcrumb area start -->

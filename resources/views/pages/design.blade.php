@@ -1,5 +1,33 @@
     @extends('layouts.backendsettings')
     @section('title', 'Design & Media Services | Creative Branding Solutions')
+    @section('meta-title', 'Design & Media Services | Creative Branding Solutions')
+    @section('meta-description', 'Explore Pocket Office for design and media services, offering creative branding solutions and secure cloud workspaces for media professionals.')
+    @section('meta-keywords', 'design media services, creative branding solutions, media workspaces, cloud design tools')
+    @section('meta-image', 'https://pocketdesk.sizaf.com/assets/img/hero-images/industries/Design/Design 1.svg')
+    @section('canonical', 'https://pocketdesk.sizaf.com/design')
+    @section('meta-url', 'https://pocketdesk.sizaf.com/design')
+    @section('structured-data')
+    @verbatim
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Design & Media | Pocket Office",
+      "url": "https://pocketdesk.sizaf.com/design",
+      "description": "Explore Pocket Office for design and media services, offering creative branding solutions and secure cloud workspaces for media professionals.",
+      "inLanguage": "en",
+      "image": "https://pocketdesk.sizaf.com/assets/img/hero-images/industries/Design/Design 1.svg",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Pocket Office",
+        "url": "https://pocketdesk.sizaf.com",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://pocketdesk.sizaf.com/assets/img/logo/pocket-office-tm-final-logo.png"
+        }
+      }
+    }
+    @endverbatim
+    @endsection
     @section('content')
     <!-- breadcrumb area start -->
     <div

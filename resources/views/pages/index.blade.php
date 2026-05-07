@@ -1,5 +1,33 @@
 @extends('layouts.backendsettings')
 @section('title', 'Cloud Desktop That Runs Anywhere | Pocket Office')
+@section('meta-title', 'Cloud Desktop That Runs Anywhere | Pocket Office')
+@section('meta-description', 'Experience Pocket Office, the secure browser-based cloud desktop workspace that lets your team access files, apps, and collaboration tools from anywhere without installation.')
+@section('meta-keywords', 'cloud desktop, browser-based workspace, secure cloud desktop, remote collaboration, file management, virtual desktop')
+@section('meta-image', 'https://pocketdesk.sizaf.com/assets/img/Hero Section.webp')
+@section('canonical', 'https://pocketdesk.sizaf.com/')
+@section('meta-url', 'https://pocketdesk.sizaf.com/')
+@section('structured-data')
+@verbatim
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Pocket Office",
+  "url": "https://pocketdesk.sizaf.com/",
+  "description": "Pocket Office is a secure browser-based cloud desktop workspace that lets teams access files, apps, and collaboration tools from anywhere without installation.",
+  "inLanguage": "en",
+  "image": "https://pocketdesk.sizaf.com/assets/img/Hero Section.webp",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Pocket Office",
+    "url": "https://pocketdesk.sizaf.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://pocketdesk.sizaf.com/assets/img/logo/pocket-office-tm-final-logo.png"
+    }
+  }
+}
+@endverbatim
+@endsection
 @section('content')
 <!-- header area start -->
 <section class="hero-header">
@@ -52,7 +80,7 @@
             <div class="how-card">
                 <div class="how-card-img">
                     <video autoplay muted loop playsinline preload="metadata">
-                        <source src="/assets/animated-videos/index/access-from-anywhere.mp4" type="video/mp4">
+                        <source src="/assets/img/animated-videos/index/access-from-anywhere.mp4" type="video/mp4">
                     </video>
                 </div>
 
@@ -68,7 +96,7 @@
             <div class="how-card">
                 <div class="how-card-img">
                     <video autoplay muted loop playsinline preload="metadata">
-                        <source src="/assets/animated-videos/index/work-without-distraction-video.mp4"
+                        <source src="/assets/img/animated-videos/index/work-without-distraction-video.mp4"
                             type="video/mp4">
                     </video>
                 </div>
@@ -85,7 +113,7 @@
             <div class="how-card">
                 <div class="how-card-img">
                     <video autoplay muted loop playsinline preload="metadata">
-                        <source src="/assets/animated-videos/index/secure-by-design-video.mp4" type="video/mp4">
+                        <source src="/assets/img/animated-videos/index/secure-by-design-video.mp4" type="video/mp4">
                     </video>
                 </div>
 
@@ -220,7 +248,7 @@
             <div class="core-feature-right">
                 <div class="feature-image-wrapper">
                     <video autoplay muted loop playsinline preload="auto">
-                        <source src="/assets/animated-videos/index/index-core-features-video.mp4" type="video/mp4">
+                        <source src="/assets/img/animated-videos/index/index-core-features-video.mp4" type="video/mp4">
                     </video>
                 </div>
             </div>
@@ -290,7 +318,7 @@
 
                 <div class="sector-right">
                     <video autoplay muted loop playsinline loading="lazy">
-                        <source src="/assets/animated-videos/index/education.mp4" type="video/mp4">
+                        <source src="/assets/img/animated-videos/index/education.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
                 </div>
@@ -325,7 +353,7 @@
 
                 <div class="sector-right">
                     <video autoplay muted loop playsinline loading="lazy">
-                        <source src="/assets/animated-videos/index/healthcare.mp4" type="video/mp4">
+                        <source src="/assets/img/animated-videos/index/healthcare.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
                 </div>
@@ -360,7 +388,7 @@
 
                 <div class="sector-right">
                     <video autoplay muted loop playsinline loading="lazy">
-                        <source src="/assets/animated-videos/index/finance-legal.mp4" type="video/mp4">
+                        <source src="/assets/img/animated-videos/index/finance-legal.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
                 </div>
@@ -393,7 +421,7 @@
 
                 <div class="sector-right">
                     <video autoplay muted loop playsinline loading="lazy">
-                        <source src="/assets/animated-videos/index/it-software.mp4" type="video/mp4">
+                        <source src="/assets/img/animated-videos/index/it-software.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
                 </div>
@@ -419,7 +447,7 @@
 
                 <!-- 1 -->
                 <div class="storage-item active"
-                    data-video="/assets/animated-videos/index/works-with-your-cloud-storage.mp4">
+                    data-video="/assets/img/animated-videos/index/works-with-your-cloud-storage.mp4">
 
                     <div class="storage-header">
                         🔗 Works With Your Cloud Storage
@@ -438,7 +466,7 @@
                             </p>
                             <div class="storage-video-mobile">
                                 <video autoplay muted loop playsinline preload="auto">
-                                    <source src="/assets/animated-videos/index/works-with-your-cloud-storage.mp4"
+                                    <source src="/assets/img/animated-videos/index/works-with-your-cloud-storage.mp4"
                                         type="video/mp4">
                                 </video>
                             </div>
@@ -448,7 +476,7 @@
                 </div>
 
                 <!-- 2 -->
-                <div class="storage-item" data-video="/assets/animated-videos/index/one-unified-desktop-view.mp4">
+                <div class="storage-item" data-video="/assets/img/animated-videos/index/one-unified-desktop-view.mp4">
 
                     <div class="storage-header">
                         📁 One Unified Desktop View
@@ -466,7 +494,7 @@
                             </p>
                             <div class="storage-video-mobile">
                                 <video autoplay muted loop playsinline preload="auto">
-                                    <source src="/assets/animated-videos/index/one-unified-desktop-view.mp4"
+                                    <source src="/assets/img/animated-videos/index/one-unified-desktop-view.mp4"
                                         type="video/mp4">
                                 </video>
                             </div>
@@ -476,7 +504,7 @@
                 </div>
 
                 <!-- 3 -->
-                <div class="storage-item" data-video="/assets/animated-videos/index/enterprise-on-prem-support.mp4">
+                <div class="storage-item" data-video="/assets/img/animated-videos/index/enterprise-on-prem-support.mp4">
 
                     <div class="storage-header">
                         ⚙️ Enterprise & On-Prem Support
@@ -493,7 +521,7 @@
                             </p>
                             <div class="storage-video-mobile">
                                 <video autoplay muted loop playsinline preload="auto">
-                                    <source src="/assets/animated-videos/index/enterprise-on-prem-support.mp4"
+                                    <source src="/assets/img/animated-videos/index/enterprise-on-prem-support.mp4"
                                         type="video/mp4">
                                 </video>
                             </div>
@@ -503,7 +531,7 @@
                 </div>
 
                 <!-- 4 -->
-                <div class="storage-item" data-video="/assets/animated-videos/index/no-migration-required.mp4">
+                <div class="storage-item" data-video="/assets/img/animated-videos/index/no-migration-required.mp4">
 
                     <div class="storage-header">
                         🚀 No Migration Required
@@ -522,7 +550,7 @@
                             </p>
                             <div class="storage-video-mobile">
                                 <video autoplay muted loop playsinline preload="auto">
-                                    <source src="/assets/animated-videos/index/no-migration-required.mp4"
+                                    <source src="/assets/img/animated-videos/index/no-migration-required.mp4"
                                         type="video/mp4">
                                 </video>
                             </div>
@@ -538,7 +566,7 @@
                 <video id="storage-video" autoplay muted loop playsinline preload="auto">
 
                     <source id="storage-video-source"
-                        src="/assets/animated-videos/index/works-with-your-cloud-storage.mp4" type="video/mp4">
+                        src="/assets/img/animated-videos/index/works-with-your-cloud-storage.mp4" type="video/mp4">
 
                 </video>
             </div>

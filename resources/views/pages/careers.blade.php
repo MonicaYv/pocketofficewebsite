@@ -1,5 +1,33 @@
 @extends('layouts.backendsettings')
 @section('title', 'Careers at Pocket Office | Join Our Cloud Desktop Team')
+@section('meta-title', 'Careers at Pocket Office | Join Our Cloud Desktop Team')
+@section('meta-description', 'Explore career opportunities at Pocket Office and join our team building innovative cloud desktop solutions for modern workspaces.')
+@section('meta-keywords', 'careers pocket office, cloud desktop jobs, remote workspace team, join cloud desktop company')
+@section('meta-image', 'https://pocketdesk.sizaf.com/assets/img/hero-images/careers.svg')
+@section('canonical', 'https://pocketdesk.sizaf.com/careers')
+@section('meta-url', 'https://pocketdesk.sizaf.com/careers')
+@section('structured-data')
+@verbatim
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Careers | Pocket Office",
+  "url": "https://pocketdesk.sizaf.com/careers",
+  "description": "Explore career opportunities at Pocket Office and join our team building innovative cloud desktop solutions for modern workspaces.",
+  "inLanguage": "en",
+  "image": "https://pocketdesk.sizaf.com/assets/img/hero-images/careers.svg",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Pocket Office",
+    "url": "https://pocketdesk.sizaf.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://pocketdesk.sizaf.com/assets/img/logo/pocket-office-tm-final-logo.png"
+    }
+  }
+}
+@endverbatim
+@endsection
 @section('content')
 <!-- breadcrumb area start -->
 <div

@@ -1776,7 +1776,7 @@ ul.wp-block-latest-posts.is-grid.alignwide {
 }
 
 .navbar-area.navbar-area-fixed .nav-container .responsive-mobile-menu .mobile-logo .logo {
-  background-image: url(../img/logo/pocket-office-tm-final-logo.png);
+  background-image: url(/assets/img/logo/pocket-office-tm-final-logo.png);
 }
 
 .navbar-area .nav-container .responsive-mobile-menu .mobile-logo .custom-width {
@@ -1788,14 +1788,14 @@ ul.wp-block-latest-posts.is-grid.alignwide {
   display: flex;
   -webkit-box-align: center;
   align-items: center;
-  background-image: url(../img/logo/pocket-office-tm-final-logo.png);
+  background-image: url(/assets/img/logo/pocket-office-tm-final-logo.png);
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
 }
 
 .navbar-area.navbar-area-fixed .nav-container .navbar-collapse .desktop-logo .logo {
-  background-image: url(../img/logo/pocket-office-tm-final-logo.png);
+  background-image: url(/assets/img/logo/pocket-office-tm-final-logo.png);
 }
 
 .navbar-area .nav-container .navbar-collapse .desktop-logo .custom-width {
@@ -1807,7 +1807,7 @@ ul.wp-block-latest-posts.is-grid.alignwide {
   display: flex;
   -webkit-box-align: center;
   align-items: center;
-  background-image: url(../img/logo/pocket-office-tm-final-logo.png);
+  background-image: url(/assets/img/logo/pocket-office-tm-final-logo.png);
   background-position: left;
   background-repeat: no-repeat;
   background-size: contain;

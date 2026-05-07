@@ -1,5 +1,33 @@
      @extends('layouts.backendsettings')
      @section('title', 'Media & Publishing Services | Digital Content Solutions')
+     @section('meta-title', 'Media & Publishing Services | Digital Content Solutions')
+     @section('meta-description', 'Discover Pocket Office media and publishing services, providing digital content solutions and secure cloud workspaces for publishers and media professionals.')
+     @section('meta-keywords', 'media publishing services, digital content solutions, cloud workspaces publishers, media tools')
+     @section('meta-image', 'https://pocketdesk.sizaf.com/assets/img/hero-images/industries/Media-Publishing/Media & Publishing 1.svg')
+     @section('canonical', 'https://pocketdesk.sizaf.com/media-publishing')
+     @section('meta-url', 'https://pocketdesk.sizaf.com/media-publishing')
+     @section('structured-data')
+     @verbatim
+     {
+       "@context": "https://schema.org",
+       "@type": "WebPage",
+       "name": "Media & Publishing | Pocket Office",
+       "url": "https://pocketdesk.sizaf.com/media-publishing",
+       "description": "Discover Pocket Office media and publishing services, providing digital content solutions and secure cloud workspaces for publishers and media professionals.",
+       "inLanguage": "en",
+       "image": "https://pocketdesk.sizaf.com/assets/img/hero-images/industries/Media-Publishing/Media & Publishing 1.svg",
+       "publisher": {
+         "@type": "Organization",
+         "name": "Pocket Office",
+         "url": "https://pocketdesk.sizaf.com",
+         "logo": {
+           "@type": "ImageObject",
+           "url": "https://pocketdesk.sizaf.com/assets/img/logo/pocket-office-tm-final-logo.png"
+         }
+       }
+     }
+     @endverbatim
+     @endsection
      @section('content')
      <!-- breadcrumb area start -->
      <div

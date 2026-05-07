@@ -1,6 +1,34 @@
 @extends('layouts.backendsettings')
 @section('title', 'Cloud Desktop Collaboration Tools | File Sharing & Team Workspaces |
 Pocket Office')
+@section('meta-title', 'Cloud Desktop Collaboration Tools | File Sharing & Team Workspaces | Pocket Office')
+@section('meta-description', 'Discover Pocket Office collaboration tools for secure file sharing, team workspaces, and seamless remote collaboration in a browser-based cloud desktop.')
+@section('meta-keywords', 'cloud desktop collaboration, file sharing tools, team workspaces, remote collaboration, secure file sharing')
+@section('meta-image', 'https://pocketdesk.sizaf.com/assets/img/hero-images/collaboration.svg')
+@section('canonical', 'https://pocketdesk.sizaf.com/collaboration')
+@section('meta-url', 'https://pocketdesk.sizaf.com/collaboration')
+@section('structured-data')
+@verbatim
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Collaboration | Pocket Office",
+  "url": "https://pocketdesk.sizaf.com/collaboration",
+  "description": "Discover Pocket Office collaboration tools for secure file sharing, team workspaces, and seamless remote collaboration in a browser-based cloud desktop.",
+  "inLanguage": "en",
+  "image": "https://pocketdesk.sizaf.com/assets/img/hero-images/collaboration.svg",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Pocket Office",
+    "url": "https://pocketdesk.sizaf.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://pocketdesk.sizaf.com/assets/img/logo/pocket-office-tm-final-logo.png"
+    }
+  }
+}
+@endverbatim
+@endsection
 @section('content')
 <!-- breadcrumb area start -->
 <div

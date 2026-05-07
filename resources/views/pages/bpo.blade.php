@@ -1,5 +1,33 @@
 @extends('layouts.backendsettings')
 @section('title', 'BPO Outsourcing Services | Scalable Business Solutions')
+@section('meta-title', 'BPO Outsourcing Services | Scalable Business Solutions')
+@section('meta-description', 'Discover Pocket Office solutions for BPO outsourcing, providing scalable business process management and secure cloud workspaces for efficient operations.')
+@section('meta-keywords', 'BPO outsourcing services, scalable business solutions, business process management, cloud workspaces')
+@section('meta-image', 'https://pocketdesk.sizaf.com/assets/img/hero-images/industries/BPO-Outsourcing/BPO & Outsourcing 1.svg')
+@section('canonical', 'https://pocketdesk.sizaf.com/bpo')
+@section('meta-url', 'https://pocketdesk.sizaf.com/bpo')
+@section('structured-data')
+@verbatim
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "BPO Outsourcing | Pocket Office",
+  "url": "https://pocketdesk.sizaf.com/bpo",
+  "description": "Discover Pocket Office solutions for BPO outsourcing, providing scalable business process management and secure cloud workspaces for efficient operations.",
+  "inLanguage": "en",
+  "image": "https://pocketdesk.sizaf.com/assets/img/hero-images/industries/BPO-Outsourcing/BPO & Outsourcing 1.svg",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Pocket Office",
+    "url": "https://pocketdesk.sizaf.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://pocketdesk.sizaf.com/assets/img/logo/pocket-office-tm-final-logo.png"
+    }
+  }
+}
+@endverbatim
+@endsection
 @section('content')
 <!-- breadcrumb area start -->
 <div

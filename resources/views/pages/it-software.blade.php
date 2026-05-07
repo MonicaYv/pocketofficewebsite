@@ -1,5 +1,33 @@
     @extends('layouts.backendsettings')
     @section('title', 'IT & Software Development Services | Custom Solutions')
+    @section('meta-title', 'IT & Software Development Services | Custom Solutions')
+    @section('meta-description', 'Explore Pocket Office IT and software development services, offering custom solutions and secure cloud workspaces for developers and IT teams.')
+    @section('meta-keywords', 'IT software development, custom solutions, cloud workspaces developers, IT services')
+    @section('meta-image', 'https://pocketdesk.sizaf.com/assets/img/hero-images/industries/IT-Software/Software-1.svg')
+    @section('canonical', 'https://pocketdesk.sizaf.com/it-software')
+    @section('meta-url', 'https://pocketdesk.sizaf.com/it-software')
+    @section('structured-data')
+    @verbatim
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "IT & Software | Pocket Office",
+      "url": "https://pocketdesk.sizaf.com/it-software",
+      "description": "Explore Pocket Office IT and software development services, offering custom solutions and secure cloud workspaces for developers and IT teams.",
+      "inLanguage": "en",
+      "image": "https://pocketdesk.sizaf.com/assets/img/hero-images/industries/IT-Software/Software-1.svg",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Pocket Office",
+        "url": "https://pocketdesk.sizaf.com",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://pocketdesk.sizaf.com/assets/img/logo/pocket-office-tm-final-logo.png"
+        }
+      }
+    }
+    @endverbatim
+    @endsection
     @section('content')
     <!-- breadcrumb area start -->
     <div

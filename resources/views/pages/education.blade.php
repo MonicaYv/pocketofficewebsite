@@ -1,5 +1,33 @@
  @extends('layouts.backendsettings')
  @section('title', 'Education Solutions | Digital Learning & EdTech Services')
+ @section('meta-title', 'Education Solutions | Digital Learning & EdTech Services')
+ @section('meta-description', 'Discover Pocket Office education solutions for digital learning, EdTech services, and secure cloud workspaces for schools and universities.')
+ @section('meta-keywords', 'education solutions, digital learning, EdTech services, cloud workspaces education')
+ @section('meta-image', 'https://pocketdesk.sizaf.com/assets/img/hero-images/industries/Education/Education 1.svg')
+ @section('canonical', 'https://pocketdesk.sizaf.com/education')
+ @section('meta-url', 'https://pocketdesk.sizaf.com/education')
+ @section('structured-data')
+ @verbatim
+ {
+   "@context": "https://schema.org",
+   "@type": "WebPage",
+   "name": "Education | Pocket Office",
+   "url": "https://pocketdesk.sizaf.com/education",
+   "description": "Discover Pocket Office education solutions for digital learning, EdTech services, and secure cloud workspaces for schools and universities.",
+   "inLanguage": "en",
+   "image": "https://pocketdesk.sizaf.com/assets/img/hero-images/industries/Education/Education 1.svg",
+   "publisher": {
+     "@type": "Organization",
+     "name": "Pocket Office",
+     "url": "https://pocketdesk.sizaf.com",
+     "logo": {
+       "@type": "ImageObject",
+       "url": "https://pocketdesk.sizaf.com/assets/img/logo/pocket-office-tm-final-logo.png"
+     }
+   }
+ }
+ @endverbatim
+ @endsection
  @section('content')
  <!-- breadcrumb area start -->
  <div

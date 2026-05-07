@@ -1,6 +1,34 @@
   @extends('layouts.backendsettings')
   @section('title', 'Secure Cloud Desktop Platform | Data Privacy & Backup Solutions | Pocket
   Office')
+  @section('meta-title', 'Secure Cloud Desktop Platform | Data Privacy & Backup Solutions | Pocket Office')
+  @section('meta-description', 'Learn about Pocket Office security features including data privacy, backup solutions, and secure infrastructure for your cloud desktop workspace.')
+  @section('meta-keywords', 'secure cloud desktop, data privacy, backup solutions, secure infrastructure, cloud security')
+  @section('meta-image', 'https://pocketdesk.sizaf.com/assets/img/hero-images/security.svg')
+  @section('canonical', 'https://pocketdesk.sizaf.com/security')
+  @section('meta-url', 'https://pocketdesk.sizaf.com/security')
+  @section('structured-data')
+  @verbatim
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Security | Pocket Office",
+    "url": "https://pocketdesk.sizaf.com/security",
+    "description": "Learn about Pocket Office security features including data privacy, backup solutions, and secure infrastructure for your cloud desktop workspace.",
+    "inLanguage": "en",
+    "image": "https://pocketdesk.sizaf.com/assets/img/hero-images/security.svg",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Pocket Office",
+      "url": "https://pocketdesk.sizaf.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://pocketdesk.sizaf.com/assets/img/logo/pocket-office-tm-final-logo.png"
+      }
+    }
+  }
+  @endverbatim
+  @endsection
   @section('content')
   <!-- breadcrumb area start -->
   <div
