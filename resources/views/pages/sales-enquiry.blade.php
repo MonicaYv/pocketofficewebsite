@@ -6,7 +6,6 @@
           <div class="contact-modal">
               <h2 class="modal-title">Tell us how we can help</h2>
               <form id="serviceForm" class="form needs-validation salesEnquiryForm" novalidate>
-                <meta name="csrf-token" content="{{ csrf_token() }}">
                   <div class="form-item">
                       <label for="companyName">Company Name</label>
                       <input type="text" id="companyName" name="companyName" placeholder="Company Name"
@@ -30,6 +29,7 @@
                           <option value="retail">Retail & E-commerce</option>
                           <option value="bpo">BPO Outsourcing</option>
                       </select>
+                      <div class="invalid-feedback"></div>
                   </div>
                   <div class="form-grid">
                       <div class="form-item">
@@ -59,7 +59,7 @@
                       <div class="form-item">
                           <label for="email" class="emailLabel">Email</label>
                           <div class="phone-input">
-                              <input type="email" id="email" name="email" placeholder="Email" class="form-control"
+                              <input type="email" id="emailid" name="email" placeholder="Email" class="form-control"
                                   required />
                               <div class="invalid-feedback">Please enter a valid email address.</div>
                           </div>
@@ -83,6 +83,7 @@
                           <select id="country" name="country" required>
                               <option value="">Loading countries...</option>
                           </select>
+                          <div class="invalid-feedback"></div>
                       </div>
                       <div class="form-item">
                           <label for="city">City</label>

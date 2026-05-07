@@ -70,4 +70,20 @@
     .hidden {
         display: none !important;
     }
+
+    .custom-error {
+        font-size: 12px;
+        color: red;
+        margin-top: 4px;
+    }
+
+    .is-invalid {
+        border: 1px solid red !important;
+    }
+
+    select.is-invalid,
+    input.is-invalid,
+    textarea.is-invalid {
+        border: 1px solid red !important;
+    }
 </style>

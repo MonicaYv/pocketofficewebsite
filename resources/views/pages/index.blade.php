@@ -55,9 +55,9 @@
                 </p>
 
                 <div class="hero-buttons">
-                    <a href="/pricing.html" class="btn-primary">Start Building</a>
-                    <a href="/core-features.html" class="btn-secondary">
-                        Explore Features →
+                    <a href="{{ route('marketplace.pricing') }}" class="btn-primary">Start Building</a>
+                    <a href="{{ url('core-features') }}" class="btn-secondary">
+                        Explore Features → 
                     </a>
                 </div>
 

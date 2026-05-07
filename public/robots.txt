@@ -1,2 +1,23 @@
 User-agent: *
-Disallow:
+Allow: /
+
+# Block sensitive files
+Disallow: /.git/
+Disallow: /vendor/
+Disallow: /storage/
+Disallow: /node_modules/
+Disallow: /config/
+Disallow: /backup/
+
+# Block admin/login pages
+Disallow: /admin/
+Disallow: /login/
+Disallow: /dashboard/
+
+# Allow assets
+Allow: /public/
+Allow: /assets/
+Allow: /uploads/
+
+# Sitemap
+Sitemap: https://pocketdesk.com/sitemap.xml
