@@ -8,7 +8,7 @@
 <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-
+<link rel="stylesheet" href="" />
 <!-- Leaflet CSS contact us page -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <!-- team type -->
@@ -38,7 +38,7 @@
 
 
 <style>
-    #sales-enquiry-overlay {
+    /* #sales-enquiry-overlay {
         position: fixed;
         top: 0;
         left: 0;
@@ -50,14 +50,17 @@
     }
 
     #sales-enquiry-modal {
-        background: #fff;
-        width: 90%;
-        max-width: 600px;
-        margin: 60px auto;
-        padding: 20px;
-        border-radius: 8px;
-        position: relative;
-    }
+       position: relative;
+    background: #fff;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 780px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.25);
+    animation: seModalIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    padding: 0;
+    } */
 
     #sales-enquiry-close {
         position: absolute;
