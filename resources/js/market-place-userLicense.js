@@ -1906,16 +1906,17 @@ $(document).on("click", "#confirmPayBtn", function () {
         data: formData,
         success: function (res) {
             if (res.status) {
-                alert(res.message);
-
+                toastr.success(res.message);
                 $("#paymentModal").fadeOut();
 
                 localStorage.removeItem("selectedPlan");
                 localStorage.removeItem("appliedCoupon");
 
-                // window.location.href = "/thank-you";
+                setTimeout(() => {
+                    window.location.href = "/pricing";
+                }, 1500);
             } else {
-                alert(res.message);
+                toastr.error(res.message);
             }
         },
         error: function (xhr) {
@@ -1924,23 +1925,18 @@ $(document).on("click", "#confirmPayBtn", function () {
             if (xhr.responseJSON && xhr.responseJSON.message) {
                 message = xhr.responseJSON.message;
             }
-
-            alert(message);
+            toastr.error(message);
         },
     });
 });
 
-
 //for team -----------------------------------------------------------------------------------
 
 document.addEventListener("DOMContentLoaded", function () {
-
     // =========================================
     // STORAGE
     // =========================================
-    let teamPlan = JSON.parse(
-        localStorage.getItem("teamSelectedPlan")
-    ) || null;
+    let teamPlan = JSON.parse(localStorage.getItem("teamSelectedPlan")) || null;
 
     let teamDiscount = 0;
     let teamCouponId = null;
@@ -1955,44 +1951,36 @@ document.addEventListener("DOMContentLoaded", function () {
     // =========================================
     // PRICING PAGE -> GET STARTED
     // =========================================
-    document.querySelectorAll(".team-js-select-plan")
-        .forEach((btn) => {
+    document.querySelectorAll(".team-js-select-plan").forEach((btn) => {
+        btn.addEventListener("click", function () {
+            let selectedPlan = {
+                plan_id: this.dataset.planId,
+                name: this.dataset.name,
+                price: parseFloat(this.dataset.price),
+                currency: this.dataset.currency,
+                subscription: this.dataset.subscription,
+                license: this.dataset.license,
+                storage: this.dataset.storage,
+                quantity: 1,
+            };
 
-            btn.addEventListener("click", function () {
+            // SAVE PLAN
+            localStorage.setItem(
+                "teamSelectedPlan",
+                JSON.stringify(selectedPlan),
+            );
 
-                let selectedPlan = {
-                    plan_id: this.dataset.planId,
-                    name: this.dataset.name,
-                    price: parseFloat(this.dataset.price),
-                    currency: this.dataset.currency,
-                    subscription: this.dataset.subscription,
-                    license: this.dataset.license,
-                    storage: this.dataset.storage,
-                    quantity: 1
-                };
-
-                // SAVE PLAN
-                localStorage.setItem(
-                    "teamSelectedPlan",
-                    JSON.stringify(selectedPlan)
-                );
-
-                // REDIRECT
-                if (
-                    window.location.pathname !== "/payment-for-team"
-                ) {
-                    window.location.href = "/payment-for-team";
-                }
-            });
+            // REDIRECT
+            if (window.location.pathname !== "/payment-for-team") {
+                window.location.href = "/payment-for-team";
+            }
         });
+    });
 
     // =========================================
     // PAYMENT PAGE ONLY
     // =========================================
-    if (
-        window.location.pathname === "/payment-for-team"
-    ) {
-
+    if (window.location.pathname === "/payment-for-team") {
         // =====================================
         // LOAD PLAN
         // =====================================
@@ -2004,24 +1992,15 @@ document.addEventListener("DOMContentLoaded", function () {
         // SET PLAN UI
         // =====================================
         function setPlanUI(plan) {
-
             if (!plan) return;
 
-            document.getElementById(
-                "summaryPlanName"
-            ).innerText = plan.name;
+            document.getElementById("summaryPlanName").innerText = plan.name;
 
-            document.getElementById(
-                "summaryUnitPrice"
-            ).innerText = plan.price;
+            document.getElementById("summaryUnitPrice").innerText = plan.price;
 
-            document.getElementById(
-                "summarySymbol"
-            ).innerText = plan.currency;
+            document.getElementById("summarySymbol").innerText = plan.currency;
 
-            document.getElementById(
-                "payQtyInput"
-            ).value = plan.quantity;
+            document.getElementById("payQtyInput").value = plan.quantity;
 
             highlightSelectedPlan(plan.plan_id);
 
@@ -2032,109 +2011,85 @@ document.addEventListener("DOMContentLoaded", function () {
         // HIGHLIGHT PLAN
         // =====================================
         function highlightSelectedPlan(planId) {
+            document.querySelectorAll(".pay-plan-tile").forEach((tile) => {
+                tile.classList.remove("selected");
 
-            document.querySelectorAll(".pay-plan-tile")
-                .forEach((tile) => {
-
-                    tile.classList.remove("selected");
-
-                    if (tile.dataset.planId == planId) {
-                        tile.classList.add("selected");
-                    }
-                });
+                if (tile.dataset.planId == planId) {
+                    tile.classList.add("selected");
+                }
+            });
         }
 
         // =====================================
         // CHANGE PLAN
         // =====================================
-        document.querySelectorAll(".pay-plan-tile")
-            .forEach((tile) => {
-
-                tile.addEventListener("click", function () {
-
-                    document.querySelectorAll(".pay-plan-tile")
-                        .forEach((t) => {
-                            t.classList.remove("selected");
-                        });
-
-                    this.classList.add("selected");
-
-                    teamPlan = {
-                        plan_id: this.dataset.planId,
-                        name: this.dataset.name,
-                        price: parseFloat(this.dataset.price),
-                        currency: this.dataset.currency,
-                        subscription: this.dataset.subscription,
-                        license: this.dataset.license,
-                        storage: this.dataset.storage,
-                        quantity: 1
-                    };
-
-                    localStorage.setItem(
-                        "teamSelectedPlan",
-                        JSON.stringify(teamPlan)
-                    );
-
-                    setPlanUI(teamPlan);
+        document.querySelectorAll(".pay-plan-tile").forEach((tile) => {
+            tile.addEventListener("click", function () {
+                document.querySelectorAll(".pay-plan-tile").forEach((t) => {
+                    t.classList.remove("selected");
                 });
+
+                this.classList.add("selected");
+
+                teamPlan = {
+                    plan_id: this.dataset.planId,
+                    name: this.dataset.name,
+                    price: parseFloat(this.dataset.price),
+                    currency: this.dataset.currency,
+                    subscription: this.dataset.subscription,
+                    license: this.dataset.license,
+                    storage: this.dataset.storage,
+                    quantity: 1,
+                };
+
+                localStorage.setItem(
+                    "teamSelectedPlan",
+                    JSON.stringify(teamPlan),
+                );
+
+                setPlanUI(teamPlan);
             });
+        });
 
         // =====================================
         // BILLING TOGGLE
         // =====================================
-        billingToggle?.addEventListener(
-            "change",
-            function () {
+        billingToggle?.addEventListener("change", function () {
+            if (this.checked) {
+                monthlyPlans.forEach((el) => {
+                    el.classList.add("hidden");
+                });
 
-                if (this.checked) {
+                yearlyPlans.forEach((el) => {
+                    el.classList.remove("hidden");
+                });
 
-                    monthlyPlans.forEach((el) => {
-                        el.classList.add("hidden");
-                    });
+                let firstYearly = document.querySelector(".yearly-plan");
 
-                    yearlyPlans.forEach((el) => {
-                        el.classList.remove("hidden");
-                    });
+                if (firstYearly) {
+                    firstYearly.click();
+                }
+            } else {
+                yearlyPlans.forEach((el) => {
+                    el.classList.add("hidden");
+                });
 
-                    let firstYearly =
-                        document.querySelector(
-                            ".yearly-plan"
-                        );
+                monthlyPlans.forEach((el) => {
+                    el.classList.remove("hidden");
+                });
 
-                    if (firstYearly) {
-                        firstYearly.click();
-                    }
+                let firstMonthly = document.querySelector(".monthly-plan");
 
-                } else {
-
-                    yearlyPlans.forEach((el) => {
-                        el.classList.add("hidden");
-                    });
-
-                    monthlyPlans.forEach((el) => {
-                        el.classList.remove("hidden");
-                    });
-
-                    let firstMonthly =
-                        document.querySelector(
-                            ".monthly-plan"
-                        );
-
-                    if (firstMonthly) {
-                        firstMonthly.click();
-                    }
+                if (firstMonthly) {
+                    firstMonthly.click();
                 }
             }
-        );
+        });
 
         // =====================================
         // INITIAL TOGGLE STATE
         // =====================================
-        if (
-            teamPlan &&
-            teamPlan.subscription === "year"
-        ) {
-
+        if (teamPlan && teamPlan.subscription === "year") {
             billingToggle.checked = true;
 
             monthlyPlans.forEach((el) => {
@@ -2144,9 +2099,7 @@ document.addEventListener("DOMContentLoaded", function () {
             yearlyPlans.forEach((el) => {
                 el.classList.remove("hidden");
             });
-
         } else {
-
             billingToggle.checked = false;
 
             yearlyPlans.forEach((el) => {
@@ -2161,9 +2114,9 @@ document.addEventListener("DOMContentLoaded", function () {
         // =====================================
         // QUANTITY PLUS
         // =====================================
-        document.getElementById("payQtyPlus")
+        document
+            .getElementById("payQtyPlus")
             ?.addEventListener("click", function () {
-
                 if (!teamPlan) return;
 
                 teamPlan.quantity++;
@@ -2174,13 +2127,12 @@ document.addEventListener("DOMContentLoaded", function () {
         // =====================================
         // QUANTITY MINUS
         // =====================================
-        document.getElementById("payQtyMinus")
+        document
+            .getElementById("payQtyMinus")
             ?.addEventListener("click", function () {
-
                 if (!teamPlan) return;
 
                 if (teamPlan.quantity > 1) {
-
                     teamPlan.quantity--;
 
                     updateSummary();
@@ -2191,107 +2143,70 @@ document.addEventListener("DOMContentLoaded", function () {
         // UPDATE SUMMARY
         // =====================================
         function updateSummary() {
-
             if (!teamPlan) return;
 
-            let subtotal =
-                teamPlan.price * teamPlan.quantity;
+            let subtotal = teamPlan.price * teamPlan.quantity;
 
-            let total =
-                subtotal - teamDiscount;
+            let total = subtotal - teamDiscount;
 
-            document.getElementById(
-                "summarySubtotal"
-            ).innerText =
-                teamPlan.currency +
-                " " +
-                subtotal.toFixed(2);
+            document.getElementById("summarySubtotal").innerText =
+                teamPlan.currency + " " + subtotal.toFixed(2);
 
-            document.getElementById(
-                "summaryTotal"
-            ).innerText =
-                teamPlan.currency +
-                " " +
-                total.toFixed(2);
+            document.getElementById("summaryTotal").innerText =
+                teamPlan.currency + " " + total.toFixed(2);
 
-            document.getElementById(
-                "modalTotal"
-            ).innerText =
-                teamPlan.currency +
-                " " +
-                total.toFixed(2);
+            document.getElementById("modalTotal").innerText =
+                teamPlan.currency + " " + total.toFixed(2);
 
-            document.getElementById(
-                "payQtyInput"
-            ).value = teamPlan.quantity;
+            document.getElementById("payQtyInput").value = teamPlan.quantity;
         }
 
         // =====================================
         // APPLY COUPON
         // =====================================
-        document.getElementById("applyPromoBtn")
+        document
+            .getElementById("applyPromoBtn")
             ?.addEventListener("click", function () {
-
                 if (!teamPlan) {
-                    alert("Please select plan");
+                    toastr.error("Please select plan");
                     return;
                 }
 
                 fetch("/apply-coupon-for-team", {
-
                     method: "POST",
 
                     headers: {
                         "Content-Type": "application/json",
-                        "X-CSRF-TOKEN":
-                            document.querySelector(
-                                'meta[name="csrf-token"]'
-                            ).content,
+                        "X-CSRF-TOKEN": document.querySelector(
+                            'meta[name="csrf-token"]',
+                        ).content,
                     },
 
                     body: JSON.stringify({
-                        code:
-                            document.getElementById(
-                                "couponInput"
-                            ).value,
+                        code: document.getElementById("couponInput").value,
 
-                        amount:
-                            teamPlan.price *
-                            teamPlan.quantity,
+                        amount: teamPlan.price * teamPlan.quantity,
                     }),
                 })
                     .then((res) => res.json())
                     .then((res) => {
-
                         if (res.success) {
-
                             teamDiscount = res.discount;
                             teamCouponId = res.coupon_id;
 
                             document.getElementById(
-                                "discountRow"
+                                "discountRow",
                             ).style.display = "flex";
 
-                            document.getElementById(
-                                "discountAmt"
-                            ).innerText =
-                                "- " +
-                                teamPlan.currency +
-                                " " +
-                                teamDiscount;
+                            document.getElementById("discountAmt").innerText =
+                                "- " + teamPlan.currency + " " + teamDiscount;
 
-                            document.getElementById(
-                                "couponMsg"
-                            ).innerText =
+                            document.getElementById("couponMsg").innerText =
                                 "Coupon Applied";
 
                             updateSummary();
-
                         } else {
-
-                            document.getElementById(
-                                "couponMsg"
-                            ).innerText =
+                            document.getElementById("couponMsg").innerText =
                                 res.message;
                         }
                     });
@@ -2300,23 +2215,17 @@ document.addEventListener("DOMContentLoaded", function () {
         // =====================================
         // REMOVE COUPON
         // =====================================
-        document.getElementById("removeCouponBtn")
+        document
+            .getElementById("removeCouponBtn")
             ?.addEventListener("click", function () {
-
                 teamDiscount = 0;
                 teamCouponId = null;
 
-                document.getElementById(
-                    "discountRow"
-                ).style.display = "none";
+                document.getElementById("discountRow").style.display = "none";
 
-                document.getElementById(
-                    "couponInput"
-                ).value = "";
+                document.getElementById("couponInput").value = "";
 
-                document.getElementById(
-                    "couponMsg"
-                ).innerText = "";
+                document.getElementById("couponMsg").innerText = "";
 
                 updateSummary();
             });
@@ -2324,193 +2233,119 @@ document.addEventListener("DOMContentLoaded", function () {
         // =====================================
         // OPEN PAYMENT MODAL
         // =====================================
-        document.getElementById(
-            "sideSubmitBtnForTeam"
-        )?.addEventListener("click", function () {
-
-            document.getElementById(
-                "paymentModalForTeam"
-            ).style.display = "flex";
-        });
+        document
+            .getElementById("sideSubmitBtnForTeam")
+            ?.addEventListener("click", function () {
+                document.getElementById("paymentModalForTeam").style.display =
+                    "flex";
+            });
 
         // =====================================
         // CLOSE MODAL
         // =====================================
-        document.getElementById(
-            "closePayModal"
-        )?.addEventListener("click", function () {
-
-            document.getElementById(
-                "paymentModalForTeam"
-            ).style.display = "none";
-        });
+        document
+            .getElementById("closePayModal")
+            ?.addEventListener("click", function () {
+                document.getElementById("paymentModalForTeam").style.display =
+                    "none";
+            });
 
         // =====================================
         // CONFIRM PAYMENT
         // =====================================
-        document.getElementById(
-            "confirmPayBtn"
-        )?.addEventListener("click", function () {
+        document
+            .getElementById("confirmPayBtn")
+            ?.addEventListener("click", function () {
+                if (!teamPlan) {
+                    toastr.error("Please select plan");
+                    return;
+                }
 
-            if (!teamPlan) {
-                alert("Please select plan");
-                return;
-            }
+                let payload = {
+                    // COMPANY
+                    company_name: document.getElementById("companyName").value,
 
-            let payload = {
+                    company_type: document.getElementById("companyType").value,
 
-                // COMPANY
-                company_name:
-                    document.getElementById(
-                        "companyName"
-                    ).value,
+                    industry_type:
+                        document.getElementById("industryType").value,
 
-                company_type:
-                    document.getElementById(
-                        "companyType"
-                    ).value,
+                    address: document.getElementById("address").value,
 
-                industry_type:
-                    document.getElementById(
-                        "industryType"
-                    ).value,
+                    company_number:
+                        document.getElementById("companyNumber").value,
 
-                address:
-                    document.getElementById(
-                        "address"
-                    ).value,
+                    company_email:
+                        document.getElementById("companyEmail").value,
 
-                company_number:
-                    document.getElementById(
-                        "companyNumber"
-                    ).value,
+                    website: document.getElementById("website").value,
 
-                company_email:
-                    document.getElementById(
-                        "companyEmail"
-                    ).value,
+                    // CONTACT
+                    contact_person:
+                        document.getElementById("contactPerson").value,
 
-                website:
-                    document.getElementById(
-                        "website"
-                    ).value,
+                    designation: document.getElementById("designation").value,
 
-                // CONTACT
-                contact_person:
-                    document.getElementById(
-                        "contactPerson"
-                    ).value,
+                    phone: document.getElementById("phone").value,
 
-                designation:
-                    document.getElementById(
-                        "designation"
-                    ).value,
+                    email: document.getElementById("email").value,
 
-                phone:
-                    document.getElementById(
-                        "phone"
-                    ).value,
+                    username: document.getElementById("username").value,
 
-                email:
-                    document.getElementById(
-                        "email"
-                    ).value,
+                    security_question:
+                        document.getElementById("passwordQuestion").value,
 
-                username:
-                    document.getElementById(
-                        "username"
-                    ).value,
+                    security_answer:
+                        document.getElementById("securityAnswer").value,
 
-                security_question:
-                    document.getElementById(
-                        "passwordQuestion"
-                    ).value,
+                    // PLAN
+                    plan_id: teamPlan.plan_id,
 
-                security_answer:
-                    document.getElementById(
-                        "securityAnswer"
-                    ).value,
+                    quantity: teamPlan.quantity,
 
-                // PLAN
-                plan_id:
-                    teamPlan.plan_id,
+                    storage: teamPlan.storage,
 
-                quantity:
-                    teamPlan.quantity,
+                    subscription: teamPlan.subscription,
 
-                storage:
-                    teamPlan.storage,
+                    total: teamPlan.price * teamPlan.quantity - teamDiscount,
 
-                subscription:
-                    teamPlan.subscription,
+                    coupon_id: teamCouponId,
 
-                total:
-                    (
-                        teamPlan.price *
-                        teamPlan.quantity
-                    ) - teamDiscount,
+                    // CARD
+                    card_name: document.getElementById("cardName").value,
 
-                coupon_id:
-                    teamCouponId,
+                    card_number: document.getElementById("cardNumber").value,
 
-                // CARD
-                card_name:
-                    document.getElementById(
-                        "cardName"
-                    ).value,
+                    card_expiry: document.getElementById("cardExpiry").value,
 
-                card_number:
-                    document.getElementById(
-                        "cardNumber"
-                    ).value,
+                    card_cvv: document.getElementById("cardCvv").value,
+                };
 
-                card_expiry:
-                    document.getElementById(
-                        "cardExpiry"
-                    ).value,
+                fetch("/store-payment-for-team", {
+                    method: "POST",
 
-                card_cvv:
-                    document.getElementById(
-                        "cardCvv"
-                    ).value
-            };
+                    headers: {
+                        "Content-Type": "application/json",
 
-            fetch("/store-payment-for-team", {
-
-                method: "POST",
-
-                headers: {
-                    "Content-Type":
-                        "application/json",
-
-                    "X-CSRF-TOKEN":
-                        document.querySelector(
-                            'meta[name="csrf-token"]'
+                        "X-CSRF-TOKEN": document.querySelector(
+                            'meta[name="csrf-token"]',
                         ).content,
-                },
+                    },
 
-                body: JSON.stringify(payload),
-            })
-                .then((res) => res.json())
-                .then((res) => {
+                    body: JSON.stringify(payload),
+                })
+                    .then((res) => res.json())
+                    .then((res) => {
+                        if (res.success) {
+                            toastr.success("Payment Saved Successfully");
 
-                    if (res.success) {
+                            localStorage.removeItem("teamSelectedPlan");
 
-                        alert(
-                            "Payment Saved Successfully"
-                        );
-
-                        localStorage.removeItem(
-                            "teamSelectedPlan"
-                        );
-
-                        window.location.reload();
-
-                    } else {
-
-                        alert(res.message);
-                    }
-                });
-        });
+                            window.location.reload();
+                        } else {
+                            toastr.error(res.message);
+                        }
+                    });
+            });
     }
 });

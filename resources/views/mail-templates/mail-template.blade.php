@@ -1,4 +1,4 @@
-<!-- Greeting -->
+<!-- Sales enq mail  -->
 <p style="margin:0 0 15px; font-size:15px; color:#333;">
     Dear {{ $name }},
 </p>
