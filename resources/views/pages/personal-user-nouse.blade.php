@@ -1,5 +1,33 @@
 @extends('layouts.backendsettings')
 @section('title', 'Affordable Cloud Desktop Plans for Teams & Businesses | Pocket Office')
+@section('meta-title', 'Payment | Pocket Office')
+@section('meta-description', 'Complete your payment for Pocket Office cloud desktop plans and get secure access to your selected workspace subscription.')
+@section('meta-keywords', 'payment, cloud desktop plans, pocket office subscription, buy workspace')
+@section('meta-image', 'https://pocketdesk.sizaf.com/assets/img/hero-images/Payment.svg')
+@section('canonical', 'https://pocketdesk.sizaf.com/personal-user-nouse')
+@section('meta-url', 'https://pocketdesk.sizaf.com/personal-user-nouse')
+@section('structured-data')
+@verbatim
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Payment | Pocket Office",
+  "url": "https://pocketdesk.sizaf.com/personal-user-nouse",
+  "description": "Complete your payment for Pocket Office cloud desktop plans and get secure access to your selected workspace subscription.",
+  "inLanguage": "en",
+  "image": "https://pocketdesk.sizaf.com/assets/img/hero-images/Payment.svg",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Pocket Office",
+    "url": "https://pocketdesk.sizaf.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://pocketdesk.sizaf.com/assets/img/logo/pocket-office-tm-final-logo.png"
+    }
+  }
+}
+@endverbatim
+@endsection
 @section('content')
 <!-- breadcrumb area start -->
 <div

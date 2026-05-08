@@ -1,5 +1,33 @@
  @extends('layouts.backendsettings')
  @section('title', 'Work Anywhere with Cloud Desktop Solutions for Every Team | Pocket Office')
+ @section('meta-title', 'Team Type Solutions | Pocket Office')
+ @section('meta-description', 'Explore Pocket Office cloud desktop solutions designed for every team type, including remote, creative, support, and executive workgroups.')
+ @section('meta-keywords', 'team type solutions, cloud desktop teams, remote teams, creative teams, executive workspaces')
+ @section('meta-image', 'https://pocketdesk.sizaf.com/assets/img/hero-images/By team Type.svg')
+ @section('canonical', 'https://pocketdesk.sizaf.com/team-type')
+ @section('meta-url', 'https://pocketdesk.sizaf.com/team-type')
+ @section('structured-data')
+ @verbatim
+ {
+   "@context": "https://schema.org",
+   "@type": "WebPage",
+   "name": "Team Type | Pocket Office",
+   "url": "https://pocketdesk.sizaf.com/team-type",
+   "description": "Explore Pocket Office cloud desktop solutions designed for every team type, including remote, creative, support, and executive workgroups.",
+   "inLanguage": "en",
+   "image": "https://pocketdesk.sizaf.com/assets/img/hero-images/By team Type.svg",
+   "publisher": {
+     "@type": "Organization",
+     "name": "Pocket Office",
+     "url": "https://pocketdesk.sizaf.com",
+     "logo": {
+       "@type": "ImageObject",
+       "url": "https://pocketdesk.sizaf.com/assets/img/logo/pocket-office-tm-final-logo.png"
+     }
+   }
+ }
+ @endverbatim
+ @endsection
  @section('content')
  <!-- breadcrumb area start -->
  <div

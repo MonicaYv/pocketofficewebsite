@@ -1,5 +1,33 @@
   @extends('layouts.backendsettings')
   @section('title', 'Sales Enquiry')
+  @section('meta-title', 'Sales Enquiry | Pocket Office')
+  @section('meta-description', 'Submit a sales enquiry to Pocket Office to learn more about our cloud desktop platform, pricing, and enterprise solutions.')
+  @section('meta-keywords', 'sales enquiry, contact sales, pocket office pricing, cloud desktop enquiry')
+  @section('meta-image', 'https://pocketdesk.sizaf.com/assets/img/hero-images/page-title-bg.png')
+  @section('canonical', 'https://pocketdesk.sizaf.com/ticket-details')
+  @section('meta-url', 'https://pocketdesk.sizaf.com/ticket-details')
+  @section('structured-data')
+  @verbatim
+  {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    "name": "Sales Enquiry | Pocket Office",
+    "url": "https://pocketdesk.sizaf.com/ticket-details",
+    "description": "Submit a sales enquiry to Pocket Office to learn more about our cloud desktop platform, pricing, and enterprise solutions.",
+    "inLanguage": "en",
+    "image": "https://pocketdesk.sizaf.com/assets/img/hero-images/page-title-bg.png",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Pocket Office",
+      "url": "https://pocketdesk.sizaf.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://pocketdesk.sizaf.com/assets/img/logo/pocket-office-tm-final-logo.png"
+      }
+    }
+  }
+  @endverbatim
+  @endsection
   @section('content')
 
 

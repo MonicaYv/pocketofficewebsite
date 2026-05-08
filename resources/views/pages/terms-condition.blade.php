@@ -1,5 +1,33 @@
  @extends('layouts.backendsettings')
  @section('title', 'Terms & Conditions | Pocket Office Cloud Desktop')
+ @section('meta-title', 'Terms & Conditions | Pocket Office Cloud Desktop')
+ @section('meta-description', 'Review Pocket Office terms and conditions for using our cloud desktop platform, data policies, and service agreements.')
+ @section('meta-keywords', 'terms and conditions, pocket office policies, cloud desktop agreement, service terms')
+ @section('meta-image', 'https://pocketdesk.sizaf.com/assets/img/hero-images/Terms-conditions .svg')
+ @section('canonical', 'https://pocketdesk.sizaf.com/terms-condition')
+ @section('meta-url', 'https://pocketdesk.sizaf.com/terms-condition')
+ @section('structured-data')
+ @verbatim
+ {
+   "@context": "https://schema.org",
+   "@type": "WebPage",
+   "name": "Terms & Conditions | Pocket Office",
+   "url": "https://pocketdesk.sizaf.com/terms-condition",
+   "description": "Review Pocket Office terms and conditions for using our cloud desktop platform, data policies, and service agreements.",
+   "inLanguage": "en",
+   "image": "https://pocketdesk.sizaf.com/assets/img/hero-images/Terms-conditions .svg",
+   "publisher": {
+     "@type": "Organization",
+     "name": "Pocket Office",
+     "url": "https://pocketdesk.sizaf.com",
+     "logo": {
+       "@type": "ImageObject",
+       "url": "https://pocketdesk.sizaf.com/assets/img/logo/pocket-office-tm-final-logo.png"
+     }
+   }
+ }
+ @endverbatim
+ @endsection
  @section('content')
  <!-- breadcrumb area start -->
  <div

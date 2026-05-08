@@ -1,5 +1,33 @@
 @extends('layouts.backendsettings')
 @section('title', 'Attributions')
+@section('meta-title', 'Attributions | Pocket Office')
+@section('meta-description', 'View the open source libraries, assets, and resources credited by Pocket Office in our cloud desktop platform and website.')
+@section('meta-keywords', 'attributions, open source credits, pocket office resources, software credits')
+@section('meta-image', 'https://pocketdesk.sizaf.com/assets/img/hero-images/page-title-bg.png')
+@section('canonical', 'https://pocketdesk.sizaf.com/attributions')
+@section('meta-url', 'https://pocketdesk.sizaf.com/attributions')
+@section('structured-data')
+@verbatim
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Attributions | Pocket Office",
+  "url": "https://pocketdesk.sizaf.com/attributions",
+  "description": "View the open source libraries, assets, and resources credited by Pocket Office in our cloud desktop platform and website.",
+  "inLanguage": "en",
+  "image": "https://pocketdesk.sizaf.com/assets/img/hero-images/page-title-bg.png",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Pocket Office",
+    "url": "https://pocketdesk.sizaf.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://pocketdesk.sizaf.com/assets/img/logo/pocket-office-tm-final-logo.png"
+    }
+  }
+}
+@endverbatim
+@endsection
 @section('content')
 <!-- breadcrumb area start -->
 <div class="breadcrumb-area" style="background-image: url('{{ asset($constants['IMAGEFILEPATH'] . 'page-title-bg.png') }}')">

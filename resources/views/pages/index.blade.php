@@ -297,10 +297,10 @@
             <div class="sector-content active" id="education">
 
                 <div class="sector-left">
-                    <h1 class="sector-number">01. Education</h1>
-                    <h2 class="sector-heading">
-                        Empowering Digital Learning Environments
-                    </h2>
+                    <h3 class="sector-number">01. Education</h3>
+                    <h4 class="sector-heading">
+                            Empowering Digital Learning Environments
+                    </h4>
 
                     <p class="sector-text">
                         Create unified digital classrooms for assignments, learning materials,
@@ -329,10 +329,10 @@
             <div class="sector-content" id="healthcare">
 
                 <div class="sector-left">
-                    <h1 class="sector-number">02. Healthcare</h1>
-                    <h2 class="sector-heading">
+                    <h3 class="sector-number">02. Healthcare</h3>
+                    <h4 class="sector-heading">
                         Secure Patient Data Management & Healthcare Collaboration
-                    </h2>
+                    </h4>
 
                     <p class="sector-text">
                         Enable secure access to sensitive patient records while supporting
@@ -364,10 +364,10 @@
             <div class="sector-content" id="finance">
 
                 <div class="sector-left">
-                    <h1 class="sector-number">03. Finance & Legal</h1>
-                    <h2 class="sector-heading">
+                    <h3 class="sector-number">03. Finance & Legal</h3>
+                    <h4 class="sector-heading">
                         Secure Financial & Legal Document Management
-                    </h2>
+                    </h4>
 
                     <p class="sector-text">
                         Manage confidential financial documents, contracts, and reports
@@ -398,10 +398,10 @@
             <div class="sector-content" id="it">
 
                 <div class="sector-left">
-                    <h1 class="sector-number">04. IT & Software</h1>
-                    <h2 class="sector-heading">
+                    <h3 class="sector-number">04. IT & Software</h3>
+                    <h4 class="sector-heading">
                         Centralized IT Documentation & System Access
-                    </h2>
+                    </h4>
 
                     <p class="sector-text">
                         Provide centralized access to technical documentation,
@@ -436,9 +436,9 @@
 <section class="storage-integration-section">
     <div class="storage-wrapper">
 
-        <h2 class="storage-main-heading">
+        <h3 class="storage-main-heading">
             Connect Your Existing Storage and Tools — Instantly
-        </h2>
+        </h3>
 
         <div class="storage-content-wrapper">
 
@@ -584,7 +584,7 @@
         <div class="partners-header">
 
 
-            <h2 class="partners-title">
+            <h3 class="partners-title">
                 <!-- Handshake Icon SVG -->
                 <svg class="partners-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg">
@@ -592,7 +592,7 @@
                         d="M18 15l3-3a2.828 2.828 0 00-4-4l-1 1m-2 2l-1 1m-2 2l-2 2m5-5L9 9l-6 6m0 0l3 3m3-3l3 3m3-3l2 2" />
                 </svg>
                 PRODUCTS & PARTNERS
-            </h2>
+            </h3>
 
             <p class="partners-description">
                 PocketOffice collaborates with leading technology providers to deliver reliable, scalable, and
@@ -609,46 +609,46 @@
             <div class="partners-marquee-track">
                 <!-- Strip 1 -->
                 <div class="partners-logo-strip">
-                    <img src="/assets/img/acronis-logo.png" alt="Acronis" loading="lazy" />
-                    <img src="/assets/img/kaspersky-logo.png" alt="Kaspersky" loading="lazy" />
-                    <img src="/assets/img/microsoft-logo.png" alt="Microsoft" loading="lazy" />
-                    <img src="/assets/img/dell-logo.png" alt="Dell" loading="lazy" />
-                    <img src="/assets/img/amazon-logo.png" alt="Amazon" loading="lazy" />
-                    <img src="/assets/img/quick-heal-logo.png" alt="Quick Heal" loading="lazy" />
-                    <img src="/assets/img/escan-logo.png" alt="Escan" loading="lazy" />
-                    <img src="/assets/img/sonic-wall-logo.png" alt="SonicWall" loading="lazy" />
-                    <img src="/assets/img/hp-logo.png" alt="HP" loading="lazy" />
-                    <img src="/assets/img/fortinet-logo.png" alt="Fortinet" loading="lazy" />
-                    <img src="/assets/img/eset-logo.png" alt="ESET" loading="lazy" />
-                    <img src="/assets/img/cisco-logo.png" alt="Cisco" />
-                    <img src="/assets/img/alibaba-cloud-logo.png" alt="Alibaba Cloud" loading="lazy" />
-                    <img src="/assets/img/sophos-logo.png" alt="Sophos" loading="lazy" />
-                    <img src="/assets/img/symantec-logo.png" alt="Symantec" loading="lazy" />
-                    <img src="/assets/img/trend-micro-logo.png" alt="Trend Micro" loading="lazy" />
-                    <img src="/assets/img/veeam-logo.png" alt="Veeam" loading="lazy" />
-                    <img src="/assets/img/watchguard-logo.png" alt="Watchguard" loading="lazy" />
+                    <img src="/assets/img/acronis-logo.png" alt="Acronis" width="120" height="40" loading="lazy" />
+                    <img src="/assets/img/kaspersky-logo.png" alt="Kaspersky" width="120" height="40" loading="lazy" />
+                    <img src="/assets/img/microsoft-logo.png" alt="Microsoft" width="120" height="40" loading="lazy" />
+                    <img src="/assets/img/dell-logo.png" alt="Dell" width="120" height="40" loading="lazy" />
+                    <img src="/assets/img/amazon-logo.png" alt="Amazon" width="120" height="40" loading="lazy" />
+                    <img src="/assets/img/quick-heal-logo.png" alt="Quick Heal" width="120" height="40" loading="lazy" />
+                    <img src="/assets/img/escan-logo.png" alt="Escan" width="120" height="40" loading="lazy" />
+                    <img src="/assets/img/sonic-wall-logo.png" alt="SonicWall" width="120" height="40" loading="lazy" />
+                    <img src="/assets/img/hp-logo.png" alt="HP" width="120" height="40" loading="lazy" />
+                    <img src="/assets/img/fortinet-logo.png" alt="Fortinet" width="120" height="40" loading="lazy" />
+                    <img src="/assets/img/eset-logo.png" alt="ESET" width="120" height="40" loading="lazy" />
+                    <img src="/assets/img/cisco-logo.png" alt="Cisco" width="120" height="40" />
+                    <img src="/assets/img/alibaba-cloud-logo.png" alt="Alibaba Cloud" width="120" height="40" loading="lazy" />
+                    <img src="/assets/img/sophos-logo.png" alt="Sophos" width="120" height="40" loading="lazy" />
+                    <img src="/assets/img/symantec-logo.png" alt="Symantec" width="120" height="40" loading="lazy" />
+                    <img src="/assets/img/trend-micro-logo.png" alt="Trend Micro" width="120" height="40" loading="lazy" />
+                    <img src="/assets/img/veeam-logo.png" alt="Veeam" width="120" height="40" loading="lazy" />
+                    <img src="/assets/img/watchguard-logo.png" alt="Watchguard" width="120" height="40" loading="lazy" />
                 </div>
 
                 <!-- Duplicate strip for seamless loop -->
                 <div class="partners-logo-strip">
-                    <img src="/assets/img/acronis-logo.png" alt="Acronis" loading="lazy" />
-                    <img src="/assets/img/kaspersky-logo.png" alt="Kaspersky" loading="lazy" />
-                    <img src="/assets/img/microsoft-logo.png" alt="Microsoft" loading="lazy" />
-                    <img src="/assets/img/dell-logo.png" alt="Dell" loading="lazy" />
-                    <img src="/assets/img/amazon-logo.png" alt="Amazon" loading="lazy" />
-                    <img src="/assets/img/quick-heal-logo.png" alt="Quick Heal" loading="lazy" />
-                    <img src="/assets/img/escan-logo.png" alt="Escan" loading="lazy" />
-                    <img src="/assets/img/sonic-wall-logo.png" alt="SonicWall" loading="lazy" />
-                    <img src="/assets/img/hp-logo.png" alt="HP" loading="lazy" />
-                    <img src="/assets/img/fortinet-logo.png" alt="Fortinet" loading="lazy" />
-                    <img src="/assets/img/eset-logo.png" alt="ESET" loading="lazy" />
-                    <img src="/assets/img/cisco-logo.png" alt="Cisco" loading="lazy" />
-                    <img src="/assets/img/alibaba-cloud-logo.png" alt="Alibaba Cloud" loading="lazy" />
-                    <img src="/assets/img/sophos-logo.png" alt="Sophos" loading="lazy" />
-                    <img src="/assets/img/symantec-logo.png" alt="Symantec" loading="lazy" />
-                    <img src="/assets/img/trend-micro-logo.png" alt="Trend Micro" loading="lazy" />
-                    <img src="/assets/img/veeam-logo.png" alt="Veeam" loading="lazy" />
-                    <img src="/assets/img/watchguard-logo.png" alt="Watchguard" loading="lazy" />
+                    <img src="/assets/img/acronis-logo.png" alt="Acronis" width="120" height="40" loading="lazy" />
+                    <img src="/assets/img/kaspersky-logo.png" alt="Kaspersky" width="120" height="40" loading="lazy" />
+                    <img src="/assets/img/microsoft-logo.png" alt="Microsoft" width="120" height="40" loading="lazy" />
+                    <img src="/assets/img/dell-logo.png" alt="Dell" width="120" height="40" loading="lazy" />
+                    <img src="/assets/img/amazon-logo.png" alt="Amazon" width="120" height="40" loading="lazy" />
+                    <img src="/assets/img/quick-heal-logo.png" alt="Quick Heal" width="120" height="40" loading="lazy" />
+                    <img src="/assets/img/escan-logo.png" alt="Escan" width="120" height="40" loading="lazy" />
+                    <img src="/assets/img/sonic-wall-logo.png" alt="SonicWall" width="120" height="40" loading="lazy" />
+                    <img src="/assets/img/hp-logo.png" alt="HP" width="120" height="40" loading="lazy" />
+                    <img src="/assets/img/fortinet-logo.png" alt="Fortinet" width="120" height="40" loading="lazy" />
+                    <img src="/assets/img/eset-logo.png" alt="ESET" width="120" height="40" loading="lazy" />
+                    <img src="/assets/img/cisco-logo.png" alt="Cisco" width="120" height="40" loading="lazy" />
+                    <img src="/assets/img/alibaba-cloud-logo.png" alt="Alibaba Cloud" width="120" height="40" loading="lazy" />
+                    <img src="/assets/img/sophos-logo.png" alt="Sophos" width="120" height="40" loading="lazy" />
+                    <img src="/assets/img/symantec-logo.png" alt="Symantec" width="120" height="40" loading="lazy" />
+                    <img src="/assets/img/trend-micro-logo.png" alt="Trend Micro" width="120" height="40" loading="lazy" />
+                    <img src="/assets/img/veeam-logo.png" alt="Veeam" width="120" height="40" loading="lazy" />
+                    <img src="/assets/img/watchguard-logo.png" alt="Watchguard" width="120" height="40" loading="lazy" />
                 </div>
             </div>
         </div>

@@ -4,19 +4,18 @@
     integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g=="
     crossorigin="anonymous"
     referrerpolicy="no-referrer" />
-
 <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-<link rel="stylesheet" href="" />
+
 <!-- Leaflet CSS contact us page -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <!-- team type -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
-
-<link rel="canonical" href="https://pofwebsite.sizaf.com/about.html" />
-
-<link rel="icon" type="image/svg+xml" href="assets/img/logo/fav-icon.svg" />
+<!-- Favicon -->
+<link rel="icon" href="{{ asset('assets/img/logo/favicon.ico') }}" sizes="any">
+<link rel="icon" type="image/svg+xml" href="{{ asset('assets/img/logo/fav-icon.svg') }}">
+<link rel="apple-touch-icon" href="{{ asset('assets/img/logo/apple-touch-icon.png') }}">
 
 
 @vite([
@@ -61,6 +60,19 @@
     animation: seModalIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
     padding: 0;
     } */
+
+    /* #sales-enquiry-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 95%;
+  max-width: 780px;
+  background: #fff;
+  border-radius: 16px;
+  max-height: 90vh;
+  overflow-y: auto;
+} */
 
     #sales-enquiry-close {
         position: absolute;
