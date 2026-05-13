@@ -250,28 +250,37 @@
   <div class="header">
     <div class="logo">
       <div class="logo-icon">
-        <img src="office.svg" alt="office-logo" />
+        <!-- <img src="office.svg" alt="office-logo" /> -->
+        <img src="{{ asset($constants['IMAGEFILEPATH'] . 'office.png') }}" alt="office-logo" />
       </div>
     </div>
     <div class="social-icons">
       <!-- Twitter -->
       <a href="#" aria-label="Twitter">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M22.46 6c-.77.35-1.6.58-2.46.69a4.28 4.28 0 001.88-2.37 8.59 8.59 0 01-2.72 1.04A4.27 4.27 0 0015.5 4c-2.36 0-4.27 1.91-4.27 4.27 0 .33.04.66.1.97C7.73 9.07 4.1 7.18 1.67 4.23a4.26 4.26 0 00-.58 2.15c0 1.48.75 2.79 1.9 3.56a4.23 4.23 0 01-1.94-.54v.05c0 2.07 1.47 3.8 3.42 4.19a4.3 4.3 0 01-1.93.07c.54 1.7 2.12 2.93 3.98 2.97A8.57 8.57 0 012 18.58 12.1 12.1 0 008.29 20c7.55 0 11.68-6.25 11.68-11.67l-.01-.53A8.35 8.35 0 0022.46 6z"/></svg>
+        <!-- <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M22.46 6c-.77.35-1.6.58-2.46.69a4.28 4.28 0 001.88-2.37 8.59 8.59 0 01-2.72 1.04A4.27 4.27 0 0015.5 4c-2.36 0-4.27 1.91-4.27 4.27 0 .33.04.66.1.97C7.73 9.07 4.1 7.18 1.67 4.23a4.26 4.26 0 00-.58 2.15c0 1.48.75 2.79 1.9 3.56a4.23 4.23 0 01-1.94-.54v.05c0 2.07 1.47 3.8 3.42 4.19a4.3 4.3 0 01-1.93.07c.54 1.7 2.12 2.93 3.98 2.97A8.57 8.57 0 012 18.58 12.1 12.1 0 008.29 20c7.55 0 11.68-6.25 11.68-11.67l-.01-.53A8.35 8.35 0 0022.46 6z"/></svg> -->
+        <img src="{{ asset($constants['IMAGEFILEPATH'] . 'twitter-2.png') }}" alt="twitter-logo" />
       </a>
       <!-- Facebook -->
       <a href="#" aria-label="Facebook">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+        <img src="{{ asset($constants['IMAGEFILEPATH'] . 'facebook-2.png') }}" alt="facebook-logo" />
       </a>
       <!-- Instagram -->
       <a href="#" aria-label="Instagram">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        <!-- <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg> -->
+        <img src="{{ asset($constants['IMAGEFILEPATH'] . 'instagram-2.png') }}" alt="instagram-logo" />
+      </a>
+      <a href="#" aria-label="linkdlen">
+        <!-- <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg> -->
+        <img src="{{ asset($constants['IMAGEFILEPATH'] . 'linkdlen-2.png') }}" alt="linkdlen-logo" />
       </a>
     </div>
   </div>
 
   <!-- HERO ILLUSTRATION (inline SVG) -->
   <div class="hero">
-    <img class="hero-illustration" src="hero-bg.svg" alt="Hero Image">
+    <!-- <img class="hero-illustration" src="hero-bg.svg" alt="Hero Image"> -->
+    <img class="hero-illustration" src="{{ asset($constants['IMAGEFILEPATH'] . 'hero-bg.png') }}" alt="Hero Image">
     <div style="font-size:22px;font-weight:800;color:#1a1a2e;">
       Welcome to <span style="color:#0694B7;">PocketOffice</span>!
     </div>
@@ -365,19 +374,23 @@
     <div class="footer-socials">
       <!-- Facebook -->
       <a href="#" aria-label="Facebook">
-        <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+        <!-- <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg> -->
+        <img src="{{ asset($constants['IMAGEFILEPATH'] . 'facebook-2.png') }}" alt="office-logo" />
       </a>
       <!-- Twitter -->
       <a href="#" aria-label="Twitter">
-        <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15"><path d="M22.46 6a8.59 8.59 0 01-2.46.69 4.28 4.28 0 001.88-2.37 8.59 8.59 0 01-2.72 1.04A4.27 4.27 0 0015.5 4c-2.36 0-4.27 1.91-4.27 4.27 0 .33.04.66.1.97C7.73 9.07 4.1 7.18 1.67 4.23a4.26 4.26 0 00-.58 2.15c0 1.48.75 2.79 1.9 3.56a4.23 4.23 0 01-1.94-.54v.05c0 2.07 1.47 3.8 3.42 4.19a4.3 4.3 0 01-1.93.07c.54 1.7 2.12 2.93 3.98 2.97A8.57 8.57 0 012 18.58 12.1 12.1 0 008.29 20c7.55 0 11.68-6.25 11.68-11.67l-.01-.53A8.35 8.35 0 0022.46 6z"/></svg>
+        <!-- <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15"><path d="M22.46 6a8.59 8.59 0 01-2.46.69 4.28 4.28 0 001.88-2.37 8.59 8.59 0 01-2.72 1.04A4.27 4.27 0 0015.5 4c-2.36 0-4.27 1.91-4.27 4.27 0 .33.04.66.1.97C7.73 9.07 4.1 7.18 1.67 4.23a4.26 4.26 0 00-.58 2.15c0 1.48.75 2.79 1.9 3.56a4.23 4.23 0 01-1.94-.54v.05c0 2.07 1.47 3.8 3.42 4.19a4.3 4.3 0 01-1.93.07c.54 1.7 2.12 2.93 3.98 2.97A8.57 8.57 0 012 18.58 12.1 12.1 0 008.29 20c7.55 0 11.68-6.25 11.68-11.67l-.01-.53A8.35 8.35 0 0022.46 6z"/></svg> -->
+        <img src="{{ asset($constants['IMAGEFILEPATH'] . 'twitter-2.png') }}" alt="office-logo" />
       </a>
       <!-- LinkedIn -->
       <a href="#" aria-label="LinkedIn">
-        <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+        <!-- <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg> -->
+        <img src="{{ asset($constants['IMAGEFILEPATH'] . 'linkdlen-2.png') }}" alt="office-logo" />
       </a>
       <!-- Instagram -->
       <a href="#" aria-label="Instagram">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        <!-- <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg> -->
+        <img src="{{ asset($constants['IMAGEFILEPATH'] . 'instagram-2.png') }}" alt="office-logo" />
       </a>
     </div>
   </div>

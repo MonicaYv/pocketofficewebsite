@@ -250,7 +250,7 @@
   <div class="header">
     <div class="logo">
       <div class="logo-icon">
-        <img src="office.svg" alt="office-logo" />
+        <img src="{{ asset($constants['IMAGEFILEPATH'] . 'office.svg') }}" alt="office-logo" />
       </div>
     </div>
     <div class="social-icons">
@@ -271,7 +271,7 @@
 
   <!-- HERO ILLUSTRATION (inline SVG) -->
   <div class="hero">
-    <img class="hero-illustration" src="hero-bg.svg" alt="Hero Image">
+    <img class="hero-illustration" src="{{ asset($constants['IMAGEFILEPATH'] . 'hero-bg.svg') }}" alt="Hero Image">
     <div style="font-size:22px;font-weight:800;color:#1a1a2e;">
       Welcome to <span style="color:#0694B7;">PocketOffice</span>!
     </div>
