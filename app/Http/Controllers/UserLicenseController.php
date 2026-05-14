@@ -1542,7 +1542,7 @@ class UserLicenseController extends Controller
         } catch (\Exception $e) {
 
             DB::rollBack();
-            dd($e->getMessage());
+            // dd($e->getMessage());
 
             return response()->json([
                 'status' => false,
