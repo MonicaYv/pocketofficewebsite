@@ -363,7 +363,7 @@
                      <div class="usecase-card">
                          <div class="card-video">
                              <video
-                                 src="/assets/videos/solutions-use-case/cloud-storage/Centralized File Management.mp4"
+                                 src="/assets/img/videos/solutions-use-case/cloud-storage/Centralized File Management.mp4"
                                  autoplay
                                  loop
                                  muted
@@ -381,7 +381,7 @@
                      <div class="usecase-card">
                          <div class="card-video">
                              <video
-                                 src="/assets/videos/solutions-use-case/cloud-storage/Unified Access.mp4"
+                                 src="/assets/img/videos/solutions-use-case/cloud-storage/Unified Access.mp4"
                                  autoplay
                                  loop
                                  muted
@@ -399,7 +399,7 @@
                      <div class="usecase-card">
                          <div class="card-video">
                              <video
-                                 src="/assets/videos/solutions-use-case/cloud-storage/Scalable Storage.mp4"
+                                 src="/assets/img/videos/solutions-use-case/cloud-storage/Scalable Storage.mp4"
                                  autoplay
                                  loop
                                  muted
@@ -417,7 +417,7 @@
                      <div class="usecase-card">
                          <div class="card-video">
                              <video
-                                 src="/assets/videos/solutions-use-case/cloud-storage/Secure by Default.mp4"
+                                 src="/assets/img/videos/solutions-use-case/cloud-storage/Secure by Default.mp4"
                                  autoplay
                                  loop
                                  muted
