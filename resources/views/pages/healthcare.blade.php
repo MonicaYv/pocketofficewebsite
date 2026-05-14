@@ -24,48 +24,7 @@
      <!-- Sidebar -->
      <aside class="sidebar">
          <h2><strong>Industry Solutions</strong></h2>
-
-         <a href="bpo.html"> <i class="fa fa-phone mr-2"></i>BPO Outsourcing </a>
-
-         <a href="consulting.html">
-             <i class="fa fa-briefcase mr-2"></i>Consulting
-         </a>
-
-         <a href="design.html">
-             <i class="fa fa-paint-brush mr-2"></i>Design & Media Studios
-         </a>
-
-         <a href="education.html">
-             <i class="fa fa-graduation-cap mr-2"></i>Education
-         </a>
-
-         <a href="finance-accounting.html">
-             <i class="fa fa-line-chart mr-2"></i>Finance & Accounting
-         </a>
-
-         <a href="healthcare.html">
-             <i class="fa fa-heartbeat mr-2"></i>Healthcare
-         </a>
-
-         <a href="it-software.html">
-             <i class="fa fa-desktop mr-2"></i>IT & Software Development
-         </a>
-
-         <a href="legal-services.html">
-             <i class="fa fa-balance-scale mr-2"></i>Legal Services
-         </a>
-
-         <a href="manufacturing.html">
-             <i class="fa fa-industry mr-2"></i>Manufacturing
-         </a>
-
-         <a href="media-publishing.html">
-             <i class="fa fa-newspaper-o mr-2"></i>Media & Publishing
-         </a>
-
-         <a href="retail-ecommerce.html">
-             <i class="fa fa-shopping-cart mr-2"></i>Retail & E-commerce
-         </a>
+         @include('pages.industry_solution')
      </aside>
 
      <!-- Main Content -->
