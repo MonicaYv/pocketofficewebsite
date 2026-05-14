@@ -26,6 +26,7 @@
         @yield('structured-data', '{}')
     </script>
 
+    @yield('preload')
 
     @include('layouts.header')
 </head>

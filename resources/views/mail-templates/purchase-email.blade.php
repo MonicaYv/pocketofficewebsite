@@ -271,7 +271,7 @@
 
   <!-- HERO ILLUSTRATION (inline SVG) -->
   <div class="hero">
-    <img class="hero-illustration" src="hero-bg.svg" alt="Hero Image">
+    <img class="hero-illustration" src="./hero-bg.svg" alt="Hero Image">
     <div style="font-size:22px;font-weight:800;color:#1a1a2e;">
       Welcome to <span style="color:#0694B7;">PocketOffice</span>!
     </div>

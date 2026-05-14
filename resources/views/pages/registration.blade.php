@@ -721,19 +721,19 @@
                             <ul class="social-icon">
                                 <li>
                                     <a class="facebook" href="https://www.facebook.com/aibuzztech/"
-                                        target="_blank"><i class="fa-brands fa-facebook-f  "></i></a>
+                                        target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-facebook-f  "></i></a>
                                 </li>
                                 <li>
-                                    <a class="twitter" href="https://x.com/aibuzz_tech" target="_blank"><i
+                                    <a class="twitter" href="https://x.com/aibuzz_tech" target="_blank" rel="noopener noreferrer"><i
                                             class="fa-brands fa-twitter  "></i></a>
                                 </li>
                                 <li>
                                     <a class="linkedin" href="https://www.linkedin.com/company/aibuzz-techno/"
-                                        target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+                                        target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-linkedin"></i></a>
                                 </li>
                                 <li>
                                     <a class="pinterest" href="https://www.instagram.com/aibuzz_technoventures/"
-                                        target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                                        target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-instagram"></i></a>
                                 </li>
                             </ul>
                         </div>
@@ -802,7 +802,7 @@
     </div>
     <div class="copyright-inner">
         <div class="copyright-text">
-            &copy; MAPUI 2025 All rights reserved, Launched by <a href="https://aibuzz.net" target="_blank">Aibuzz
+            &copy; MAPUI 2025 All rights reserved, Launched by <a href="https://aibuzz.net" target="_blank" rel="noopener noreferrer">Aibuzz
                 Net</a>
         </div>
     </div>

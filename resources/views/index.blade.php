@@ -65,9 +65,9 @@
                     <div class="col-md-3 text-md-end">
                         <div class="nav-right">
                             <a href="pricing.html" class="order-now-btn btn-radius btn-green s-animate-3">Order now</a>
-                            <a href="https://pocketoffice.sizaf.com/" target="_blank"
+                            <a href="https://pocketoffice.sizaf.com/" target="_blank" rel="noopener noreferrer"
                                 class="order-now-btn btn-radius btn-green s-animate-3">Customer Login</a>
-                            <a href="https://helpdesk.pocketoffice.sizaf.com/staff/login" target="_blank"
+                            <a href="https://helpdesk.pocketoffice.sizaf.com/staff/login" target="_blank" rel="noopener noreferrer"
                                 class="order-now-btn btn-radius btn-green s-animate-3">NOC Login</a>
                         </div>
                     </div>
@@ -532,7 +532,7 @@
                         <a href="#">More</a>
                         <ul class="sub-menu">
                             <li><a href="sales-enquiry.html">Sales Enquiry</a></li>
-                            <li> <a href="submit-ticket.html" target="_blank">Submit
+                            <li> <a href="submit-ticket.html" target="_blank" rel="noopener noreferrer">Submit
                                     a Ticket</a></li>
                             <li><a href="contact-us.html">Contact Us</a></li>
                         </ul>
@@ -1504,12 +1504,12 @@
         <!-- Bottom Section -->
         <div class="footer-bottom">
             <div class="social-icons">
-                <a href="https://x.com/aibuzz_tech" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
-                <a href="https://www.facebook.com/aibuzztech/" target="_blank"><i
+                <a href="https://x.com/aibuzz_tech" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="https://www.facebook.com/aibuzztech/" target="_blank" rel="noopener noreferrer"><i
                         class="fa-brands fa-facebook-f"></i></a>
-                <a href="https://www.linkedin.com/company/aibuzz-techno/" target="_blank"><i
+                <a href="https://www.linkedin.com/company/aibuzz-techno/" target="_blank" rel="noopener noreferrer"><i
                         class="fa-brands fa-linkedin"></i></a>
-                <a href="https://www.instagram.com/aibuzz_technoventures/" target="_blank"><i
+                <a href="https://www.instagram.com/aibuzz_technoventures/" target="_blank" rel="noopener noreferrer"><i
                         class="fa-brands fa-instagram"></i></a>
             </div>
 

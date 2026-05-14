@@ -13,6 +13,9 @@
 <!-- team type -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
 <!-- Favicon -->
+ <!-- Favicon -->
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 <link rel="icon" href="{{ asset('assets/img/logo/favicon.ico') }}" sizes="any">
 <link rel="icon" type="image/svg+xml" href="{{ asset('assets/img/logo/fav-icon.svg') }}">
 <link rel="apple-touch-icon" href="{{ asset('assets/img/logo/apple-touch-icon.png') }}">

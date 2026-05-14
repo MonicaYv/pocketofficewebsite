@@ -14,9 +14,9 @@
                 <div class="col-md-3 text-md-end">
                     <div class="nav-right">
                         <a href="{{ route('marketplace.pricing') }}" class="order-now-btn btn-radius btn-green s-animate-3">Order now</a>
-                        <a href="https://pocketoffice.sizaf.com/login" target="_blank"
+                        <a href="https://pocketoffice.sizaf.com/login" target="_blank" rel="noopener noreferrer"
                             class="order-now-btn btn-radius btn-green s-animate-3">Customer Login</a>
-                        <a href="https://helpdesk.pocketoffice.sizaf.com/staff/login" target="_blank"
+                        <a href="https://helpdesk.pocketoffice.sizaf.com/staff/login" target="_blank" rel="noopener noreferrer"
                             class="order-now-btn btn-radius btn-green s-animate-3">Support Login</a>
                     </div>
                 </div>
@@ -493,7 +493,7 @@
                     <a href="#">More</a>
                     <ul class="sub-menu">
                         <li><a id="sales-enquiry-trigger-mob">Sales Enquiry</a></li>
-                        <li> <a href="https://helpdesk.pocketoffice.sizaf.com/submit-ticket" target="_blank">Submit
+                        <li> <a href="https://helpdesk.pocketoffice.sizaf.com/submit-ticket" target="_blank" rel="noopener noreferrer">Submit
                                 a Ticket</a></li>
                         <li><a href="{{ url('contact-us') }}">Contact Us</a></li>
                     </ul>
@@ -505,7 +505,7 @@
                             class="order-now-btn btn-radius btn-green s-animate-3">Customer Login</a>
                         <a
                             href="https://helpdesk.pocketoffice.sizaf.com/staff/login"
-                            target="_blank"
+                            target="_blank" rel="noopener noreferrer"
                             class="order-now-btn btn-radius btn-green s-animate-3">Support Login</a>
                     </div>
                 </div>

@@ -94,12 +94,12 @@
      <!-- Bottom Section -->
      <div class="footer-bottom">
          <div class="social-icons">
-             <a href="https://x.com/aibuzz_tech" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
-             <a href="https://www.facebook.com/aibuzztech/" target="_blank"><i
+             <a href="https://x.com/aibuzz_tech" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-x-twitter"></i></a>
+             <a href="https://www.facebook.com/aibuzztech/" target="_blank" rel="noopener noreferrer"><i
                      class="fa-brands fa-facebook-f"></i></a>
-             <a href="https://www.linkedin.com/company/aibuzz-techno/" target="_blank"><i
+             <a href="https://www.linkedin.com/company/aibuzz-techno/" target="_blank" rel="noopener noreferrer"><i
                      class="fa-brands fa-linkedin"></i></a>
-             <a href="https://www.instagram.com/aibuzz_technoventures/" target="_blank"><i
+             <a href="https://www.instagram.com/aibuzz_technoventures/" target="_blank" rel="noopener noreferrer"><i
                      class="fa-brands fa-instagram"></i></a>
          </div>
 

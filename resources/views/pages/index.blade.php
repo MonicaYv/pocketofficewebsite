@@ -28,13 +28,16 @@
 }
 @endverbatim
 @endsection
+@section('preload')
+<link rel="preload" href="{{ asset('assets/img/Hero Section.webp') }}" as="image" type="image/webp">
+@endsection
 @section('content')
 <!-- header area start -->
 <section class="hero-header">
     <!-- Background Image -->
     <div class="hero-bg">
         <img src="assets/img/Hero Section.webp"
-            srcset="assets/img/Hero Section.webp 480w,assets/img/Hero Section.webp 1200w"
+            srcset="assets/img/Hero Section-480.webp 480w, assets/img/Hero Section.webp 1200w"
             sizes="(max-width: 768px) 100vw, 1200px"
             alt="Digital productivity interface with modern workspace layout" width="1200" height="900"
             loading="eager" />
