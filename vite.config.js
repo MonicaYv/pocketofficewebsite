@@ -28,8 +28,6 @@ export default defineConfig({
                 'resources/js/main.js',
                 'resources/js/home.js',
                 'resources/js/search-box.js',
-                'resources/js/market-place-userLicense.js',
-                'resources/js/pricing-page.js',
                 'resources/js/enquiry.js',
                 'resources/js/jquery.magnific-popup.js',
                 'resources/js/wow.min.js',
@@ -61,6 +59,8 @@ export default defineConfig({
                 'resources/js/testimonial-slider.js',
                 'resources/js/countries.js',
                 'resources/js/search-data.js',
+                'resources/js/pricing.js',
+                'resources/js/payment.js'
             ],
             refresh: true,
         }),
