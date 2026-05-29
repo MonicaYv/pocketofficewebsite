@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
     );
 
     if (!selectedPlan) {
-        console.log("No selected plan found");
+        // console.log("No selected plan found");
         return;
     }
 
@@ -302,6 +302,10 @@ document.addEventListener("DOMContentLoaded", function () {
         return /^[0-9]{10}$/.test(phone);
     }
 
+    function validateCompanyNumber(companyNumber) {
+        return /^[0-9]{10}$/.test(companyNumber);
+    }
+
     function validateUsername(username) {
         return /^(?=.*[A-Z])[A-Za-z_]+$/.test(username);
     }
@@ -370,6 +374,16 @@ document.addEventListener("DOMContentLoaded", function () {
         } else {
             hideError("phone");
         }
+
+        const companyNumber = document.getElementById("companyNumber")?.value.trim() || "";
+
+        if (!validateCompanyNumber(companyNumber)) {
+            showError("companyNumber", "Enter valid 10 digit phone");
+            valid = false;
+        } else {
+            hideError("companyNumber");
+        }
+        
 
         const email = document.getElementById("userEmail")?.value.trim() || "";
 
@@ -444,7 +458,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const valid = validateForm();
 
         if (!valid) {
-            console.log("Validation failed");
+            // console.log("Validation failed");
             return;
         }
 
@@ -541,7 +555,7 @@ document.addEventListener("DOMContentLoaded", function () {
             },
 
             success: function (response) {
-                console.log(response);
+                // console.log(response);
 
                 if (response.status === true) {
                     appliedPromocodeId = response.promocode_id;
@@ -617,7 +631,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     $(document).on("click", "#confirmPayBtn", function () {
-        console.log("Confirm payment clicked");
+        // console.log("Confirm payment clicked");
 
         let btn = $(this);
 
@@ -724,7 +738,7 @@ document.addEventListener("DOMContentLoaded", function () {
             card_name: $("#cardName").val(),
         };
 
-        console.log(paymentData);
+        // console.log(paymentData);
 
         // =========================
         // SAVE URL
@@ -746,7 +760,7 @@ document.addEventListener("DOMContentLoaded", function () {
             },
 
             success: function (response) {
-                console.log(response);
+                // console.log(response);
 
                 if (response.status === true || response.success === true) {
                     toastr.success(response.message);
@@ -833,6 +847,15 @@ document.addEventListener("DOMContentLoaded", function () {
                 hideError("companyEmail");
             }
         });
+
+    // COMONY PHONE
+    document.getElementById("companyNumber")?.addEventListener("input", function () {
+        this.value = this.value.replace(/\D/g, "").slice(0, 10);
+
+        if (validatePhone(this.value)) {
+            hideError("companyNumber");
+        }
+    });
 
     // SECURITY ANSWER
     document

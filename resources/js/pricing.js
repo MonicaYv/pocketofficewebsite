@@ -634,7 +634,7 @@ $(document).ready(function () {
         function () {
             let planType = $(this).data("plan-type");
 
-            console.log("Selected Plan Type:", planType);
+            // console.log("Selected Plan Type:", planType);
 
             // Store
             sessionStorage.setItem("selectedPlanType", planType);

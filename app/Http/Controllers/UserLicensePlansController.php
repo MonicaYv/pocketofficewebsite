@@ -19,6 +19,7 @@ use App\Models\UsersLicensePlan;
 use App\Models\User;
 
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 class UserLicensePlansController extends Controller
@@ -513,31 +514,100 @@ class UserLicensePlansController extends Controller
             ->where('id', $userId)
             ->first();
 
+        // PLAN
+        $plan = DB::table('users_license_plans')
+            ->where('id', $request->plan_id)
+            ->first();
+
+        // CURRENCY
+        $currency = DB::table('currency_rates')
+            ->where('currency_code', $request->currencyid)
+            ->first();
+
+        // COMPANY DETAILS
+        $company = null;
+
+        if ($request->plan_type == 'team' && $user->company_id) {
+            $company = DB::table('companies')
+                ->where('id', $user->company_id)
+                ->first();
+        }
+
+        // DISCOUNT
+        $isYearly = ($request->subscription_type === 'year');
+
+        $discount = $isYearly
+            ? ($plan->yearly_discount ?? 0)
+            : ($plan->monthly_discount ?? 0);
+
+        $price = (float)$request->price;
+        $qty = (int)$request->quantity;
+
+        $subtotal = $price * $qty;
+
+        $discountAmount = ($subtotal * $discount) / 100;
+
         $pdf = Pdf::loadView('marketplace.invoices', [
+
             'user' => $user,
+
+            // PLAN
             'plan_name' => $request->plan_name,
-            'price' => $request->price,
             'subscription_type' => $request->subscription_type,
             'license' => $request->license,
             'storage' => $request->storage,
             'unit' => $request->storage_unit,
-            'qty' => $request->quantity,
-            'total_amount' => $finalAmount,
+
+            // PRICE
+            'price' => number_format($price, 2),
+            'qty' => $qty,
+            'subtotal' => number_format($subtotal, 2),
+            'discount' => $discount,
+            'discountAmount' => number_format($discountAmount, 2),
+            'finalAmount' => number_format($finalAmount, 2),
+            'total_amount' => number_format($finalAmount, 2),
+
+            // CURRENCY
+            'currency' => $currency->currency_symbol ?? '',
+
+            // PROMO
             'promocode' => $request->promocode_id ?? 'N/A',
-            'company_email' => $request->plan_type == 'team' ? $request->company_email : '',
-            'company_phone' => $request->plan_type == 'team' ? $request->company_number : '',
+
+            // COMPANY
+            'plan_type' => $request->plan_type,
+            'company' => $company,
+
+            // PAYMENT
             'payment_mode' => 'Card',
             'payment_status' => 'Paid',
             'payment_date' => now()->format('d M Y'),
-        ])->setPaper('a4', 'portrait');
+
+            // INVOICE META
+            'invoice_no' => 'INV-' . date('Y') . '-' . rand(1000, 9999),
+            'invoice_date' => now()->format('d M Y'),
+            'billing_period' => ucfirst($request->subscription_type),
+
+        ])->setPaper('a4', 'portrait')
+            ->setOptions([
+                'isHtml5ParserEnabled' => true,
+                'isRemoteEnabled' => true,
+                'defaultFont' => 'DejaVu Sans',
+            ]);
 
         $fileName = 'invoice_' . time() . '_' . Str::random(6) . '.pdf';
 
-        $filePath = 'invoices/' . $fileName;
+        $filePath = storage_path('app/invoices/' . $fileName);
 
-        Storage::disk('local')->put($filePath, $pdf->output());
+        $invoiceDir = storage_path('app/invoices');
 
-        return storage_path('app/' . $filePath);
+        if (!file_exists($invoiceDir)) {
+
+            mkdir($invoiceDir, 0775, true);
+        }
+
+        $pdf->save($filePath);
+
+        return $filePath;
     }
 
     private function sendAdminMail($request, $pdfPath)
@@ -555,6 +625,7 @@ class UserLicensePlansController extends Controller
             ],
             function ($message) use ($request, $pdfPath) {
 
+                //officelescloud@gmail.com
                 $message->to('officelescloud@gmail.com')
                     ->replyTo($request->email)
                     ->subject('Purchase Details');
@@ -593,5 +664,38 @@ class UserLicensePlansController extends Controller
                 }
             }
         );
+    }
+
+    private function generateInvoiceOld($request, $userId, $finalAmount)
+    {
+        $user = DB::table('users')
+            ->where('id', $userId)
+            ->first();
+
+        $pdf = Pdf::loadView('marketplace.invoices', [
+            'user' => $user,
+            'plan_name' => $request->plan_name,
+            'price' => $request->price,
+            'subscription_type' => $request->subscription_type,
+            'license' => $request->license,
+            'storage' => $request->storage,
+            'unit' => $request->storage_unit,
+            'qty' => $request->quantity,
+            'total_amount' => $finalAmount,
+            'promocode' => $request->promocode_id ?? 'N/A',
+            'company_email' => $request->plan_type == 'team' ? $request->company_email : '',
+            'company_phone' => $request->plan_type == 'team' ? $request->company_number : '',
+            'payment_mode' => 'Card',
+            'payment_status' => 'Paid',
+            'payment_date' => now()->format('d M Y'),
+        ])->setPaper('a4', 'portrait');
+
+        $fileName = 'invoice_' . time() . '_' . Str::random(6) . '.pdf';
+
+        $filePath = 'invoices/' . $fileName;
+
+        Storage::disk('local')->put($filePath, $pdf->output());
+
+        return storage_path('app/' . $filePath);
     }
 }

@@ -126,7 +126,19 @@
                                              type="text"
                                              class="form-control"
                                              id="companyNumber"
-                                             placeholder="+1 (415) 123-4567" />
+                                             placeholder="98765XXXXX"
+                                             maxlength="10"
+                                             inputmode="numeric"
+                                             autocomplete="off" />
+                                         <span
+                                             class=" glyphicon form-control-feedback"
+                                             id="companyNumber-icon"></span>
+                                         <span
+                                             class="help-block text-danger"
+                                             style="display: none"
+                                             id="companyNumber-err">
+                                             Enter valid 10 digit mobile number
+                                         </span>
                                      </div>
                                  </div>
                                  <div class="col-sm-6">

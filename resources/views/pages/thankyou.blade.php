@@ -92,7 +92,7 @@
           <div class="panel panel-default ty-fade-3">
             <div class="panel-body ty-actions">
               <a href="{{ url('index') }}" class="btn btn-brand btn-block">
-                <i class="bi bi-grid-1x2"></i>&nbsp; Go to Dashboard
+                <i class="bi bi-grid-1x2"></i>&nbsp; Go to Home
               </a>
               <a href="{{ route('marketplace.pricing') }}" class="btn btn-default btn-block">
                 <i class="bi bi-arrow-left"></i>&nbsp; Back to Pricing

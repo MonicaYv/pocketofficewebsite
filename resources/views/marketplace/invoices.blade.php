@@ -521,7 +521,7 @@
         <!-- TOP BAR -->
         <div class="topbar">
             <a href="#" class="logo">
-                <!-- <img src="office.svg" alt="office-logo" /> -->
+                <img src="{{ asset($constants['IMAGEFILEPATH'] . 'office.png') }}" alt="office-logo" />
             </a>
             <div class="invoice-badge">INVOICE</div>
         </div>
@@ -543,31 +543,31 @@
                         <path
                             d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24c1.12.37 2.33.57 3.57.57a1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57a1 1 0 01-.25 1.02l-2.2 2.2z" />
                     </svg>
-                    +91 92971972919
+                    {{$user->phone}}
                 </div>
                 <div class="meta-icon-row">
                     <svg viewBox="0 0 24 24" fill="currentColor">
                         <path
                             d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
                     </svg>
-                    acharyarishi79@gmail.com
+                    officelescloud@gmail.com
                 </div>
             </div>
             <table class="inv-table">
                 <tr>
                     <td>Invoice Number</td>
                     <td>:</td>
-                    <td class="val" style="color:#0694B7;">INV-2024-0057</td>
+                    <td class="val" style="color:#0694B7;">{{ $invoice_no }}</td>
                 </tr>
                 <tr>
                     <td>Invoice Date</td>
                     <td>:</td>
-                    <td class="val">01 Aug, 2024</td>
+                    <td class="val">{{$invoice_date }}</td>
                 </tr>
                 <tr>
                     <td>Billing Period</td>
                     <td>:</td>
-                    <td class="val">Monthly</td>
+                    <td class="val">{{$billing_period }}</td>
                 </tr>
                 <tr>
                     <td>Payment Status</td>
@@ -606,6 +606,8 @@
                     {{ $user->phone }}
                 </div>
             </div>
+            @if($plan_type == 'team' && $company)
+
             <div class="col-half">
                 <div class="col-label">
                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -614,18 +616,36 @@
                     </svg>
                     Company Details
                 </div>
-                <div class="det-row"><span class="det-key">Company Type</span>
-                <span class="det-val"></span>
+
+                <div class="det-row">
+                    <span class="det-key">Company Name</span>
+                    <span class="det-val">{{ optional($company)->name }}</span>
                 </div>
-                <div class="det-row"><span class="det-key">Industry</span>
-                <span class="det-val"></span></div>
-                <div class="det-row"><span class="det-key">Address</span>
-                <span class="det-val">{{ $user->address ?? '' }}</span></div>
-                <div class="det-row"><span class="det-key">Company Email</span>
-                <span class="det-val" style="color:#0694B7;font-size:11.5px;">
-                    {{ $user->email }}
-                </span></div>
+
+                <div class="det-row">
+                    <span class="det-key">Company Type</span>
+                    <span class="det-val">{{ optional($company)->company_type }}</span>
+                </div>
+
+                <div class="det-row">
+                    <span class="det-key">Industry</span>
+                    <span class="det-val">{{ optional($company)->industry }}</span>
+                </div>
+
+                <div class="det-row">
+                    <span class="det-key">Address</span>
+                    <span class="det-val">{{ optional($company)->company_address }}</span>
+                </div>
+
+                <div class="det-row">
+                    <span class="det-key">Company Email</span>
+                    <span class="det-val" style="color:#0694B7;font-size:11.5px;">
+                        {{ optional($company)->email }}
+                    </span>
+                </div>
             </div>
+
+            @endif
         </div>
 
         <!-- PLAN CARD -->
@@ -639,7 +659,7 @@
             <div class="plan-info">
                 <div class="plan-label">Your Plan</div>
                 <div class="plan-name">{{ $plan_name }}</div>
-                <div class="plan-price">{{ $price }} <span>{{ $subscription_type }}</span></div>
+                <div class="plan-price">{{ $currency }}{{ $price }} <span>{{ $subscription_type }}</span></div>
             </div>
             <div class="plan-features">
                 <div class="feat">
@@ -668,21 +688,49 @@
                         stroke-linejoin="round">
                         <polyline points="20 6 9 17 4 12" />
                     </svg>
-                    All Integrations
+                    Personal Workspace
                 </div>
                 <div class="feat">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
                         stroke-linejoin="round">
                         <polyline points="20 6 9 17 4 12" />
                     </svg>
-                    Unlimited Workspaces
+                    Security Controls
                 </div>
                 <div class="feat">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
                         stroke-linejoin="round">
                         <polyline points="20 6 9 17 4 12" />
                     </svg>
-                    Priority Support
+                    Manage Infra
+                </div>
+                <div class="feat">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                    App Integration
+                </div>
+                <div class="feat">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                    Backup & Recovery
+                </div>
+                <div class="feat">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                    Storage Add-ons
+                </div>
+                <div class="feat">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                    Feature Add-ons
                 </div>
             </div>
         </div>
@@ -701,8 +749,16 @@
                 <tbody>
                     <tr>
                         <td>
-                            <div class="item-name">{{ $storage }} ({{ $subscription_type }})</div>
-                            <div class="item-sub">Billed for 1 user</div>
+                            <div class="item-name">{{ $plan_name }} ({{ $subscription_type }})</div>
+                            <div class="item-sub">
+                                <div class="item-sub">
+                                    @if($plan_type == 'team')
+                                    Billed for Team ({{ $qty }} {{ $qty > 1 ? 'users' : 'user' }})
+                                    @else
+                                    Billed for Single User
+                                    @endif
+                                </div>
+                            </div>
                         </td>
                         <td style="text-align:center;font-weight:700;">{{ $qty }}</td>
                         <td class="right">{{ $price }}</td>
@@ -720,23 +776,24 @@
                 <tr>
                     <td></td>
                     <td></td>
-                    
+
                     <td>Subtotal</td>
-                    <td>{{ $total_amount }}</td>
+                    <td>{{ $currency }}{{ $subtotal }}</td>
                 </tr>
 
                 <tr>
                     <td></td>
                     <td></td>
-                   
-                    <td>Estimated Tax (0%)</td>
-                    <td>₹0</td>
+
+                    <td>Discount ({{$discount}}%)</td>
+                    <td>{{ $currency }}{{ $discountAmount }}</td>
                 </tr>
-                <tr class="total-row"><td></td>
-                   
+                <tr class="total-row">
+                    <td></td>
+
                     <td></td>
                     <td>Total</td>
-                    <td>₹599</td>
+                    <td>{{$currency}}{{$finalAmount}}</td>
                 </tr>
             </table>
         </div>
@@ -769,15 +826,33 @@
                             d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
                     </svg>
                     <span style="font-size:12px;color:#0694B7;font-weight:700;">
-                        {{ $company_email }}</span>
+                        {{ $company->email ?? '' }}</span>
                 </div>
+                @if($plan_type == 'team' && $company)
+
+                <div class="col-detail" style="margin-bottom:5px;">
+                    <svg viewBox="0 0 24 24" fill="currentColor" width="13" height="13" style="color:#0694B7;">
+                        <path
+                            d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+                    </svg>
+
+                    <span style="font-size:12px;color:#0694B7;font-weight:700;">
+                        {{ optional($company)->email }}
+                    </span>
+                </div>
+
                 <div class="col-detail">
                     <svg viewBox="0 0 24 24" fill="currentColor" width="13" height="13" style="color:#0694B7;">
                         <path
                             d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24c1.12.37 2.33.57 3.57.57a1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57a1 1 0 01-.25 1.02l-2.2 2.2z" />
                     </svg>
-                    <span style="font-size:12px;color:#555;font-weight:600;">{{ $company_phone }}</span>
+
+                    <span style="font-size:12px;color:#555;font-weight:600;">
+                        {{ optional($company)->contact }}
+                    </span>
                 </div>
+
+                @endif
             </div>
             <div class="thank-col">
                 <div class="thank-title">Payment Information</div>
@@ -785,7 +860,7 @@
                 <div class="pay-row"><span class="pay-key">Payment Status</span><span class="pay-val"
                         style="font-size:11.5px;">{{ $payment_status }}</span></div>
                 <div class="pay-row"><span class="pay-key">Payment Date</span><span class="pay-val">
-                    {{ $payment_date }}</span>
+                        {{ $payment_date }}</span>
                 </div>
             </div>
         </div>
