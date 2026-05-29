@@ -329,6 +329,16 @@ document.addEventListener("DOMContentLoaded", function () {
             const companyEmail =
                 document.getElementById("companyEmail")?.value.trim() || "";
 
+            const companyNumber =
+                document.getElementById("companyNumber")?.value.trim() || "";
+
+            if (!validateCompanyNumber(companyNumber)) {
+                showError("companyNumber", "Enter valid 10 digit phone");
+                valid = false;
+            } else {
+                hideError("companyNumber");
+            }
+
             if (companyName.length < 2) {
                 showError("companyName", "Company name is required");
                 valid = false;
@@ -375,15 +385,14 @@ document.addEventListener("DOMContentLoaded", function () {
             hideError("phone");
         }
 
-        const companyNumber = document.getElementById("companyNumber")?.value.trim() || "";
+        // const companyNumber = document.getElementById("companyNumber")?.value.trim() || "";
 
-        if (!validateCompanyNumber(companyNumber)) {
-            showError("companyNumber", "Enter valid 10 digit phone");
-            valid = false;
-        } else {
-            hideError("companyNumber");
-        }
-        
+        // if (!validateCompanyNumber(companyNumber)) {
+        //     showError("companyNumber", "Enter valid 10 digit phone");
+        //     valid = false;
+        // } else {
+        //     hideError("companyNumber");
+        // }
 
         const email = document.getElementById("userEmail")?.value.trim() || "";
 
@@ -656,6 +665,70 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         // =========================
+        // CARD VALIDATION
+        // =========================
+        let valid = true;
+
+        // CARD NUMBER
+        let cardNumber = $("#cardNumber").val().replace(/\s/g, "");
+
+        if (!/^\d{16}$/.test(cardNumber)) {
+            $("#cardNumber-err").show();
+            $("#cardNumber").css("border-color", "red");
+            valid = false;
+        } else {
+            $("#cardNumber-err").hide();
+            $("#cardNumber").css("border-color", "#ced4da");
+        }
+
+        // EXPIRY DATE
+        let cardExpiry = $("#cardExpiry").val().trim();
+
+        if (!/^(0[1-9]|1[0-2])\/\d{2}$/.test(cardExpiry)) {
+            $("#cardExpiry-err").show();
+            $("#cardExpiry").css("border-color", "red");
+            valid = false;
+        } else {
+            $("#cardExpiry-err").hide();
+            $("#cardExpiry").css("border-color", "#ced4da");
+        }
+
+        // CVV
+        let cardCvv = $("#cardCvv").val().trim();
+
+        if (!/^\d{3,4}$/.test(cardCvv)) {
+            $("#cardCvv-err").show();
+            $("#cardCvv").css("border-color", "red");
+            valid = false;
+        } else {
+            $("#cardCvv-err").hide();
+            $("#cardCvv").css("border-color", "#ced4da");
+        }
+
+        // CARD HOLDER NAME
+        let cardName = $("#cardName").val().trim();
+
+        if (cardName === "") {
+            $("#cardName-err").show().text("Cardholder name is required");
+            $("#cardName").css("border-color", "red");
+            valid = false;
+        } else {
+            $("#cardName-err").hide();
+            $("#cardName").css("border-color", "#ced4da");
+        }
+
+        // STOP IF INVALID
+        if (!valid) {
+            $("#payError").show();
+
+            btn.prop("disabled", false).text("🔒 Confirm Payment");
+
+            return;
+        } else {
+            $("#payError").hide();
+        }
+
+        // =========================
         // PAYMENT DATA
         // =========================
         let paymentData = {
@@ -760,21 +833,17 @@ document.addEventListener("DOMContentLoaded", function () {
             },
 
             success: function (response) {
-                // console.log(response);
-
                 if (response.status === true || response.success === true) {
                     toastr.success(response.message);
                     window.location.href = "/thankyou";
                 } else {
-                    toastr.error("Payment failed");
-                    // toastr.error(response.message);
+                    // toastr.error("Payment failed");
+                    toastr.error(response.message);
                 }
             },
 
             error: function (xhr) {
                 toastr.error("Something went wrong");
-                // console.log(xhr);
-                // alert("Something went wrong");
             },
 
             complete: function () {
@@ -848,14 +917,16 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
 
-    // COMONY PHONE
-    document.getElementById("companyNumber")?.addEventListener("input", function () {
-        this.value = this.value.replace(/\D/g, "").slice(0, 10);
+    // COMPANY PHONE
+    document
+        .getElementById("companyNumber")
+        ?.addEventListener("input", function () {
+            this.value = this.value.replace(/\D/g, "").slice(0, 10);
 
-        if (validatePhone(this.value)) {
-            hideError("companyNumber");
-        }
-    });
+            if (validatePhone(this.value)) {
+                hideError("companyNumber");
+            }
+        });
 
     // SECURITY ANSWER
     document
@@ -881,6 +952,84 @@ document.addEventListener("DOMContentLoaded", function () {
             hideError("terms");
         }
     });
+
+    // CARD EXPIRY FORMAT MM/YY
+    document
+        .getElementById("cardExpiry")
+        ?.addEventListener("input", function () {
+            let value = this.value.replace(/\D/g, "");
+
+            // LIMIT 4 DIGITS
+            value = value.substring(0, 4);
+
+            // AUTO ADD /
+            if (value.length >= 3) {
+                value = value.substring(0, 2) + "/" + value.substring(2);
+            }
+
+            this.value = value;
+
+            // VALIDATION
+            let regex = /^(0[1-9]|1[0-2])\/\d{2}$/;
+
+            if (regex.test(this.value)) {
+                $("#cardExpiry-err").hide();
+
+                $("#cardExpiry").css("border-color", "#ced4da");
+            } else {
+                $("#cardExpiry-err").show();
+
+                $("#cardExpiry").css("border-color", "red");
+            }
+        });
+
+    // CARD NUMBER FORMAT
+    document
+        .getElementById("cardNumber")
+        ?.addEventListener("input", function () {
+            let value = this.value.replace(/\D/g, "");
+
+            value = value.substring(0, 16);
+
+            value = value.replace(/(.{4})/g, "$1 ").trim();
+
+            this.value = value;
+
+            if (/^\d{16}$/.test(value.replace(/\s/g, ""))) {
+                $("#cardNumber-err").hide();
+                $("#cardNumber").css("border-color", "#ced4da");
+            }
+        });
+
+    // CVV ONLY NUMBER
+    document.getElementById("cardCvv")?.addEventListener("input", function () {
+        this.value = this.value.replace(/\D/g, "").substring(0, 4);
+
+        if (/^\d{3,4}$/.test(this.value)) {
+            $("#cardCvv-err").hide();
+            $("#cardCvv").css("border-color", "#ced4da");
+        }
+    });
+
+    // CARD HOLDER NAME
+    document.getElementById("cardName")?.addEventListener("input", function () {
+        // ONLY ALPHABETS + SPACE
+        this.value = this.value.replace(/[^A-Za-z\s]/g, "").substring(0, 30);
+
+        // REMOVE MULTIPLE SPACES
+        this.value = this.value.replace(/\s+/g, " ");
+
+        if (this.value.trim() !== "") {
+            $("#cardName-err").hide().text("");
+
+            $("#cardName").css("border-color", "#ced4da");
+        } else {
+            $("#cardName-err").show().text("Cardholder name is required");
+
+            $("#cardName").css("border-color", "red");
+        }
+    });
+
     //
 
     //on change toggle
@@ -959,4 +1108,60 @@ document.addEventListener("DOMContentLoaded", function () {
     updateToggleUI();
 
     renderPlanData();
+
+    //check box for existing username
+    $("#username").on("change keyup", function () {
+        let username = $(this).val().trim();
+
+        if (username == "") {
+            $("#username-err").hide().text("");
+            return;
+        }
+
+        $.ajax({
+            url: "/check-username",
+            type: "POST",
+            data: {
+                username: username,
+                _token: $('meta[name="csrf-token"]').attr("content"),
+            },
+            success: function (response) {
+                if (response.exists) {
+                    $("#username-err").show().text("Username already exists.");
+                } else {
+                    $("#username-err").hide().text("");
+                }
+            },
+        });
+    });
+
+    // Existing User Checkbox
+    const existingUserCheck = document.getElementById("existingUserCheck");
+
+    if (existingUserCheck) {
+        existingUserCheck.addEventListener("change", function () {
+            if (this.checked) {
+                document.getElementById("existingUserModal").style.display =
+                    "block";
+            } else {
+                document.getElementById("existingUserModal").style.display =
+                    "none";
+            }
+        });
+    }
+    const redirectBtn = document.getElementById("redirectPricingBtn");
+
+    if (redirectBtn) {
+        redirectBtn.addEventListener("click", function () {
+            window.location.href = "/pricing";
+        });
+    }
+
+    document.querySelectorAll("[data-close-modal]").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+            document.getElementById("existingUserModal").style.display = "none";
+
+            document.getElementById("existingUserCheck").checked = false;
+        });
+    });
 });

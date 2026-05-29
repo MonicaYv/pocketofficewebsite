@@ -281,6 +281,17 @@
                                          <label>Username <span class="req">*</span>
                                              <small class="text-muted">(Create username for login)</small>
                                          </label>
+                                         <!-- Existing User Checkbox -->
+                                         <div class="form-check mb-3">
+                                             <input
+                                                 class="form-check-input"
+                                                 type="checkbox"
+                                                 id="existingUserCheck">
+
+                                             <label class="form-check-label" for="existingUserCheck">
+                                                 Are you existing user?
+                                             </label>
+                                         </div>
                                          <input
                                              type="text"
                                              class="form-control"
@@ -666,6 +677,70 @@
                  style="margin-top: 14px">
                  🔒 Confirm Payment
              </button>
+         </div>
+     </div>
+
+
+     <!-- Existing User Modal -->
+     <div
+         id="existingUserModal"
+         style="
+        display:none;
+        position:fixed;
+        top:0;
+        left:0;
+        width:100%;
+        height:100%;
+        background:rgba(0,0,0,0.5);
+        z-index:99999;
+    ">
+
+         <div
+             style="
+            background:#fff;
+            width:400px;
+            max-width:90%;
+            margin:120px auto;
+            padding:20px;
+            border-radius:10px;
+            position:relative;
+        ">
+
+             <h4>Existing User</h4>
+
+             <p>
+                 You can purchase from marketplace inside the system.
+             </p>
+
+             <div style="text-align:right;">
+
+                 <button
+                 class="hidden"
+                     type="button"
+                     data-close-modal
+                     style="
+                    padding:8px 15px;
+                    border:none;
+                    background:#ccc;
+                    margin-right:10px;
+                    border-radius:5px;
+                ">
+                     Close
+                 </button>
+
+                 <button
+                     type="button"
+                     id="redirectPricingBtn"
+                     style="
+                    padding:8px 15px;
+                    border:none;
+                    background:#057A96;
+                    color:#fff;
+                    border-radius:5px;
+                ">
+                     OK
+                 </button>
+             </div>
          </div>
      </div>
      @endsection

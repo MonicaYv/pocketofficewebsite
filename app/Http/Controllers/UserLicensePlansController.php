@@ -24,7 +24,6 @@ use Illuminate\Support\Str;
 
 class UserLicensePlansController extends Controller
 {
-
     public function index(Request $request)
     {
         // Currency list
@@ -168,7 +167,6 @@ class UserLicensePlansController extends Controller
             ], 500);
         }
     }
-
 
     //apply promocode
     public function applyPromocode(Request $request)
@@ -344,6 +342,16 @@ class UserLicensePlansController extends Controller
 
     private function createUser($request, $companyId, $clientId = null)
     {
+        // CHECK USERNAME EXIST
+        $usernameExists = DB::table('users')
+            ->where('username', $request->username)
+            ->exists();
+
+        if ($usernameExists) {
+            throw new \Exception('Username already exists');
+            // return response()->json(['status' => false, 'message' => 'Username already exists']);
+        }
+
         return DB::table('users')->insertGetId([
             'name' => $request->contactPerson,
             'username' => $request->username,
@@ -666,36 +674,15 @@ class UserLicensePlansController extends Controller
         );
     }
 
-    private function generateInvoiceOld($request, $userId, $finalAmount)
+    //on change username check for ajax
+    public function checkUsername(Request $request)
     {
-        $user = DB::table('users')
-            ->where('id', $userId)
-            ->first();
+        $exists = DB::table('users')
+            ->where('username', $request->username)
+            ->exists();
 
-        $pdf = Pdf::loadView('marketplace.invoices', [
-            'user' => $user,
-            'plan_name' => $request->plan_name,
-            'price' => $request->price,
-            'subscription_type' => $request->subscription_type,
-            'license' => $request->license,
-            'storage' => $request->storage,
-            'unit' => $request->storage_unit,
-            'qty' => $request->quantity,
-            'total_amount' => $finalAmount,
-            'promocode' => $request->promocode_id ?? 'N/A',
-            'company_email' => $request->plan_type == 'team' ? $request->company_email : '',
-            'company_phone' => $request->plan_type == 'team' ? $request->company_number : '',
-            'payment_mode' => 'Card',
-            'payment_status' => 'Paid',
-            'payment_date' => now()->format('d M Y'),
-        ])->setPaper('a4', 'portrait');
-
-        $fileName = 'invoice_' . time() . '_' . Str::random(6) . '.pdf';
-
-        $filePath = 'invoices/' . $fileName;
-
-        Storage::disk('local')->put($filePath, $pdf->output());
-
-        return storage_path('app/' . $filePath);
+        return response()->json([
+            'exists' => $exists
+        ]);
     }
 }
