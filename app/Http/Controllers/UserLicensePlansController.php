@@ -282,16 +282,17 @@ class UserLicensePlansController extends Controller
         $name = 'Aib Client';
         $username = 'AibClient';
         $email = 'officelescloud@gmail.com';
-        $password = Hash::make('Password@123');
 
-        // STEP 1: check client
+        //STEP 1 : CHECK CLIENT
+
         $client = DB::table('clients')
             ->where('pof_flag', 'for_team')
             ->first();
 
+        // CLIENT NOT FOUND
         if (!$client) {
 
-            // STEP 2: insert client
+            // CREATE CLIENT
             $clientId = DB::table('clients')->insertGetId([
                 'name' => $name,
                 'pof_flag' => 'for_team',
@@ -299,26 +300,51 @@ class UserLicensePlansController extends Controller
                 'updated_at' => now(),
             ]);
         } else {
+
+            // USE EXISTING CLIENT ID
             $clientId = $client->id;
         }
 
-        // STEP 3: create user for client head
-        $clientHeadUserId = DB::table('users')->insertGetId([
-            'name' => $name,
-            'username' => $username,
-            'email' => $email,
-            'password' => $password,
-            'client_id' => $clientId,
-            'usertype' => 'client',
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
+        //STEP 2 : CHECK CLIENT USER  
+
+        $clientUser = DB::table('users')
+            ->where('client_id', $clientId)
+            ->where('usertype', 'client')
+            ->first();
+
+        // USER NOT FOUND
+        if (!$clientUser) {
+
+            // CREATE USER ONLY ONE TIME
+            $clientHeadUserId = DB::table('users')->insertGetId([
+                'name' => $name,
+                'username' => $username,
+                'email' => $email,
+                'password' => Hash::make('Password@123'),
+                'client_id' => $clientId,
+                'usertype' => 'client',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+
+            // UPDATE CLIENT HEAD
+            DB::table('clients')
+                ->where('id', $clientId)
+                ->update([
+                    'client_head' => $clientHeadUserId
+                ]);
+        } else {
+
+            // USE EXISTING USER
+            $clientHeadUserId = $clientUser->id;
+        }
 
         return [
             'client_id' => $clientId,
             'client_head_user_id' => $clientHeadUserId
         ];
     }
+
 
     private function createCompany($request, $clientId = null)
     {
