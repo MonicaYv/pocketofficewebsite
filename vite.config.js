@@ -7,6 +7,7 @@ export default defineConfig({
         laravel({
             input: [
                 'resources/css/app.css', 
+                'resources/css/customer-login.css',
                 'resources/css/bootstrap.min.css', 
                 'resources/css/font-awesome.min.css', 
                 'resources/css/themify-icons.css', 
@@ -60,7 +61,8 @@ export default defineConfig({
                 'resources/js/countries.js',
                 'resources/js/search-data.js',
                 'resources/js/pricing.js',
-                'resources/js/payment.js'
+                'resources/js/payment.js',
+                'resources/js/docs-login.js'
             ],
             refresh: true,
         }),
