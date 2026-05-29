@@ -65,7 +65,7 @@
 
         </aside>
         <div class="mt-4">
-            <a href="./docs-login.html" class="btn btn-primary w-100" id="loginBtn">
+            <a href="/docs-login" class="btn btn-primary w-100" id="loginBtn">
                 Login to Training Portal
             </a>
         </div>
