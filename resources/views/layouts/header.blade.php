@@ -77,13 +77,13 @@
   overflow-y: auto;
 } */
 
-    #sales-enquiry-close {
+    /* #sales-enquiry-close {
         position: absolute;
         top: 10px;
         right: 15px;
         font-size: 20px;
         cursor: pointer;
-    }
+    } */
 
     .hidden {
         display: none !important;
