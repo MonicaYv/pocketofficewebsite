@@ -106,7 +106,7 @@
           <p>Gulshan, Dhaka Division, Dhaka.</p>
           <h6 class="sub-title">Salary</h6>
           <p class="m-0">Negotiable</p>
-          <a href="job-apply.html" class="job-apply-btn">Apply Now</a>
+          <a href="{{ url('job-apply') }}" class="job-apply-btn">Apply Now</a>
         </div>
         <div class="col-xl-3 col-lg-4 offset-xl-1">
           <div class="widget widget-job-details">

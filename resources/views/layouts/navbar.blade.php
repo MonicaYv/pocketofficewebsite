@@ -511,13 +511,13 @@
                 </div>
             </ul>
         </div>
-        <div class="nav-right-content default-blue">
+        <!-- <div class="nav-right-content default-blue">
             <ul>
                 <li class="search">
                     <i class="ti-search" id="search-btn"></i>
                 </li>
             </ul>
-        </div>
+        </div> -->
     </div>   
 </nav>
 <!-- navbar area end -->
