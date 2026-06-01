@@ -7,22 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class UsersLicensePayment extends Model
 {
     protected $table = 'users_license_payments';
-    // protected $guarded = [];
-    protected $fillable = [
-        'user_id',
-        'plan_id',
-        'order_id',
-        'quantity',
-        'total_pool_storage',
-        'plan_subscription',
-        'plan_expiry_date',
-        'total_amount',
-        'payment_date',
-        'payment_mode',
-        'status',
-        'used_license',
-        'remaining_license'
-    ];
+    protected $guarded = [];   
 
     public static function generateOrderId()
     {

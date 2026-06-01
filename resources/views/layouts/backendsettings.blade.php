@@ -33,7 +33,7 @@
 
 <body>
     {{-- Preloader --}}
-    @include('layouts.preloader')
+    {{-- @include('layouts.preloader') --}}
 
     {{-- Search Popup --}}
     @include('layouts.popup')

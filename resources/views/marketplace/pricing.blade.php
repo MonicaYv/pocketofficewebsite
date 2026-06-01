@@ -13,6 +13,85 @@
       box-sizing: border-box;
       border-radius: 6px;
     }
+
+    .currency-select {
+      padding: 10px 14px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      min-width: 220px;
+      font-size: 14px;
+      cursor: pointer;
+      outline: none;
+    }
+  </style>
+
+  <style>
+    .currency-dropdown-wrapper {
+      position: relative;
+      display: inline-block;
+    }
+
+    .currency-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid #ddd;
+      padding: 10px 14px;
+      border-radius: 8px;
+      background: #fff;
+      cursor: pointer;
+    }
+
+    .currency-menu {
+      position: absolute;
+      top: 110%;
+      right: 0;
+      width: 260px;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 8px 0;
+      margin: 0;
+      list-style: none;
+      display: none;
+      z-index: 9999;
+      max-height: 300px;
+      overflow-y: auto;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    }
+
+    .currency-menu.open {
+      display: block;
+    }
+
+    .currency-menu li {
+      padding: 10px 14px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .currency-menu li:hover {
+      background: #f5f5f5;
+    }
+
+    .currency-search-li {
+      padding: 10px;
+      border-bottom: 1px solid #eee;
+    }
+
+    #currencySearch {
+      width: 100%;
+      padding: 8px 10px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      outline: none;
+    }
+
+    .price-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+    }
   </style>
   @section('content')
   <!-- breadcrumb area start -->
@@ -34,50 +113,144 @@
   <!-- pricing area start -->
   <div class="pricing-page-area pd-top-30">
     <div class="container">
+
+      <!-- currency  -->
       <div class="row justify-content-center">
+
         <div class="col-xl-6">
+
           <div class="section-title text-center pricing-header">
+
             <div class="pricing-title-row">
-              <h2 class="title">Choose your pricing</h2>
+
+              <h2 class="title">
+                Choose your pricing
+              </h2>
+
               <div class="currency-dropdown-wrapper">
-                <button class="currency-btn hidden" id="currencyBtn">
-                  <span class="currency-code" id="currencyCode">INR-India</span>
+
+                @php
+                $selectedCurrencyData =
+                $currencies->firstWhere(
+                'currency_code',
+                $selectedCurrency
+                );
+                @endphp
+
+                <!-- Button -->
+                <button
+                  type="button"
+                  class="currency-btn"
+                  id="currencyBtn">
+
+                  <span
+                    class="currency-code"
+                    id="currencyCode">
+
+                    {{ $selectedCurrencyData->currency_code ?? '' }}
+
+                    ({{ $selectedCurrencyData->currency_symbol ?? '' }})
+
+                    –
+
+                    {{ $selectedCurrencyData->country_name ?? '' }}
+
+                  </span>
 
                   <svg
                     class="currency-chevron"
                     viewBox="0 0 10 6"
                     width="10"
                     height="6">
+
                     <path
                       d="M1 1l4 4 4-4"
                       stroke="currentColor"
                       stroke-width="1.5"
                       fill="none"
                       stroke-linecap="round" />
+
                   </svg>
+
                 </button>
 
-                <ul class="currency-menu" id="currencyMenu"></ul>
+                <!-- Dropdown -->
+                <ul
+                  class="currency-menu"
+                  id="currencyMenu">
+
+                  <!-- Search -->
+                  <li class="currency-search-li">
+
+                    <input
+                      id="currencySearch"
+                      type="text"
+                      placeholder="Search country or code…"
+                      autocomplete="off" />
+
+                  </li>
+
+                  <!-- Currency List -->
+                  @foreach ($currencies as $currency)
+
+                  <li
+                    class="{{ $currency->currency_code == $selectedCurrency ? 'active' : '' }}"
+
+                    data-currency="{{ $currency->currency_code }}"
+
+                    data-symbol="{{ $currency->currency_symbol }}"
+
+                    data-amount="{{ round($currency->actual_amount) }}"
+
+                    data-country="{{ $currency->country_name }}"
+
+                    data-base="{{ $currency->is_base_currency }}">
+
+
+                    {{ $currency->currency_code }}
+
+                    ({{ $currency->currency_symbol }})
+
+                    –
+
+                    {{ $currency->country_name }}
+
+                    @if($currency->is_base_currency == 1)
+                    - Base Currency
+                    @endif
+
+                  </li>
+
+                  @endforeach
+
+                </ul>
+
               </div>
+
             </div>
+
             <p>
-              Choose the plan that fits how your team works today — and
-              tomorrow.
+              Choose the plan that fits how your team works today — and tomorrow.
             </p>
+
           </div>
+
         </div>
+
       </div>
 
       <div class="container">
         <div class="personal-section-wrapper">
           <p class="personal-section-label">For Individuals</p>
-          @if (!empty($userLicenseData['userLicenseDetails']['monthPlansForSingleUser']))
-          @foreach ($userLicenseData['userLicenseDetails']['monthPlansForSingleUser'] as $plan)
+          @if (!empty($userLicenseData['getPlanList']['planLists']))
+          @foreach ($userLicenseData['getPlanList']['planLists'] as $plan)
+          @if($plan->is_single_user == 1)
           <div class="card personal-card js-month-card">
             <div class="card-body personal-card__body">
               <div class="personal-card__left">
                 <div class="personal-card__title-row">
-                  <span class="personal-card__name">{{ $plan->plans_name }}</span>
+                  <i class="fa fa-user-circle personal-card__icon" aria-hidden="true"></i>
+                  <span class="personal-card__name">Personal</span> ({{ $plan->plans_name }})
                   <span class="personal-card__subtitle">Best for individual users</span>
                 </div>
                 <div class="personal-features-wrapper">
@@ -130,13 +303,16 @@
               <div class="personal-card__right">
                 <div class="personal-card__price-cta">
                   <div class="personal-card__price-row">
-                    <span class="personal-card__symbol">
-                      {{ $plan->currency }}
-                    </span>
+                    <span class="personal-card__symbol personal-card-symbol-ul"></span>
                     <span
                       class="personal-card__amount"
-                      id=""
-                      data-monthly="">{{ $plan->plans_amount }}</span>
+                      data-monthly-discount="{{ $plan->monthly_discount ?? 0 }}"
+                      data-yearly-discount="{{ $plan->yearly_discount ?? 0 }}"
+                      data-extra-monthly-constant="{{ $additional_disc_month ?? 0 }}"
+                      data-extra-yearly-constant="{{ $additional_disc_year ?? 0 }}"
+                      data-extra-monthly="{{ $plan->monthly_extra_disc ?? 0 }}"
+                      data-extra-yearly="{{ $plan->yearly_extra_disc ?? 0 }}">
+                    </span>
                     <span
                       class="personal-card__period"
                       id="personalPeriodLabel">/{{ $plan->plans_subscription_type }}</span>
@@ -146,166 +322,48 @@
                 <div class="personal-card__toggle-row">
                   <span
                     class="personal-card__toggle-label"
-                    id="personalMonthlyLabel">Monthly</span>
+                    id="personalMonthlyLabel">Monthly
+                    @if($additional_disc_month_single > 0)
+                    <span class="personal-card__save-badge" id="personalSaveBadge">
+                      (Save {{$additional_disc_month_single}}%)
+                    </span>
+                    @else
+                    @endif
+                  </span>
                   <label class="toggle-switch">
                     <input
                       type="checkbox"
-                      class="billing-toggle js-billing-toggle" />
+                      class="billing-toggle js-billing-toggle single-user-toggle" />
                     <span class="toggle-slider"></span>
                   </label>
                   <span
                     class="personal-card__toggle-label personal-card__yearly-label">
                     Yearly
-                    <span
-                      class="personal-card__save-badge"
-                      id="personalSaveBadge">
-                      @if($plan->discount != null || $plan->discount != '')
-                      (Save {{ $plan->discount }}%)
-                      @endif
-
+                    @if($additional_disc_year_single > 0)
+                    <span class="personal-card__save-badge" id="personalSaveBadge">
+                      (Save {{$additional_disc_year_single}}%)
                     </span>
+                    @else
+                    @endif
                   </span>
                 </div>
 
-                <a href="javascript:void(0)"
-                  class="btn btn-primary personal-card__btn js-select-plan"
+                <button class="btn btn-primary personal-card__btn js-select-plan"
+                  data-plan-type="single"
                   data-name="{{ $plan->plans_name }}"
-                  data-price="{{ $plan->plans_amount }}"
-                  data-currency="{{ $plan->currency }}"
                   data-license="{{ $plan->plans_license }}"
                   data-storage="{{ $plan->plans_users }}"
                   data-plan-id="{{ $plan->id }}"
-                  data-plan-discount="{{ $plan->discount }}"
-                  data-storage-unit="{{ $plan->storage_unit }}"
-                  data-type="{{ $plan->plans_subscription_type }}">
+                  data-plan-discount="{{ $plan->monthly_discount }}"
+                  data-storage-unit="{{ $plan->storage_unit }}">
                   Get Started
-                </a>
+                </button>
               </div>
             </div>
+            <div class="personal-annual-strip show-strip" style="display: block; display: none;">🎉 {{$additional_disc_year_single}}% off — You save on annual billing</div>
 
-            <div
-              class="personal-annual-strip"
-              id="personalAnnualStrip"
-              style="display: none"></div>
           </div>
-          @endforeach
-
-          @foreach ($userLicenseData['userLicenseDetails']['yearPlansForSingleUser'] as $plan)
-          <div class="card personal-card  js-year-card hidden">
-            <div class="card-body personal-card__body">
-              <!-- LEFT: icon + title + subtitle + feature checkmarks -->
-              <div class="personal-card__left">
-                <div class="personal-card__title-row">
-                  <!-- <i
-                    class="fa fa-user-circle personal-card__icon"
-                    aria-hidden="true"></i> -->
-                  <span class="personal-card__name">{{ $plan->plans_name }}</span>
-                  <span class="personal-card__subtitle">Best for individual users</span>
-                </div>
-                <div class="personal-features-wrapper">
-                  <ul class="personal-card__features">
-                    <li>
-                      <span class="personal-card__check">&#10003;</span> {{ $plan->plans_license }}
-                      User License
-                    </li>
-                    <li>
-                      <span class="personal-card__check">&#10003;</span> {{ $plan->plans_users }} {{ $plan->storage_unit }}
-                      Storage
-                    </li>
-                    <li>
-                      <span class="personal-card__check">&#10003;</span>
-                      Personal Workspace
-                    </li>
-                  </ul>
-
-                  <ul class="personal-card__features">
-                    <li>
-                      <span class="personal-card__check">&#10003;</span>
-                      Security Controls
-                    </li>
-                    <li>
-                      <span class="personal-card__check">&#10003;</span>
-                      Manage Infra
-                    </li>
-                    <li>
-                      <span class="personal-card__check">&#10003;</span> App
-                      Integration
-                    </li>
-                  </ul>
-
-                  <ul class="personal-card__features">
-                    <li>
-                      <span class="personal-card__check">&#10003;</span>
-                      Backup & Recovery
-                    </li>
-                    <li>
-                      <span class="personal-card__check">&#10003;</span>
-                      Storage Add-ons
-                    </li>
-                    <li>
-                      <span class="personal-card__check">&#10003;</span>Feature Add-ons
-                    </li>
-                  </ul>
-                </div>
-              </div>
-
-              <!-- RIGHT: price + CTA + billing toggle -->
-              <div class="personal-card__right">
-                <div class="personal-card__price-cta">
-                  <div class="personal-card__price-row">
-                    <span class="personal-card__symbol">
-                      {{ $plan->currency }}
-                    </span>
-                    <span
-                      class="personal-card__amount"
-                      id=""
-                      data-monthly="">{{ $plan->plans_amount }}</span>
-                    <span
-                      class="personal-card__period"
-                      id="personalPeriodLabel">/{{ $plan->plans_subscription_type }}</span>
-                  </div>
-                </div>
-
-                <div class="personal-card__toggle-row">
-                  <span
-                    class="personal-card__toggle-label"
-                    id="personalMonthlyLabel">Monthly</span>
-                  <label class="toggle-switch">
-                    <input
-                      type="checkbox"
-                      class="billing-toggle js-billing-toggle" />
-                    <span class="toggle-slider"></span>
-                  </label>
-                  <span
-                    class="personal-card__toggle-label personal-card__yearly-label">
-                    Yearly
-                    <span
-                      class="personal-card__save-badge"
-                      id="personalSaveBadge">(Save {{ $plan->discount }}%)</span>
-                  </span>
-                </div>
-                <a href="javascript:void(0)"
-                  class="btn btn-primary personal-card__btn js-select-plan"
-                  data-name="{{ $plan->plans_name }}"
-                  data-price="{{ $plan->plans_amount }}"
-                  data-currency="{{ $plan->currency }}"
-                  data-license="{{ $plan->plans_license }}"
-                  data-storage="{{ $plan->plans_users }}"
-                  data-plan-id="{{ $plan->id }}"
-                  data-plan-discount="{{ $plan->discount }}"
-                  data-storage-unit="{{ $plan->storage_unit }}"
-                  data-type="{{ $plan->plans_subscription_type }}">
-                  Get Started
-                </a>
-              </div>
-            </div>
-
-            <!-- Annual savings strip — inside card, below the two columns -->
-            <div
-              class="personal-annual-strip"
-              id="personalAnnualStrip"
-              style="display: none"></div>
-          </div>
+          @endif
           @endforeach
           @endif
         </div>
@@ -313,20 +371,21 @@
         <!-- For Team -->
         <div class="teams-section-wrapper">
           <div class="shared-billing-toggle">
-            <button class="billing-pill-btn active ul-tab-name" data-type="monthly">
+            <button class="billing-pill-btn active ul-tab-name team-billing-toggle" data-type="monthly">
               Monthly
               @if($additional_disc_month > 0)
-              <span class="ul-save-badge px-1 py-0.5 z-10">
-                Save {{$additional_disc_month}}%
+              <span class="ul-save-badge save-badge">
+                Save Extra {{$additional_disc_month}}%
               </span>
               @else
               @endif
+
             </button>
-            <button class="billing-pill-btn ul-tab-name" data-type="yearly">
+            <button class="billing-pill-btn ul-tab-name team-billing-toggle" data-type="yearly">
               Annually
               @if($additional_disc_year > 0)
               <span class="ul-save-badge save-badge">
-                Save {{$additional_disc_year}}%
+                Save Extra {{$additional_disc_year}}%
               </span>
               @else
               @endif
@@ -335,26 +394,43 @@
 
           <p class="teams-section-label">For Teams</p>
 
+
           <div class="pricing-cards">
-            @if (!empty($userLicenseData['userLicenseDetails']['planLists']))
-            @foreach ($userLicenseData['userLicenseDetails']['planLists'] as $plan)
+            @if (!empty($userLicenseData['getPlanList']['planLists']))
+            @foreach ($userLicenseData['getPlanList']['planLists'] as $plan)
             <div class="monthly-plans">
               <div class="card bg-light border-secondary h-100 ul-cards">
                 <div class="card-body d-flex flex-column p-4">
                   <h2 class="fw-semibold mb-3">{{ $plan->plans_name }}</h2>
                   <h6 class="display-4 fw-bold mb-2 price">
-                    {{ $plan->currency }}
-                    <span
-                      class="price-amount"
-                      data-monthly="">{{ $plan->plans_amount }}</span>
-                    <span class="user-text">per user/{{ $plan->plans_subscription_type }}</span>
+                    <div class="price-wrapper">
+                      <span class="personal-card-symbol-ul"></span><span
+                        class="total-price-ul"
+                        data-original-price=""
+                        data-monthly=""></span>
+                    </div>
+                    <span class="user-text">{{ $plan->plans_subscription_type }}</span>
                   </h6>
 
-                  <span class="incr-currency-data hidden">{{ $plan->currency }}</span>
-                  <span class="incr-amount-data hidden">{{ $plan->plans_amount }}</span>
+                  <span class="user-count-ul hidden">{{ $plan->plans_license }}</span>
+                  <span class="discount-ul hidden"
+                    data-monthly="{{ $plan->is_single_user == 1 ? 0 : ($plan->monthly_discount ?? 0) }}"
+                    data-yearly="{{ $plan->is_single_user == 1 ? 0 : ($plan->yearly_discount ?? 0) }}">
+                  </span>
+                  <span class="price-amount hidden"></span>
+                  <span class="extra-discount-ul hidden"
+                    data-monthly-constant="{{ $additional_disc_month ?? 0 }}"
+                    data-yearly-constant="{{ $additional_disc_year ?? 0 }}"
+                    data-monthly="{{ $plan->is_single_user == 1 ? 0 : ($plan->monthly_extra_disc ?? 0) }}"
+                    data-yearly="{{ $plan->is_single_user == 1 ? 0 : ($plan->yearly_extra_disc ?? 0) }}">
+                  </span>
+
+
+                  <span class="incr-currency-data hidden">currency</span>
+                  <span class="incr-amount-data hidden">plans_amount</span>
                   <span class="incr-subscription-data hidden">{{ $plan->plans_subscription_type }}</span>
                   <span class="incr-license-count-data hidden">{{ $plan->plans_license }}</span>
-                  <span class="incr-poolstorage-count-data hidden">{{ $plan->pool_storage }}</span>
+                  <span class="incr-poolstorage-count-data hidden">{{ $plan->plans_users }}</span>
 
                   <p class="mb-4 pricing-subheading text-black">
                     {{ $plan->plans_content }}
@@ -389,7 +465,8 @@
                     </li>
                     <li class="mb-3 d-flex align-items-start">
                       <span>Total Pool Storage :&nbsp;</span>
-                      <span class="total-pool-storage view-total-poolstorage-count"></span>
+                      <span class="total-pool-storage view-total-poolstorage-count"></span> &nbsp;
+                      <span class="view-storage-unit">{{ $plan->storage_unit }}</span>
                     </li>
                     <li class="mb-3 d-flex align-items-start">
                       <span>Total Amount :&nbsp;</span>
@@ -398,103 +475,31 @@
                   </ul>
 
                   <!-- discount  -->
-                  @if(!empty($plan->discount) && $plan->discount > 0)
-                  <div class="ul-discount ul-save-badge">🎉 {{ $plan->discount }}% off — Enjoy extra savings with monthly billing</div>
-                  @endif
+                  <div class="ul-discount ul-save-badge team-discount-badge"
+                    data-is-single="{{ $plan->is_single_user }}"
+                    data-monthly="{{ $plan->is_single_user == 1 ? 0 : ($plan->monthly_discount ?? 0) }}"
+                    data-yearly="{{ $plan->is_single_user == 1 ? 0 : ($plan->yearly_discount ?? 0) }}">
 
-                  <!-- Annual badge lives here, injected by JS -->
-                  <div class="pricing-buttons pricingButtons">
-                    <!-- <button class="btn btn-outline-secondary get-started-btn">Get started</button> -->
-                    <button class="btn btn-outline-secondary team-js-select-plan"
-                      data-plan-id="{{ $plan->id }}"
-                      data-name="{{ $plan->plans_name }}"
-                      data-price="{{ $plan->plans_amount }}"
-                      data-currency="{{ $plan->currency }}"
-                      data-subscription="month"
-                      data-license="{{ $plan->plans_license }}"
-                      data-storage="{{ $plan->pool_storage }}">
-                      Get Started
-                    </button>
+                    @if(
+                    $plan->is_single_user != 1 &&
+                    !empty($plan->monthly_discount) &&
+                    $plan->monthly_discount > 0
+                    )
+
+                    🎉 {{ $plan->monthly_discount }}% off — Enjoy extra savings with monthly billing
+
+                    @endif
+
                   </div>
-                </div>
-              </div>
-            </div>
-            @endforeach
-
-            @foreach ($userLicenseData['userLicenseDetails']['planListsYear'] as $plan)
-            <div class="yearly-plans hidden">
-              <div class="card bg-light border-secondary h-100 ul-cards">
-                <div class="card-body d-flex flex-column p-4">
-                  <h2 class="fw-semibold mb-3">{{ $plan->plans_name }}</h2>
-                  <h6 class="display-4 fw-bold mb-2 price">
-                    {{ $plan->currency }}
-                    <span
-                      class="price-amount"
-                      data-monthly="">{{ $plan->plans_amount }}</span>
-                    <span class="user-text">per user/{{ $plan->plans_subscription_type }}</span>
-                  </h6>
-
-                  <span class="incr-currency-data hidden">{{ $plan->currency }}</span>
-                  <span class="incr-amount-data hidden">{{ $plan->plans_amount }}</span>
-                  <span class="incr-subscription-data hidden">{{ $plan->plans_subscription_type }}</span>
-                  <span class="incr-license-count-data hidden">{{ $plan->plans_license }}</span>
-                  <span class="incr-poolstorage-count-data hidden">{{ $plan->pool_storage }}</span>
-
-                  <p class="mb-4 pricing-subheading text-black">
-                    {{ $plan->plans_content }}
-                  </p>
-
-                  <ul class="list-unstyled mb-4 flex-grow-1 feature-list">
-                    <li class="mb-3 d-flex align-items-start">
-                      <span class="fw-semibold feature-list-subheading">
-                        {{ $plan->plans_headings }}
-                      </span>
-                    </li>
-                    <li class="mb-3 d-flex align-items-start">
-                      <span>Licence Count :&nbsp;</span>
-                      <span class="base-licence-count">
-                        {{ $plan->plans_license }}
-                      </span>
-                    </li>
-                    <li class="mb-3 d-flex align-items-start">
-                      <span>Per User Storage :&nbsp;</span>
-                      <span class="base-storage">{{ $plan->plans_users }}</span>&nbsp;{{ $plan->storage_unit }}
-                    </li>
-                    <li class="mb-3 d-flex align-items-start">
-                      <div class="quantity-box ul-quantity-container">
-                        <button class="qty-btn  ul-decrement">−</button>
-                        <input type="text" class="qty-input ul-quantity-input" value="1" readonly />
-                        <button class="qty-btn  ul-increment">+</button>
-                      </div>
-                    </li>
-                    <li class="mb-3 d-flex align-items-start">
-                      <span>Total Licence Count :&nbsp;</span>
-                      <span class="total-licence-count view-total-license-count"></span>
-                    </li>
-                    <li class="mb-3 d-flex align-items-start">
-                      <span>Total Pool Storage :&nbsp;</span>
-                      <span class="total-pool-storage view-total-poolstorage-count"></span>
-                    </li>
-                    <li class="mb-3 d-flex align-items-start">
-                      <span>Total Amount :&nbsp;</span>
-                      <span class="view-currency"></span> &nbsp; <span class="total-amount view-total-amount-count"></span>
-                    </li>
-                  </ul>
-
-                  @if(!empty($plan->discount) && $plan->discount > 0)
-                  <div class="ul-discount ul-save-badge">🎉 {{ $plan->discount }}% off — Enjoy extra savings with annual billing</div>
-                  @endif
 
                   <!-- Annual badge lives here, injected by JS -->
                   <div class="pricing-buttons pricingButtons">
                     <button class="btn btn-outline-secondary team-js-select-plan"
+                      data-plan-type="team"
                       data-plan-id="{{ $plan->id }}"
                       data-name="{{ $plan->plans_name }}"
-                      data-price="{{ $plan->plans_amount }}"
-                      data-currency="{{ $plan->currency }}"
-                      data-subscription="year"
                       data-license="{{ $plan->plans_license }}"
-                      data-storage="{{ $plan->pool_storage }}">
+                      data-storage="{{ $plan->plans_users }}">
                       Get Started
                     </button>
                   </div>
@@ -508,44 +513,96 @@
         </div>
       </div>
 
+      <!-- for compare  -->
       <div class="container py-5">
-        <div class="table-responsive hidden">
-          <table
-            class="table pricing-table text-center align-middle"
-            id="pricingTable">
+        <div class="table-responsive">
+          <table class="table pricing-table text-center align-middle" id="pricingTable">
             <thead>
               <tr>
                 <th></th>
-                <th>Basic</th>
-                <th>Standard</th>
-                <th>Advanced</th>
-                <th>Premium</th>
+
+                {{-- Single User Plan --}}
+                @foreach ($userLicenseData['getPlanList']['planListsSingle'] as $singlePlan)
+                <th data-plan-col="personal" style="min-width:130px;">
+                  Personal ({{ $singlePlan->plans_name }})<br>
+                  <span class="table-plan-price">
+                    <span class="table-plan-symbol">{{ $currencySymbol }}</span>
+
+                    <span
+                      class="table-plan-amount"
+                      data-monthly-discount="{{ $singlePlan->monthly_discount ?? 0 }}"
+                      data-yearly-discount="{{ $singlePlan->yearly_discount ?? 0 }}"
+                      data-extra-monthly="{{ $singlePlan->monthly_extra_disc ?? 0 }}"
+                      data-extra-yearly="{{ $singlePlan->yearly_extra_disc ?? 0 }}">
+                    </span>
+
+                    <small class="table-plan-period">
+                      user/{{ $singlePlan->plans_subscription_type }}
+                    </small>
+                  </span>
+                </th>
+                @endforeach
+
+                {{-- Team Plans --}}
+                @foreach ($userLicenseData['getPlanList']['planLists'] as $plan)
+                <th style="min-width:130px;">
+                  {{ $plan->plans_name }}<br>
+                  <span class="table-plan-price">
+                    <span class="table-plan-symbol">{{ $currencySymbol }}</span>
+
+                    <span
+                      class="table-plan-amount"
+                      data-monthly-discount="{{ $plan->monthly_discount ?? 0 }}"
+                      data-yearly-discount="{{ $plan->yearly_discount ?? 0 }}"
+                      data-extra-monthly="{{ $plan->monthly_extra_disc ?? 0 }}"
+                      data-extra-yearly="{{ $plan->yearly_extra_disc ?? 0 }}">
+                    </span>
+
+                    <small class="table-plan-period">
+                      user/{{ $plan->plans_subscription_type }}
+                    </small>
+                  </span>
+                </th>
+                @endforeach
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td>Members</td>
-                <td>1</td>
-                <td>10</td>
-                <td>50</td>
-                <td>100</td>
+                @foreach ($userLicenseData['getPlanList']['planListsSingle'] as $singlePlan)
+                <td data-plan-col="personal"> {{ $singlePlan->plans_license }} </td>
+                @endforeach
+
+                @foreach ($userLicenseData['getPlanList']['planLists'] as $plan)
+                <td> {{ $plan->plans_license }} </td>
+                @endforeach
               </tr>
+
               <tr>
                 <td>Per User Storage</td>
-                <td>10 GB</td>
-                <td>10 GB</td>
-                <td>10 GB</td>
-                <td>10 GB</td>
+                @foreach ($userLicenseData['getPlanList']['planListsSingle'] as $singlePlan)
+                <td data-plan-col="personal"> {{ $singlePlan->plans_users }} {{ $singlePlan->storage_unit }}</td>
+                @endforeach
+
+                @foreach ($userLicenseData['getPlanList']['planLists'] as $plan)
+                <td> {{ $plan->plans_users }} {{ $plan->storage_unit }}</td>
+                @endforeach
               </tr>
+
               <tr>
                 <td>Total Pool Storage</td>
-                <td>10 GB</td>
-                <td>100 GB</td>
-                <td>500 GB</td>
-                <td>1000 GB</td>
+                @foreach ($userLicenseData['getPlanList']['planListsSingle'] as $singlePlan)
+                <td data-plan-col="personal"> {{ $singlePlan->pool_storage }} </td>
+                @endforeach
+
+                @foreach ($userLicenseData['getPlanList']['planLists'] as $plan)
+                <td> {{ $plan->pool_storage }} </td>
+                @endforeach
               </tr>
+
               <tr>
                 <td>Teams</td>
+                <td data-plan-col="personal">1 Workspace</td>
                 <td>1 Workspace</td>
                 <td>Multi-Workspace</td>
                 <td>Unlimited</td>
@@ -554,6 +611,7 @@
 
               <tr>
                 <td>Security Controls</td>
+                <td data-plan-col="personal"><i class="bi bi-check-circle-fill check"></i></td>
                 <td><i class="bi bi-check-circle-fill check"></i></td>
                 <td><i class="bi bi-check-circle-fill check"></i></td>
                 <td><i class="bi bi-check-circle-fill check"></i></td>
@@ -562,6 +620,7 @@
               <!-- Core Features Title Row (Fixed - No colspan) -->
               <tr>
                 <td>Manage Infra</td>
+                <td data-plan-col="personal"><i class="bi bi-check-circle-fill check"></i></td>
                 <td><i class="bi bi-check-circle-fill check"></i></td>
                 <td><i class="bi bi-check-circle-fill check"></i></td>
                 <td><i class="bi bi-check-circle-fill check"></i></td>
@@ -570,6 +629,7 @@
 
               <tr>
                 <td>App Integration</td>
+                <td data-plan-col="personal"><i class="bi bi-check-circle-fill check"></i></td>
                 <td><i class="bi bi-check-circle-fill check"></i></td>
                 <td><i class="bi bi-check-circle-fill check"></i></td>
                 <td><i class="bi bi-check-circle-fill check"></i></td>
@@ -577,14 +637,16 @@
               </tr>
 
               <tr>
-                <td>Device & IP Control</td>
+                <td>Device &amp; IP Control</td>
+                <td data-plan-col="personal"><i class="bi bi-x-circle-fill cross"></i></td>
                 <td><i class="bi bi-x-circle-fill cross"></i></td>
                 <td><i class="bi bi-check-circle-fill check"></i></td>
                 <td><i class="bi bi-check-circle-fill check"></i></td>
                 <td>Enterprise</td>
               </tr>
               <tr>
-                <td>Backup & Recovery</td>
+                <td>Backup &amp; Recovery</td>
+                <td data-plan-col="personal"><i class="bi bi-check-circle-fill check"></i></td>
                 <td><i class="bi bi-check-circle-fill check"></i></td>
                 <td><i class="bi bi-check-circle-fill check"></i></td>
                 <td><i class="bi bi-check-circle-fill check"></i></td>
@@ -593,6 +655,7 @@
 
               <tr>
                 <td>Storage Add-ons</td>
+                <td data-plan-col="personal"><i class="bi bi-check-circle-fill check"></i></td>
                 <td><i class="bi bi-check-circle-fill check"></i></td>
                 <td><i class="bi bi-check-circle-fill check"></i></td>
                 <td><i class="bi bi-check-circle-fill check"></i></td>
@@ -601,6 +664,7 @@
 
               <tr>
                 <td>Feature Add-ons</td>
+                <td data-plan-col="personal"><i class="bi bi-check-circle-fill check"></i></td>
                 <td><i class="bi bi-check-circle-fill check"></i></td>
                 <td><i class="bi bi-check-circle-fill check"></i></td>
                 <td><i class="bi bi-check-circle-fill check"></i></td>
@@ -610,23 +674,42 @@
               <!-- Buttons Row -->
               <tr>
                 <td></td>
-                <td>
-                  <a href="{{ url('payment') }}" class="btn btn-outline-secondary">Get started</a>
+                @foreach ($userLicenseData['getPlanList']['planListsSingle'] as $singlePlan)
+                <td data-plan-col="personal">
+                  <button class="btn btn-outline-secondary js-select-plan-compare"
+                    data-plan-type="single"
+                    data-name="{{ $singlePlan->plans_name }}"
+                    data-license="{{ $singlePlan->plans_license }}"
+                    data-storage="{{ $singlePlan->plans_users }}"
+                    data-plan-id="{{ $singlePlan->id }}"
+                    data-plan-discount="{{ $singlePlan->monthly_discount }}"
+                    data-storage-unit="{{ $singlePlan->storage_unit }}">
+                    Get Started
+                  </button>
                 </td>
+                @endforeach
+
+                @foreach ($userLicenseData['getPlanList']['planLists'] as $plan)
                 <td>
-                  <a href="{{ url('payment') }}" class="btn btn-outline-secondary">Get started</a>
+                  <button class="btn btn-outline-secondary team-js-select-plan-compare"
+                    data-plan-type="team"
+                    data-plan-id="{{ $plan->id }}"
+                    data-name="{{ $plan->plans_name }}"
+                    data-license="{{ $plan->plans_license }}"
+                    data-storage="{{ $plan->plans_users }}">
+                    Get Started
+                  </button>
                 </td>
-                <td>
-                  <a href="{{ url('payment') }}" class="btn btn-outline-secondary">Get started</a>
-                </td>
-                <td>
-                  <a href="{{ url('payment') }}" class="btn btn-outline-secondary">Get started</a>
-                </td>
+                @endforeach
+
+
               </tr>
             </tbody>
           </table>
         </div>
       </div>
+
+
     </div>
   </div>
   <!-- pricing area End -->

@@ -15,8 +15,6 @@
   'resources/js/search-box.js',
   'resources/js/search-result.js',
   'resources/js/search-data.js',
-  'resources/js/market-place-userLicense.js',
-  'resources/js/pricing-page.js',
   'resources/js/enquiry.js',
   'resources/js/jquery.magnific-popup.js',
   'resources/js/wow.min.js',
@@ -45,5 +43,7 @@
   'resources/js/testimonial-slider.js',
   'resources/js/main.js',
   'resources/js/sales-enquiry-form.js',
-  'resources/js/countries.js'
+  'resources/js/countries.js',
+  'resources/js/pricing.js',
+  'resources/js/payment.js'
   ])

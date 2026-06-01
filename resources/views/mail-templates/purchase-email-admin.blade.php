@@ -306,7 +306,7 @@
           </div>
           <div>
             <div class="cred-label">User Type</div>
-            <div class="cred-value">{{ "usertype" }}</div>
+            <div class="cred-value">{{ $usertype }}</div>
           </div>
         </div>
         <button class="copy-btn" title="Copy username">
@@ -328,29 +328,7 @@
           </div>
           <div>
             <div class="cred-label">Name</div>
-            <div class="cred-value">{{ "name" }}</div>
-          </div>
-        </div>
-        <button class="copy-btn" title="Copy username">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="9" y="9" width="13" height="13" rx="2"/>
-            <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
-          </svg>
-        </button>
-      </div>
-
-      <!-- Designation -->
-      <div class="credential-row">
-        <div class="credential-left">
-          <div class="cred-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#17c3b2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
-              <circle cx="12" cy="7" r="4"/>
-            </svg>
-          </div>
-          <div>
-            <div class="cred-label">Username</div>
-            <div class="cred-value">{{ "designation" }}</div>
+            <div class="cred-value">{{ $name }}</div>
           </div>
         </div>
         <button class="copy-btn" title="Copy username">
@@ -372,7 +350,7 @@
           </div>
           <div>
             <div class="cred-label">Username</div>
-            <div class="cred-value">{{ "username" }}</div>
+            <div class="cred-value">{{ $username }}</div>
           </div>
         </div>
         <button class="copy-btn" title="Copy username">
@@ -394,7 +372,7 @@
           </div>
           <div>
             <div class="cred-label">Password</div>
-            <div class="cred-value">{{ "password" }}</div>
+            <div class="cred-value">{{ $password }}</div>
           </div>
         </div>
         <button class="copy-btn" title="Copy password">
@@ -417,7 +395,7 @@
           </div>
           <div>
             <div class="cred-label">Phone</div>
-            <div class="cred-value">{{ "phone" }}</div>
+            <div class="cred-value">{{ $phone }}</div>
           </div>
         </div>
         <button class="copy-btn" title="Copy username">
@@ -439,7 +417,7 @@
           </div>
           <div>
             <div class="cred-label">Email</div>
-            <div class="cred-value">{{ "email" }}</div>
+            <div class="cred-value">{{ $email }}</div>
           </div>
         </div>
         <button class="copy-btn" title="Copy username">
@@ -449,6 +427,30 @@
           </svg>
         </button>
       </div>
+
+      <!-- Designation -->
+      <div class="credential-row">
+        <div class="credential-left">
+          <div class="cred-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#17c3b2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+              <circle cx="12" cy="7" r="4"/>
+            </svg>
+          </div>
+          <div>
+            <div class="cred-label">Designation</div>
+            <div class="cred-value">{{ $designation  }}</div>
+          </div>
+        </div>
+        <button class="copy-btn" title="Copy username">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="9" width="13" height="13" rx="2"/>
+            <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+          </svg>
+        </button>
+      </div>
+
+      
 
       
 

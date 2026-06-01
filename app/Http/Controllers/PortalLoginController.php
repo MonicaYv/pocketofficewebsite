@@ -1,11 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\users_data;
-use App\Models\UsersData;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Http;
 
 class PortalLoginController extends Controller
 {
@@ -15,37 +14,51 @@ class PortalLoginController extends Controller
         return view('docs-login');
     }
 
-public function login(Request $request)
-{
+    public function login(Request $request)
+    {
+        $email = $request->email;
+        $password = $request->password;
 
-    $email = $request->email;
-    $password = $request->password;
+        $user = User::where('email', $email)->first();
 
-    $user = UsersData::where('email',$email)->first();
+        if ($user) {
+            $ssoLoginUrl = $this->resolveSsoLoginUrl($user->usertype);
 
-    if($user){
+            if (! $ssoLoginUrl) {
+                return back()->with('error', 'Unsupported user type');
+            }
 
-        Auth::login($user);
+            $response = Http::post($ssoLoginUrl, [
+                'email' => $email,
+                'password' => $password,
+            ]);
 
-        if($user->userType == 'master'){
-            return redirect('https://documentation.pocketoffice.sizaf.com/master/');
+            if ($response->successful()) {
+                $redirectUrl = $response->json('redirect_url');
+
+                if ($redirectUrl) {
+                    Auth::login($user);
+
+                    if (! str_starts_with($redirectUrl, 'http://') && ! str_starts_with($redirectUrl, 'https://')) {
+                        $redirectUrl = 'https://documentation.officelescloud.sizaf.com' . $redirectUrl;
+                    }
+
+                    return redirect()->away($redirectUrl);
+                }
+            }
         }
 
-        if($user->userType == 'partner'){
-            return redirect('/Partner/books');
-        }
-
-        if($user->userType == 'company'){
-            return redirect('/company/books');
-        }
-
-        if($user->userType == 'user'){
-            return redirect('https://documentation.pocketoffice.sizaf.com/user/books');
-        }
-
+        return back()->with('error', 'Invalid email or password');
     }
 
-    return back()->with('error','Invalid email or password');
-}
+    private function resolveSsoLoginUrl(?string $userType): ?string
+    {
+        return match (strtolower((string) $userType)) {
+            'client' => 'https://documentation.officelescloud.sizaf.com/partner/api/sso/login',
+            'company' => 'https://documentation.officelescloud.sizaf.com/company/api/sso/login',
+            'user', 'group' => 'https://documentation.officelescloud.sizaf.com/user/api/sso/login',
+            default => null,
+        };
+    }
 
 }

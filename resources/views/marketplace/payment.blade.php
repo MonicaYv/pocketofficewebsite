@@ -29,11 +29,11 @@
          <div class="row">
              <!--LEFT COLUMN — Registration Form -->
              <div class="col-md-8" id="formCol">
-                 <form id="registrationForm" novalidate>
-                     <!-- ── Section 1: Company Details ── -->
-                     <div class="panel panel-default mb-4">
+                 <form>
+                     <!-- company details-->
+                     <div class="panel panel-default mb-4 pay-company-form hidden">
                          <div class="panel-heading">
-                             <h4>Company Details</h4>
+                             <h4>Company Details </h4>
                          </div>
                          <div class="panel-body">
                              <div class="row mb-3">
@@ -126,7 +126,19 @@
                                              type="text"
                                              class="form-control"
                                              id="companyNumber"
-                                             placeholder="+1 (415) 123-4567" />
+                                             placeholder="98765XXXXX"
+                                             maxlength="10"
+                                             inputmode="numeric"
+                                             autocomplete="off" />
+                                         <span
+                                             class=" glyphicon form-control-feedback"
+                                             id="companyNumber-icon"></span>
+                                         <span
+                                             class="help-block text-danger"
+                                             style="display: none"
+                                             id="companyNumber-err">
+                                             Enter valid 10 digit mobile number
+                                         </span>
                                      </div>
                                  </div>
                                  <div class="col-sm-6">
@@ -175,12 +187,11 @@
                              </div>
                          </div>
                      </div>
-                     <!-- /Company Details -->
 
-                     <!-- ── Section 2: Contact Person Details ── -->
+                     <!-- contact person -->
                      <div class="panel panel-default mb-4">
                          <div class="panel-heading">
-                             <h4>Contact Person Details</h4>
+                             <h4>Contact Person Details </h4>
                          </div>
                          <div class="panel-body">
                              <div class="row mb-3">
@@ -208,12 +219,11 @@
                                      <div class="form-group">
                                          <label>Designation / Role</label>
                                          <select class="form-control" id="designation">
-                                             <option value="">CEO, Supervisor, etc.</option>
                                              <option>CEO</option>
                                              <option>CTO</option>
+                                             <option>Director</option>
                                              <option>Manager</option>
                                              <option>Supervisor</option>
-                                             <option>Director</option>
                                          </select>
                                      </div>
                                  </div>
@@ -227,16 +237,18 @@
                                              type="tel"
                                              class="form-control"
                                              id="phone"
-                                             placeholder="+1 (415) 123-4567"
-                                             data-rule="required|phone" />
+                                             placeholder="98765XXXXX"
+                                             maxlength="10"
+                                             inputmode="numeric"
+                                             autocomplete="off" />
                                          <span
-                                             class="glyphicon form-control-feedback"
+                                             class=" glyphicon form-control-feedback"
                                              id="phone-icon"></span>
                                          <span
                                              class="help-block text-danger"
                                              style="display: none"
                                              id="phone-err">
-                                             Enter a valid phone number
+                                             Enter valid 10 digit mobile number
                                          </span>
                                      </div>
                                  </div>
@@ -246,16 +258,17 @@
                                          <input
                                              type="email"
                                              class="form-control"
-                                             id="email"
+                                             id="userEmail"
                                              placeholder="name@gmail.com"
-                                             data-rule="required|email" />
+                                             maxlength="100"
+                                             autocomplete="off" />
                                          <span
                                              class="glyphicon form-control-feedback"
-                                             id="email-icon"></span>
+                                             id="userEmail-icon"></span>
                                          <span
                                              class="help-block text-danger"
                                              style="display: none"
-                                             id="email-err">
+                                             id="userEmail-err">
                                              Enter a valid email
                                          </span>
                                      </div>
@@ -268,21 +281,32 @@
                                          <label>Username <span class="req">*</span>
                                              <small class="text-muted">(Create username for login)</small>
                                          </label>
+                                         <!-- Existing User Checkbox -->
+                                         <div class="form-check mb-3">
+                                             <input
+                                                 class="form-check-input"
+                                                 type="checkbox"
+                                                 id="existingUserCheck">
+
+                                             <label class="form-check-label" for="existingUserCheck">
+                                                 Are you existing user?
+                                             </label>
+                                         </div>
                                          <input
                                              type="text"
                                              class="form-control"
                                              id="username"
                                              placeholder="Choose a username"
-                                             data-rule="required|minlen:4|username" />
+                                             maxlength="30"
+                                             autocomplete="off" />
                                          <span
-                                             class="glyphicon form-control-feedback"
+                                             class=" glyphicon form-control-feedback"
                                              id="username-icon"></span>
                                          <span
                                              class="help-block text-danger"
                                              style="display: none"
                                              id="username-err">
-                                             Username must be 4+ chars, letters/numbers/underscore
-                                             only
+                                             Username must contain 1 capital letter, letters and underscore only
                                          </span>
                                      </div>
                                  </div>
@@ -300,10 +324,10 @@
                                              id="passwordQuestion"
                                              data-rule="required">
                                              <option value="">Choose a question</option>
-                                             <option>What was your first pet's name?</option>
-                                             <option>What city were you born in?</option>
-                                             <option>What is your mother's maiden name?</option>
-                                             <option>What was the name of your first school?</option>
+                                             <option value="What was your first pet's name?">What was your first pet's name?</option>
+                                             <option value="What city were you born in?">What city were you born in?</option>
+                                             <option value="What is your mother's maiden name?">What is your mother's maiden name?</option>
+                                             <option value="What was the name of your first school?">What was the name of your first school?</option>
                                          </select>
                                          <span
                                              class="help-block text-danger"
@@ -365,11 +389,17 @@
 
                          <div class="panel-body">
                              <div id="payBillingControls" style="margin-bottom: 10px;">
+                                 @php
+                                 $singlePlan = collect($planLists)->firstWhere('is_single_user', 1);
+                                 @endphp
                                  <div style="display:flex;align-items:center;justify-content:space-between;">
                                      <span style="font-size:13px;font-weight:600;color:#333;">Billing Period</span>
                                      <label style="display:flex;align-items:center;gap:8px;cursor:pointer;margin:0;">
                                          <span id="payBillingMonthLabel" style="font-size:12px;font-weight:600;color:#057A96;">
-                                             Monthly
+                                             Monthly <span
+                                                 id="monthlyDiscountBadge"
+                                                 style="display:none;background:#d1fae5;color:#065f46;border-radius:999px;font-size:10px;font-weight:700;padding:1px 6px;margin-left:2px;">
+                                             </span>
                                          </span>
                                          <span style="position:relative;display:inline-block;width:40px;height:22px;">
                                              <input type="checkbox" id="payBillingToggle" style="opacity:0;width:0;height:0;position:absolute;">
@@ -378,7 +408,10 @@
                                              </span>
                                          </span>
                                          <span id="payBillingYearLabel" style="font-size:12px;font-weight:400;color:#888;">
-                                             Yearly <span style="background:#d1fae5;color:#065f46;border-radius:999px;font-size:10px;font-weight:700;padding:1px 6px;margin-left:2px;">10% off</span>
+                                             Yearly <span
+                                                 id="yearlyDiscountBadge"
+                                                 style="display:none;background:#d1fae5;color:#065f46;border-radius:999px;font-size:10px;font-weight:700;padding:1px 6px;margin-left:2px;">
+                                             </span>
                                          </span>
                                      </label>
                                  </div>
@@ -387,41 +420,37 @@
 
                              <div class="pay-plan-selector">
                                  <p class="pay-plan-selector__label">Change Plan</p>
-                                 <div class="pay-plan-selector__grid" id="planOptions" style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px;">
+
+                                 <div
+                                     class="pay-plan-selector__grid"
+                                     id="planOptions"
+                                     style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
+
                                      @foreach ($planLists as $plan)
-                                     <div class="pay-plan-tile monthly-plan {{ $loop->first ? 'selected' : '' }}"
+                                     <div
+                                         class="pay-plan-tile selected-plan-option {{ $loop->first ? 'selected' : '' }}"
 
+                                         data-plan-type="{{ $plan->is_single_user == 1 ? 'single' : 'team' }}"
                                          data-plan-id="{{ $plan->id }}"
                                          data-name="{{ $plan->plans_name }}"
-                                         data-price="{{ $plan->plans_amount }}"
-                                         data-currency="{{ $plan->currency }}"
                                          data-subscription="{{ $plan->plans_subscription_type }}"
                                          data-license="{{ $plan->plans_license }}"
-                                         data-storage="{{ $plan->pool_storage }}">
+                                         data-storage="{{ $plan->plans_users }}"
+                                         data-storage-unit="{{ $plan->storage_unit }}"
+
+                                         {{-- PERSONAL DISCOUNT --}}
+                                         data-monthly-discount="{{ $plan->monthly_discount ?? 0 }}"
+                                         data-yearly-discount="{{ $plan->yearly_discount ?? 0 }}"
+
+                                         {{-- TEAM EXTRA DISCOUNT --}}
+                                         data-extra-monthly-discount="{{ $plan->additional_disc_month ?? 0 }}"
+                                         data-extra-yearly-discount="{{ $plan->additional_disc_year ?? 0 }}"
+
+                                         data-symbol="{{ $plan->currency_symbol ?? '₹' }}">
 
                                          {{ $plan->plans_name }}
 
-                                         <span class="pay-plan-tile__price">
-                                             {{ $plan->currency }} {{ $plan->plans_amount }}
-                                         </span>
-                                     </div>
-                                     @endforeach
-                                     @foreach ($planListsYear as $plan)
-                                     <div class="hidden pay-plan-tile yearly-plan {{ $loop->first ? 'selected' : '' }}"
-
-                                         data-plan-id="{{ $plan->id }}"
-                                         data-name="{{ $plan->plans_name }}"
-                                         data-price="{{ $plan->plans_amount }}"
-                                         data-currency="{{ $plan->currency }}"
-                                         data-subscription="{{ $plan->plans_subscription_type }}"
-                                         data-license="{{ $plan->plans_license }}"
-                                         data-storage="{{ $plan->pool_storage }}">
-
-                                         {{ $plan->plans_name }}
-
-                                         <span class="pay-plan-tile__price">
-                                             {{ $plan->currency }} {{ $plan->plans_amount }}
-                                         </span>
+                                         <span class="pay-plan-tile__price"></span>
                                      </div>
                                      @endforeach
                                  </div>
@@ -441,26 +470,14 @@
 
                              <hr style="margin: 12px 0">
 
-
-                             <div class="pay-plan-selector">
-                                 <p class="pay-plan-selector__label">Change Plan</p>
-                                 <div class="pay-plan-selector__grid" id="planOptions">
-                                 </div>
-                             </div>
-
-                             <hr style="margin: 12px 0" />
-
                              <div class="plan-box">
                                  <div class="clearfix">
                                      <strong
                                          id="summaryPlanName"
                                          style="font-size: 18px; color: #057a96">—</strong>
                                      <span class="pull-right plan-price">
-                                         <span id="summarySymbol">₹</span><span id="summaryUnitPrice">—</span>
-                                         <small
-                                             class="text-muted"
-                                             style="font-size: 13px; font-weight: 400">
-                                             /month</small>
+                                         <span id="summarySymbol"></span><span id="summaryUnitPrice">—</span>
+                                         <small class="text-muted" style="font-size: 13px; font-weight: 400"></small>
                                      </span>
                                  </div>
                                  <ul id="planFeatureList">
@@ -474,15 +491,16 @@
                                      <span id="summarySubtotal">—</span>
                                  </div>
                                  <div
-                                     class="summary-row"
+                                     class="summary-row hidden"
                                      id="discountRow"
-                                     style="display: none; color: #16a34a">
+                                     style="color: #16a34a">
                                      <span>Coupon Discount (10%)</span>
                                      <span id="discountAmt">—</span>
                                  </div>
 
-                                 <div class="summary-row">
-                                     <span>Estimated tax</span><span id="summaryTax">₹0</span>
+                                 <div class="summary-row hidden">
+                                     <span>Estimated tax</span>
+                                     <span id="summaryTax">0</span>
                                  </div>
                                  <div class="summary-total">
                                      <span>Total</span>
@@ -491,6 +509,23 @@
                              </div>
 
                              <hr style="margin: 14px 0" />
+
+                             <div id="paySavingsNotice"
+                                 class="hidden"
+                                 style="background: rgb(209, 250, 229);
+                                color: rgb(6, 95, 70);
+                                border-radius: 8px;
+                                font-size: 12px;
+                                font-weight: 600;
+                                padding: 6px 12px;
+                                margin-bottom: 10px;
+                                text-align: center;
+                                width: 100%;
+                                box-sizing: border-box;
+                                display: none;">
+                                 🎉 10% off — you save ₹ 719 by paying annually
+                             </div>
+
                              <label
                                  class="text-muted"
                                  style="font-size: 13px; font-weight: 500">Promo code</label>
@@ -499,7 +534,7 @@
                                      type="text"
                                      class="form-control"
                                      id="couponInput"
-                                     placeholder="Enter code e.g. 1234" />
+                                     placeholder="1234" />
                                  <span class="input-group-btn">
                                      <button
                                          class="btn btn-brand"
@@ -537,7 +572,7 @@
      CARD PAYMENT MODAL
      Shown after "Verify and Checkout" click
      ============================================================ -->
-     <div class="pay-modal-overlay" id="paymentModalForTeam">
+     <div class="pay-modal-overlay hidden" id="paymentModalForTeam">
          <div class="pay-modal-box">
              <button class="pay-modal-close" id="closePayModal">&times;</button>
 
@@ -642,6 +677,70 @@
                  style="margin-top: 14px">
                  🔒 Confirm Payment
              </button>
+         </div>
+     </div>
+
+
+     <!-- Existing User Modal -->
+     <div
+         id="existingUserModal"
+         style="
+        display:none;
+        position:fixed;
+        top:0;
+        left:0;
+        width:100%;
+        height:100%;
+        background:rgba(0,0,0,0.5);
+        z-index:99999;
+    ">
+
+         <div
+             style="
+            background:#fff;
+            width:400px;
+            max-width:90%;
+            margin:120px auto;
+            padding:20px;
+            border-radius:10px;
+            position:relative;
+        ">
+
+             <h4>Existing User</h4>
+
+             <p>
+                 You can purchase from marketplace inside the system.
+             </p>
+
+             <div style="text-align:right;">
+
+                 <button
+                 class="hidden"
+                     type="button"
+                     data-close-modal
+                     style="
+                    padding:8px 15px;
+                    border:none;
+                    background:#ccc;
+                    margin-right:10px;
+                    border-radius:5px;
+                ">
+                     Close
+                 </button>
+
+                 <button
+                     type="button"
+                     id="redirectPricingBtn"
+                     style="
+                    padding:8px 15px;
+                    border:none;
+                    background:#057A96;
+                    color:#fff;
+                    border-radius:5px;
+                ">
+                     OK
+                 </button>
+             </div>
          </div>
      </div>
      @endsection

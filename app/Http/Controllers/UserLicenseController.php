@@ -22,6 +22,7 @@ use App\Notifications\GeneralNotification;
 use Illuminate\Support\Facades\Notification;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Mail;
+use App\Models\CurrencyRate;
 
 
 class UserLicenseController extends Controller
@@ -175,6 +176,17 @@ class UserLicenseController extends Controller
         }
         //end plan updation code 
 
+        //currency code
+        $currencies = CurrencyRate::orderBy('country_name')->get();
+        $selectedCurrency = session('currency', 'MYR');
+        $currencyData = CurrencyRate::where(
+            'currency_code',
+            $selectedCurrency
+        )->first();
+        $actualAmount = round($currencyData->actual_amount ?? 60);
+        $currencySymbol = $currencyData->currency_symbol ?? 'RM';
+
+        //bind the data 
         $userLicenseData = [
             'userLicenseDetails' => $this->getUserLicenseDetails($request),
             'allAppsDetailsMaster' => $this->getAllAppsDetailsMaster($request),
@@ -184,7 +196,7 @@ class UserLicenseController extends Controller
             'essAppsDetails' => $this->getEssAppsDetails($request),
         ];
 
-        return view('marketplace.pricing', compact('userLicenseData', 'userType', 'additional_disc_month', 'additional_disc_year'));
+        return view('marketplace.pricing', compact('userLicenseData', 'userType', 'additional_disc_month', 'additional_disc_year', 'currencies', 'selectedCurrency', 'actualAmount', 'currencySymbol'));
     }
 
     public function getUserLicenseDetails(Request $request)
@@ -1494,7 +1506,7 @@ class UserLicenseController extends Controller
             ])->setPaper('a4', 'portrait');
 
             //Send to admin
-            
+
             // officelescloud@gmail.com
             $pdfPath = storage_path('app/invoice.pdf');
             file_put_contents($pdfPath, $pdf->output());
@@ -1977,7 +1989,7 @@ class UserLicenseController extends Controller
                 'updated_at' => now(),
             ]);
 
-             // officelescloud@gmail.com
+            // officelescloud@gmail.com
             $pdfPath = storage_path('app/invoice_' . time() . '.pdf');
             file_put_contents($pdfPath, $pdf->output());
 
@@ -2014,7 +2026,7 @@ class UserLicenseController extends Controller
                     $message->attach($pdfPath);
                 }
             );
-            
+
 
             DB::commit();
 
@@ -2031,5 +2043,37 @@ class UserLicenseController extends Controller
                 'message' => $e->getMessage()
             ]);
         }
+    }
+
+    //on change currency 
+    public function changeCurrency(Request $request)
+    {
+        $request->validate([
+            'currency' => 'required|string'
+        ]);
+
+        $currencyData = CurrencyRate::where(
+            'currency_code',
+            $request->currency
+        )->first();
+
+        if (!$currencyData) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Currency not found'
+            ], 404);
+        }
+
+        // save in session
+        session([
+            'currency' => $currencyData->currency_code
+        ]);
+
+        return response()->json([
+            'status' => 'success',
+            'currency' => $currencyData->currency_code,
+            'symbol' => $currencyData->currency_symbol,
+            'amount' => round($currencyData->actual_amount)
+        ]);
     }
 }

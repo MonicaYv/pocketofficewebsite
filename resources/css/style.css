@@ -16538,7 +16538,6 @@ h5.footer-sub-heading {
    Hidden by default; JS adds .open to show it.
    ============================================================ */
 .pay-modal-overlay {
-  display: none;
   position: fixed;
   inset: 0;
   background: rgba(10, 25, 35, 0.52);
