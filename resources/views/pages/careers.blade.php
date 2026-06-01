@@ -288,37 +288,37 @@
                     <tr>
                         <td>Account Executive, APAC</td>
                         <td>India</td>
-                        <td><a href="job-details.html">Apply Now</a></td>
+                        <td><a href="{{ url('job-details') }}">Apply Now</a></td>
                     </tr>
                     <tr>
                         <td>Account Executive, APAC</td>
                         <td>India</td>
-                        <td><a href="job-details.html">Apply Now</a></td>
+                        <td><a href="{{ url('job-details') }}">Apply Now</a></td>
                     </tr>
                     <tr>
                         <td>Account Executive, APAC</td>
                         <td>India</td>
-                        <td><a href="job-details.html">Apply Now</a></td>
+                        <td><a href="{{ url('job-details') }}">Apply Now</a></td>
                     </tr>
                     <tr>
                         <td>Account Executive, APAC</td>
                         <td>India</td>
-                        <td><a href="job-details.html">Apply Now</a></td>
+                        <td><a href="{{ url('job-details') }}">Apply Now</a></td>
                     </tr>
                     <tr>
                         <td>Account Executive, APAC</td>
                         <td>India</td>
-                        <td><a href="job-details.html">Apply Now</a></td>
+                        <td><a href="{{ url('job-details') }}">Apply Now</a></td>
                     </tr>
                     <tr>
                         <td>Account Executive, APAC</td>
                         <td>India</td>
-                        <td><a href="job-details.html">Apply Now</a></td>
+                        <td><a href="{{ url('job-details') }}">Apply Now</a></td>
                     </tr>
                     <tr>
                         <td>Account Executive, APAC</td>
                         <td>India</td>
-                        <td><a href="job-details.html">Apply Now</a></td>
+                        <td><a href="{{ url('job-details') }}">Apply Now</a></td>
                     </tr>
                 </tbody>
             </table>
