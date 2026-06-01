@@ -22,7 +22,8 @@ class PortalLoginController extends Controller
         $user = User::where('email', $email)->first();
 
         if ($user) {
-            $ssoLoginUrl = $this->resolveSsoLoginUrl($user->usertype);
+            $ssoBaseUrl = $this->resolveSsoBaseUrl($user->usertype);
+            $ssoLoginUrl = $ssoBaseUrl ? rtrim($ssoBaseUrl, '/') . '/api/sso/login' : null;
 
             if (! $ssoLoginUrl) {
                 return back()->with('error', 'Unsupported user type');
@@ -40,7 +41,7 @@ class PortalLoginController extends Controller
                     Auth::login($user);
 
                     if (! str_starts_with($redirectUrl, 'http://') && ! str_starts_with($redirectUrl, 'https://')) {
-                        $redirectUrl = 'https://documentation.officelescloud.sizaf.com' . $redirectUrl;
+                        $redirectUrl = rtrim($ssoBaseUrl, '/') . '/' . ltrim($redirectUrl, '/');
                     }
 
                     return redirect()->away($redirectUrl);
@@ -51,12 +52,12 @@ class PortalLoginController extends Controller
         return back()->with('error', 'Invalid email or password');
     }
 
-    private function resolveSsoLoginUrl(?string $userType): ?string
+    private function resolveSsoBaseUrl(?string $userType): ?string
     {
         return match (strtolower((string) $userType)) {
-            'client' => 'https://documentation.officelescloud.sizaf.com/partner/api/sso/login',
-            'company' => 'https://documentation.officelescloud.sizaf.com/company/api/sso/login',
-            'user', 'group' => 'https://documentation.officelescloud.sizaf.com/user/api/sso/login',
+            'client' => 'https://documentation.pocketoffice.sizaf.com/partner',
+            'company' => 'https://documentation.pocketoffice.sizaf.com/company',
+            'user', 'group' => 'https://documentation.pocketoffice.sizaf.com/user',
             default => null,
         };
     }
