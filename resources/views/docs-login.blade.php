@@ -12,6 +12,9 @@
 </head>
 
 <body>
+    @php
+        $selectedTab = old('selected_tab', 'user');
+    @endphp
     <div class="card">
         <div class="left">
             <img class="left-img" src="/assets/img/Illustration.png" alt="login-img">
@@ -24,21 +27,19 @@
             </div>
             <form method="POST" action="{{ route('docs.login.submit') }}">
                 @csrf
+                <input type="hidden" name="selected_tab" id="selected_tab" value="{{ $selectedTab }}">
             <div class="login-section">
-                <div class="tab-container active-user" id="tabs">
+                <div class="tab-container" id="tabs">
                     <div class="tab-slider"></div>
 
-                    <div class="tab active" onclick="setTab(0)">User</div>
-                    <div class="tab" onclick="setTab(1)">Company</div>
-                    <div class="tab" onclick="setTab(2)">Partner</div>
+                    <div class="tab" data-tab="user" onclick="setTab('user')">User</div>
+                    <div class="tab" data-tab="company" onclick="setTab('company')">Company</div>
+                    <div class="tab" data-tab="partner" onclick="setTab('partner')">Partner</div>
                 </div>
                 <h1 class="heading">Nice to see you again</h1>
-                @if(session('error'))
-                    <p style="color:red">{{ session('error') }}</p>
-                @endif
                 <div class="field">
                     <label>Login</label>
-                    <input type="text" placeholder="Enter Email address" autocomplete="email" name="email" />
+                    <input type="text" placeholder="Enter Email address" autocomplete="email" name="email" value="{{ old('email') }}" />
                 </div>
 
                 <div class="field">
@@ -69,54 +70,30 @@
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script>
-        function setTab(index) {
+        function setTab(tabName) {
             const container = document.getElementById("tabs");
             const tabs = container.querySelectorAll(".tab");
+            const selectedTab = document.getElementById("selected_tab");
+            const tabClasses = {
+                user: "active-user",
+                company: "active-admin",
+                partner: "active-master",
+            };
 
             tabs.forEach((tab) => tab.classList.remove("active"));
-            tabs[index].classList.add("active");
+            tabs.forEach((tab) => {
+                if (tab.dataset.tab === tabName) {
+                    tab.classList.add("active");
+                }
+            });
 
             // Reset all role classes
             container.classList.remove("active-user", "active-admin", "active-master");
+            container.classList.add(tabClasses[tabName] || "active-user");
 
-            // Add class based on index
-                if (index === 0) {
-                    container.classList.add("active-user");
-                } else if (index === 1) {
-                    container.classList.add("active-admin");
-                } else if (index === 2) {
-                    container.classList.add("active-master");
-                }
-        }
-
-        function handleLogin() {
-            const email = document
-                .querySelector('input[placeholder="Email or phone number"]')
-                .value.trim();
-            const password = document.getElementById("pwd").value.trim();
-            const container = document.getElementById("tabs");
-            const btn = document.querySelector(".btn-signin");
-
-            // Validation
-            if (!email || !password) {
-                btn.innerText = "Fill all fields!";
-                btn.style.backgroundColor = "red";
-                return;
+            if (selectedTab) {
+                selectedTab.value = tabName;
             }
-
-            btn.innerText = "Sign in";
-            btn.style.backgroundColor = "";
-
-            // Role-based redirect
-            // Role-based redirect
-            if (container.classList.contains("active-admin")) {
-                window.location.href = "https://documentation.pocketoffice.sizaf.com/company/books";
-            } else if (container.classList.contains("active-master")) {
-                window.location.href = "https://documentation.pocketoffice.sizaf.com/partner/books";
-            } else {
-                window.location.href = "https://documentation.pocketoffice.sizaf.com/user/books";
-            }
-        
         }
 
         function togglePwd(btn) {
@@ -154,6 +131,10 @@
             timeOut: "4000",
         };
 
+        @if(session('error'))
+            toastr.error(@json(session('error')));
+        @endif
+
         $(document).ready(function () {
             $(".submit-btn").on("click", function () {
                 const email = $("input[type='email']").val().trim();
@@ -177,6 +158,11 @@
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             return emailRegex.test(email);
         }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const selectedTab = document.getElementById("selected_tab");
+            setTab((selectedTab && selectedTab.value) ? selectedTab.value : "user");
+        });
     </script>
 </body>
 
