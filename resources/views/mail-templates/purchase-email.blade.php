@@ -26,16 +26,16 @@
                   <td align="right">
                     <!-- Social Icons -->
                     <a href="#" style="display:inline-block;margin-left:10px;">
-                      <img src="https://pocketdesk.sizaf.com/assets/img/twitter-2.png" alt="Twitter" width="20" height="20" style="display:block;" />
+                      <img src="{{ asset($constants['IMAGEFILEPATH'] . 'twitter-2.png') }}" alt="Twitter" width="20" height="20" style="display:block;" />
                     </a>
                     <a href="#" style="display:inline-block;margin-left:10px;">
-                      <img src="https://pocketdesk.sizaf.com/assets/img/facebook-2.png" alt="Facebook" width="20" height="20" style="display:block;" />
+                      <img src="{{ asset($constants['IMAGEFILEPATH'] . 'facebook-2.png') }}" alt="Facebook" width="20" height="20" style="display:block;" />
                     </a>
                     <a href="#" style="display:inline-block;margin-left:10px;">
-                      <img src="https://pocketdesk.sizaf.com/assets/img/instagram-2.png" alt="Instagram" width="20" height="20" style="display:block;" />
+                      <img src="{{ asset($constants['IMAGEFILEPATH'] . 'instagram-2.png') }}" alt="Instagram" width="20" height="20" style="display:block;" />
                     </a>
                     <a href="#" style="display:inline-block;margin-left:10px;">
-                      <img src="https://pocketdesk.sizaf.com/assets/img/linkdlen-2.png" alt="LinkedIn" width="20" height="20" style="display:block;" />
+                      <img src="{{ asset($constants['IMAGEFILEPATH'] . 'linkedin-2.png') }}" alt="LinkedIn" width="20" height="20" style="display:block;" />
                     </a>
                   </td>
                 </tr>
@@ -76,7 +76,7 @@
                             <tr>
                               <td style="width:36px;height:36px;background:#e0f7f5;border-radius:8px;text-align:center;vertical-align:middle;">
                                 <!-- User icon (inline SVG as base64 or just use a simple unicode) -->
-                                <img src="https://api.iconify.design/lucide/user.svg?color=%2317c3b2" width="18" height="18" alt="" style="display:block;margin:9px auto;" />
+                                <img src="{{ asset($constants['IMAGEFILEPATH'] . 'user.svg') }}" width="18" height="18" alt="" style="display:block;margin:9px auto;" />
                               </td>
                             </tr>
                           </table>
@@ -99,7 +99,7 @@
                           <table cellpadding="0" cellspacing="0" border="0">
                             <tr>
                               <td style="width:36px;height:36px;background:#e0f7f5;border-radius:8px;text-align:center;vertical-align:middle;">
-                                <img src="https://api.iconify.design/lucide/lock.svg?color=%2317c3b2" width="18" height="18" alt="" style="display:block;margin:9px auto;" />
+                                <img src="{{ asset($constants['IMAGEFILEPATH'] . 'lock.svg') }}" width="18" height="18" alt="" style="display:block;margin:9px auto;" />
                               </td>
                             </tr>
                           </table>
@@ -123,7 +123,7 @@
                     <table cellpadding="0" cellspacing="0" border="0">
                       <tr>
                         <td valign="top" width="26">
-                          <img src="https://api.iconify.design/mdi/shield-alert.svg?color=%23f59e0b" width="20" height="20" alt="" style="display:block;margin-top:1px;" />
+                          <img src="{{ asset($constants['IMAGEFILEPATH'] . 'shield-alert.svg') }}" width="20" height="20" alt="" style="display:block;margin-top:1px;" />
                         </td>
                         <td style="padding-left:10px;font-size:13px;color:#92400e;font-weight:600;line-height:1.4;font-family:Arial,Helvetica,sans-serif;">
                           For your security, please change your password after your first login.
@@ -178,22 +178,22 @@
                 <tr>
                   <td style="padding:0 8px;">
                     <a href="#" style="display:inline-block;width:34px;height:34px;background:#ffffff;border:1.5px solid #e0e7ef;border-radius:50%;text-align:center;line-height:34px;text-decoration:none;">
-                      <img src="https://pocketdesk.sizaf.com/assets/img/facebook-2.png" alt="Facebook" width="15" height="15" style="display:block;margin:9px auto;" />
+                      <img src="{{ asset($constants['IMAGEFILEPATH'] . 'facebook-2.png') }}" alt="Facebook" width="15" height="15" style="display:block;margin:9px auto;" />
                     </a>
                   </td>
                   <td style="padding:0 8px;">
                     <a href="#" style="display:inline-block;width:34px;height:34px;background:#ffffff;border:1.5px solid #e0e7ef;border-radius:50%;text-align:center;line-height:34px;text-decoration:none;">
-                      <img src="https://pocketdesk.sizaf.com/assets/img/twitter-2.png" alt="Twitter" width="15" height="15" style="display:block;margin:9px auto;" />
+                      <img src="{{ asset($constants['IMAGEFILEPATH'] . 'twitter-2.png') }}" alt="Twitter" width="15" height="15" style="display:block;margin:9px auto;" />
                     </a>
                   </td>
                   <td style="padding:0 8px;">
                     <a href="#" style="display:inline-block;width:34px;height:34px;background:#ffffff;border:1.5px solid #e0e7ef;border-radius:50%;text-align:center;line-height:34px;text-decoration:none;">
-                      <img src="https://pocketdesk.sizaf.com/assets/img/linkdlen-2.png" alt="LinkedIn" width="15" height="15" style="display:block;margin:9px auto;" />
+                      <img src="{{ asset($constants['IMAGEFILEPATH'] . 'linkedin-2.png') }}" alt="LinkedIn" width="15" height="15" style="display:block;margin:9px auto;" />
                     </a>
                   </td>
                   <td style="padding:0 8px;">
                     <a href="#" style="display:inline-block;width:34px;height:34px;background:#ffffff;border:1.5px solid #e0e7ef;border-radius:50%;text-align:center;line-height:34px;text-decoration:none;">
-                      <img src="https://pocketdesk.sizaf.com/assets/img/instagram-2.png" alt="Instagram" width="15" height="15" style="display:block;margin:9px auto;" />
+                      <img src="{{ asset($constants['IMAGEFILEPATH'] . 'instagram-2.png') }}" alt="Instagram" width="15" height="15" style="display:block;margin:9px auto;" />
                     </a>
                   </td>
                 </tr>
