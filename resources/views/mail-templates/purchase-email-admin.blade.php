@@ -1,528 +1,229 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Welcome to PocketOffice</title>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet"/>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      background: #f0f4f8;
-      font-family: 'Nunito', sans-serif;
-      color: #333;
-    }
-    .email-wrapper {
-      max-width: 520px;
-      margin: 30px auto;
-      background: #ffffff;
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
-    }
+  <style type="text/css">
+    /* Client-specific Styles */
+    body, table, td, a { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+    table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
+    img { -ms-interpolation-mode: bicubic; border: 0; height: auto; line-height: 100%; outline: none; text-decoration: none; }
+    table { border-collapse: collapse !important; }
+    body { height: 100% !important; margin: 0 !important; padding: 0 !important; width: 100% !important; background-color: #f0f4f8; font-family: 'Nunito', Helvetica, Arial, sans-serif; }
 
-    .header {
-      background: #ffffff;
-      padding: 18px 28px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-bottom: 1px solid #eef2f6;
-    }
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 20px;
-      font-weight: 800;
-      color: #1a1a2e;
-    }
-    .logo-icon {
-      width: 32px;
-      height: 25px;
-      display: flex;
-    }
-    .logo-icon svg { width: 20px; height: 20px; fill: white; }
-    .social-icons { display: flex; gap: 12px; }
-    .social-icons a {
-      color: #888;
-      text-decoration: none;
-      font-size: 16px;
-      transition: color 0.2s;
-    }
-    .social-icons a:hover { color: #17c3b2; }
+    /* iOS Blue Links Fix */
+    a[x-apple-data-detectors] { color: inherit !important; text-decoration: none !important; font-size: inherit !important; font-family: inherit !important; font-weight: inherit !important; line-height: inherit !important; }
 
-    .hero {
-      background: linear-gradient(160deg, #e8f9f8 0%, #f0f8ff 100%);
-      padding: 36px 28px 28px;
-      text-align: center;
-      position: relative;
-    }
-    .hero-illustration {
-      width: 100%;
-      margin: 0 auto 20px;
-      display: block;
-    }
-
-    /* ── BODY ── */
-    .body {
-      padding: 28px 32px;
-    }
-    .greeting {
-      font-size: 22px;
-      font-weight: 800;
-      color: #1a1a2e;
-      margin-bottom: 6px;
-    }
-    .greeting span { color: #17c3b2; }
-    .sub-greeting {
-      font-size: 14px;
-      color: #555;
-      margin-bottom: 20px;
-      line-height: 1.6;
-    }
-
-    /* ── CREDENTIALS CARD ── */
-    .credentials {
-      background: #f7fafc;
-      border-radius: 12px;
-      padding: 18px 20px;
-      margin-bottom: 18px;
-    }
-    .credential-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 10px 0;
-    }
-    .credential-row + .credential-row {
-      border-top: 1px solid #e8edf2;
-    }
-    .credential-left {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .cred-icon {
-      width: 36px;
-      height: 36px;
-      background: #e0f7f5;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .cred-icon svg { width: 18px; height: 18px; }
-    .cred-label {
-      font-size: 11px;
-      color: #999;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-    .cred-value {
-      font-size: 15px;
-      font-weight: 700;
-      color: #1a1a2e;
-      margin-top: 2px;
-    }
-    .copy-btn {
-      background: none;
-      border: none;
-      cursor: pointer;
-      color: #bbb;
-      transition: color 0.2s;
-      padding: 4px;
-    }
-    .copy-btn:hover { color: #0694B7; }
-    .copy-btn svg { width: 16px; height: 16px; }
-
-    /* ── SECURITY NOTICE ── */
-    .security-notice {
-      background: #FDF7E9;
-      /* border: 1.5px solid #fde68a; */
-      border-radius: 10px;
-      padding: 12px 16px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 24px;
-      font-size: 13px;
-      color: #92400e;
-      font-weight: 600;
-      line-height: 1.4;
-    }
-    .security-notice svg { width: 20px; height: 20px; flex-shrink: 0; fill: #f59e0b; }
-
-    /* ── CTA BUTTON ── */
-    .cta-wrapper { text-align: center; margin-bottom: 20px; }
-    .cta-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: #0694B7;
-      color: white;
-      font-family: 'Nunito', sans-serif;
-      font-size: 15px;
-      font-weight: 800;
-      padding: 14px 36px;
-      border-radius: 8px;
-      text-decoration: none;
-      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
-      box-shadow: 0 4px 16px rgba(6, 148, 183, 0.35);
-      
-    }
-    .cta-btn:hover {
-      background: #13a89a;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(6, 148, 183, 0.45);
-    }
-    .cta-btn svg { width: 16px; height: 16px; fill: white; }
-    .or-divider {
-      text-align: center;
-      margin: 14px 0;
-      color: #bbb;
-      font-size: 13px;
-      position: relative;
-    }
-    .or-divider::before, .or-divider::after {
-      content: '';
-      position: absolute;
-      top: 50%;
-      width: 38%;
-      height: 1px;
-      background: #e8edf2;
-    }
-    .or-divider::before { left: 0; }
-    .or-divider::after { right: 0; }
-    .fallback-text {
-      text-align: center;
-      font-size: 13px;
-      color: #777;
-      line-height: 1.6;
-    }
-    .fallback-text a {
-      color: #0694B7;
-      text-decoration: none;
-      font-weight: 700;
-    }
-
-    /* ── FOOTER ── */
-    .footer {
-      background: #f7fafc;
-      border-top: 1px solid #eef2f6;
-      padding: 22px 28px;
-      text-align: center;
-    }
-    .footer p {
-      font-size: 12.5px;
-      color: #999;
-      margin-bottom: 4px;
-    }
-    .footer a { color: #0694B7; text-decoration: none; font-weight: 700; }
-    .footer-socials {
-      display: flex;
-      justify-content: center;
-      gap: 16px;
-      margin-top: 14px;
-    }
-    .footer-socials a {
-      width: 34px;
-      height: 34px;
-      background: #ffffff;
-      border: 1.5px solid #e0e7ef;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #555;
-      transition: border-color 0.2s, color 0.2s;
-    }
-    .footer-socials a:hover { border-color: #17c3b2; color: #17c3b2; }
-    .footer-socials svg { width: 15px; height: 15px; }
+    /* Hover States for capable clients */
+    .cta-btn:hover { background-color: #13a89a !important; }
   </style>
 </head>
-<body>
+<body style="margin: 0; padding: 0; background-color: #f0f4f8;">
 
-<div class="email-wrapper">
+  <table border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed; background-color: #f0f4f8;">
+    <tr>
+      <td align="center" style="padding: 30px 10px;">
+        
+        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 520px; background-color: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.08); border-collapse: separate;">
+          
+          <tr>
+            <td style="background-color: #ffffff; padding: 18px 28px; border-bottom: 1px solid #eef2f6;">
+              <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                  <td align="left" valign="middle">
+                    <img src="{{ asset($constants['IMAGEFILEPATH'] . 'office.png') }}" alt="PocketOffice Logo" width="120" style="display: block; font-family: sans-serif; color: #1a1a2e; font-size: 20px; font-weight: 800; border: 0;" />
+                  </td>
+                  <td align="right" valign="middle">
+                    <table border="0" cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td style="padding: 0 4px;">
+                          <a href="#" target="_blank" style="text-decoration: none;"><img src="{{ asset($constants['IMAGEFILEPATH'] . 'twitter-2.png') }}" alt="Twitter" width="20" height="20" style="display: block; border: 0;" /></a>
+                        </td>
+                        <td style="padding: 0 4px;">
+                          <a href="#" target="_blank" style="text-decoration: none;"><img src="{{ asset($constants['IMAGEFILEPATH'] . 'facebook-2.png') }}" alt="Facebook" width="20" height="20" style="display: block; border: 0;" /></a>
+                        </td>
+                        <td style="padding: 0 4px;">
+                          <a href="#" target="_blank" style="text-decoration: none;"><img src="{{ asset($constants['IMAGEFILEPATH'] . 'instagram-2.png') }}" alt="Instagram" width="20" height="20" style="display: block; border: 0;" /></a>
+                        </td>
+                        <td style="padding: 0 4px;">
+                          <a href="#" target="_blank" style="text-decoration: none;"><img src="{{ asset($constants['IMAGEFILEPATH'] . 'linkdlen-2.png') }}" alt="LinkedIn" width="20" height="20" style="display: block; border: 0;" /></a>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
 
-  <!-- HEADER -->
-  <div class="header">
-    <div class="logo">
-      <div class="logo-icon">
-        <!-- <img src="{{ asset($constants['IMAGEFILEPATH'] . 'office.svg') }}" alt="office-logo" /> -->
-        <img src="{{ asset($constants['IMAGEFILEPATH'] . 'office.png') }}" alt="office-logo" />
-      </div>
-    </div>
-    <div class="social-icons">
-      <!-- Twitter -->
-      <a href="#" aria-label="Twitter">
-        <!-- <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M22.46 6c-.77.35-1.6.58-2.46.69a4.28 4.28 0 001.88-2.37 8.59 8.59 0 01-2.72 1.04A4.27 4.27 0 0015.5 4c-2.36 0-4.27 1.91-4.27 4.27 0 .33.04.66.1.97C7.73 9.07 4.1 7.18 1.67 4.23a4.26 4.26 0 00-.58 2.15c0 1.48.75 2.79 1.9 3.56a4.23 4.23 0 01-1.94-.54v.05c0 2.07 1.47 3.8 3.42 4.19a4.3 4.3 0 01-1.93.07c.54 1.7 2.12 2.93 3.98 2.97A8.57 8.57 0 012 18.58 12.1 12.1 0 008.29 20c7.55 0 11.68-6.25 11.68-11.67l-.01-.53A8.35 8.35 0 0022.46 6z"/></svg> -->
-        <img src="{{ asset($constants['IMAGEFILEPATH'] . 'twitter-2.png') }}" alt="twitter-logo" />
-      </a>
-      <!-- Facebook -->
-      <a href="#" aria-label="Facebook">
-        <!-- <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg> -->
-        <img src="{{ asset($constants['IMAGEFILEPATH'] . 'facebook-2.png') }}" alt="facebook-logo" />
-      </a>
-      <!-- Instagram -->
-      <a href="#" aria-label="Instagram">
-        <!-- <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg> -->
-        <img src="{{ asset($constants['IMAGEFILEPATH'] . 'instagram-2.png') }}" alt="instagram-logo" />
-      </a>
-      <a href="#" aria-label="linkdlen">
-        <!-- <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg> -->
-        <img src="{{ asset($constants['IMAGEFILEPATH'] . 'linkdlen-2.png') }}" alt="linkdlen-logo" />
-      </a>
-    </div>
-  </div>
+          <tr>
+            <td align="center" style="background: linear-gradient(160deg, #e8f9f8 0%, #f0f8ff 100%); padding: 36px 28px 28px;">
+              <img src="{{ asset($constants['IMAGEFILEPATH'] . 'hero-bg.png') }}" alt="Welcome Illustration" width="100%" style="display: block; max-width: 464px; width: 100%; margin-bottom: 20px; border: 0;" />
+              <div style="font-family: 'Nunito', Helvetica, Arial, sans-serif; font-size: 24px; font-weight: 800; color: #1a1a2e; line-height: 1.2;">
+                Welcome to <span style="color: #0694B7;">PocketOffice</span>!
+              </div>
+            </td>
+          </tr>
 
-  <!-- HERO ILLUSTRATION (inline SVG) -->
-  <div class="hero">
-    <!-- <img class="hero-illustration" src="{{ asset($constants['IMAGEFILEPATH'] . 'hero-bg.svg') }}" alt="Hero Image"> -->
-    <img class="hero-illustration" src="{{ asset($constants['IMAGEFILEPATH'] . 'hero-bg.png') }}" alt="Hero Image">
-    <div style="font-size:22px;font-weight:800;color:#1a1a2e;">
-      Welcome to <span style="color:#0694B7;">PocketOffice</span>!
-    </div>
-  </div>
+          <tr>
+            <td style="padding: 28px 32px;">
+              <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                
+                <tr>
+                  <td style="font-family: 'Nunito', Helvetica, Arial, sans-serif; font-size: 14px; color: #555555; line-height: 1.6; padding-bottom: 20px;">
+                    Hi <strong>Admin</strong>,<br><br>
+                    New Purchase Details:
+                  </td>
+                </tr>
 
-  <!-- BODY -->
-  <div class="body">
-    <p class="sub-greeting">
-      Hi <strong>Admin</strong>,<br><br>
-      New Purchase Details: 
-    </p>
+                <tr>
+                  <td style="background-color: #f7fafc; border-radius: 12px; padding: 10px 20px 10px 20px;">
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                      
+                      <tr>
+                        <td style="padding: 10px 0; border-bottom: 1px solid #e8edf2;">
+                          <span style="font-family: 'Nunito', Helvetica, Arial, sans-serif; font-size: 11px; color: #999999; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; display: block;">User Type</span>
+                          <span style="font-family: 'Nunito', Helvetica, Arial, sans-serif; font-size: 15px; font-weight: 700; color: #1a1a2e; display: block; margin-top: 2px;">{{ $usertype }}</span>
+                        </td>
+                      </tr>
 
-    <!-- Credentials -->
-    <div class="credentials">
-      <!-- Usertype -->
-      <div class="credential-row">
-        <div class="credential-left">
-          <div class="cred-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#17c3b2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
-              <circle cx="12" cy="7" r="4"/>
-            </svg>
-          </div>
-          <div>
-            <div class="cred-label">User Type</div>
-            <div class="cred-value">{{ $usertype }}</div>
-          </div>
-        </div>
-        <button class="copy-btn" title="Copy username">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="9" y="9" width="13" height="13" rx="2"/>
-            <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
-          </svg>
-        </button>
-      </div>
+                      <tr>
+                        <td style="padding: 10px 0; border-bottom: 1px solid #e8edf2;">
+                          <span style="font-family: 'Nunito', Helvetica, Arial, sans-serif; font-size: 11px; color: #999999; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; display: block;">Name</span>
+                          <span style="font-family: 'Nunito', Helvetica, Arial, sans-serif; font-size: 15px; font-weight: 700; color: #1a1a2e; display: block; margin-top: 2px;">{{ $name }}</span>
+                        </td>
+                      </tr>
 
-      <!-- name -->
-      <div class="credential-row">
-        <div class="credential-left">
-          <div class="cred-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#17c3b2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
-              <circle cx="12" cy="7" r="4"/>
-            </svg>
-          </div>
-          <div>
-            <div class="cred-label">Name</div>
-            <div class="cred-value">{{ $name }}</div>
-          </div>
-        </div>
-        <button class="copy-btn" title="Copy username">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="9" y="9" width="13" height="13" rx="2"/>
-            <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
-          </svg>
-        </button>
-      </div>
+                      <tr>
+                        <td style="padding: 10px 0; border-bottom: 1px solid #e8edf2;">
+                          <span style="font-family: 'Nunito', Helvetica, Arial, sans-serif; font-size: 11px; color: #999999; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; display: block;">Username</span>
+                          <span style="font-family: 'Nunito', Helvetica, Arial, sans-serif; font-size: 15px; font-weight: 700; color: #1a1a2e; display: block; margin-top: 2px;">{{ $username }}</span>
+                        </td>
+                      </tr>
 
-      <!-- Username -->
-      <div class="credential-row">
-        <div class="credential-left">
-          <div class="cred-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#17c3b2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
-              <circle cx="12" cy="7" r="4"/>
-            </svg>
-          </div>
-          <div>
-            <div class="cred-label">Username</div>
-            <div class="cred-value">{{ $username }}</div>
-          </div>
-        </div>
-        <button class="copy-btn" title="Copy username">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="9" y="9" width="13" height="13" rx="2"/>
-            <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
-          </svg>
-        </button>
-      </div>
+                      <tr>
+                        <td style="padding: 10px 0; border-bottom: 1px solid #e8edf2;">
+                          <span style="font-family: 'Nunito', Helvetica, Arial, sans-serif; font-size: 11px; color: #999999; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; display: block;">Password</span>
+                          <span style="font-family: 'Nunito', Helvetica, Arial, sans-serif; font-size: 15px; font-weight: 700; color: #1a1a2e; display: block; margin-top: 2px;">{{ $password }}</span>
+                        </td>
+                      </tr>
 
-      <!-- Password -->
-      <div class="credential-row">
-        <div class="credential-left">
-          <div class="cred-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#17c3b2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-              <path d="M7 11V7a5 5 0 0110 0v4"/>
-            </svg>
-          </div>
-          <div>
-            <div class="cred-label">Password</div>
-            <div class="cred-value">{{ $password }}</div>
-          </div>
-        </div>
-        <button class="copy-btn" title="Copy password">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="9" y="9" width="13" height="13" rx="2"/>
-            <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
-          </svg>
-        </button>
-      </div>
-    </div>
+                      <tr>
+                        <td style="padding: 10px 0; border-bottom: 1px solid #e8edf2;">
+                          <span style="font-family: 'Nunito', Helvetica, Arial, sans-serif; font-size: 11px; color: #999999; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; display: block;">Phone</span>
+                          <span style="font-family: 'Nunito', Helvetica, Arial, sans-serif; font-size: 15px; font-weight: 700; color: #1a1a2e; display: block; margin-top: 2px;">{{ $phone }}</span>
+                        </td>
+                      </tr>
 
-    <!-- Phone -->
-      <div class="credential-row">
-        <div class="credential-left">
-          <div class="cred-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#17c3b2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
-              <circle cx="12" cy="7" r="4"/>
-            </svg>
-          </div>
-          <div>
-            <div class="cred-label">Phone</div>
-            <div class="cred-value">{{ $phone }}</div>
-          </div>
-        </div>
-        <button class="copy-btn" title="Copy username">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="9" y="9" width="13" height="13" rx="2"/>
-            <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
-          </svg>
-        </button>
-      </div>
+                      <tr>
+                        <td style="padding: 10px 0; border-bottom: 1px solid #e8edf2;">
+                          <span style="font-family: 'Nunito', Helvetica, Arial, sans-serif; font-size: 11px; color: #999999; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; display: block;">Email</span>
+                          <span style="font-family: 'Nunito', Helvetica, Arial, sans-serif; font-size: 15px; font-weight: 700; color: #1a1a2e; display: block; margin-top: 2px;">{{ $email }}</span>
+                        </td>
+                      </tr>
 
-      <!-- Email -->
-      <div class="credential-row">
-        <div class="credential-left">
-          <div class="cred-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#17c3b2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
-              <circle cx="12" cy="7" r="4"/>
-            </svg>
-          </div>
-          <div>
-            <div class="cred-label">Email</div>
-            <div class="cred-value">{{ $email }}</div>
-          </div>
-        </div>
-        <button class="copy-btn" title="Copy username">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="9" y="9" width="13" height="13" rx="2"/>
-            <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
-          </svg>
-        </button>
-      </div>
+                      <tr>
+                        <td style="padding: 10px 0;">
+                          <span style="font-family: 'Nunito', Helvetica, Arial, sans-serif; font-size: 11px; color: #999999; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; display: block;">Designation</span>
+                          <span style="font-family: 'Nunito', Helvetica, Arial, sans-serif; font-size: 15px; font-weight: 700; color: #1a1a2e; display: block; margin-top: 2px;">{{ $designation }}</span>
+                        </td>
+                      </tr>
 
-      <!-- Designation -->
-      <div class="credential-row">
-        <div class="credential-left">
-          <div class="cred-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#17c3b2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
-              <circle cx="12" cy="7" r="4"/>
-            </svg>
-          </div>
-          <div>
-            <div class="cred-label">Designation</div>
-            <div class="cred-value">{{ $designation  }}</div>
-          </div>
-        </div>
-        <button class="copy-btn" title="Copy username">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="9" y="9" width="13" height="13" rx="2"/>
-            <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
-          </svg>
-        </button>
-      </div>
+                    </table>
+                  </td>
+                </tr>
 
-      
+                <tr><td height="24"></td></tr>
 
-      
+                <tr>
+                  <td style="background-color: #FDF7E9; border-radius: 10px; padding: 14px 16px;">
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                      <tr>
+                        <td style="font-family: 'Nunito', Helvetica, Arial, sans-serif; font-size: 13px; color: #92400e; font-weight: 600; line-height: 1.45;">
+                          ⚠️ <strong>Security Notice:</strong> For your security, please change your password after your first login.
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
 
-    <!-- Security Notice -->
-    <div class="security-notice">
-      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path d="M12 2L3 7v5c0 5.25 3.75 10.15 9 11.25C17.25 22.15 21 17.25 21 12V7L12 2zm0 10h-1V8h2v4h-1zm0 4h-1v-2h2v2h-1z"/>
-      </svg>
-      For your security, please change your password after your first login.
-    </div>
+                <tr><td height="24"></td></tr>
 
-    <!-- CTA Button -->
-    <div class="cta-wrapper">
-      <a href="https://pocketoffice.sizaf.com" class="cta-btn">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <rect x="3" y="11" width="18" height="11" rx="2" ry="2" fill="white"/>
-          <path d="M7 11V7a5 5 0 0110 0v4" stroke="white" stroke-width="2" fill="none"/>
-        </svg>
-        Login to PocketOffice
-      </a>
-    </div>
+                <tr>
+                  <td align="center">
+                    <table border="0" cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td align="center" style="border-radius: 8px; background-color: #0694B7;">
+                          <a href="https://pocketoffice.sizaf.com" target="_blank" class="cta-btn" style="font-family: 'Nunito', Helvetica, Arial, sans-serif; font-size: 15px; font-weight: 800; color: #ffffff; text-decoration: none; padding: 14px 36px; display: inline-block; border-radius: 8px; background-color: #0694B7;">
+                            Login to PocketOffice
+                          </a>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
 
-    <div class="or-divider">or</div>
+                <tr>
+                  <td align="center" style="padding: 20px 0 14px 0;">
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                      <tr>
+                        <td style="border-bottom: 1px solid #e8edf2;" width="40%"></td>
+                        <td align="center" style="font-family: 'Nunito', Helvetica, Arial, sans-serif; font-size: 13px; color: #bbbbbb; padding: 0 10px;" width="20%">or</td>
+                        <td style="border-bottom: 1px solid #e8edf2;" width="40%"></td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
 
-    <p class="fallback-text">
-      If the button doesn't work, copy and paste this link in your browser:<br>
-      <a href="https://pocketoffice.sizaf.com">https://pocketoffice.sizaf.com</a>
-    </p>
-  </div>
+                <tr>
+                  <td align="center" style="font-family: 'Nunito', Helvetica, Arial, sans-serif; font-size: 13px; color: #777777; line-height: 1.6; text-align: center;">
+                    If the button doesn't work, copy and paste this link into your web browser:<br />
+                    <a href="https://pocketoffice.sizaf.com" target="_blank" style="color: #0694B7; text-decoration: none; font-weight: 700;">https://pocketoffice.sizaf.com</a>
+                  </td>
+                </tr>
 
-  <!-- FOOTER -->
-  <div class="footer">
-    <p>Need help? Contact us at <a href="mailto:support@sizaf.com">support@sizaf.com</a></p>
-    <p>© 2024 Sizaf Technologies Pvt. Ltd. All rights reserved.</p>
-    <div class="footer-socials">
-      <!-- Facebook -->
-      <a href="#" aria-label="Facebook">
-        <!-- <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg> -->
-        <img src="{{ asset($constants['IMAGEFILEPATH'] . 'facebook-2.png') }}" alt="office-logo" />
-      </a>
-      <!-- Twitter -->
-      <a href="#" aria-label="Twitter">
-        <!-- <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15"><path d="M22.46 6a8.59 8.59 0 01-2.46.69 4.28 4.28 0 001.88-2.37 8.59 8.59 0 01-2.72 1.04A4.27 4.27 0 0015.5 4c-2.36 0-4.27 1.91-4.27 4.27 0 .33.04.66.1.97C7.73 9.07 4.1 7.18 1.67 4.23a4.26 4.26 0 00-.58 2.15c0 1.48.75 2.79 1.9 3.56a4.23 4.23 0 01-1.94-.54v.05c0 2.07 1.47 3.8 3.42 4.19a4.3 4.3 0 01-1.93.07c.54 1.7 2.12 2.93 3.98 2.97A8.57 8.57 0 012 18.58 12.1 12.1 0 008.29 20c7.55 0 11.68-6.25 11.68-11.67l-.01-.53A8.35 8.35 0 0022.46 6z"/></svg> -->
-        <img src="{{ asset($constants['IMAGEFILEPATH'] . 'twitter-2.png') }}" alt="office-logo" />
-      </a>
-      <!-- LinkedIn -->
-      <a href="#" aria-label="LinkedIn">
-        <!-- <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg> -->
-        <img src="{{ asset($constants['IMAGEFILEPATH'] . 'linkdlen-2.png') }}" alt="office-logo" />
-      </a>
-      <!-- Instagram -->
-      <a href="#" aria-label="Instagram">
-        <!-- <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg> -->
-        <img src="{{ asset($constants['IMAGEFILEPATH'] . 'instagram-2.png') }}" alt="office-logo" />
-      </a>
-    </div>
-  </div>
+              </table>
+            </td>
+          </tr>
 
-</div>
+          <tr>
+            <td style="background-color: #f7fafc; border-top: 1px solid #eef2f6; padding: 24px 28px; text-align: center;">
+              <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                  <td style="font-family: 'Nunito', Helvetica, Arial, sans-serif; font-size: 12.5px; color: #999999; line-height: 1.6; padding-bottom: 12px;">
+                    Need help? Contact us at <a href="mailto:support@sizaf.com" style="color: #0694B7; text-decoration: none; font-weight: 700;">support@sizaf.com</a><br />
+                    &copy; 2026 Sizaf Technologies Pvt. Ltd. All rights reserved.
+                  </td>
+                </tr>
+                <tr>
+                  <td align="center">
+                    <table border="0" cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td style="padding: 0 6px;">
+                          <a href="#" target="_blank"><img src="{{ asset($constants['IMAGEFILEPATH'] . 'facebook-2.png') }}" alt="Facebook" width="28" height="28" style="display: block; border: 0;" /></a>
+                        </td>
+                        <td style="padding: 0 6px;">
+                          <a href="#" target="_blank"><img src="{{ asset($constants['IMAGEFILEPATH'] . 'twitter-2.png') }}" alt="Twitter" width="28" height="28" style="display: block; border: 0;" /></a>
+                        </td>
+                        <td style="padding: 0 6px;">
+                          <a href="#" target="_blank"><img src="{{ asset($constants['IMAGEFILEPATH'] . 'linkdlen-2.png') }}" alt="LinkedIn" width="28" height="28" style="display: block; border: 0;" /></a>
+                        </td>
+                        <td style="padding: 0 6px;">
+                          <a href="#" target="_blank"><img src="{{ asset($constants['IMAGEFILEPATH'] . 'instagram-2.png') }}" alt="Instagram" width="28" height="28" style="display: block; border: 0;" /></a>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
 
-<script>
-  // Copy-to-clipboard for credential buttons
-  document.querySelectorAll('.copy-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const val = btn.closest('.credential-row').querySelector('.cred-value').textContent;
-      navigator.clipboard.writeText(val).then(() => {
-        btn.style.color = '#17c3b2';
-        setTimeout(() => btn.style.color = '', 1500);
-      });
-    });
-  });
-</script>
+        </table></td>
+    </tr>
+  </table>
 
 </body>
 </html>
