@@ -12,111 +12,96 @@
 </head>
 
 <body>
+    @php
+        $selectedTab = old('selected_tab', 'user');
+    @endphp
     <div class="card">
         <div class="left">
             <img class="left-img" src="/assets/img/Illustration.png" alt="login-img">
         </div>
         <div class="right">
             <div class="logo">
-                <a href="/">
-                    <span>PocketOffice</span>
+                <a href="index.html">
+                    <img class="logo-img" src="/assets/img/logo/pocket-office-final-logo.png" alt="Logo" width="80" height="40">
+                    <h5>PocketOffice</h5>
                 </a>
+                 
             </div>
-            <form method="POST" action="{{ route('docs.login.submit') }}">
-                @csrf
+            
             <div class="login-section">
-                <div class="tab-container active-user" id="tabs">
-                    <div class="tab-slider"></div>
+               <h1 class="heading">Nice to see you again</h1>
+                <form method="POST" action="{{ route('docs.login.submit') }}" id="docs-login-form">
+                    @csrf
+                    <input type="hidden" name="selected_tab" id="selected_tab" value="{{ $selectedTab }}">
 
-                    <div class="tab active" onclick="setTab(0)">User</div>
-                    <div class="tab" onclick="setTab(1)">Company</div>
-                    <div class="tab" onclick="setTab(2)">Partner</div>
-                </div>
-                <h1 class="heading">Nice to see you again</h1>
-                @if(session('error'))
-                    <p style="color:red">{{ session('error') }}</p>
-                @endif
-                <div class="field">
-                    <label>Login</label>
-                    <input type="text" placeholder="Enter Email address" autocomplete="email" name="email" />
-                </div>
+                    <div class="tab-container active-user" id="tabs">
+                        <div class="tab-slider"></div>
 
-                <div class="field">
-                    <label>Password</label>
-                    <div class="pwd-wrap">
-                        <input name="password" type="password" id="pwd" placeholder="Enter password" autocomplete="current-password" />
-                        <button class="eye-btn" type="button" onclick="togglePwd(this)" aria-label="Show/hide password">
-                            <i class="fa-solid fa-eye"></i>
-                        </button>
+                        <div class="tab {{ $selectedTab === 'user' ? 'active' : '' }}" data-tab="user" onclick="setTab('user')">User</div>
+                        <div class="tab {{ $selectedTab === 'company' ? 'active' : '' }}" data-tab="company" onclick="setTab('company')">Company</div>
+                        <div class="tab {{ $selectedTab === 'partner' ? 'active' : '' }}" data-tab="partner" onclick="setTab('partner')">Partner</div>
                     </div>
-                </div>
 
-                <button class="btn-signin" type="submit">Sign in</button>
+                    <div class="field">
+                        <label>Login</label>
+                        <input type="email" name="email" value="{{ old('email') }}" placeholder="Enter Email address" autocomplete="username" required />
+                    </div>
+
+                    <div class="field">
+                        <label>Password</label>
+                        <div class="pwd-wrap">
+                            <input type="password" id="pwd" name="password" placeholder="Enter password" autocomplete="current-password" required />
+                            <button class="eye-btn" type="button" onclick="togglePwd(this)" aria-label="Show/hide password">
+                                <i class="fa-solid fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="g-recaptcha" data-sitekey="6LfPdbgsAAAAAALuLXA3n-tadrbTTuHNCHEKJZz2"></div>
+
+                    <button class="btn-signin" type="submit">Sign in</button>
+                </form>
 
                 <div class="underline">
 
                 </div>
 
-                <button class="btn-google" type="button" onclick="window.location.href='/'">
+                <button class="btn-google" type="button" onclick="window.location.href='index.html'">
                     <i class="fa-solid fa-arrow-left"></i>
                     Back to Home
                 </button>
             </div>
-            </form>
+            
         </div>
 
 
     </div>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script>
-        function setTab(index) {
+        function setTab(tabName) {
             const container = document.getElementById("tabs");
             const tabs = container.querySelectorAll(".tab");
+            const selectedTab = document.getElementById("selected_tab");
+            const tabClasses = {
+                user: "active-user",
+                company: "active-admin",
+                partner: "active-master",
+            };
 
             tabs.forEach((tab) => tab.classList.remove("active"));
-            tabs[index].classList.add("active");
+            tabs.forEach((tab) => {
+                if (tab.dataset.tab === tabName) {
+                    tab.classList.add("active");
+                }
+            });
 
             // Reset all role classes
             container.classList.remove("active-user", "active-admin", "active-master");
+            container.classList.add(tabClasses[tabName] || "active-user");
 
-            // Add class based on index
-                if (index === 0) {
-                    container.classList.add("active-user");
-                } else if (index === 1) {
-                    container.classList.add("active-admin");
-                } else if (index === 2) {
-                    container.classList.add("active-master");
-                }
-        }
-
-        function handleLogin() {
-            const email = document
-                .querySelector('input[placeholder="Email or phone number"]')
-                .value.trim();
-            const password = document.getElementById("pwd").value.trim();
-            const container = document.getElementById("tabs");
-            const btn = document.querySelector(".btn-signin");
-
-            // Validation
-            if (!email || !password) {
-                btn.innerText = "Fill all fields!";
-                btn.style.backgroundColor = "red";
-                return;
+            if (selectedTab) {
+                selectedTab.value = tabName;
             }
-
-            btn.innerText = "Sign in";
-            btn.style.backgroundColor = "";
-
-            // Role-based redirect
-            // Role-based redirect
-            if (container.classList.contains("active-admin")) {
-                window.location.href = "https://documentation.pocketoffice.sizaf.com/company/books";
-            } else if (container.classList.contains("active-master")) {
-                window.location.href = "https://documentation.pocketoffice.sizaf.com/partner/books";
-            } else {
-                window.location.href = "https://documentation.pocketoffice.sizaf.com/user/books";
-            }
-        
         }
 
         function togglePwd(btn) {
@@ -154,29 +139,22 @@
             timeOut: "4000",
         };
 
-        $(document).ready(function () {
-            $(".submit-btn").on("click", function () {
-                const email = $("input[type='email']").val().trim();
+        @if(session('error'))
+            toastr.error(@json(session('error')));
+        @endif
 
-                if (email === "") {
-                toastr.error("Please enter your email address.");
-                } else if (!isValidEmail(email)) {
-                toastr.warning("Please enter a valid email address.");
-                } else {
-                toastr.success("A password reset link has been sent to your email address");
-                $("input[type='email']").val("");
-                setTimeout(() => {
-                    $(".login-section").show();
-                    $(".forgot-password-section").hide();
-                }, 4000);
+        $(document).ready(function () {
+            $("#docs-login-form").on("submit", function () {
+                if (!$("#selected_tab").val()) {
+                    $("#selected_tab").val("user");
                 }
             });
         });
 
-        function isValidEmail(email) {
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            return emailRegex.test(email);
-        }
+        document.addEventListener("DOMContentLoaded", function () {
+            const selectedTab = document.getElementById("selected_tab");
+            setTab((selectedTab && selectedTab.value) ? selectedTab.value : "user");
+        });
     </script>
 </body>
 
