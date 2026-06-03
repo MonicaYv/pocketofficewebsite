@@ -21,9 +21,17 @@ use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
+use App\Services\OfficelesSsoService;
 
 class UserLicensePlansController extends Controller
 {
+    protected OfficelesSsoService $officelesSsoService;
+
+    public function __construct(OfficelesSsoService $officelesSsoService)
+    {
+        $this->officelesSsoService = $officelesSsoService;
+    }
+
     public function index(Request $request)
     {
         // Currency list
@@ -259,9 +267,36 @@ class UserLicensePlansController extends Controller
 
             DB::commit();
 
+            $ssoSync = [];
+
+            if (!empty($clientData['client_head_user_id']) && !empty($clientData['client_head_created'])) {
+                $clientUser = User::find($clientData['client_head_user_id']);
+                if ($clientUser) {
+                    $ssoSync['client'] = $this->officelesSsoService->syncUser(
+                        $clientUser,
+                        'Password@123',
+                        3,
+                        'user-license.saveUserPayment.client'
+                    );
+                }
+            }
+
+            $createdUser = User::find($userId);
+            if ($createdUser) {
+                $createdType = strtolower((string) $createdUser->usertype);
+                $syncKey = in_array($createdType, ['company', 'client'], true) ? $createdType : 'user';
+                $ssoSync[$syncKey] = $this->officelesSsoService->syncUser(
+                    $createdUser,
+                    'Password@123',
+                    3,
+                    'user-license.saveUserPayment.' . $syncKey
+                );
+            }
+
             return response()->json([
                 'status' => true,
-                'message' => 'Payment saved successfully'
+                'message' => 'Payment saved successfully',
+                'sso_sync' => $ssoSync,
             ]);
         } catch (\Exception $e) {
             DB::rollBack();
@@ -286,7 +321,8 @@ class UserLicensePlansController extends Controller
         //STEP 1 : CHECK CLIENT
 
         $client = DB::table('clients')
-            ->where('pof_flag', 'for_team')
+            ->where('name', $name)
+            ->where('email', $email)
             ->first();
 
         // CLIENT NOT FOUND
@@ -295,7 +331,7 @@ class UserLicensePlansController extends Controller
             // CREATE CLIENT
             $clientId = DB::table('clients')->insertGetId([
                 'name' => $name,
-                'pof_flag' => 'for_team',
+                'email' => $email,
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
@@ -333,15 +369,19 @@ class UserLicensePlansController extends Controller
                 ->update([
                     'client_head' => $clientHeadUserId
                 ]);
+
+            $clientHeadCreated = true;
         } else {
 
             // USE EXISTING USER
             $clientHeadUserId = $clientUser->id;
+            $clientHeadCreated = false;
         }
 
         return [
             'client_id' => $clientId,
-            'client_head_user_id' => $clientHeadUserId
+            'client_head_user_id' => $clientHeadUserId,
+            'client_head_created' => $clientHeadCreated,
         ];
     }
 
@@ -355,9 +395,7 @@ class UserLicensePlansController extends Controller
         return DB::table('companies')->insertGetId([
             'client_id' => $clientId,   // ✅ FIX ADDED
             'name' => $request->company_name,
-            'company_type' => $request->company_type,
             'industry' => $request->industry_type,
-            'company_address' => $request->address,
             'contact' => $request->company_number,
             'email' => $request->company_email,
             'website' => $request->website,
@@ -383,17 +421,12 @@ class UserLicensePlansController extends Controller
             'username' => $request->username,
             'phone' => $request->phone,
             'email' => $request->email,
-            'designation' => $request->designation,
             'password' => Hash::make('Password@123'),
 
             'client_id' => $clientId,
             'company_id' => $companyId,
 
             'usertype' => $request->plan_type == 'team' ? 'company' : 'special_user',
-
-            'security_question' => $request->security_question,
-            'security_ans' => $request->security_answer,
-            'term_condition' => $request->term_condition,
 
             'created_at' => now(),
             'updated_at' => now(),
@@ -475,14 +508,12 @@ class UserLicensePlansController extends Controller
             throw new \Exception("Invalid plan");
         }
 
-        //currency data 
-        $currency = DB::table('currency_rates')
-            ->where('currency_code', $request->currencyid)
-            ->first();
-
-        if (!$currency) {
-            throw new \Exception("Invalid currency");
-        }
+        //currency data
+        $currencyCode = $request->currencyid ?? ($plan->currency ?? '');
+        $currency = (object) [
+            'id' => null,
+            'currency_symbol' => $plan->currency ?? ($currencyCode ?? ''),
+        ];
 
         //discount data
         $isYearly = ($request->subscription_type === 'year');
@@ -509,15 +540,8 @@ class UserLicensePlansController extends Controller
             'user_id' => $userId,
             'plan_id' => $request->plan_id,
             'order_id' => UsersLicensePayment::generateOrderId(),
-            'promocode_id' => $promocodeId,
-            'currency_id' => $currency->id,
-            'currency_symbol' => $currency->currency_symbol,
             'quantity' => $request->quantity,
-            'base_amount' => $currency->actual_amount,
-            'real_amount' => $request->price,
             'total_amount' => $request->total_amount,
-            'discount' => $discount,
-            'extra_discount' => $extraDiscount,
             'total_pool_storage' => $request->storage . ' ' . $request->storage_unit,
             'plan_subscription' => $subscriptionType,
             'plan_expiry_date' => $expiryDate,
@@ -554,9 +578,10 @@ class UserLicensePlansController extends Controller
             ->first();
 
         // CURRENCY
-        $currency = DB::table('currency_rates')
-            ->where('currency_code', $request->currencyid)
-            ->first();
+        $currencyCode = $request->currencyid ?? ($plan->currency ?? '');
+        $currency = (object) [
+            'currency_symbol' => $plan->currency ?? ($currencyCode ?? ''),
+        ];
 
         // COMPANY DETAILS
         $company = null;
