@@ -240,8 +240,6 @@
       </div>
 
       <div class="container">
-
-        <!-- for single user  -->
         <div class="personal-section-wrapper">
           <p class="personal-section-label">For Individuals</p>
           @if (!empty($userLicenseData['getPlanList']['planLists']))
@@ -400,7 +398,7 @@
           <div class="pricing-cards">
             @if (!empty($userLicenseData['getPlanList']['planLists']))
             @foreach ($userLicenseData['getPlanList']['planLists'] as $plan)
-            <div class="monthly-plans" data-is-team="1">
+            <div class="monthly-plans">
               <div class="card bg-light border-secondary h-100 ul-cards">
                 <div class="card-body d-flex flex-column p-4">
                   <h2 class="fw-semibold mb-3">{{ $plan->plans_name }}</h2>
@@ -416,15 +414,15 @@
 
                   <span class="user-count-ul hidden">{{ $plan->plans_license }}</span>
                   <span class="discount-ul hidden"
-                    data-monthly="{{ $plan->is_team_discount_apply == 1 ? ($plan->monthly_discount ?? 0) : 0 }}"
-                    data-yearly="{{ $plan->is_team_discount_apply == 1 ? ($plan->yearly_discount ?? 0) : 0 }}">
+                    data-monthly="{{ $plan->is_single_user == 1 ? 0 : ($plan->monthly_discount ?? 0) }}"
+                    data-yearly="{{ $plan->is_single_user == 1 ? 0 : ($plan->yearly_discount ?? 0) }}">
                   </span>
                   <span class="price-amount hidden"></span>
                   <span class="extra-discount-ul hidden"
                     data-monthly-constant="{{ $additional_disc_month ?? 0 }}"
                     data-yearly-constant="{{ $additional_disc_year ?? 0 }}"
-                    data-monthly="{{ $plan->is_team_discount_apply == 1 ? ($plan->monthly_extra_disc ?? 0) : 0 }}"
-                    data-yearly="{{ $plan->is_team_discount_apply == 1 ? ($plan->yearly_extra_disc ?? 0) : 0 }}">
+                    data-monthly="{{ $plan->is_single_user == 1 ? 0 : ($plan->monthly_extra_disc ?? 0) }}"
+                    data-yearly="{{ $plan->is_single_user == 1 ? 0 : ($plan->yearly_extra_disc ?? 0) }}">
                   </span>
 
 
@@ -477,16 +475,22 @@
                   </ul>
 
                   <!-- discount  -->
-                  <!-- <div class="ul-discount ul-save-badge team-discount-badge" -->
-                  @if($plan->is_single_user != 1 && $plan->is_team_discount_apply = 1 && !empty($plan->monthly_discount) && $plan->monthly_discount > 0)
-                  <div class="ul-discount ul-save-badge "
-                    data-is-single="{{ $plan->is_team_discount_apply }}"
-                    data-monthly="{{ $plan->is_team_discount_apply == 1 ? 0 : ($plan->monthly_discount ?? 0) }}"
-                    data-yearly="{{ $plan->is_team_discount_apply == 1 ? 0 : ($plan->yearly_discount ?? 0) }}">
-                    🎉 {{ $plan->monthly_discount }}% off — Enjoy extra savings with monthly billing
-                  </div>
-                  @endif
+                  <div class="ul-discount ul-save-badge team-discount-badge"
+                    data-is-single="{{ $plan->is_single_user }}"
+                    data-monthly="{{ $plan->is_single_user == 1 ? 0 : ($plan->monthly_discount ?? 0) }}"
+                    data-yearly="{{ $plan->is_single_user == 1 ? 0 : ($plan->yearly_discount ?? 0) }}">
 
+                    @if(
+                    $plan->is_single_user != 1 &&
+                    !empty($plan->monthly_discount) &&
+                    $plan->monthly_discount > 0
+                    )
+
+                    🎉 {{ $plan->monthly_discount }}% off — Enjoy extra savings with monthly billing
+
+                    @endif
+
+                  </div>
 
                   <!-- Annual badge lives here, injected by JS -->
                   <div class="pricing-buttons pricingButtons">
@@ -519,7 +523,7 @@
 
                 {{-- Single User Plan --}}
                 @foreach ($userLicenseData['getPlanList']['planListsSingle'] as $singlePlan)
-                <th data-plan-col="personal" class="ul-pricing-tbl-single" style="min-width:130px;">
+                <th data-plan-col="personal" style="min-width:130px;">
                   Personal ({{ $singlePlan->plans_name }})<br>
                   <span class="table-plan-price">
                     <span class="table-plan-symbol">{{ $currencySymbol }}</span>
@@ -541,10 +545,11 @@
 
                 {{-- Team Plans --}}
                 @foreach ($userLicenseData['getPlanList']['planLists'] as $plan)
-                <th class="ul-pricing-tbl-team" data-team-discount="{{ $plan->is_team_discount_apply }}" style="min-width:130px;">
+                <th style="min-width:130px;">
                   {{ $plan->plans_name }}<br>
                   <span class="table-plan-price">
                     <span class="table-plan-symbol">{{ $currencySymbol }}</span>
+
                     <span
                       class="table-plan-amount"
                       data-monthly-discount="{{ $plan->monthly_discount ?? 0 }}"
@@ -565,7 +570,7 @@
               <tr>
                 <td>Members</td>
                 @foreach ($userLicenseData['getPlanList']['planListsSingle'] as $singlePlan)
-                <td class="ul-pricing-tbl-single" data-plan-col="personal"> {{ $singlePlan->plans_license }} </td>
+                <td data-plan-col="personal"> {{ $singlePlan->plans_license }} </td>
                 @endforeach
 
                 @foreach ($userLicenseData['getPlanList']['planLists'] as $plan)
@@ -576,7 +581,7 @@
               <tr>
                 <td>Per User Storage</td>
                 @foreach ($userLicenseData['getPlanList']['planListsSingle'] as $singlePlan)
-                <td class="ul-pricing-tbl-single" data-plan-col="personal"> {{ $singlePlan->plans_users }} {{ $singlePlan->storage_unit }}</td>
+                <td data-plan-col="personal"> {{ $singlePlan->plans_users }} {{ $singlePlan->storage_unit }}</td>
                 @endforeach
 
                 @foreach ($userLicenseData['getPlanList']['planLists'] as $plan)
@@ -587,7 +592,7 @@
               <tr>
                 <td>Total Pool Storage</td>
                 @foreach ($userLicenseData['getPlanList']['planListsSingle'] as $singlePlan)
-                <td class="ul-pricing-tbl-single" data-plan-col="personal"> {{ $singlePlan->pool_storage }} </td>
+                <td data-plan-col="personal"> {{ $singlePlan->pool_storage }} </td>
                 @endforeach
 
                 @foreach ($userLicenseData['getPlanList']['planLists'] as $plan)
@@ -597,7 +602,7 @@
 
               <tr>
                 <td>Teams</td>
-                <td class="ul-pricing-tbl-single" data-plan-col="personal">1 Workspace</td>
+                <td data-plan-col="personal">1 Workspace</td>
                 <td>1 Workspace</td>
                 <td>Multi-Workspace</td>
                 <td>Unlimited</td>
@@ -606,7 +611,7 @@
 
               <tr>
                 <td>Security Controls</td>
-                <td class="ul-pricing-tbl-single" data-plan-col="personal"><i class="bi bi-check-circle-fill check"></i></td>
+                <td data-plan-col="personal"><i class="bi bi-check-circle-fill check"></i></td>
                 <td><i class="bi bi-check-circle-fill check"></i></td>
                 <td><i class="bi bi-check-circle-fill check"></i></td>
                 <td><i class="bi bi-check-circle-fill check"></i></td>
@@ -615,7 +620,7 @@
               <!-- Core Features Title Row (Fixed - No colspan) -->
               <tr>
                 <td>Manage Infra</td>
-                <td class="ul-pricing-tbl-single" data-plan-col="personal"><i class="bi bi-check-circle-fill check"></i></td>
+                <td data-plan-col="personal"><i class="bi bi-check-circle-fill check"></i></td>
                 <td><i class="bi bi-check-circle-fill check"></i></td>
                 <td><i class="bi bi-check-circle-fill check"></i></td>
                 <td><i class="bi bi-check-circle-fill check"></i></td>
@@ -624,7 +629,7 @@
 
               <tr>
                 <td>App Integration</td>
-                <td class="ul-pricing-tbl-single" data-plan-col="personal"><i class="bi bi-check-circle-fill check"></i></td>
+                <td data-plan-col="personal"><i class="bi bi-check-circle-fill check"></i></td>
                 <td><i class="bi bi-check-circle-fill check"></i></td>
                 <td><i class="bi bi-check-circle-fill check"></i></td>
                 <td><i class="bi bi-check-circle-fill check"></i></td>
@@ -633,7 +638,7 @@
 
               <tr>
                 <td>Device &amp; IP Control</td>
-                <td class="ul-pricing-tbl-single" data-plan-col="personal"><i class="bi bi-x-circle-fill cross"></i></td>
+                <td data-plan-col="personal"><i class="bi bi-x-circle-fill cross"></i></td>
                 <td><i class="bi bi-x-circle-fill cross"></i></td>
                 <td><i class="bi bi-check-circle-fill check"></i></td>
                 <td><i class="bi bi-check-circle-fill check"></i></td>
@@ -641,7 +646,7 @@
               </tr>
               <tr>
                 <td>Backup &amp; Recovery</td>
-                <td class="ul-pricing-tbl-single" data-plan-col="personal"><i class="bi bi-check-circle-fill check"></i></td>
+                <td data-plan-col="personal"><i class="bi bi-check-circle-fill check"></i></td>
                 <td><i class="bi bi-check-circle-fill check"></i></td>
                 <td><i class="bi bi-check-circle-fill check"></i></td>
                 <td><i class="bi bi-check-circle-fill check"></i></td>
@@ -650,7 +655,7 @@
 
               <tr>
                 <td>Storage Add-ons</td>
-                <td class="ul-pricing-tbl-single" data-plan-col="personal"><i class="bi bi-check-circle-fill check"></i></td>
+                <td data-plan-col="personal"><i class="bi bi-check-circle-fill check"></i></td>
                 <td><i class="bi bi-check-circle-fill check"></i></td>
                 <td><i class="bi bi-check-circle-fill check"></i></td>
                 <td><i class="bi bi-check-circle-fill check"></i></td>
@@ -659,7 +664,7 @@
 
               <tr>
                 <td>Feature Add-ons</td>
-                <td class="ul-pricing-tbl-single" data-plan-col="personal"><i class="bi bi-check-circle-fill check"></i></td>
+                <td data-plan-col="personal"><i class="bi bi-check-circle-fill check"></i></td>
                 <td><i class="bi bi-check-circle-fill check"></i></td>
                 <td><i class="bi bi-check-circle-fill check"></i></td>
                 <td><i class="bi bi-check-circle-fill check"></i></td>
@@ -670,7 +675,7 @@
               <tr>
                 <td></td>
                 @foreach ($userLicenseData['getPlanList']['planListsSingle'] as $singlePlan)
-                <td class="ul-pricing-tbl-single" data-plan-col="personal">
+                <td data-plan-col="personal">
                   <button class="btn btn-outline-secondary js-select-plan-compare"
                     data-plan-type="single"
                     data-name="{{ $singlePlan->plans_name }}"

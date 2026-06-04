@@ -23,10 +23,18 @@ use Illuminate\Support\Facades\Notification;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Mail;
 use App\Models\CurrencyRate;
+use App\Services\OfficelesSsoService;
 
 
 class UserLicenseController extends Controller
 {
+    protected OfficelesSsoService $officelesSsoService;
+
+    public function __construct(OfficelesSsoService $officelesSsoService)
+    {
+        $this->officelesSsoService = $officelesSsoService;
+    }
+
     public function index(Request $request)
     {
         $userType = 'company';
@@ -1402,7 +1410,6 @@ class UserLicenseController extends Controller
                 'username' => $request->username,
                 'phone' => $request->phone,
                 'email' => $request->email,
-                'designation' => $request->designation,
                 'password' => Hash::make('Password@123'),
                 'usertype' => 'special_user',
                 'created_at' => now()
@@ -1473,7 +1480,6 @@ class UserLicenseController extends Controller
                 'status' => 1,
                 'used_license' => 0,
                 'remaining_license' => $request->license,
-                'coupon_id' => $couponId,
                 'created_at' => now()
             ]);
 
@@ -1518,7 +1524,6 @@ class UserLicenseController extends Controller
                     'username' => $request->username,
                     'phone' => $request->phone,
                     'email' => $request->email,
-                    'designation' => $request->designation,
                     'password' => 'Password@123',
                     'usertype' => 'special_user',
                 ],
@@ -1547,9 +1552,21 @@ class UserLicenseController extends Controller
 
             DB::commit();
 
+            $ssoSync = [];
+            $createdUser = User::find($userId);
+            if ($createdUser) {
+                $ssoSync['user'] = $this->officelesSsoService->syncUser(
+                    $createdUser,
+                    'Password@123',
+                    3,
+                    'user-license.saveSubscription.user'
+                );
+            }
+
             return response()->json([
                 'status' => true,
-                'message' => 'Subscription saved successfully'
+                'message' => 'Subscription saved successfully',
+                'sso_sync' => $ssoSync,
             ]);
         } catch (\Exception $e) {
 
@@ -1882,7 +1899,6 @@ class UserLicenseController extends Controller
             // =========================
             $company_id = DB::table('companies')->insertGetId([
                 'name' => $request->company_name,
-                // 'company_type' => $request->company_type,
                 'industry' => $request->industry_type,
                 // 'address' => $request->address,
                 'contact' => $request->company_number,
@@ -1903,7 +1919,7 @@ class UserLicenseController extends Controller
                 'username' => $request->username,
                 'password' => Hash::make('123456'), // 🔥 change if needed
                 'company_id' => $company_id,
-                'designation' => $request->designation,
+                'usertype' => 'company',
                 // 'security_question' => $request->security_question,
                 // 'security_answer' => $request->security_answer,
                 'created_at' => now(),
@@ -1959,7 +1975,6 @@ class UserLicenseController extends Controller
                 'status' => 1,
                 'used_license' => 0,
                 'remaining_license' => $quantity,
-                'coupon_id' => $request->coupon_id,
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
@@ -1989,6 +2004,43 @@ class UserLicenseController extends Controller
                 'updated_at' => now(),
             ]);
 
+            $teamUser = DB::table('users')->where('id', $user_id)->first();
+            $teamCompany = DB::table('companies')->where('id', $company_id)->first();
+            $teamPlan = DB::table('users_license_plans')->where('id', $request->plan_id)->first();
+            $teamCurrencyCode = $request->currencyid ?? ($teamPlan->currency ?? '');
+            $teamCurrency = (object) ['currency_symbol' => $teamPlan->currency ?? ($teamCurrencyCode ?? '')];
+
+            $pdf = Pdf::loadView('marketplace.invoices', [
+                'user' => $teamUser,
+                'plan_name' => $teamPlan->plans_name ?? '',
+                'subscription_type' => $request->subscription,
+                'license' => $request->license,
+                'storage' => $request->storage,
+                'unit' => $request->storage_unit,
+                'price' => number_format((float) $request->price, 2),
+                'qty' => (int) $request->quantity,
+                'subtotal' => number_format(((float) $request->price * (int) $request->quantity), 2),
+                'discount' => 0,
+                'discountAmount' => number_format(0, 2),
+                'finalAmount' => number_format((float) $total_amount, 2),
+                'total_amount' => number_format((float) $total_amount, 2),
+                'currency' => $teamCurrency->currency_symbol ?? '',
+                'promocode' => $request->coupon_id ?? 'N/A',
+                'plan_type' => 'team',
+                'company' => $teamCompany,
+                'payment_mode' => 'Card',
+                'payment_status' => 'Paid',
+                'payment_date' => now()->format('d M Y'),
+                'invoice_no' => 'INV-' . date('Y') . '-' . rand(1000, 9999),
+                'invoice_date' => now()->format('d M Y'),
+                'billing_period' => ucfirst((string) $request->subscription),
+            ])->setPaper('a4', 'portrait')
+              ->setOptions([
+                  'isHtml5ParserEnabled' => true,
+                  'isRemoteEnabled' => true,
+                  'defaultFont' => 'DejaVu Sans',
+              ]);
+
             // officelescloud@gmail.com
             $pdfPath = storage_path('app/invoice_' . time() . '.pdf');
             file_put_contents($pdfPath, $pdf->output());
@@ -2000,7 +2052,6 @@ class UserLicenseController extends Controller
                     'username' => $request->username,
                     'phone' => $request->phone,
                     'email' => $request->email,
-                    'designation' => $request->designation,
                     'password' => 'Password@123',
                     'usertype' => 'company',
                 ],
@@ -2030,9 +2081,21 @@ class UserLicenseController extends Controller
 
             DB::commit();
 
+            $ssoSync = [];
+            $createdUser = User::find($user_id);
+            if ($createdUser) {
+                $ssoSync['company'] = $this->officelesSsoService->syncUser(
+                    $createdUser,
+                    '123456',
+                    3,
+                    'user-license.savePaymentForTeam.company'
+                );
+            }
+
             return response()->json([
                 'success' => true,
-                'message' => 'Company + User + Payment saved successfully'
+                'message' => 'Company + User + Payment saved successfully',
+                'sso_sync' => $ssoSync,
             ]);
         } catch (\Exception $e) {
 

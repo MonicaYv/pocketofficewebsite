@@ -23,6 +23,7 @@ Route::get('payment', [UserLicensePlansController::class, 'payment']);
 Route::post('store-user-payment', [UserLicensePlansController::class, 'saveUserPayment'])->name('store.user.payment');
 Route::post('change-currency', [UserLicensePlansController::class, 'changeCurrency']);
 Route::post('check-username', [UserLicensePlansController::class, 'checkUsername'])->name('check.username');
+Route::post('check-userEmail', [UserLicensePlansController::class, 'checkUserEmail'])->name('check.userEmail');
 
 //save company data
 Route::post('/save-company', [CompanyController::class, 'store'])->name('saveCompany');

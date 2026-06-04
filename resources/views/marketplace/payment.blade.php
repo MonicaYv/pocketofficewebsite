@@ -431,26 +431,28 @@
                                          class="pay-plan-tile selected-plan-option {{ $loop->first ? 'selected' : '' }}"
 
                                          data-plan-type="{{ $plan->is_single_user == 1 ? 'single' : 'team' }}"
+                                         data-apply-discount="{{ $plan->is_team_discount_apply == 1 }}"
                                          data-plan-id="{{ $plan->id }}"
                                          data-name="{{ $plan->plans_name }}"
                                          data-subscription="{{ $plan->plans_subscription_type }}"
                                          data-license="{{ $plan->plans_license }}"
                                          data-storage="{{ $plan->plans_users }}"
                                          data-storage-unit="{{ $plan->storage_unit }}"
-
-                                         {{-- PERSONAL DISCOUNT --}}
+                                         data-monthly-price="{{ $plan->final_monthly_price }}"
+                                         data-yearly-price="{{ $plan->final_yearly_price }}"
                                          data-monthly-discount="{{ $plan->monthly_discount ?? 0 }}"
                                          data-yearly-discount="{{ $plan->yearly_discount ?? 0 }}"
-
-                                         {{-- TEAM EXTRA DISCOUNT --}}
                                          data-extra-monthly-discount="{{ $plan->additional_disc_month ?? 0 }}"
                                          data-extra-yearly-discount="{{ $plan->additional_disc_year ?? 0 }}"
-
                                          data-symbol="{{ $plan->currency_symbol ?? '₹' }}">
 
                                          {{ $plan->plans_name }}
 
-                                         <span class="pay-plan-tile__price"></span>
+                                         <!-- <span class="pay-plan-tile__price plan_price_details"></span> -->
+                                         <span class="pay-plan-tile__price plan_price_details hidden"></span>
+                                         <span class="pay-plan-tile__price view_plan_price_details">
+                                             {{ $plan->currency_symbol }}{{ $plan->final_monthly_price }}
+                                         </span>
                                      </div>
                                      @endforeach
                                  </div>
@@ -511,7 +513,7 @@
                              <hr style="margin: 14px 0" />
 
                              <div id="paySavingsNotice"
-                                 class="hidden"
+                                 class=""
                                  style="background: rgb(209, 250, 229);
                                 color: rgb(6, 95, 70);
                                 border-radius: 8px;
@@ -521,9 +523,8 @@
                                 margin-bottom: 10px;
                                 text-align: center;
                                 width: 100%;
-                                box-sizing: border-box;
-                                display: none;">
-                                 🎉 10% off — you save ₹ 719 by paying annually
+                                box-sizing: border-box;">
+                                 <!-- 🎉 10% off — you save ₹ 719 by paying annually -->
                              </div>
 
                              <label
@@ -685,15 +686,15 @@
      <div
          id="existingUserModal"
          style="
-        display:none;
-        position:fixed;
-        top:0;
-        left:0;
-        width:100%;
-        height:100%;
-        background:rgba(0,0,0,0.5);
-        z-index:99999;
-    ">
+            display:none;
+            position:fixed;
+            top:0;
+            left:0;
+            width:100%;
+            height:100%;
+            background:rgba(0,0,0,0.5);
+            z-index:99999;
+        ">
 
          <div
              style="
@@ -715,7 +716,7 @@
              <div style="text-align:right;">
 
                  <button
-                 class="hidden"
+                     class="hidden"
                      type="button"
                      data-close-modal
                      style="

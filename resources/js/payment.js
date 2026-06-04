@@ -1,11 +1,13 @@
 document.addEventListener("DOMContentLoaded", function () {
+    const allPlans = JSON.parse(localStorage.getItem("allPlans")) || [];
+
     const selectedPlan = JSON.parse(localStorage.getItem("selectedPlan"));
     const selectedCurrency = JSON.parse(
         localStorage.getItem("selectedCurrency"),
     );
 
     if (!selectedPlan) {
-        // console.log("No selected plan found");
+        // toastr.error("No selected plan found");
         return;
     }
 
@@ -81,6 +83,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
+    //toggle change for monthly or yearly
     function updateToggleUI() {
         const yearly = payBillingToggle.checked;
 
@@ -105,12 +108,36 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
+    //load amount
+    window.addEventListener("DOMContentLoaded", function () {
+        const defaultTile = document.querySelector(
+            ".pay-plan-tile.selected-plan-option.selected",
+        );
+
+        if (defaultTile) {
+            defaultTile.click(); // 🔥 THIS FIXES EVERYTHING
+        }
+    });
+
+    //refresh data
     function renderPlanData() {
         const isYearly = payBillingToggle.checked;
 
+        payQtyControls.style.display = "none";
+        companyForm.classList.add("hidden");
+
         const billingType = isYearly ? "yearly" : "monthly";
 
-        let basePrice = parseFloat(currentPlan.price || 0);
+        // let basePrice = parseFloat(currentPlan.price || 0);
+        // let basePrice = isYearly
+        //     ? parseFloat(currentPlan.price || 0)
+        //     : parseFloat(currentPlan.price || 0);
+
+        let basePrice = isYearly
+            ? currentPlan.priceY || 0
+            : currentPlan.priceM || 0;
+
+        basePrice = parseFloat(basePrice) || 0;
 
         let quantityValue =
             currentPlan.plan_type === "team"
@@ -205,30 +232,28 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (activeDiscount > 0) {
             paySavingsNotice.classList.remove("hidden");
-            paySavingsNotice.style.display = "block";
+            // paySavingsNotice.style.display = "block";
 
             paySavingsNotice.innerHTML = `🎉 ${activeDiscount}% OFF with ${billingType} billing`;
         } else {
             paySavingsNotice.classList.add("hidden");
-            paySavingsNotice.style.display = "none";
+            // paySavingsNotice.style.display = "none";
         }
 
         if (currentPlan.plan_type === "team") {
-            quantity = quantityValue;
+            quantity = quantityValue || 1;
 
             payQtyInput.value = quantity;
 
-            companyForm.classList.remove("hidden");
-
             payQtyControls.style.display = "block";
+            companyForm.classList.remove("hidden");
         } else {
             quantity = 1;
 
             payQtyInput.value = 1;
 
-            companyForm.classList.add("hidden");
-
             payQtyControls.style.display = "none";
+            companyForm.classList.add("hidden");
         }
 
         let totalStorage = parseInt(currentPlan.storage || 0) * quantity;
@@ -246,19 +271,26 @@ document.addEventListener("DOMContentLoaded", function () {
                 tile.classList.add("selected");
             }
 
-            const tilePrice = tile.querySelector(".pay-plan-tile__price");
+            const tilePrice = tile.querySelector(".view_plan_price_details");
 
             if (tilePrice) {
+                const price = isYearly
+                    ? parseFloat(tile.dataset.yearlyPrice || 0)
+                    : parseFloat(tile.dataset.monthlyPrice || 0);
+
                 tilePrice.innerHTML =
-                    currentPlan.symbol + " " + Math.round(basePrice);
+                    tile.dataset.symbol + "" + Math.round(price);
             }
+            // const tilePrice = tile.querySelector(".plan_price_details");
+
+            // if (tilePrice) {
+            //     tilePrice.innerHTML =
+            //         currentPlan.symbol + " " + Math.round(basePrice);
+            // }
         });
     }
 
-    //form validation and save or submit
-    // =========================
-    // VALIDATION HELPERS
-    // =========================
+    //show err or hide err
     function showError(id, message = "") {
         const input = document.getElementById(id);
 
@@ -291,9 +323,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // =========================
     // VALIDATIONS
-    // =========================
     function validateEmail(email) {
         return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     }
@@ -310,9 +340,7 @@ document.addEventListener("DOMContentLoaded", function () {
         return /^(?=.*[A-Z])[A-Za-z_]+$/.test(username);
     }
 
-    // =========================
     // FORM VALIDATION
-    // =========================
     function validateForm() {
         let valid = true;
 
@@ -449,9 +477,7 @@ document.addEventListener("DOMContentLoaded", function () {
         return valid;
     }
 
-    // =========================
     // MODAL
-    // =========================
     const paymentModalForTeam = document.getElementById("paymentModalForTeam");
 
     const sideSubmitBtnForTeam = document.getElementById(
@@ -460,9 +486,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const closePayModal = document.getElementById("closePayModal");
 
-    // =========================
     // OPEN MODAL
-    // =========================
     sideSubmitBtnForTeam?.addEventListener("click", function () {
         const valid = validateForm();
 
@@ -474,23 +498,17 @@ document.addEventListener("DOMContentLoaded", function () {
         paymentModalForTeam?.classList.remove("hidden");
     });
 
-    // =========================
     // CLOSE MODAL
-    // =========================
     closePayModal?.addEventListener("click", function () {
         paymentModalForTeam?.classList.add("hidden");
     });
 
-    // =========================
     // PROMOCODE VARIABLES
-    // =========================
     let appliedPromocodeId = null;
     let appliedPromocodeCode = "";
     let appliedDiscountAmount = 0;
 
-    // =========================
     // CALCULATE FINAL TOTAL
-    // =========================
     function updateFinalAmounts() {
         const subtotalText = summarySubtotal.innerText.replace(/[^0-9.]/g, "");
 
@@ -532,12 +550,7 @@ document.addEventListener("DOMContentLoaded", function () {
             currentPlan.symbol + " " + Math.round(finalTotal);
     }
 
-    // =========================
     // APPLY PROMOCODE
-    // =========================
-    // =========================
-    // APPLY PROMOCODE
-    // =========================
     $(document).on("click", "#applyPromoBtn", function () {
         let code = $("#couponInput").val().trim();
 
@@ -613,9 +626,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // =========================
     // REMOVE PROMOCODE
-    // =========================
     $(document).on("click", "#removeCouponBtn", function () {
         appliedPromocodeId = null;
 
@@ -639,6 +650,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // alert("Promocode removed");
     });
 
+    //confirm payment
     $(document).on("click", "#confirmPayBtn", function () {
         // console.log("Confirm payment clicked");
 
@@ -852,10 +864,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // =========================
     // LIVE VALIDATION
-    // =========================
-
     // PHONE
     document.getElementById("phone")?.addEventListener("input", function () {
         this.value = this.value.replace(/\D/g, "").slice(0, 10);
@@ -1030,14 +1039,13 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    //
-
     //on change toggle
     payBillingToggle.addEventListener("change", function () {
         updateToggleUI();
         renderPlanData();
     });
 
+    //quantity increase
     payQtyPlus.addEventListener("click", function () {
         quantity++;
 
@@ -1046,6 +1054,7 @@ document.addEventListener("DOMContentLoaded", function () {
         renderPlanData();
     });
 
+    //quantity decrease
     payQtyMinus.addEventListener("click", function () {
         if (quantity > 1) {
             quantity--;
@@ -1056,6 +1065,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
+    //quantity data
     payQtyInput.addEventListener("input", function () {
         let value = parseInt(this.value);
 
@@ -1070,6 +1080,7 @@ document.addEventListener("DOMContentLoaded", function () {
         renderPlanData();
     });
 
+    //selected plans from pricing page
     planTiles.forEach((tile) => {
         tile.addEventListener("click", function () {
             planTiles.forEach((t) => t.classList.remove("selected"));
@@ -1081,24 +1092,28 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 plan_type: this.dataset.planType,
                 plan_id: this.dataset.planId,
+                // name: this.dataset.name,
                 name: this.dataset.name,
 
-                price: this.dataset.price || 0,
-                symbol: this.dataset.symbol || "₹",
-                // currencyid: this.dataset.currencyid,
+                price: this.dataset.pricemonth || 0,
 
+                priceM: parseFloat(this.dataset.monthlyPrice) || 0,
+                priceY: parseFloat(this.dataset.yearlyPrice) || 0,
+
+                symbol: this.dataset.symbol || " ",
                 subscription: this.dataset.subscription || "monthly",
 
                 license: this.dataset.license,
                 storage: this.dataset.storage,
                 storage_unit: this.dataset.storageUnit,
+                
+                monthly_discount: parseFloat(this.dataset.monthlyDiscount) || 0,
+                yearly_discount: parseFloat(this.dataset.yearlyDiscount) || 0,
 
-                monthly_discount: this.dataset.monthlyDiscount || 0,
-                yearly_discount: this.dataset.yearlyDiscount || 0,
-
-                extra_monthly_discount: this.dataset.extraMonthlyDiscount || 0,
-
-                extra_yearly_discount: this.dataset.extraYearlyDiscount || 0,
+                extra_monthly_discount:
+                    parseFloat(this.dataset.extraMonthlyDiscount) || 0,
+                extra_yearly_discount:
+                    parseFloat(this.dataset.extraYearlyDiscount) || 0,
             };
 
             renderPlanData();
@@ -1130,6 +1145,32 @@ document.addEventListener("DOMContentLoaded", function () {
                     $("#username-err").show().text("Username already exists.");
                 } else {
                     $("#username-err").hide().text("");
+                }
+            },
+        });
+    });
+
+    //check box for existing username
+    $("#userEmail").on("change keyup", function () {
+        let userEmail = $(this).val().trim();
+
+        if (userEmail == "") {
+            $("#userEmail-err").hide().text("");
+            return;
+        }
+
+        $.ajax({
+            url: "/check-userEmail",
+            type: "POST",
+            data: {
+                userEmail: userEmail,
+                _token: $('meta[name="csrf-token"]').attr("content"),
+            },
+            success: function (response) {
+                if (response.exists) {
+                    $("#userEmail-err").show().text("Email already exists.");
+                } else {
+                    $("#userEmail-err").hide().text("");
                 }
             },
         });
