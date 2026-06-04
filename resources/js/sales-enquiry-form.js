@@ -353,6 +353,12 @@ $("#serviceForm").on("submit", function (e) {
         return;
     }
 
+    $.ajaxSetup({
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+        },
+    });
+
     let formData = new FormData(this);
 
     $.ajax({
