@@ -39,6 +39,7 @@ body {
   align-items: center;
   height: 100vh;
   overflow: hidden;
+  background-color: #F3FDFF;
 }
 
 .left-img {
@@ -51,7 +52,7 @@ body {
 /* ── RIGHT PANEL ── */
 .right {
   flex: 1;
-  background: #ffffff;
+  background-color: #ffffff;
   padding: 52px 64px;
   display: flex;
   flex-direction: column;
@@ -63,7 +64,7 @@ body {
 .logo {
   font-size: 22px;
   font-weight: 600;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
   letter-spacing: -0.3px;
 }
 
@@ -86,7 +87,7 @@ body {
   font-size: 20px;
   font-weight: 600;
   color: #1a1a1a;
-  margin-bottom: 26px;
+  margin-bottom: 18px;
   letter-spacing: -0.4px;
 }
 
