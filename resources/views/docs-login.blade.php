@@ -21,9 +21,8 @@
         </div>
         <div class="right">
             <div class="logo">
-                <a href="index.html">
-                    <img class="logo-img" src="/assets/img/logo/pocket-office-final-logo.png" alt="Logo" width="80" height="40">
-                    <h5>PocketOffice</h5>
+                <a href="/index">
+                    <img class="logo-img" src="/assets/img/logo/pocket-office-final-logo.png" alt="Logo" width="110" height="50">
                 </a>
                  
             </div>
