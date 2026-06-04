@@ -52,7 +52,7 @@ body {
 /* ── RIGHT PANEL ── */
 .right {
   flex: 1;
-  background-color: #F3FDFF;
+  background-color: #ffffff;
   padding: 52px 64px;
   display: flex;
   flex-direction: column;
