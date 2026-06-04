@@ -21,17 +21,9 @@ use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
-use App\Services\OfficelesSsoService;
 
 class UserLicensePlansController extends Controller
 {
-    protected OfficelesSsoService $officelesSsoService;
-
-    public function __construct(OfficelesSsoService $officelesSsoService)
-    {
-        $this->officelesSsoService = $officelesSsoService;
-    }
-
     public function index(Request $request)
     {
         // Currency list
@@ -81,11 +73,13 @@ class UserLicensePlansController extends Controller
 
         $additional_disc_year = UsersLicensePlan::where('yearly_extra_disc', '>', 0)
             ->where('is_single_user', '!=', 1)
+            ->where('is_team_discount_apply', 1)
             ->where('pof_plan_status', 1)
             ->max('yearly_extra_disc') ?? 0;
 
         $additional_disc_month = UsersLicensePlan::where('monthly_extra_disc', '>', 0)
-            ->where('is_single_user', '!=', 1)
+            // ->where('is_single_user', '!=', 1)
+            ->where('is_team_discount_apply', 1)
             ->where('pof_plan_status', 1)
             ->max('monthly_extra_disc') ?? 0;
 
@@ -148,9 +142,75 @@ class UserLicensePlansController extends Controller
     }
 
     //call payment page
+
     public function payment(Request $request)
     {
         $planLists = UsersLicensePlan::where('pof_plan_status', 1)->get();
+
+        $currencyData = CurrencyRate::where('currency_code', $request->currency_code)->first();
+
+        if (!$currencyData) {
+            abort(400, "Invalid currency selected");
+        }
+
+        $rate = $currencyData->actual_amount;
+
+        if (!$rate) {
+            abort(400, "Currency rate not available");
+        }
+
+        foreach ($planLists as $plan) {
+
+            // =========================
+            // BASE PRICE
+            // =========================
+            $base = $rate * ($plan->plans_license ?? 1);
+
+            // =========================
+            // MONTHLY BASE
+            // =========================
+            $monthly = $base;
+
+            // =========================
+            // YEARLY BASE
+            // =========================
+            $yearly = $base * 12;
+
+            // =========================
+            // SINGLE USER LOGIC
+            // =========================
+            if ($plan->is_single_user == 1) {
+
+                $finalMonthlyPrice = $monthly;
+                $finalYearlyPrice  = $yearly;
+            } else {
+
+                // =========================
+                // MONTHLY DISCOUNT (STEPWISE)
+                // =========================
+                $finalMonthlyPrice = $monthly;
+
+                $finalMonthlyPrice -= ($finalMonthlyPrice * ($plan->monthly_discount ?? 0) / 100);
+                $finalMonthlyPrice -= ($finalMonthlyPrice * ($plan->monthly_extra_disc ?? 0) / 100);
+
+                // =========================
+                // YEARLY DISCOUNT (STEPWISE)
+                // =========================
+                $finalYearlyPrice = $yearly;
+
+                $finalYearlyPrice -= ($finalYearlyPrice * ($plan->yearly_discount ?? 0) / 100);
+                $finalYearlyPrice -= ($finalYearlyPrice * ($plan->yearly_extra_disc ?? 0) / 100);
+            }
+
+            // =========================
+            // FINAL ROUND (ONLY ONCE)
+            // =========================
+            $plan->base_price = round($base, 2);
+            $plan->final_monthly_price = round($finalMonthlyPrice); // integer
+            $plan->final_yearly_price  = round($finalYearlyPrice);  // integer
+
+            $plan->currency_symbol = $currencyData->currency_symbol ?? '$';
+        }
 
         return view('marketplace.payment', compact('planLists'));
     }
@@ -260,43 +320,19 @@ class UserLicensePlansController extends Controller
 
             $this->updatePromocodeUsage($promocodeId);
 
-            $pdfPath = $this->generateInvoice($request, $userId, $paymentData['total_amount']);
-
-            $this->sendAdminMail($request, $pdfPath);
-            $this->sendUserMail($request, $pdfPath);
+            if (
+                !in_array(request()->getHost(), ['localhost', '127.0.0.1'])
+            ) {
+                $pdfPath = $this->generateInvoice($request, $userId, $paymentData['total_amount']);
+                $this->sendAdminMail($request, $pdfPath);
+                $this->sendUserMail($request, $pdfPath);
+            }
 
             DB::commit();
 
-            $ssoSync = [];
-
-            if (!empty($clientData['client_head_user_id']) && !empty($clientData['client_head_created'])) {
-                $clientUser = User::find($clientData['client_head_user_id']);
-                if ($clientUser) {
-                    $ssoSync['client'] = $this->officelesSsoService->syncUser(
-                        $clientUser,
-                        'Password@123',
-                        3,
-                        'user-license.saveUserPayment.client'
-                    );
-                }
-            }
-
-            $createdUser = User::find($userId);
-            if ($createdUser) {
-                $createdType = strtolower((string) $createdUser->usertype);
-                $syncKey = in_array($createdType, ['company', 'client'], true) ? $createdType : 'user';
-                $ssoSync[$syncKey] = $this->officelesSsoService->syncUser(
-                    $createdUser,
-                    'Password@123',
-                    3,
-                    'user-license.saveUserPayment.' . $syncKey
-                );
-            }
-
             return response()->json([
                 'status' => true,
-                'message' => 'Payment saved successfully',
-                'sso_sync' => $ssoSync,
+                'message' => 'Payment saved successfully'
             ]);
         } catch (\Exception $e) {
             DB::rollBack();
@@ -321,8 +357,7 @@ class UserLicensePlansController extends Controller
         //STEP 1 : CHECK CLIENT
 
         $client = DB::table('clients')
-            ->where('name', $name)
-            ->where('email', $email)
+            ->where('pof_flag', 'for_team')
             ->first();
 
         // CLIENT NOT FOUND
@@ -331,7 +366,7 @@ class UserLicensePlansController extends Controller
             // CREATE CLIENT
             $clientId = DB::table('clients')->insertGetId([
                 'name' => $name,
-                'email' => $email,
+                'pof_flag' => 'for_team',
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
@@ -369,19 +404,15 @@ class UserLicensePlansController extends Controller
                 ->update([
                     'client_head' => $clientHeadUserId
                 ]);
-
-            $clientHeadCreated = true;
         } else {
 
             // USE EXISTING USER
             $clientHeadUserId = $clientUser->id;
-            $clientHeadCreated = false;
         }
 
         return [
             'client_id' => $clientId,
-            'client_head_user_id' => $clientHeadUserId,
-            'client_head_created' => $clientHeadCreated,
+            'client_head_user_id' => $clientHeadUserId
         ];
     }
 
@@ -395,7 +426,9 @@ class UserLicensePlansController extends Controller
         return DB::table('companies')->insertGetId([
             'client_id' => $clientId,   // ✅ FIX ADDED
             'name' => $request->company_name,
+            'company_type' => $request->company_type,
             'industry' => $request->industry_type,
+            'company_address' => $request->address,
             'contact' => $request->company_number,
             'email' => $request->company_email,
             'website' => $request->website,
@@ -416,17 +449,30 @@ class UserLicensePlansController extends Controller
             // return response()->json(['status' => false, 'message' => 'Username already exists']);
         }
 
+        $useremailExists = DB::table('users')
+            ->where('email', $request->email)
+            ->exists();
+
+        if ($useremailExists) {
+            throw new \Exception('Email already exists');
+        }
+
         return DB::table('users')->insertGetId([
             'name' => $request->contactPerson,
             'username' => $request->username,
             'phone' => $request->phone,
             'email' => $request->email,
+            'designation' => $request->designation,
             'password' => Hash::make('Password@123'),
 
             'client_id' => $clientId,
             'company_id' => $companyId,
 
             'usertype' => $request->plan_type == 'team' ? 'company' : 'special_user',
+
+            'security_question' => $request->security_question,
+            'security_ans' => $request->security_answer,
+            'term_condition' => $request->term_condition,
 
             'created_at' => now(),
             'updated_at' => now(),
@@ -508,12 +554,14 @@ class UserLicensePlansController extends Controller
             throw new \Exception("Invalid plan");
         }
 
-        //currency data
-        $currencyCode = $request->currencyid ?? ($plan->currency ?? '');
-        $currency = (object) [
-            'id' => null,
-            'currency_symbol' => $plan->currency ?? ($currencyCode ?? ''),
-        ];
+        //currency data 
+        $currency = DB::table('currency_rates')
+            ->where('currency_code', $request->currencyid)
+            ->first();
+
+        if (!$currency) {
+            throw new \Exception("Invalid currency");
+        }
 
         //discount data
         $isYearly = ($request->subscription_type === 'year');
@@ -540,8 +588,15 @@ class UserLicensePlansController extends Controller
             'user_id' => $userId,
             'plan_id' => $request->plan_id,
             'order_id' => UsersLicensePayment::generateOrderId(),
+            'promocode_id' => $promocodeId,
+            'currency_id' => $currency->id,
+            'currency_symbol' => $currency->currency_symbol,
             'quantity' => $request->quantity,
+            'base_amount' => $currency->actual_amount,
+            'real_amount' => $request->price,
             'total_amount' => $request->total_amount,
+            'discount' => $discount,
+            'extra_discount' => $extraDiscount,
             'total_pool_storage' => $request->storage . ' ' . $request->storage_unit,
             'plan_subscription' => $subscriptionType,
             'plan_expiry_date' => $expiryDate,
@@ -578,10 +633,9 @@ class UserLicensePlansController extends Controller
             ->first();
 
         // CURRENCY
-        $currencyCode = $request->currencyid ?? ($plan->currency ?? '');
-        $currency = (object) [
-            'currency_symbol' => $plan->currency ?? ($currencyCode ?? ''),
-        ];
+        $currency = DB::table('currency_rates')
+            ->where('currency_code', $request->currencyid)
+            ->first();
 
         // COMPANY DETAILS
         $company = null;
@@ -730,6 +784,18 @@ class UserLicensePlansController extends Controller
     {
         $exists = DB::table('users')
             ->where('username', $request->username)
+            ->exists();
+
+        return response()->json([
+            'exists' => $exists
+        ]);
+    }
+
+    //on change email check for ajax
+    public function checkUserEmail(Request $request)
+    {
+        $exists = DB::table('users')
+            ->where('email', $request->userEmail)
             ->exists();
 
         return response()->json([
