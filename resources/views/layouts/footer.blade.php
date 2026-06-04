@@ -6,7 +6,7 @@
          <div class="footer-column">
              <h4>Core Features</h4>
              <ul>
-                 <li><a href="  {{ url('core-features') }}tab=cloud" id="cloud">Cloud Desktop Environment</a></li>
+                 <li><a href="{{ url('core-features') }}?tab=cloud">Cloud Desktop Environment</a></li>
                  <li><a href="{{ url('core-features') }}?tab=file">File Manager & Storage</a></li>
                  <li><a href="{{ url('core-features') }}?tab=window">Window-based Multitasking</a></li>
                  <li><a href="{{ url('core-features') }}?tab=launcher">App Launcher</a></li>

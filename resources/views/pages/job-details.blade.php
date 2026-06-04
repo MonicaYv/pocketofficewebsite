@@ -112,35 +112,35 @@
           <div class="widget widget-job-details">
             <h3 class="widget-title">Job Details</h3>
             <div class="media single-job-details">
-              <img src="assets/img/icons/1.svg" alt="icon" loading="lazy" />
+              <img src="{{ asset('assets/img/icons/Department.svg') }}" alt="icon" loading="lazy" />
               <div class="media-body">
                 <h6>Department</h6>
                 <span>UI Designer</span>
               </div>
             </div>
             <div class="media single-job-details">
-              <img src="assets/img/icons/2.svg" alt="icon" loading="lazy" />
+              <img src="{{ asset('assets/img/icons/Location.svg') }}" alt="icon" loading="lazy" />
               <div class="media-body">
                 <h6>Location</h6>
                 <span>Bangladesh</span>
               </div>
             </div>
             <div class="media single-job-details">
-              <img src="assets/img/icons/3.svg" alt="icon" loading="lazy" />
+              <img src="{{ asset('assets/img/icons/Job-Type.svg') }}" alt="icon" loading="lazy" />
               <div class="media-body">
                 <h6>Job Type</h6>
                 <span>Full Time</span>
               </div>
             </div>
             <div class="media single-job-details">
-              <img src="assets/img/icons/4.svg" alt="icon" loading="lazy" />
+              <img src="{{ asset('assets/img/icons/Experience.svg') }}" alt="icon" loading="lazy" />
               <div class="media-body">
                 <h6>Experience</h6>
                 <span>2 years</span>
               </div>
             </div>
             <div class="media single-job-details mb-0">
-              <img src="assets/img/icons/5.svg" alt="icon" loading="lazy" />
+              <img src="{{ asset('assets/img/icons/Salary.svg') }}" alt="icon" loading="lazy" />
               <div class="media-body">
                 <h6>Salary</h6>
                 <span>$2000</span>

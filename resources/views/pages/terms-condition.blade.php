@@ -495,56 +495,53 @@
      </section>
    </div>
  </div>
- @endsection
-
  <script>
-   // RESPONSIVE SCROLL FIX — add this script AFTER the existing script block
-   // Overrides only the click handler to work on both desktop and mobile
+      // RESPONSIVE SCROLL FIX — add this script AFTER the existing script block
+      // Overrides only the click handler to work on both desktop and mobile
 
-   (function() {
-     const navLinks = document.querySelectorAll(".sidebar a");
-     const contentSection = document.querySelector(".content-section");
+      (function () {
+        const navLinks = document.querySelectorAll(".sidebar a");
+        const contentSection = document.querySelector(".content-section");
 
-     // ✅ Set first link as active on page load
-     if (navLinks.length > 0) {
-       navLinks[0].classList.add("active");
-     }
+        // ✅ Set first link as active on page load
+        if (navLinks.length > 0) {
+          navLinks[0].classList.add("active");
+        }
 
-     function isMobileLayout() {
-       return window.innerWidth <= 768;
-     }
+        function isMobileLayout() {
+          return window.innerWidth <= 768;
+        }
 
-     navLinks.forEach((link) => {
-       link.addEventListener("click", function(e) {
-         e.preventDefault();
-         e.stopImmediatePropagation();
+        navLinks.forEach((link) => {
+          link.addEventListener("click", function (e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
 
-         // Update active state
-         navLinks.forEach((l) => l.classList.remove("active"));
-         this.classList.add("active");
+            // Update active state
+            navLinks.forEach((l) => l.classList.remove("active"));
+            this.classList.add("active");
 
-         const targetId = this.getAttribute("href").substring(1);
-         const targetSection = document.getElementById(targetId);
-         if (!targetSection) return;
+            const targetId = this.getAttribute("href").substring(1);
+            const targetSection = document.getElementById(targetId);
+            if (!targetSection) return;
 
-         if (isMobileLayout()) {
-           // On mobile: page itself scrolls
-           const offset =
-             targetSection.getBoundingClientRect().top +
-             window.pageYOffset -
-             80;
-           window.scrollTo({
-             top: offset,
-             behavior: "smooth"
-           });
-         } else {
-           // On desktop: content-section div scrolls
-           contentSection.scrollTo({
-             top: targetSection.offsetTop - contentSection.offsetTop,
-             behavior: "smooth",
-           });
-         }
-       });
-     });
-   })();
- </script>
+            if (isMobileLayout()) {
+              // On mobile: page itself scrolls
+              const offset =
+                targetSection.getBoundingClientRect().top +
+                window.pageYOffset -
+                80;
+              window.scrollTo({ top: offset, behavior: "smooth" });
+            } else {
+              // On desktop: content-section div scrolls
+              contentSection.scrollTo({
+                top: targetSection.offsetTop - contentSection.offsetTop,
+                behavior: "smooth",
+              });
+            }
+          });
+        });
+      })();
+</script>
+ @endsection
+ 

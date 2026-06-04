@@ -342,8 +342,6 @@
        </section>
      </div>
    </div>
-   @endsection
-
    <script>
      const currentPage = window.location.pathname.split("/").pop();
      document.querySelectorAll(".sidebar a").forEach((link) => {
@@ -386,3 +384,6 @@
        });
      });
    </script>
+   @endsection
+
+   

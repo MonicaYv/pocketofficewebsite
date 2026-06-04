@@ -36,8 +36,6 @@
               <div class="col-lg-12">
                   <div class="breadcrumb-inner">
                       <h1 class="page-title">Contact Us</h1>
-
-
                   </div>
               </div>
           </div>
@@ -92,7 +90,7 @@
                           <span>+ 60 146600012</span>
                       </div>
                       <div class="office-detail">
-                          <i class="fa-solid fa-envelope""></i>
+                          <i class="fa-solid fa-envelope"></i>
                             <span>hello@pocketOffice.com</span>
                         </div>
 
@@ -112,7 +110,7 @@
                                   <span>+ 91 9967940928</span>
                               </div>
                               <div class="office-detail">
-                                  <i class="fa-solid fa-envelope""></i>
+                                  <i class="fa-solid fa-envelope"></i>
                             <span>hello@pocketOffice.com</span>
                         </div>
 
@@ -163,7 +161,7 @@
                         <p class="card-info">For other queries, please get in touch with
                             us via email.</p>
                     </div>
-                    <button class="mail card-btn">hello@Pocketoffice.com</button>
+                    <button class="mail card-btn" onclick="window.open('mailto:hello@Pocketoffice.com', '_blank')">hello@Pocketoffice.com</button>
                 </div>
             </div>
             <div class="support-cards">

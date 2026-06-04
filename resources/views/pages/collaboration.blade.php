@@ -424,7 +424,7 @@ Pocket Office')
                 </p>
 
                 <a
-                    href="core-features.html?tab=cloud"
+                    href="{{ url('/core-features?tab=cloud') }}"
                     class="collaboration-feature-link">
                     Explore cloud desktop capabilities →
                 </a>
@@ -450,7 +450,7 @@ Pocket Office')
                 </p>
 
                 <a
-                    href="core-features.html?tab=file"
+                    href="{{ url('/core-features?tab=file') }}"
                     class="collaboration-feature-link">
                     Explore file management tools →
                 </a>
@@ -476,7 +476,7 @@ Pocket Office')
                 </p>
 
                 <a
-                    href="core-features.html?tab=launcher"
+                    href="{{ url('/core-features?tab=launcher') }}"
                     class="collaboration-feature-link">
                     Explore available applications →
                 </a>
@@ -504,7 +504,7 @@ Pocket Office')
                 </p>
 
                 <a
-                    href="core-features.html?tab=sync"
+                    href="{{ url('/core-features?tab=multi-device-sync') }}"
                     class="collaboration-feature-link">
                     Explore device management tools →
                 </a>
