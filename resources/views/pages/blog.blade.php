@@ -104,7 +104,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     <small>${blog.authorRole}</small>
                 </div>
 
-                <a href="/blog/${blog.filename}" class="btn btn-sm btn-primary mt-3">
+                <a href="{{ asset('blog') }}" class="btn btn-sm btn-primary mt-3">
                     Read More
                 </a>
             </div>

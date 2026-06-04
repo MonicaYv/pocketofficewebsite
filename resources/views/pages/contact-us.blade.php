@@ -149,7 +149,7 @@
                             leave feedback.</p>
                     </div>
                     <button class="card-btn"
-                        onclick="window.open('https:helpdesk.pocketoffice.sizaf.com/submit-ticket', '_blank')">
+                        onclick="window.open('https://helpdesk.pocketoffice.sizaf.com/submit-ticket', '_blank')">
                         Contact support
                     </button>
                 </div>
