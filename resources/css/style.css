@@ -14326,7 +14326,7 @@ h5.footer-sub-heading {
   width: 100%;
   /* was fixed 600px — now fluid */
 
-  opacity: 0;
+  /* opacity: 0; */
   transform: translateY(50px);
   transition: opacity 0.6s ease, transform 0.6s ease;
 }
