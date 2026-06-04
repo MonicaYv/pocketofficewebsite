@@ -110,7 +110,8 @@ class PortalLoginController extends Controller
             default => 'correct',
         };
 
-        return "You entered {$label} credentials. Please switch to the {$label} tab and try again.";
+        return "Please choose correct usertype to login and try again.";
+        // return "You entered {$label} credentials. Please switch to the {$label} tab and try again.";
     }
 
 }
