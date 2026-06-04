@@ -22,6 +22,7 @@
     <meta name="twitter:description" content="@yield('meta-description', 'Pocket Office is a browser-based cloud desktop workspace that lets teams securely access files, apps and collaboration tools from anywhere.')" />
     <meta name="twitter:image" content="@yield('meta-image', asset('assets/img/logo/pocket-office-tm-final-logo.png'))" />
 
+    
     <script type="application/ld+json">
         @yield('structured-data', '{}')
     </script>
@@ -49,7 +50,7 @@
 
     {{-- Footer --}}
     @include('layouts.footer')
-
+    <script src="{{ asset('assets/js/blog.js') }}"></script>
     {{-- Scripts --}}
     @include('layouts.script')
 

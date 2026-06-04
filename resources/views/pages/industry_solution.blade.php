@@ -39,3 +39,14 @@
 <a href="{{ url('retail-ecommerce') }}">
     <i class="fa fa-shopping-cart mr-2"></i>Retail & E-commerce
 </a>
+<script>
+    // Get the exact full URL of the current page
+    const currentUrl = window.location.href;
+
+    document.querySelectorAll(".sidebar a").forEach((link) => {
+        // Compare the link's absolute href with the window's absolute URL
+        if (link.href === currentUrl) {
+            link.classList.add("active");
+        }
+    });
+</script>

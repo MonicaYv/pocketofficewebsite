@@ -30,21 +30,7 @@
  @endsection
  @section('content')
  <!-- breadcrumb area start -->
- <div
-   class="breadcrumb-area"
-   style="
-        background-image: url(assets/img/hero-images/industries/Retail-E-commerce/Retail\ &\ E-commerce\ 1.svg);
-      ">
-   <div class="container">
-     <div class="row">
-       <div class="col-lg-12">
-         <div class="breadcrumb-inner">
-           <h1 class="page-title"></h1>
-         </div>
-       </div>
-     </div>
-   </div>
- </div>
+  @include('layouts.industry_hero', ['bgImage' => 'hero-images/industries/Retail-E-commerce/Retail & E-commerce 1.svg'])
  <!-- breadcrumb area End -->
 
  <!--Logistics & Supply Chain Area Start-->

@@ -91,12 +91,10 @@
                  <div class="usecase-grid">
                      <div class="usecase-card">
                          <div class="card-video">
-                             <video
-                                 src="/assets/videos/solutions-use-case/file-sharing/Permission-Based Sharing.mp4"
-                                 autoplay
-                                 loop
-                                 muted
-                                 playsinline></video>
+                             <video autoplay loop muted playsinline>
+                                 <source src="{{ asset('assets/img/videos/solutions-use-case/file-sharing/permission-based-sharing.mp4') }}" type="video/mp4">
+                                 Your browser does not support the video tag.
+                             </video>
                          </div>
 
                          <h1>Permission-Based Sharing</h1>
@@ -110,12 +108,10 @@
 
                      <div class="usecase-card">
                          <div class="card-video">
-                             <video
-                                 src="/assets/videos/solutions-use-case/file-sharing/Time-Controlled Access.mp4"
-                                 autoplay
-                                 loop
-                                 muted
-                                 playsinline></video>
+                             <video autoplay loop muted playsinline>
+                                 <source src="{{ asset('assets/img/videos/solutions-use-case/file-sharing/time-controlled-access.mp4') }}" type="video/mp4">
+                                 Your browser does not support the video tag.
+                             </video>
                          </div>
 
                          <h1>Time-Controlled Access</h1>
@@ -128,12 +124,10 @@
 
                      <div class="usecase-card">
                          <div class="card-video">
-                             <video
-                                 src="/assets/videos/solutions-use-case/file-sharing/Internal & External Use.mp4"
-                                 autoplay
-                                 loop
-                                 muted
-                                 playsinline></video>
+                             <video autoplay loop muted playsinline>
+                                 <source src="{{ asset('assets/img/videos/solutions-use-case/file-sharing/internal-external-use.mp4') }}" type="video/mp4">
+                                 Your browser does not support the video tag.
+                             </video>
                          </div>
 
                          <h1>Internal & External Use</h1>
@@ -146,12 +140,10 @@
 
                      <div class="usecase-card">
                          <div class="card-video">
-                             <video
-                                 src="/assets/videos/solutions-use-case/file-sharing/Built-In Security.mp4"
-                                 autoplay
-                                 loop
-                                 muted
-                                 playsinline></video>
+                             <video autoplay loop muted playsinline>
+                                 <source src="{{ asset('assets/img/videos/solutions-use-case/file-sharing/built-in-security.mp4') }}" type="video/mp4">
+                                 Your browser does not support the video tag.
+                             </video>
                          </div>
 
                          <h1>Built-In Security</h1>
@@ -182,12 +174,10 @@
                  <div class="usecase-grid">
                      <div class="usecase-card">
                          <div class="card-video">
-                             <video
-                                 src="/assets/videos/solutions-use-case/virtual-desktop/browser-based-desktop.mp4"
-                                 autoplay
-                                 loop
-                                 muted
-                                 playsinline></video>
+                             <video autoplay loop muted playsinline>
+                                 <source src="{{ asset('assets/img/videos/solutions-use-case/virtual-desktop/browser-based-desktop.mp4') }}" type="video/mp4">
+                                 Your browser does not support the video tag.
+                             </video>
                          </div>
 
                          <h1>Browser-Based Desktop</h1>
@@ -200,12 +190,10 @@
 
                      <div class="usecase-card">
                          <div class="card-video">
-                             <video
-                                 src="/assets/videos/solutions-use-case/virtual-desktop/Device Independence.mp4"
-                                 autoplay
-                                 loop
-                                 muted
-                                 playsinline></video>
+                             <video autoplay loop muted playsinline>
+                                 <source src="{{ asset('assets/img/videos/solutions-use-case/virtual-desktop/device-independence.mp4') }}" type="video/mp4">
+                                 Your browser does not support the video tag.
+                             </video>
                          </div>
 
                          <h1>Device Independence</h1>
@@ -218,12 +206,10 @@
 
                      <div class="usecase-card">
                          <div class="card-video">
-                             <video
-                                 src="/assets/videos/solutions-use-case/virtual-desktop/Simplified IT Management.mp4"
-                                 autoplay
-                                 loop
-                                 muted
-                                 playsinline></video>
+                             <video autoplay loop muted playsinline>
+                                 <source src="{{ asset('assets/img/videos/solutions-use-case/virtual-desktop/simplified-it-management.mp4') }}" type="video/mp4">
+                                 Your browser does not support the video tag.
+                             </video>
                          </div>
 
                          <h1>Simplified IT Management</h1>
@@ -236,12 +222,10 @@
 
                      <div class="usecase-card">
                          <div class="card-video">
-                             <video
-                                 src="/assets/videos/solutions-use-case/virtual-desktop/Secure by Design.mp4"
-                                 autoplay
-                                 loop
-                                 muted
-                                 playsinline></video>
+                             <video autoplay loop muted playsinline>
+                                 <source src="{{ asset('assets/img/videos/solutions-use-case/virtual-desktop/secure-by-design.mp4') }}" type="video/mp4">
+                                 Your browser does not support the video tag.
+                             </video>
                          </div>
 
                          <h1>Secure by Design</h1>
@@ -272,12 +256,10 @@
                  <div class="usecase-grid">
                      <div class="usecase-card">
                          <div class="card-video">
-                             <video
-                                 src="/assets/videos/solutions-use-case/team-worksppace/Centralized Collaboration.mp4"
-                                 autoplay
-                                 loop
-                                 muted
-                                 playsinline></video>
+                             <video autoplay loop muted playsinline>
+                                 <source src="{{ asset('assets/img/videos/solutions-use-case/team-workspaces/centralized-collaboration.mp4') }}" type="video/mp4">
+                                 Your browser does not support the video tag.
+                             </video>
                          </div>
 
                          <h1>Centralized Collaboration</h1>
@@ -290,12 +272,10 @@
 
                      <div class="usecase-card">
                          <div class="card-video">
-                             <video
-                                 src="/assets/videos/solutions-use-case/team-worksppace/Structured Workflows.mp4"
-                                 autoplay
-                                 loop
-                                 muted
-                                 playsinline></video>
+                            <video autoplay loop muted playsinline>
+                                 <source src="{{ asset('assets/img/videos/solutions-use-case/team-workspaces/structured-workflows.mp4') }}" type="video/mp4">
+                                 Your browser does not support the video tag.
+                             </video>
                          </div>
 
                          <h1>Structured Workflows</h1>
@@ -308,12 +288,10 @@
 
                      <div class="usecase-card">
                          <div class="card-video">
-                             <video
-                                 src="/assets/videos/solutions-use-case/team-worksppace/Real-Time Updates.mp4"
-                                 autoplay
-                                 loop
-                                 muted
-                                 playsinline></video>
+                            <video autoplay loop muted playsinline>
+                                 <source src="{{ asset('assets/img/videos/solutions-use-case/team-workspaces/real-time-updates.mp4') }}" type="video/mp4">
+                                 Your browser does not support the video tag.
+                             </video>
                          </div>
 
                          <h1>Real-Time Updates</h1>
@@ -326,12 +304,10 @@
 
                      <div class="usecase-card">
                          <div class="card-video">
-                             <video
-                                 src="/assets/videos/solutions-use-case/team-worksppace/Controlled Access.mp4"
-                                 autoplay
-                                 loop
-                                 muted
-                                 playsinline></video>
+                            <video autoplay loop muted playsinline>
+                                 <source src="{{ asset('assets/img/videos/solutions-use-case/team-workspaces/controlled-access.mp4') }}" type="video/mp4">
+                                 Your browser does not support the video tag.
+                             </video>
                          </div>
 
                          <h1>Controlled Access</h1>
@@ -362,12 +338,10 @@
                  <div class="usecase-grid">
                      <div class="usecase-card">
                          <div class="card-video">
-                             <video
-                                 src="/assets/img/videos/solutions-use-case/cloud-storage/Centralized File Management.mp4"
-                                 autoplay
-                                 loop
-                                 muted
-                                 playsinline></video>
+                            <video autoplay loop muted playsinline>
+                                <source src="{{ asset('assets/img/videos/solutions-use-case/cloud-storage/centralized-file-management.mp4') }}" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
                          </div>
 
                          <h1>Centralized File Management</h1>
@@ -380,12 +354,10 @@
 
                      <div class="usecase-card">
                          <div class="card-video">
-                             <video
-                                 src="/assets/img/videos/solutions-use-case/cloud-storage/Unified Access.mp4"
-                                 autoplay
-                                 loop
-                                 muted
-                                 playsinline></video>
+                             <video autoplay loop muted playsinline>
+                                <source src="{{ asset('assets/img/videos/solutions-use-case/cloud-storage/unified-access.mp4') }}" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
                          </div>
 
                          <h1>Unified Access</h1>
@@ -398,12 +370,10 @@
 
                      <div class="usecase-card">
                          <div class="card-video">
-                             <video
-                                 src="/assets/img/videos/solutions-use-case/cloud-storage/Scalable Storage.mp4"
-                                 autoplay
-                                 loop
-                                 muted
-                                 playsinline></video>
+                             <video autoplay loop muted playsinline>
+                                <source src="{{ asset('assets/img/videos/solutions-use-case/cloud-storage/scalable-storage.mp4') }}" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
                          </div>
 
                          <h1>Scalable Storage</h1>
@@ -416,12 +386,10 @@
 
                      <div class="usecase-card">
                          <div class="card-video">
-                             <video
-                                 src="/assets/img/videos/solutions-use-case/cloud-storage/Secure by Default.mp4"
-                                 autoplay
-                                 loop
-                                 muted
-                                 playsinline></video>
+                             <video autoplay loop muted playsinline>
+                                <source src="{{ asset('assets/img/videos/solutions-use-case/cloud-storage/secure-by-default.mp4') }}" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
                          </div>
 
                          <h1>Secure by Default</h1>

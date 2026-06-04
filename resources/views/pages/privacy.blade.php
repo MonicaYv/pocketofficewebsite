@@ -441,9 +441,7 @@
       </section>
     </div>
   </div>
-  @endsection
-
-  <script>
+   <script>
     // RESPONSIVE SCROLL FIX — add this script AFTER the existing script block
     // Overrides only the click handler to work on both desktop and mobile
 
@@ -494,3 +492,6 @@
       });
     })();
   </script>
+  @endsection
+
+ 

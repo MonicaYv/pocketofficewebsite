@@ -316,7 +316,17 @@ class UserLicensePlansController extends Controller
 
             $paymentData = $this->preparePaymentData($request, $userId, $promocodeId);
 
-            UsersLicensePayment::create($paymentData);
+            $payment = UsersLicensePayment::create($paymentData);
+
+            DB::table('users_license_assign')->insert([
+                'payment_id' => $payment->id,
+                'order_id'   => $payment->order_id,
+                'user_id'    => $userId,
+                'created_by' => $userId, 
+                'status'     => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
 
             $this->updatePromocodeUsage($promocodeId);
 
@@ -603,8 +613,8 @@ class UserLicensePlansController extends Controller
             'payment_date' => now(),
             'payment_mode' => 'card',
             'status' => 1,
-            'used_license' => 0,
-            'remaining_license' => $request->license,
+            'used_license' => $request->license,
+            'remaining_license' => 0,
             'created_at' => now(),
             'updated_at' => now(),
         ];

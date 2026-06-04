@@ -1,6 +1,20 @@
   @extends('layouts.backendsettings')
   @section('title', 'Apply Job')
   @section('content')
+
+<style>
+/* Move label when input is focused */
+.single-input-wrap .single-input:focus + label {
+    top: -10px;
+    font-size: 12px;
+}
+
+/* Move label when input has value */
+.single-input-wrap.active label {
+    top: -10px;
+    font-size: 12px;
+}
+</style>
   <!-- Ui element start -->
   <div class="job-listing-page pd-top-190">
     <div class="container">
@@ -99,21 +113,56 @@
     </div>
   </div>
   <!-- Ui element End -->
-  @endsection
-
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const applyForm = document.getElementById("jobApplyForm");
-      if (!applyForm) return;
+document.addEventListener("DOMContentLoaded", () => {
 
-      applyForm.addEventListener("submit", function(e) {
+    // Floating labels
+    const fields = document.querySelectorAll(
+        '.single-input-wrap input, .single-input-wrap textarea'
+    );
+
+    fields.forEach(field => {
+
+        // Check existing value on page load
+        if (field.value.trim() !== '') {
+            field.parentElement.classList.add('active');
+        }
+
+        // When user types
+        field.addEventListener('input', function () {
+            if (this.value.trim() !== '') {
+                this.parentElement.classList.add('active');
+            } else {
+                this.parentElement.classList.remove('active');
+            }
+        });
+
+        // When focus
+        field.addEventListener('focus', function () {
+            this.parentElement.classList.add('active');
+        });
+
+        // When blur
+        field.addEventListener('blur', function () {
+            if (this.value.trim() === '') {
+                this.parentElement.classList.remove('active');
+            }
+        });
+    });
+
+    // Form submit
+    const applyForm = document.getElementById("jobApplyForm");
+    if (!applyForm) return;
+
+    applyForm.addEventListener("submit", function (e) {
         e.preventDefault();
 
         const submitBtn = applyForm.querySelector('button[type="submit"]');
         const originalBtnText = submitBtn ? submitBtn.textContent : "Submit";
+
         if (submitBtn) {
-          submitBtn.disabled = true;
-          submitBtn.textContent = "Submitting...";
+            submitBtn.disabled = true;
+            submitBtn.textContent = "Submitting...";
         }
 
         let formData = new FormData(applyForm);
@@ -121,42 +170,48 @@
         fetch("send_job_application.php", {
             method: "POST",
             body: formData,
-          })
-          .then((res) => res.json())
-          .then((data) => {
+        })
+        .then((res) => res.json())
+        .then((data) => {
             if (data.result === "success") {
-              toastr.success(
-                data.msg || "Application submitted successfully!",
-              );
-              applyForm.reset();
 
-              // Reset custom file input
-              const fileInput = document.getElementById("sb-file-input");
-              if (fileInput) {
-                fileInput.value = ""; // clears the file
-                const label = fileInput.nextElementSibling; // your custom label
-                if (label && label.classList.contains("custom-file-label")) {
-                  label.innerText = "Upload Your Resume"; // reset label text
+                toastr.success(data.msg || "Application submitted successfully!");
+
+                applyForm.reset();
+
+                // Remove active class after reset
+                document.querySelectorAll('.single-input-wrap').forEach(el => {
+                    el.classList.remove('active');
+                });
+
+                const fileInput = document.getElementById("sb-file-input");
+
+                if (fileInput) {
+                    fileInput.value = "";
+
+                    const label = fileInput.nextElementSibling;
+
+                    if (label && label.classList.contains("custom-file-label")) {
+                        label.innerText = "Upload Your Resume";
+                    }
                 }
-              }
 
-              // Hide modal if using Bootstrap modal
-              const modalEl = document.getElementById("jobApplyModal");
-              if (modalEl) {
-                const modal = bootstrap.Modal.getInstance(modalEl);
-                if (modal) modal.hide();
-              }
             } else {
-              toastr.error(data.msg || "Unable to submit application.");
+                toastr.error(data.msg || "Unable to submit application.");
             }
-          })
-          .catch(() => toastr.error("Something went wrong. Try again."))
-          .finally(() => {
+        })
+        .catch(() => {
+            toastr.error("Something went wrong. Try again.");
+        })
+        .finally(() => {
             if (submitBtn) {
-              submitBtn.disabled = false;
-              submitBtn.textContent = originalBtnText;
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalBtnText;
             }
-          });
-      });
+        });
     });
-  </script>
+});
+</script>
+  @endsection
+
+ 
