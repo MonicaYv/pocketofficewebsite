@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SalesEnquiryController;
 use App\Http\Controllers\UserLicensePlansController;
 use App\Http\Controllers\PortalLoginController;
+use App\Http\Controllers\BlogController;
+use App\Http\Controllers\CareerController;
 
 //home 
 Route::get('/', function () {
@@ -34,6 +36,18 @@ Route::get('/thank-you', [CompanyController::class, 'paymentSuccess'])->name('pa
 Route::get('/docs-login', [PortalLoginController::class, 'showLogin'])->name('docs.login');
 Route::post('/docs-login', [PortalLoginController::class, 'login'])->name('docs.login.submit');
 
+//blog routes
+Route::get('/fetch-blogs', [BlogController::class, 'fetchBlogs']);
+
+Route::get('/fetch-blog-detail/{slug}', [BlogController::class, 'fetchBlogDetail']);
+Route::get('/blog/{slug}', [BlogController::class, 'BlogDetail']);
+
+//career routes
+Route::get('/job-details/{slug}', [CareerController::class, 'jobDetail']);
+
+// Internal API paths
+Route::get('/fetch-jobs', [CareerController::class, 'fetchJobs']);
+Route::get('/fetch-job-detail/{slug}', [CareerController::class, 'fetchJobDetail']);
 //page routes
 Route::get('/{page}', function ($page) {
     if (view()->exists('pages.' . $page)) {

@@ -1,115 +1,131 @@
- @extends('layouts.backendsettings')
- @section('title', 'Cloud Desktop Blog | Insights, Updates & Guides | Pocket Office')
- @section('content')
- <!-- breadcrumb area start -->
- <div
-     class="breadcrumb-area"
-     style="background-image: url('{{ asset($constants['IMAGEFILEPATH'] . 'hero-images/product-update.svg') }}')">
-     <div class="container">
-         <div class="row">
-             <div class="col-lg-12">
-                 <div class="breadcrumb-inner">
-                     <h1 class="page-title">Latest blogs, insights, and updates</h1>
-                 </div>
-             </div>
-         </div>
-     </div>
- </div>
- <!-- breadcrumb area end -->
+@extends('layouts.backendsettings')
+@section('title', 'Cloud Desktop Blog | Insights, Updates & Guides | Pocket Office')
+@section('content')
 
- <!-- blog grid area start -->
- <div class="blog-page-area pd-default-two">
-     <div class="container">
-         <div class="row custom-gutters-60">
-             <div class="col-lg-12">
-                 <div class="news-grid" id="blog-containers">
-                     <!-- Blog cards injected by blog.js -->
-                 </div>
-             </div>
-         </div>
-     </div>
- </div>
- <script>
-const BLOG_DATA = [
-    {
-        id: "blog-001",
-        filename: "blog-what-is-cloud-os",
-        title: "What Is a Cloud OS? Everything You Need to Know",
-        description: "A Cloud OS brings your entire desktop experience into the browser — no installations, no hardware limits, just seamless productivity from any device.",
-        category: "Cloud Desktop",
-        image: "/assets/img/index/pocket-office-work1.webp",
-        date: "Feb 19, 2026",
-        readTime: "5",
-        author: "Pocketoffice Team",
-        authorRole: "Cloud Workspace Insights"
-    },
-    {
-        id: "blog-002",
-        filename: "blog-cloud-vs-traditional-desktop",
-        title: "Cloud Desktop vs Traditional Desktop: Which One Wins?",
-        description: "Comparing cloud desktops and traditional setups across cost, security, flexibility, and performance.",
-        category: "Cloud Desktop",
-        image: "/assets/img/index/teams.webp",
-        date: "Feb 17, 2026",
-        readTime: "4",
-        author: "Pocketoffice Team",
-        authorRole: "Cloud Workspace Insights"
-    },
-   
-    {
-        id: "blog-004",
-        filename: "blog-cloud-security",
-        title: "Why Cloud Storage Security Is Better Than You Think",
-        description: "Data breaches, compliance risks, and lost files are real concerns. Here's why cloud security matters.",
-        category: "Security",
-        image: "/assets/img/index/pocket-office-work3.webp",
-        date: "Feb 12, 2026",
-        readTime: "5",
-        author: "Pocketoffice Team",
-        authorRole: "Cloud Workspace Insights"
-    },
+<div
+    class="breadcrumb-area"
+    style="background-image: url('{{ asset($constants['IMAGEFILEPATH'] . 'hero-images/product-update.svg') }}')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb-inner">
+                    <h1 class="page-title">Latest blogs, insights, and updates</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="blog-page-area pd-default-two">
+    <div class="container">
+        <div class="row custom-gutters-60">
+            <div class="col-lg-12">
+                <div class="news-grid" id="blog-containers">
+                    <div class="text-center py-5 w-100" id="blog-loading">
+                        <div class="spinner-border text-primary" role="status"></div>
+                        <p class="mt-2">Loading latest insights...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-];
-
+<script>
 document.addEventListener("DOMContentLoaded", function () {
     const container = document.getElementById("blog-containers");
 
-    if (!container) return;
+    const API_URL = "/fetch-blogs";
 
-    container.innerHTML = BLOG_DATA.map(blog => `
-        <div class="single-blog-item">
-            <div class="thumb">
-                <a href="/blog/${blog.filename}">
-                    <img src="${blog.image}" alt="${blog.title}" loading="lazy">
-                </a>
-            </div>
+    fetch(API_URL)
+        .then(response => response.json())
+        .then(result => {
+            container.innerHTML = "";
 
-            <div class="details">
-                <div class="blog-meta">
-                    <span>${blog.category}</span> |
-                    <span>${blog.date}</span> |
-                    <span>${blog.readTime} min read</span>
-                </div>
+            const posts = result.data || [];
 
-                <h4>
-                    <a href="/blog/${blog.filename}" style="color: #333; text-decoration: none;">
-                        ${blog.title}
-                    </a>
-                </h4>
+            if (!result.status || posts.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-5 w-100">
+                        <h3>No blog posts found.</h3>
+                        <p>Check back later for updates!</p>
+                    </div>`;
+                return;
+            }
 
-                <p>${blog.description}</p>
+            container.innerHTML = posts.map(post => {
+                const postDate = post.date
+                    ? new Date(post.date).toLocaleDateString('en-US', {
+                        month: 'short',
+                        day: 'numeric',
+                        year: 'numeric'
+                    })
+                    : 'Recent';
 
-                <div class="author-info">
-                    <strong>${blog.author}</strong><br>
-                    <small>${blog.authorRole}</small>
-                </div>
+                const cleanTitle = post.title?.rendered || 'Untitled Post';
 
-                <a href="{{ asset('blog') }}" class="btn btn-sm btn-primary mt-3">
-                    Read More
-                </a>
-            </div>
-        </div>
-    `).join('');
+                let rawExcerpt = post.excerpt?.rendered || '';
+                let cleanExcerpt = rawExcerpt.replace(/<\/?[^>]+(>|$)/g, "");
+
+                const shortDescription = cleanExcerpt.length > 150
+                    ? cleanExcerpt.substring(0, 150) + '...'
+                    : cleanExcerpt;
+
+                let imageUrl = '/assets/img/index/default-blog.webp';
+
+                if (
+                    post._embedded &&
+                    post._embedded['wp:featuredmedia'] &&
+                    post._embedded['wp:featuredmedia'][0]
+                ) {
+                    imageUrl = post._embedded['wp:featuredmedia'][0].source_url || imageUrl;
+                }
+
+                return `
+                    <div class="single-blog-item">
+                        <div class="thumb">
+                            <a href="/blog/${post.slug}">
+                                <img src="${imageUrl}" alt="${cleanTitle}" loading="lazy" style="width:100%; height:auto; object-fit:cover;">
+                            </a>
+                        </div>
+
+                        <div class="details">
+                            <div class="blog-meta">
+                                <span>Cloud Desktop</span> |
+                                <span>${postDate}</span> |
+                                <span>5 min read</span>
+                            </div>
+
+                            <h4>
+                                <a href="/blog/${post.slug}" style="color:#333; text-decoration:none; font-weight:bold;">
+                                    ${cleanTitle}
+                                </a>
+                            </h4>
+
+                            <p class="text-muted">${shortDescription}</p>
+
+                            <div class="author-info" style="margin-top:15px; font-size:0.9em; color:#555;">
+                                <strong>Pocketoffice Team</strong><br>
+                                <small class="text-zinc-400">Cloud Workspace Insights</small>
+                            </div>
+
+                            <a href="/blog/${post.slug}" class="btn btn-sm btn-primary mt-3">
+                                Read More
+                            </a>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        })
+        .catch(error => {
+            console.error("Error fetching blog data:", error);
+
+            container.innerHTML = `
+                <div class="text-center py-5 w-100">
+                    <h3>Oops! Something went wrong.</h3>
+                    <p>We couldn't load the blogs right now. Please try again later.</p>
+                </div>`;
+        });
 });
 </script>
- @endsection
+
+@endsection
