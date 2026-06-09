@@ -297,7 +297,7 @@
 <script>
 document.addEventListener("DOMContentLoaded", function () {
     const tableBody = document.getElementById("job-rows");
-    const API_URL = "/fetch-jobs"; // Replace with your actual careers API endpoint
+    const API_URL = "/fetch-jobs"; 
 
     fetch(API_URL)
         .then(response => response.json())
