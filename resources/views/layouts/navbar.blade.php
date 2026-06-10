@@ -56,7 +56,7 @@
         </div>
         <div class="collapse navbar-collapse" id="MapUI_main_menu">
             <div class="logo-wrapper desktop-logo">
-                <a href="{{ url('index') }}" class="logo custom-width"></a>
+                <a href="{{ url('/') }}" class="logo custom-width"></a>
             </div>
             <ul class="navbar-nav default-blue">
                 <li class="mega-menu-item">

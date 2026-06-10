@@ -234,7 +234,7 @@
                     </li>
                     <li class="mb-3 d-flex align-items-start">
                       <span>Licence Count :&nbsp;</span>
-                      <span class="base-licence-count">1</span>
+                      <span class="base-licence-count">2</span>
                     </li>
                     <li class="mb-3 d-flex align-items-start">
                       <span>Per User Storage :&nbsp;</span>
@@ -246,7 +246,7 @@
                         <input
                           type="text"
                           class="qty-input"
-                          value="1"
+                          value="2"
                           readonly />
                         <button class="qty-btn plus">+</button>
                       </div>

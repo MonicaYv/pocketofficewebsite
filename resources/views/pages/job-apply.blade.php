@@ -98,10 +98,12 @@
                       name="resume"
                       class="MapUI-file-input"
                       id="sb-file-input"
+                      accept=".pdf,application/pdf"
                       required />
                     <label class="custom-file-label" for="sb-file-input">Upload Your Resume</label>
                   </div>
                 </div>
+                
                 <div class="col-12 text-center">
                   <button type="submit" class="btn btn-blue">Submit</button>
                 </div>
@@ -115,7 +117,47 @@
   <!-- Ui element End -->
   <script>
 document.addEventListener("DOMContentLoaded", () => {
+ const fileInput = document.getElementById("sb-file-input");
+    const fileLabel = document.querySelector(
+        'label[for="sb-file-input"]'
+    );
 
+    fileInput.addEventListener("change", function () {
+
+        const file = this.files[0];
+
+        if (!file) {
+            fileLabel.textContent = "Upload Your Resume";
+            return;
+        }
+
+        const allowedType = "application/pdf";
+
+        if (file.type !== allowedType) {
+
+            toastr.error("Only PDF files are allowed.");
+
+            this.value = "";
+
+            fileLabel.textContent = "Upload Your Resume";
+
+            return;
+        }
+
+        if (file.size > 1 * 1024 * 1024) {
+
+            toastr.error("Maximum file size is 1MB.");
+
+            this.value = "";
+
+            fileLabel.textContent = "Upload Your Resume";
+
+            return;
+        }
+
+        // Show selected file name
+        fileLabel.textContent = file.name;
+    });
     // Floating labels
     const fields = document.querySelectorAll(
         '.single-input-wrap input, .single-input-wrap textarea'
