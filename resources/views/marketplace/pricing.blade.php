@@ -457,7 +457,7 @@
                     <li class="mb-3 d-flex align-items-start">
                       <div class="quantity-box ul-quantity-container">
                         <button class="qty-btn  ul-decrement">−</button>
-                        <input type="text" class="qty-input ul-quantity-input" value="1" readonly />
+                        <input type="text" class="qty-input ul-quantity-input" value="{{ strtolower($plan->plans_name) == 'basic' ? 2 : 1 }}" readonly />
                         <button class="qty-btn  ul-increment">+</button>
                       </div>
                     </li>
