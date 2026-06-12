@@ -12,20 +12,33 @@ use Illuminate\Support\Facades\Notification;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Crypt;
-
 use App\Models\CurrencyRate;
 use App\Models\UsersLicensePayment;
 use App\Models\UsersLicensePlan;
 use App\Models\User;
-
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
+use Stevebauman\Location\Facades\Location;
+use Illuminate\Support\Facades\Cache;
 
 class UserLicensePlansController extends Controller
 {
     public function index(Request $request)
     {
+        // Auto detect currency first time
+        if (!session()->has('market_ul_country_id')) {
+
+            $currencyRow = $this->detectMarketPlaceCurrencyFromNetwork();
+
+            if (!$currencyRow) {
+                $currencyRow = DB::table('currency_rates')
+                    ->where('is_base_currency', 1)
+                    ->first();
+            }
+
+            $this->storeMarketPlaceCurrencySession($currencyRow);
+        }
         // Currency list
         $currencies = CurrencyRate::orderBy(
             'country_name'
@@ -58,18 +71,9 @@ class UserLicensePlansController extends Controller
 
         // Bind data
         $userLicenseData = [
-
             'getPlanList' => $this->getPlanList($request),
         ];
 
-        // // Extra discount
-        // $additional_disc_year = (float) config(
-        //     'constants.EXTRA_DISC_YEAR'
-        // );
-
-        // $additional_disc_month = (float) config(
-        //     'constants.EXTRA_DISC_MONTH'
-        // );
 
         $additional_disc_year = UsersLicensePlan::where('yearly_extra_disc', '>', 0)
             ->where('is_single_user', '!=', 1)
@@ -109,6 +113,61 @@ class UserLicensePlansController extends Controller
         );
     }
 
+    //session data for country and currency 
+    private function storeMarketPlaceCurrencySession($currencyRow): void
+    {
+        if (!$currencyRow) {
+            return;
+        }
+
+        session([
+            'currency' => $currencyRow->currency_code ?? config('constants.CURRENCY', 'USD'),
+            'market_ul_country_id' => $currencyRow->id ?? null,
+            'market_currency' => $currencyRow->currency_symbol ?? $currencyRow->currency_code ?? config('constants.CURRENCY', 'USD'),
+        ]);
+    }
+
+    //location based country and currency selection
+    private function detectMarketPlaceCurrencyFromNetwork(): ?object
+    {
+        $ip = (string) request()->ip();
+
+        if ($ip === '' || in_array($ip, ['127.0.0.1', '::1'], true)) {
+            return null;
+        }
+
+        $cacheKey = 'marketplace:network-currency:' . md5($ip);
+
+        return Cache::remember($cacheKey, now()->addHours(6), function () use ($ip) {
+            try {
+                $location = Location::get($ip);
+                if (!$location) {
+                    return null;
+                }
+
+                $countryName = trim((string) ($location->countryName ?? $location->country_name ?? ''));
+                if ($countryName === '') {
+                    return null;
+                }
+
+                $currency = DB::table('currency_rates')
+                    ->whereRaw('LOWER(country_name) = ?', [strtolower($countryName)])
+                    ->first();
+
+                if ($currency) {
+                    return $currency;
+                }
+
+                return DB::table('currency_rates')
+                    ->where('country_name', 'LIKE', '%' . $countryName . '%')
+                    ->first();
+            } catch (\Throwable $e) {
+                return null;
+            }
+        });
+    }
+
+
     //on change currency 
     public function changeCurrency(Request $request)
     {
@@ -142,7 +201,6 @@ class UserLicensePlansController extends Controller
     }
 
     //call payment page
-
     public function payment(Request $request)
     {
         $planLists = UsersLicensePlan::where('pof_plan_status', 1)->get();
@@ -220,7 +278,7 @@ class UserLicensePlansController extends Controller
     {
         try {
 
-            $planLists = UsersLicensePlan::where('pof_plan_status', 1)->get();
+            $planLists = UsersLicensePlan::where('pof_plan_status', 1)->where('is_team_allowed', 1)->get();
             $planListsSingle = UsersLicensePlan::where('pof_plan_status', 1)->where('is_single_user', 1)->get();
 
 
@@ -322,7 +380,7 @@ class UserLicensePlansController extends Controller
                 'payment_id' => $payment->id,
                 'order_id'   => $payment->order_id,
                 'user_id'    => $userId,
-                'created_by' => $userId, 
+                'created_by' => $userId,
                 'status'     => 1,
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -478,6 +536,8 @@ class UserLicensePlansController extends Controller
             'client_id' => $clientId,
             'company_id' => $companyId,
 
+            'is_support_face' => 1,
+
             'usertype' => $request->plan_type == 'team' ? 'company' : 'special_user',
 
             'security_question' => $request->security_question,
@@ -594,6 +654,15 @@ class UserLicensePlansController extends Controller
             ? Carbon::now()->addYear()
             : Carbon::now()->addMonth();
 
+        //check used and remaining lisence
+        if ($request->plan_type == 'team') {
+            $usedLisence = 1;
+            $remainLisence = ($request->license) - 1;
+        } else {
+            $usedLisence = 1;
+            $remainLisence = ($request->license) - 1;
+        }
+
         return [
             'user_id' => $userId,
             'plan_id' => $request->plan_id,
@@ -613,8 +682,8 @@ class UserLicensePlansController extends Controller
             'payment_date' => now(),
             'payment_mode' => 'card',
             'status' => 1,
-            'used_license' => $request->license,
-            'remaining_license' => 0,
+            'used_license' => $usedLisence,
+            'remaining_license' => $remainLisence,
             'created_at' => now(),
             'updated_at' => now(),
         ];

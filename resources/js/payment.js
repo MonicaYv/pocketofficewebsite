@@ -2,6 +2,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const allPlans = JSON.parse(localStorage.getItem("allPlans")) || [];
 
     const selectedPlan = JSON.parse(localStorage.getItem("selectedPlan"));
+    console.log("selectedPlan", selectedPlan);
+
     const selectedCurrency = JSON.parse(
         localStorage.getItem("selectedCurrency"),
     );
@@ -51,6 +53,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const discountAmt = document.getElementById("discountAmt");
 
     const planTiles = document.querySelectorAll(".selected-plan-option");
+    // console.log('planTiles-'+ planTiles);
 
     const companyForm = document.querySelector(".pay-company-form");
 
@@ -139,10 +142,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
         basePrice = parseFloat(basePrice) || 0;
 
-        let quantityValue =
-            currentPlan.plan_type === "team"
-                ? parseInt(payQtyInput.value || 1)
-                : 1;
+        // let quantityValue =
+        //     currentPlan.plan_type === "team"
+        //         ? parseInt(payQtyInput.value || 1)
+        //         : 1;
+
+        let quantityValue = 1;
+
+        if (currentPlan.plan_type === "team") {
+            quantityValue = parseInt(payQtyInput.value || 1);
+        } else {
+            quantityValue = 1;
+
+            // FORCE RESET UI FOR SINGLE
+            payQtyInput.value = 1;
+            quantity = 1;
+        }
 
         let subtotalAmount = basePrice * quantityValue;
 
@@ -240,20 +255,36 @@ document.addEventListener("DOMContentLoaded", function () {
             // paySavingsNotice.style.display = "none";
         }
 
+        // if (currentPlan.plan_type === "team") {
+        //     quantity = quantityValue || 1;
+
+        //     payQtyInput.value = quantity;
+
+        //     payQtyControls.style.display = "block";
+        //     companyForm.classList.remove("hidden");
+        //     // console.log('team');
+        //     // console.log(currentPlan.plan_type);
+        // } else {
+        //     quantity = 1;
+
+        //     payQtyInput.value = 1;
+
+        //     payQtyControls.style.display = "none";
+        //     companyForm.classList.add("hidden");
+        //     // console.log('single');
+        //     // console.log(currentPlan.plan_type);
+        // }
+
         if (currentPlan.plan_type === "team") {
-            quantity = quantityValue || 1;
-
-            payQtyInput.value = quantity;
-
             payQtyControls.style.display = "block";
             companyForm.classList.remove("hidden");
         } else {
-            quantity = 1;
-
-            payQtyInput.value = 1;
-
             payQtyControls.style.display = "none";
             companyForm.classList.add("hidden");
+
+            // RESET TEAM DATA
+            payQtyInput.value = 1;
+            quantity = 1;
         }
 
         let totalStorage = parseInt(currentPlan.storage || 0) * quantity;
@@ -267,9 +298,26 @@ document.addEventListener("DOMContentLoaded", function () {
         planTiles.forEach((tile) => {
             tile.classList.remove("selected");
 
-            if (tile.dataset.planId == currentPlan.plan_id) {
+            // if (tile.dataset.planId == currentPlan.plan_id) {
+            //     tile.classList.add("selected");
+            // }
+
+            if (
+                tile.dataset.planId == currentPlan.plan_id &&
+                tile.dataset.planType == currentPlan.plan_type
+            ) {
                 tile.classList.add("selected");
             }
+
+            console.log(
+    "Tile:",
+    tile.dataset.name,
+    tile.dataset.planId,
+    tile.dataset.planType,
+    "| Current:",
+    currentPlan.plan_id,
+    currentPlan.plan_type
+);
 
             const tilePrice = tile.querySelector(".view_plan_price_details");
 
@@ -1083,6 +1131,11 @@ document.addEventListener("DOMContentLoaded", function () {
     //selected plans from pricing page
     planTiles.forEach((tile) => {
         tile.addEventListener("click", function () {
+            console.log("Clicked Plan");
+            console.log("Plan Name:", this.dataset.name);
+            console.log("Plan Type:", this.dataset.planType);
+            console.log("Plan ID:", this.dataset.planId);
+
             planTiles.forEach((t) => t.classList.remove("selected"));
 
             this.classList.add("selected");
@@ -1106,7 +1159,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 license: this.dataset.license,
                 storage: this.dataset.storage,
                 storage_unit: this.dataset.storageUnit,
-                
+
                 monthly_discount: parseFloat(this.dataset.monthlyDiscount) || 0,
                 yearly_discount: parseFloat(this.dataset.yearlyDiscount) || 0,
 
@@ -1119,6 +1172,97 @@ document.addEventListener("DOMContentLoaded", function () {
             renderPlanData();
         });
     });
+
+    // document.querySelectorAll(".js-select-plan").forEach((btn) => {
+    //     btn.addEventListener("click", function () {
+    //         // currentPlan = {
+    //         //     ...currentPlan,
+    //         //     plan_type: "single", // FORCE FIX
+    //         //     plan_id: this.dataset.planId,
+    //         //     name: this.dataset.name,
+    //         //     license: this.dataset.license,
+    //         //     storage: this.dataset.storage,
+    //         //     price: this.dataset.planDiscount || 0,
+    //         // };
+
+    //         currentPlan = {
+    //             ...currentPlan,
+
+    //             plan_type: "single",
+    //             plan_id: this.dataset.planId,
+    //             name: this.dataset.name,
+
+    //             price: this.dataset.pricemonth || 0,
+
+    //             priceM: parseFloat(this.dataset.monthlyPrice) || 0,
+    //             priceY: parseFloat(this.dataset.yearlyPrice) || 0,
+
+    //             symbol: this.dataset.symbol || " ",
+    //             subscription: this.dataset.subscription || "monthly",
+
+    //             license: this.dataset.license,
+    //             storage: this.dataset.storage,
+    //             storage_unit: this.dataset.storageUnit,
+
+    //             monthly_discount: parseFloat(this.dataset.monthlyDiscount) || 0,
+    //             yearly_discount: parseFloat(this.dataset.yearlyDiscount) || 0,
+
+    //             extra_monthly_discount:
+    //                 parseFloat(this.dataset.extraMonthlyDiscount) || 0,
+    //             extra_yearly_discount:
+    //                 parseFloat(this.dataset.extraYearlyDiscount) || 0,
+    //         };
+
+    //         console.log("Clicked SINGLE PLAN:", currentPlan);
+
+    //         renderPlanData();
+    //     });
+    // });
+
+    // document.querySelectorAll(".team-js-select-plan").forEach((btn) => {
+    //     btn.addEventListener("click", function () {
+    //         // currentPlan = {
+    //         //     ...currentPlan,
+    //         //     plan_type: "team", // FORCE FIX
+    //         //     plan_id: this.dataset.planId,
+    //         //     name: this.dataset.name,
+    //         //     license: this.dataset.license,
+    //         //     storage: this.dataset.storage,
+    //         // };
+
+    //         currentPlan = {
+    //             ...currentPlan,
+
+    //             plan_type: "team",
+    //             plan_id: this.dataset.planId,
+    //             name: this.dataset.name,
+
+    //             price: this.dataset.pricemonth || 0,
+
+    //             priceM: parseFloat(this.dataset.monthlyPrice) || 0,
+    //             priceY: parseFloat(this.dataset.yearlyPrice) || 0,
+
+    //             symbol: this.dataset.symbol || " ",
+    //             subscription: this.dataset.subscription || "monthly",
+
+    //             license: this.dataset.license,
+    //             storage: this.dataset.storage,
+    //             storage_unit: this.dataset.storageUnit,
+
+    //             monthly_discount: parseFloat(this.dataset.monthlyDiscount) || 0,
+    //             yearly_discount: parseFloat(this.dataset.yearlyDiscount) || 0,
+
+    //             extra_monthly_discount:
+    //                 parseFloat(this.dataset.extraMonthlyDiscount) || 0,
+    //             extra_yearly_discount:
+    //                 parseFloat(this.dataset.extraYearlyDiscount) || 0,
+    //         };
+
+    //         console.log("Clicked TEAM PLAN:", currentPlan);
+
+    //         renderPlanData();
+    //     });
+    // });
 
     updateToggleUI();
 

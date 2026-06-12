@@ -984,219 +984,310 @@ $(document).ready(function () {
     });
 });
 
-//send data to payment page
-$(document).on(
-    "click",
-    ".js-select-plan, .team-js-select-plan, .js-select-plan-compare, .team-js-select-plan-compare",
-    function () {
-        const btn = $(this);
+//send data to payment page==================================================
+$(document).on("click", ".js-select-plan", function () {
+    handlePlanSelection($(this), "single");
+});
 
-        const isPersonal = btn.hasClass("js-select-plan");
-        const isTeam = btn.hasClass("team-js-select-plan");
+$(document).on("click", ".team-js-select-plan", function () {
+    handlePlanSelection($(this), "team");
+});
 
-        //comapare
-        const isPersonalCompare = btn.hasClass("js-select-plan-compare");
-        const isTeamCompare = btn.hasClass("team-js-select-plan-compare");
+$(document).on("click", ".js-select-plan-compare", function () {
+    handlePlanSelection($(this), "single");
+});
 
-        let container;
+$(document).on("click", ".team-js-select-plan-compare", function () {
+    handlePlanSelection($(this), "team");
+});
 
-        // Personal Card
-        if (btn.closest(".personal-card").length) {
-            container = btn.closest(".personal-card");
-        }
+function handlePlanSelection(btn, forcedType) {
+    let container;
 
-        // Team Card
-        else if (btn.closest(".ul-cards").length) {
-            container = btn.closest(".ul-cards");
-        }
+    if (btn.closest(".personal-card").length) {
+        container = btn.closest(".personal-card");
+    } else if (btn.closest(".ul-cards").length) {
+        container = btn.closest(".ul-cards");
+    } else if (btn.closest("td").length) {
+        let td = btn.closest("td");
+        let columnIndex = td.index();
+        let table = td.closest("table");
+        let matchingTh = table.find("thead th").eq(columnIndex);
 
-        // Compare Table
-        else if (btn.closest("td").length) {
-            let td = btn.closest("td");
+        container = $("<div>");
+        container.append(td.clone());
+        container.append(matchingTh.clone());
+    }
 
-            let columnIndex = td.index();
+    let symbol =
+        container.find(".personal-card-symbol-ul").first().text().trim() ||
+        container.find(".table-plan-symbol").first().text().trim() ||
+        $(".table-plan-symbol").first().text().trim();
 
-            let table = td.closest("table");
+    let amount =
+        container.find(".total-price-ul").first().text().trim() ||
+        container.find(".table-plan-amount").first().text().trim() ||
+        $(".table-plan-amount").first().text().trim();
 
-            let matchingTh = table.find("thead th").eq(columnIndex);
+    amount = amount.replace(/,/g, "");
 
-            container = $("<div>");
+    let qty = container.find(".ul-quantity-input").length
+        ? parseInt(container.find(".ul-quantity-input").val()) || 1
+        : 1;
 
-            // Add current td
-            container.append(td.clone());
+    let discountEl = container.find(".discount-ul");
+    let extraDiscountEl = container.find(".extra-discount-ul");
+    let tableAmountEl = container.find(".table-plan-amount");
 
-            // Add matching header
-            container.append(matchingTh.clone());
-        }
+    const planData = {
+        plan_type: forcedType, // 🔥 IMPORTANT FIX
 
-        let symbol = "";
+        plan_id: btn.data("plan-id"),
+        name: btn.data("name"),
 
-        // From cards
-        symbol = container
-            .find(".personal-card-symbol-ul")
-            .first()
-            .text()
-            .trim();
+        license: qty,
+        storage: parseInt(btn.data("storage")) || 10,
+        storage_unit: btn.data("storage-unit") || "GB",
 
-        // From compare table
-        if (!symbol) {
-            symbol = container.find(".table-plan-symbol").first().text().trim();
-        }
+        symbol: symbol,
+        price: parseFloat(amount) || 0,
 
-        // fallback
-        if (!symbol) {
-            symbol = $(".table-plan-symbol").first().text().trim();
-        }
+        monthly_discount:
+            parseFloat(discountEl.data("monthly")) ||
+            parseFloat(tableAmountEl.data("monthly-discount")) ||
+            0,
 
-        let amount = "";
+        yearly_discount:
+            parseFloat(discountEl.data("yearly")) ||
+            parseFloat(tableAmountEl.data("yearly-discount")) ||
+            0,
 
-        // Personal / Team card
-        amount = container.find(".total-price-ul").first().text().trim();
+        extra_monthly:
+            parseFloat(extraDiscountEl.data("monthly")) ||
+            parseFloat(tableAmountEl.data("extra-monthly")) ||
+            0,
 
-        // Compare table
-        if (!amount) {
-            amount = container.find(".table-plan-amount").first().text().trim();
-        }
+        extra_yearly:
+            parseFloat(extraDiscountEl.data("yearly")) ||
+            parseFloat(tableAmountEl.data("extra-yearly")) ||
+            0,
+    };
 
-        // fallback
-        if (!amount) {
-            amount = $(".table-plan-amount").first().text().trim();
-        }
+    console.log("FINAL PLAN:", planData);
 
-        amount = amount.replace(/,/g, "");
+    localStorage.setItem("selectedPlan", JSON.stringify(planData));
 
-        let discountEl = container.find(".discount-ul");
+    window.location.href =
+        "/payment?currency_code=" +
+        (document.querySelector("#currencyMenu li.active")?.dataset.currency ||
+            "") +
+        "&plan_type=" +
+        planData.plan_type;
+}
 
-        let extraDiscountEl = container.find(".extra-discount-ul");
 
-        let tableAmountEl = container.find(".table-plan-amount");
 
-        let qty = 1;
+// $(document).on(
+//     "click",
+//     ".js-select-plan, .team-js-select-plan, .js-select-plan-compare, .team-js-select-plan-compare",
+//     function () {
+//         const btn = $(this);
 
-        if (container.find(".ul-quantity-input").length) {
-            qty = parseInt(container.find(".ul-quantity-input").val()) || 1;
-        }
+//         const isPersonal = btn.hasClass("js-select-plan");
+//         const isTeam = btn.hasClass("team-js-select-plan");
 
-        let billingType = "monthly";
+//         //comapare
+//         const isPersonalCompare = btn.hasClass("js-select-plan-compare");
+//         const isTeamCompare = btn.hasClass("team-js-select-plan-compare");
 
-        // SINGLE USER
-        if (btn.data("plan-type") === "single") {
-            billingType = SINGLE_USER_BILLING;
-        }
+//         let container;
 
-        // TEAM
-        if (btn.data("plan-type") === "team") {
-            billingType = TEAM_BILLING;
-        }
+//         // Personal Card
+//         if (btn.closest(".personal-card").length) {
+//             container = btn.closest(".personal-card");
+//         }
 
-        const planData = {
-            plan_type: btn.data("plan-type"),
+//         // Team Card
+//         else if (btn.closest(".ul-cards").length) {
+//             container = btn.closest(".ul-cards");
+//         }
 
-            billing_type: billingType,
+//         // Compare Table
+//         else if (btn.closest("td").length) {
+//             let td = btn.closest("td");
 
-            plan_id: btn.data("plan-id"),
+//             let columnIndex = td.index();
 
-            name: btn.data("name"),
+//             let table = td.closest("table");
 
-            license: qty,
+//             let matchingTh = table.find("thead th").eq(columnIndex);
 
-            storage: parseInt(btn.data("storage")) || 10,
+//             container = $("<div>");
 
-            storage_unit: btn.data("storage-unit") || "GB",
+//             // Add current td
+//             container.append(td.clone());
 
-            symbol: symbol,
+//             // Add matching header
+//             container.append(matchingTh.clone());
+//         }
 
-            price: parseFloat(amount) || 0,
+//         let symbol = "";
 
-            monthly_discount:
-                parseFloat(discountEl.data("monthly")) ||
-                parseFloat(tableAmountEl.data("monthly-discount")) ||
-                0,
+//         // From cards
+//         symbol = container
+//             .find(".personal-card-symbol-ul")
+//             .first()
+//             .text()
+//             .trim();
 
-            yearly_discount:
-                parseFloat(discountEl.data("yearly")) ||
-                parseFloat(tableAmountEl.data("yearly-discount")) ||
-                0,
+//         // From compare table
+//         if (!symbol) {
+//             symbol = container.find(".table-plan-symbol").first().text().trim();
+//         }
 
-            extra_monthly:
-                parseFloat(extraDiscountEl.data("monthly")) ||
-                parseFloat(tableAmountEl.data("extra-monthly")) ||
-                0,
+//         // fallback
+//         if (!symbol) {
+//             symbol = $(".table-plan-symbol").first().text().trim();
+//         }
 
-            extra_yearly:
-                parseFloat(extraDiscountEl.data("yearly")) ||
-                parseFloat(tableAmountEl.data("extra-yearly")) ||
-                0,
-        };
+//         let amount = "";
 
-        // =========================
-        // SELECTED CURRENCY
-        // =========================
-        const activeCurrency = document.querySelector(
-            "#currencyMenu li.active",
-        );
+//         // Personal / Team card
+//         amount = container.find(".total-price-ul").first().text().trim();
 
-        const currencyData = activeCurrency
-            ? {
-                  currency_code: activeCurrency.dataset.currency,
-                  symbol: activeCurrency.dataset.symbol,
-                  base_amount: activeCurrency.dataset.amount,
-                  country: activeCurrency.dataset.country,
-                  is_base_currency: activeCurrency.dataset.base,
-              }
-            : null;
+//         // Compare table
+//         if (!amount) {
+//             amount = container.find(".table-plan-amount").first().text().trim();
+//         }
 
-        // console.log("========== PLAN DATA ==========");
-        // console.table(planData);
+//         // fallback
+//         if (!amount) {
+//             amount = $(".table-plan-amount").first().text().trim();
+//         }
 
-        // console.log("========== CURRENCY DATA ==========");
-        // console.table(currencyData);
+//         amount = amount.replace(/,/g, "");
 
-        // Save Currency
-        localStorage.setItem("selectedCurrency", JSON.stringify(currencyData));
+//         let discountEl = container.find(".discount-ul");
 
-        // localStorage.setItem("selectedPlan", JSON.stringify(planData));
+//         let extraDiscountEl = container.find(".extra-discount-ul");
 
-        const allPlans = [];
+//         let tableAmountEl = container.find(".table-plan-amount");
 
-        $(
-            ".js-select-plan, .team-js-select-plan, .js-select-plan-compare, .team-js-select-plan-compare",
-        ).each(function () {
-            const btn = $(this);
+//         let qty = 1;
 
-            allPlans.push({
-                plan_id: btn.data("plan-id"),
-                plan_type: btn.data("plan-type"),
-                name: btn.data("name"),
-                storage: btn.data("storage"),
-                storage_unit: btn.data("storage-unit"),
-                license: btn.data("license"),
+//         if (container.find(".ul-quantity-input").length) {
+//             qty = parseInt(container.find(".ul-quantity-input").val()) || 1;
+//         }
 
-                price:
-                    parseFloat(
-                        btn
-                            .closest(".personal-card, .ul-cards")
-                            .find(".total-price-ul")
-                            .first()
-                            .text()
-                            .replace(/,/g, ""),
-                    ) || 0,
+//         let billingType = "monthly";
 
-                monthly_discount: btn.data("monthly-discount") || 0,
-                yearly_discount: btn.data("yearly-discount") || 0,
+//         // SINGLE USER
+//         if (btn.data("plan-type") === "single") {
+//             billingType = SINGLE_USER_BILLING;
+//         }
 
-                extra_monthly_discount: btn.data("extra-monthly-discount") || 0,
+//         // TEAM
+//         if (btn.data("plan-type") === "team") {
+//             billingType = TEAM_BILLING;
+//         }
 
-                extra_yearly_discount: btn.data("extra-yearly-discount") || 0,
-            });
-        });
+//         const planData = {
+//             plan_type: btn.data("plan-type"),
 
-        localStorage.setItem("allPlans", JSON.stringify(allPlans));
+//             billing_type: billingType,
 
-        localStorage.setItem("selectedPlan", JSON.stringify(planData));
+//             plan_id: btn.data("plan-id"),
 
-        // window.location.href = "/payment";
-        window.location.href =
-            "/payment?currency_code=" + currencyData.currency_code;
-    },
-);
+//             name: btn.data("name"),
+
+//             license: qty,
+
+//             storage: parseInt(btn.data("storage")) || 10,
+
+//             storage_unit: btn.data("storage-unit") || "GB",
+
+//             symbol: symbol,
+
+//             price: parseFloat(amount) || 0,
+
+//             monthly_discount:
+//                 parseFloat(discountEl.data("monthly")) ||
+//                 parseFloat(tableAmountEl.data("monthly-discount")) ||
+//                 0,
+
+//             yearly_discount:
+//                 parseFloat(discountEl.data("yearly")) ||
+//                 parseFloat(tableAmountEl.data("yearly-discount")) ||
+//                 0,
+
+//             extra_monthly:
+//                 parseFloat(extraDiscountEl.data("monthly")) ||
+//                 parseFloat(tableAmountEl.data("extra-monthly")) ||
+//                 0,
+
+//             extra_yearly:
+//                 parseFloat(extraDiscountEl.data("yearly")) ||
+//                 parseFloat(tableAmountEl.data("extra-yearly")) ||
+//                 0,
+//         };
+
+//         // SELECTED CURRENCY
+//         const activeCurrency = document.querySelector(
+//             "#currencyMenu li.active",
+//         );
+
+//         const currencyData = activeCurrency
+//             ? {
+//                   currency_code: activeCurrency.dataset.currency,
+//                   symbol: activeCurrency.dataset.symbol,
+//                   base_amount: activeCurrency.dataset.amount,
+//                   country: activeCurrency.dataset.country,
+//                   is_base_currency: activeCurrency.dataset.base,
+//               }
+//             : null;
+
+//         // Save Currency
+//         localStorage.setItem("selectedCurrency", JSON.stringify(currencyData));
+
+//         const allPlans = [];
+
+//         $(
+//             ".js-select-plan, .team-js-select-plan, .js-select-plan-compare, .team-js-select-plan-compare",
+//         ).each(function () {
+//             const btn = $(this);
+
+//             allPlans.push({
+//                 plan_id: btn.data("plan-id"),
+//                 plan_type: btn.data("plan-type"),
+//                 name: btn.data("name"),
+//                 storage: btn.data("storage"),
+//                 storage_unit: btn.data("storage-unit"),
+//                 license: btn.data("license"),
+
+//                 price:
+//                     parseFloat(
+//                         btn
+//                             .closest(".personal-card, .ul-cards")
+//                             .find(".total-price-ul")
+//                             .first()
+//                             .text()
+//                             .replace(/,/g, ""),
+//                     ) || 0,
+
+//                 monthly_discount: btn.data("monthly-discount") || 0,
+//                 yearly_discount: btn.data("yearly-discount") || 0,
+
+//                 extra_monthly_discount: btn.data("extra-monthly-discount") || 0,
+
+//                 extra_yearly_discount: btn.data("extra-yearly-discount") || 0,
+//             });
+//         });
+
+//         localStorage.setItem("allPlans", JSON.stringify(allPlans));
+
+//         localStorage.setItem("selectedPlan", JSON.stringify(planData));
+
+//         window.location.href =
+//             "/payment?currency_code=" + currencyData.currency_code;
+//     },
+// );

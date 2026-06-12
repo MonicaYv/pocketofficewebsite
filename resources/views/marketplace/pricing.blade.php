@@ -244,8 +244,8 @@
         <!-- for single user  -->
         <div class="personal-section-wrapper">
           <p class="personal-section-label">For Individuals</p>
-          @if (!empty($userLicenseData['getPlanList']['planLists']))
-          @foreach ($userLicenseData['getPlanList']['planLists'] as $plan)
+          @if (!empty($userLicenseData['getPlanList']['planListsSingle']))
+          @foreach ($userLicenseData['getPlanList']['planListsSingle'] as $plan)
           @if($plan->is_single_user == 1)
           <div class="card personal-card js-month-card">
             <div class="card-body personal-card__body">
@@ -395,8 +395,6 @@
           </div>
 
           <p class="teams-section-label">For Teams</p>
-
-
           <div class="pricing-cards">
             @if (!empty($userLicenseData['getPlanList']['planLists']))
             @foreach ($userLicenseData['getPlanList']['planLists'] as $plan)
@@ -406,10 +404,10 @@
                   <h2 class="fw-semibold mb-3">{{ $plan->plans_name }}</h2>
                   <h6 class="display-4 fw-bold mb-2 price">
                     <div class="price-wrapper">
-                      <span class="personal-card-symbol-ul"></span><span
-                        class="total-price-ul"
-                        data-original-price=""
-                        data-monthly=""></span>
+                      <span class="personal-card-symbol-ul"></span><span class="total-price-ul"
+                        data-original-price="{{ $plan->plans_amount }}"
+                        data-monthly="{{ $plan->plans_amount }}"
+                        data-yearly="{{ $plan->plans_amount }}"></span>
                     </div>
                     <span class="user-text">{{ $plan->plans_subscription_type }}</span>
                   </h6>
@@ -419,7 +417,9 @@
                     data-monthly="{{ $plan->is_team_discount_apply == 1 ? ($plan->monthly_discount ?? 0) : 0 }}"
                     data-yearly="{{ $plan->is_team_discount_apply == 1 ? ($plan->yearly_discount ?? 0) : 0 }}">
                   </span>
-                  <span class="price-amount hidden"></span>
+                  <span class="price-amount hidden"
+                    data-monthly="{{ $plan->plans_amount }}"
+                    data-yearly="{{ $plan->plans_amount }}"></span>
                   <span class="extra-discount-ul hidden"
                     data-monthly-constant="{{ $additional_disc_month ?? 0 }}"
                     data-yearly-constant="{{ $additional_disc_year ?? 0 }}"
@@ -457,7 +457,7 @@
                     <li class="mb-3 d-flex align-items-start">
                       <div class="quantity-box ul-quantity-container">
                         <button class="qty-btn  ul-decrement">−</button>
-                        <input type="text" class="qty-input ul-quantity-input" value="{{ strtolower($plan->plans_name) == 'basic' ? 2 : 1 }}" readonly />
+                        <input type="text" class="qty-input ul-quantity-input" value="1" readonly />
                         <button class="qty-btn  ul-increment">+</button>
                       </div>
                     </li>
@@ -478,7 +478,7 @@
 
                   <!-- discount  -->
                   <!-- <div class="ul-discount ul-save-badge team-discount-badge" -->
-                  @if($plan->is_single_user != 1 && $plan->is_team_discount_apply = 1 && !empty($plan->monthly_discount) && $plan->monthly_discount > 0)
+                  @if($plan->is_team_allowed == 1 && $plan->is_team_discount_apply = 1 && !empty($plan->monthly_discount) && $plan->monthly_discount > 0)
                   <div class="ul-discount ul-save-badge "
                     data-is-single="{{ $plan->is_team_discount_apply }}"
                     data-monthly="{{ $plan->is_team_discount_apply == 1 ? 0 : ($plan->monthly_discount ?? 0) }}"
