@@ -391,6 +391,7 @@
                              <div id="payBillingControls" style="margin-bottom: 10px;">
                                  @php
                                  $singlePlan = collect($planLists)->firstWhere('is_single_user', 1);
+                                 $selectedPlanType = request('plan_type', 'single');
                                  @endphp
                                  <div style="display:flex;align-items:center;justify-content:space-between;">
                                      <span style="font-size:13px;font-weight:600;color:#333;">Billing Period</span>
@@ -430,8 +431,9 @@
                                      <div
                                          class="pay-plan-tile selected-plan-option {{ $loop->first ? 'selected' : '' }}"
 
-                                         data-plan-type="{{ $plan->is_single_user == 1 ? 'single' : 'team' }}"
+                                         data-plan-type="{{ $selectedPlanType }}"
                                          data-apply-discount="{{ $plan->is_team_discount_apply == 1 }}"
+                                         data-team-allowed="{{ $plan->is_team_allowed == 1 }}"
                                          data-plan-id="{{ $plan->id }}"
                                          data-name="{{ $plan->plans_name }}"
                                          data-subscription="{{ $plan->plans_subscription_type }}"
