@@ -42,11 +42,11 @@
             </div>
             <button
                 class="navbar-toggler"
-                type="button"
-                data-toggle="collapse"
-                data-target="#MapUI_main_menu"
-                aria-expanded="false"
-                aria-label="Toggle navigation">
+    type="button"
+    data-bs-toggle="collapse"
+    data-bs-target="#MapUI_main_menu"
+    aria-controls="MapUI_main_menu"
+    aria-expanded="false">
                 <span class="navbar-toggle-icon default-blue">
                     <span class="line"></span>
                     <span class="line"></span>
