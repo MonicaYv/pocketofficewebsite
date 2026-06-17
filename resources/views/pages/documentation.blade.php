@@ -3,26 +3,26 @@
 @section('meta-title', 'Help Center & Documentation | Cloud Desktop Guides | Pocket Office')
 @section('meta-description', 'Access Pocket Office help center and documentation for cloud desktop guides, setup instructions, and support resources.')
 @section('meta-keywords', 'help center documentation, cloud desktop guides, pocket office support, setup instructions')
-@section('meta-image', 'https://pocketdesk.sizaf.com/assets/img/hero-images/getting-started.svg')
-@section('canonical', 'https://pocketdesk.sizaf.com/documentation')
-@section('meta-url', 'https://pocketdesk.sizaf.com/documentation')
+@section('meta-image', 'https://pocket-office.ai/assets/img/hero-images/getting-started.svg')
+@section('canonical', 'https://pocket-office.ai/documentation')
+@section('meta-url', 'https://pocket-office.ai/documentation')
 @section('structured-data')
 @verbatim
 {
   "@context": "https://schema.org",
   "@type": "WebPage",
   "name": "Documentation | Pocket Office",
-  "url": "https://pocketdesk.sizaf.com/documentation",
+  "url": "https://pocket-office.ai/documentation",
   "description": "Access Pocket Office help center and documentation for cloud desktop guides, setup instructions, and support resources.",
   "inLanguage": "en",
-  "image": "https://pocketdesk.sizaf.com/assets/img/hero-images/getting-started.svg",
+  "image": "https://pocket-office.ai/assets/img/hero-images/getting-started.svg",
   "publisher": {
     "@type": "Organization",
     "name": "Pocket Office",
-    "url": "https://pocketdesk.sizaf.com",
+    "url": "https://pocket-office.ai/",
     "logo": {
       "@type": "ImageObject",
-      "url": "https://pocketdesk.sizaf.com/assets/img/logo/pocket-office-tm-final-logo.png"
+      "url": "https://pocket-office.ai/assets/img/logo/pocket-office-tm-final-logo.png"
     }
   }
 }

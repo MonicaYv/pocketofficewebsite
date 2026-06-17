@@ -3,26 +3,26 @@
 @section('meta-title', 'Attributions | Pocket Office')
 @section('meta-description', 'View the open source libraries, assets, and resources credited by Pocket Office in our cloud desktop platform and website.')
 @section('meta-keywords', 'attributions, open source credits, pocket office resources, software credits')
-@section('meta-image', 'https://pocketdesk.sizaf.com/assets/img/hero-images/page-title-bg.png')
-@section('canonical', 'https://pocketdesk.sizaf.com/attributions')
-@section('meta-url', 'https://pocketdesk.sizaf.com/attributions')
+@section('meta-image', 'https://pocket-office.ai/assets/img/hero-images/page-title-bg.png')
+@section('canonical', 'https://pocket-office.ai/attributions')
+@section('meta-url', 'https://pocket-office.ai/attributions')
 @section('structured-data')
 @verbatim
 {
   "@context": "https://schema.org",
   "@type": "WebPage",
   "name": "Attributions | Pocket Office",
-  "url": "https://pocketdesk.sizaf.com/attributions",
+  "url": "https://pocket-office.ai/attributions",
   "description": "View the open source libraries, assets, and resources credited by Pocket Office in our cloud desktop platform and website.",
   "inLanguage": "en",
-  "image": "https://pocketdesk.sizaf.com/assets/img/hero-images/page-title-bg.png",
+  "image": "https://pocket-office.ai/assets/img/hero-images/page-title-bg.png",
   "publisher": {
     "@type": "Organization",
     "name": "Pocket Office",
-    "url": "https://pocketdesk.sizaf.com",
+    "url": "https://pocket-office.ai/",
     "logo": {
       "@type": "ImageObject",
-      "url": "https://pocketdesk.sizaf.com/assets/img/logo/pocket-office-tm-final-logo.png"
+      "url": "https://pocket-office.ai/assets/img/logo/pocket-office-tm-final-logo.png"
     }
   }
 }

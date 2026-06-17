@@ -3,26 +3,26 @@
    @section('meta-title', 'Disclaimer | Pocket Office Cloud Desktop')
    @section('meta-description', 'Read the disclaimer for Pocket Office cloud desktop services, policies, and legal notices related to our browser-based workspace platform.')
    @section('meta-keywords', 'disclaimer, pocket office legal, cloud desktop policies, legal notice')
-   @section('meta-image', 'https://pocketdesk.sizaf.com/assets/img/hero-images/disclaimer .svg')
-   @section('canonical', 'https://pocketdesk.sizaf.com/disclaimer')
-   @section('meta-url', 'https://pocketdesk.sizaf.com/disclaimer')
+   @section('meta-image', 'https://pocket-office.ai/assets/img/hero-images/disclaimer .svg')
+   @section('canonical', 'https://pocket-office.ai/disclaimer')
+   @section('meta-url', 'https://pocket-office.ai/disclaimer')
    @section('structured-data')
    @verbatim
    {
      "@context": "https://schema.org",
      "@type": "WebPage",
      "name": "Disclaimer | Pocket Office",
-     "url": "https://pocketdesk.sizaf.com/disclaimer",
+     "url": "https://pocket-office.ai/disclaimer",
      "description": "Read the disclaimer for Pocket Office cloud desktop services, policies, and legal notices related to our browser-based workspace platform.",
      "inLanguage": "en",
-     "image": "https://pocketdesk.sizaf.com/assets/img/hero-images/disclaimer .svg",
+     "image": "https://pocket-office.ai/assets/img/hero-images/disclaimer .svg",
      "publisher": {
        "@type": "Organization",
        "name": "Pocket Office",
-       "url": "https://pocketdesk.sizaf.com",
+       "url": "https://pocket-office.ai/",
        "logo": {
          "@type": "ImageObject",
-         "url": "https://pocketdesk.sizaf.com/assets/img/logo/pocket-office-tm-final-logo.png"
+         "url": "https://pocket-office.ai/assets/img/logo/pocket-office-tm-final-logo.png"
        }
      }
    }

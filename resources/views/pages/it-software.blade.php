@@ -3,26 +3,26 @@
     @section('meta-title', 'IT & Software Development Services | Custom Solutions')
     @section('meta-description', 'Explore Pocket Office IT and software development services, offering custom solutions and secure cloud workspaces for developers and IT teams.')
     @section('meta-keywords', 'IT software development, custom solutions, cloud workspaces developers, IT services')
-    @section('meta-image', 'https://pocketdesk.sizaf.com/assets/img/hero-images/industries/IT-Software/Software-1.svg')
-    @section('canonical', 'https://pocketdesk.sizaf.com/it-software')
-    @section('meta-url', 'https://pocketdesk.sizaf.com/it-software')
+    @section('meta-image', 'https://pocket-office.ai/assets/img/hero-images/industries/IT-Software/Software-1.svg')
+    @section('canonical', 'https://pocket-office.ai/it-software')
+    @section('meta-url', 'https://pocket-office.ai/it-software')
     @section('structured-data')
     @verbatim
     {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "IT & Software | Pocket Office",
-      "url": "https://pocketdesk.sizaf.com/it-software",
+      "url": "https://pocket-office.ai/it-software",
       "description": "Explore Pocket Office IT and software development services, offering custom solutions and secure cloud workspaces for developers and IT teams.",
       "inLanguage": "en",
-      "image": "https://pocketdesk.sizaf.com/assets/img/hero-images/industries/IT-Software/Software-1.svg",
+      "image": "https://pocket-office.ai/assets/img/hero-images/industries/IT-Software/Software-1.svg",
       "publisher": {
         "@type": "Organization",
         "name": "Pocket Office",
-        "url": "https://pocketdesk.sizaf.com",
+        "url": "https://pocket-office.ai/",
         "logo": {
           "@type": "ImageObject",
-          "url": "https://pocketdesk.sizaf.com/assets/img/logo/pocket-office-tm-final-logo.png"
+          "url": "https://pocket-office.ai/assets/img/logo/pocket-office-tm-final-logo.png"
         }
       }
     }

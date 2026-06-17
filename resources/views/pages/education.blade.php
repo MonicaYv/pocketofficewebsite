@@ -3,26 +3,26 @@
  @section('meta-title', 'Education Solutions | Digital Learning & EdTech Services')
  @section('meta-description', 'Discover Pocket Office education solutions for digital learning, EdTech services, and secure cloud workspaces for schools and universities.')
  @section('meta-keywords', 'education solutions, digital learning, EdTech services, cloud workspaces education')
- @section('meta-image', 'https://pocketdesk.sizaf.com/assets/img/hero-images/industries/Education/Education 1.svg')
- @section('canonical', 'https://pocketdesk.sizaf.com/education')
- @section('meta-url', 'https://pocketdesk.sizaf.com/education')
+ @section('meta-image', 'https://pocket-office.ai/assets/img/hero-images/industries/Education/Education 1.svg')
+ @section('canonical', 'https://pocket-office.ai/education')
+ @section('meta-url', 'https://pocket-office.ai/education')
  @section('structured-data')
  @verbatim
  {
    "@context": "https://schema.org",
    "@type": "WebPage",
    "name": "Education | Pocket Office",
-   "url": "https://pocketdesk.sizaf.com/education",
+   "url": "https://pocket-office.ai/education",
    "description": "Discover Pocket Office education solutions for digital learning, EdTech services, and secure cloud workspaces for schools and universities.",
    "inLanguage": "en",
-   "image": "https://pocketdesk.sizaf.com/assets/img/hero-images/industries/Education/Education 1.svg",
+   "image": "https://pocket-office.ai/assets/img/hero-images/industries/Education/Education 1.svg",
    "publisher": {
      "@type": "Organization",
      "name": "Pocket Office",
-     "url": "https://pocketdesk.sizaf.com",
+     "url": "https://pocket-office.ai/",
      "logo": {
        "@type": "ImageObject",
-       "url": "https://pocketdesk.sizaf.com/assets/img/logo/pocket-office-tm-final-logo.png"
+       "url": "https://pocket-office.ai/assets/img/logo/pocket-office-tm-final-logo.png"
      }
    }
  }

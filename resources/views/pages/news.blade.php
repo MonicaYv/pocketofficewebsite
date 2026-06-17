@@ -3,26 +3,26 @@
     @section('meta-title', 'Latest News & Announcements | Pocket Office Cloud Desktop')
     @section('meta-description', 'Stay updated with the latest news and announcements from Pocket Office, including updates on cloud desktop features and industry insights.')
     @section('meta-keywords', 'latest news announcements, pocket office updates, cloud desktop news, industry insights')
-    @section('meta-image', 'https://pocketdesk.sizaf.com/assets/img/hero-images/news.svg')
-    @section('canonical', 'https://pocketdesk.sizaf.com/news')
-    @section('meta-url', 'https://pocketdesk.sizaf.com/news')
+    @section('meta-image', 'https://pocket-office.ai/assets/img/hero-images/news.svg')
+    @section('canonical', 'https://pocket-office.ai/news')
+    @section('meta-url', 'https://pocket-office.ai/news')
     @section('structured-data')
     @verbatim
     {
       "@context": "https://schema.org",
       "@type": "CollectionPage",
       "name": "News | Pocket Office",
-      "url": "https://pocketdesk.sizaf.com/news",
+      "url": "https://pocket-office.ai/news",
       "description": "Stay updated with the latest news and announcements from Pocket Office, including updates on cloud desktop features and industry insights.",
       "inLanguage": "en",
-      "image": "https://pocketdesk.sizaf.com/assets/img/hero-images/news.svg",
+      "image": "https://pocket-office.ai/assets/img/hero-images/news.svg",
       "publisher": {
         "@type": "Organization",
         "name": "Pocket Office",
-        "url": "https://pocketdesk.sizaf.com",
+        "url": "https://pocket-office.ai/",
         "logo": {
           "@type": "ImageObject",
-          "url": "https://pocketdesk.sizaf.com/assets/img/logo/pocket-office-tm-final-logo.png"
+          "url": "https://pocket-office.ai/assets/img/logo/pocket-office-tm-final-logo.png"
         }
       }
     }

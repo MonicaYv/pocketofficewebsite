@@ -3,26 +3,26 @@
   @section('meta-title', 'Sales Enquiry | Pocket Office')
   @section('meta-description', 'Submit a sales enquiry to Pocket Office to learn more about our cloud desktop platform, pricing, and enterprise solutions.')
   @section('meta-keywords', 'sales enquiry, contact sales, pocket office pricing, cloud desktop enquiry')
-  @section('meta-image', 'https://pocketdesk.sizaf.com/assets/img/hero-images/page-title-bg.png')
-  @section('canonical', 'https://pocketdesk.sizaf.com/ticket-details')
-  @section('meta-url', 'https://pocketdesk.sizaf.com/ticket-details')
+  @section('meta-image', 'https://pocket-office.ai/assets/img/hero-images/page-title-bg.png')
+  @section('canonical', 'https://pocket-office.ai/ticket-details')
+  @section('meta-url', 'https://pocket-office.ai/ticket-details')
   @section('structured-data')
   @verbatim
   {
     "@context": "https://schema.org",
     "@type": "ContactPage",
     "name": "Sales Enquiry | Pocket Office",
-    "url": "https://pocketdesk.sizaf.com/ticket-details",
+    "url": "https://pocket-office.ai/ticket-details",
     "description": "Submit a sales enquiry to Pocket Office to learn more about our cloud desktop platform, pricing, and enterprise solutions.",
     "inLanguage": "en",
-    "image": "https://pocketdesk.sizaf.com/assets/img/hero-images/page-title-bg.png",
+    "image": "https://pocket-office.ai/assets/img/hero-images/page-title-bg.png",
     "publisher": {
       "@type": "Organization",
       "name": "Pocket Office",
-      "url": "https://pocketdesk.sizaf.com",
+      "url": "https://pocket-office.ai/",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://pocketdesk.sizaf.com/assets/img/logo/pocket-office-tm-final-logo.png"
+        "url": "https://pocket-office.ai/assets/img/logo/pocket-office-tm-final-logo.png"
       }
     }
   }

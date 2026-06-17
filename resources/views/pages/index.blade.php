@@ -3,26 +3,26 @@
 @section('meta-title', 'Cloud Desktop That Runs Anywhere | Pocket Office')
 @section('meta-description', 'Experience Pocket Office, the secure browser-based cloud desktop workspace that lets your team access files, apps, and collaboration tools from anywhere without installation.')
 @section('meta-keywords', 'cloud desktop, browser-based workspace, secure cloud desktop, remote collaboration, file management, virtual desktop')
-@section('meta-image', 'https://pocketdesk.sizaf.com/assets/img/Hero Section.webp')
-@section('canonical', 'https://pocketdesk.sizaf.com/')
-@section('meta-url', 'https://pocketdesk.sizaf.com/')
+@section('meta-image', 'https://pocket-office.ai/assets/img/Hero Section.webp')
+@section('canonical', 'https://pocket-office.ai/')
+@section('meta-url', 'https://pocket-office.ai/')
 @section('structured-data')
 @verbatim
 {
   "@context": "https://schema.org",
   "@type": "WebPage",
   "name": "Pocket Office",
-  "url": "https://pocketdesk.sizaf.com/",
+  "url": "https://pocket-office.ai/",
   "description": "Pocket Office is a secure browser-based cloud desktop workspace that lets teams access files, apps, and collaboration tools from anywhere without installation.",
   "inLanguage": "en",
-  "image": "https://pocketdesk.sizaf.com/assets/img/Hero Section.webp",
+  "image": "https://pocket-office.ai/assets/img/Hero Section.webp",
   "publisher": {
     "@type": "Organization",
     "name": "Pocket Office",
-    "url": "https://pocketdesk.sizaf.com",
+    "url": "https://pocket-office.ai/",
     "logo": {
       "@type": "ImageObject",
-      "url": "https://pocketdesk.sizaf.com/assets/img/logo/pocket-office-tm-final-logo.png"
+      "url": "https://pocket-office.ai/assets/img/logo/pocket-office-tm-final-logo.png"
     }
   }
 }

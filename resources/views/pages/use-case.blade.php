@@ -3,26 +3,26 @@
  @section('meta-title', 'Use Case Solutions | Pocket Office')
  @section('meta-description', 'Explore Pocket Office use case solutions for file sharing, virtual desktops, and collaborative team workspaces across industries.')
  @section('meta-keywords', 'use case solutions, file sharing, virtual desktop, team workspaces, pocket office use cases')
- @section('meta-image', 'https://pocketdesk.sizaf.com/assets/img/hero-images/By use case .svg')
- @section('canonical', 'https://pocketdesk.sizaf.com/use-case')
- @section('meta-url', 'https://pocketdesk.sizaf.com/use-case')
+ @section('meta-image', 'https://pocket-office.ai/assets/img/hero-images/By use case .svg')
+ @section('canonical', 'https://pocket-office.ai/use-case')
+ @section('meta-url', 'https://pocket-office.ai/use-case')
  @section('structured-data')
  @verbatim
  {
    "@context": "https://schema.org",
    "@type": "WebPage",
    "name": "Use Case | Pocket Office",
-   "url": "https://pocketdesk.sizaf.com/use-case",
+   "url": "https://pocket-office.ai/use-case",
    "description": "Explore Pocket Office use case solutions for file sharing, virtual desktops, and collaborative team workspaces across industries.",
    "inLanguage": "en",
-   "image": "https://pocketdesk.sizaf.com/assets/img/hero-images/By use case .svg",
+   "image": "https://pocket-office.ai/assets/img/hero-images/By use case .svg",
    "publisher": {
      "@type": "Organization",
      "name": "Pocket Office",
-     "url": "https://pocketdesk.sizaf.com",
+     "url": "https://pocket-office.ai/",
      "logo": {
        "@type": "ImageObject",
-       "url": "https://pocketdesk.sizaf.com/assets/img/logo/pocket-office-tm-final-logo.png"
+       "url": "https://pocket-office.ai/assets/img/logo/pocket-office-tm-final-logo.png"
      }
    }
  }

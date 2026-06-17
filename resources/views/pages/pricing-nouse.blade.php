@@ -3,26 +3,26 @@
   @section('meta-title', 'Affordable Cloud Desktop Plans for Teams & Businesses | Pocket Office')
   @section('meta-description', 'Explore Pocket Office pricing plans for individuals, teams, and businesses, and choose the cloud desktop workspace option that fits your needs.')
   @section('meta-keywords', 'cloud desktop pricing, pocket office plans, remote workspace pricing, virtual desktop pricing, affordable cloud desktop')
-  @section('meta-image', 'https://pocketdesk.sizaf.com/assets/img/hero-images/Pricing.svg')
-  @section('canonical', 'https://pocketdesk.sizaf.com/pricing')
-  @section('meta-url', 'https://pocketdesk.sizaf.com/pricing')
+  @section('meta-image', 'https://pocket-office.ai/assets/img/hero-images/Pricing.svg')
+  @section('canonical', 'https://pocket-office.ai/pricing')
+  @section('meta-url', 'https://pocket-office.ai/pricing')
   @section('structured-data')
   @verbatim
   {
     "@context": "https://schema.org",
     "@type": "WebPage",
     "name": "Pricing | Pocket Office",
-    "url": "https://pocketdesk.sizaf.com/pricing",
+    "url": "https://pocket-office.ai/pricing",
     "description": "Explore Pocket Office pricing plans for individuals, teams, and businesses, and choose the cloud desktop workspace option that fits your needs.",
     "inLanguage": "en",
-    "image": "https://pocketdesk.sizaf.com/assets/img/hero-images/Pricing.svg",
+    "image": "https://pocket-office.ai/assets/img/hero-images/Pricing.svg",
     "publisher": {
       "@type": "Organization",
       "name": "Pocket Office",
-      "url": "https://pocketdesk.sizaf.com",
+      "url": "https://pocket-office.ai/",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://pocketdesk.sizaf.com/assets/img/logo/pocket-office-tm-final-logo.png"
+        "url": "https://pocket-office.ai/assets/img/logo/pocket-office-tm-final-logo.png"
       }
     }
   }

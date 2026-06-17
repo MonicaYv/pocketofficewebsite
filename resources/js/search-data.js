@@ -107,7 +107,7 @@ const pages = [
 
 { name: "Pricing", url: "pricing.html" },
 
-{ name: "Submit a Ticket", url: "https://helpdesk.pocketoffice.sizaf.com/submit-ticket" },
+{ name: "Submit a Ticket", url: "https://helpdesk.pocket-office.ai/submit-ticket" },
 { name: "Sales Enquiry", url: "contact-us.html" }
 
 ];

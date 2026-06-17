@@ -57,7 +57,7 @@
                     <div class="col-md-9">
                         <a href="#" id="sales-enquiry-trigger">Sales Enquiry</a>
                         <span class="divider">|</span>
-                        <a href="https://helpdesk.pocketoffice.sizaf.com/submit-ticket">Submit a
+                        <a href="https://helpdesk.pocket-office.ai/submit-ticket">Submit a
                             Ticket</a>
                         <span class="divider">|</span>
                         <a href="contact-us.html">Contact us</a>
@@ -67,7 +67,7 @@
                             <a href="pricing.html" class="order-now-btn btn-radius btn-green s-animate-3">Order now</a>
                             <a href="https://pocketoffice.sizaf.com/" target="_blank" rel="noopener noreferrer"
                                 class="order-now-btn btn-radius btn-green s-animate-3">Customer Login</a>
-                            <a href="https://helpdesk.pocketoffice.sizaf.com/staff/login" target="_blank" rel="noopener noreferrer"
+                            <a href="https://helpdesk.pocket-office.ai/staff/login" target="_blank" rel="noopener noreferrer"
                                 class="order-now-btn btn-radius btn-green s-animate-3">NOC Login</a>
                         </div>
                     </div>

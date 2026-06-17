@@ -3,26 +3,26 @@
   @section('meta-title', 'Contact Us | Get in Touch with Pocket Office')
   @section('meta-description', 'Contact Pocket Office for inquiries about our cloud desktop platform, support, or to learn more about our secure workspace solutions.')
   @section('meta-keywords', 'contact pocket office, cloud desktop support, workspace inquiries, get in touch')
-  @section('meta-image', 'https://pocketdesk.sizaf.com/assets/img/hero-images/Contact - Us.svg')
-  @section('canonical', 'https://pocketdesk.sizaf.com/contact-us.html')
-  @section('meta-url', 'https://pocketdesk.sizaf.com/contact-us.html')
+  @section('meta-image', 'https://pocket-office.ai/assets/img/hero-images/Contact - Us.svg')
+  @section('canonical', 'https://pocket-office.ai/contact-us.html')
+  @section('meta-url', 'https://pocket-office.ai/contact-us.html')
   @section('structured-data')
   @verbatim
   {
     "@context": "https://schema.org",
     "@type": "ContactPage",
     "name": "Contact Us | Pocket Office",
-    "url": "https://pocketdesk.sizaf.com/contact-us.html",
+    "url": "https://pocket-office.ai/contact-us.html",
     "description": "Contact Pocket Office for inquiries about our cloud desktop platform, support, or to learn more about our secure workspace solutions.",
     "inLanguage": "en",
-    "image": "https://pocketdesk.sizaf.com/assets/img/hero-images/Contact - Us.svg",
+    "image": "https://pocket-office.ai/assets/img/hero-images/Contact - Us.svg",
     "publisher": {
       "@type": "Organization",
       "name": "Pocket Office",
-      "url": "https://pocketdesk.sizaf.com",
+      "url": "https://pocket-office.ai/",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://pocketdesk.sizaf.com/assets/img/logo/pocket-office-tm-final-logo.png"
+        "url": "https://pocket-office.ai/assets/img/logo/pocket-office-tm-final-logo.png"
       }
     }
   }
@@ -149,7 +149,7 @@
                             leave feedback.</p>
                     </div>
                     <button class="card-btn"
-                        onclick="window.open('https://helpdesk.pocketoffice.sizaf.com/submit-ticket', '_blank')">
+                        onclick="window.open('https://helpdesk.pocket-office.ai/submit-ticket', '_blank')">
                         Contact support
                     </button>
                 </div>

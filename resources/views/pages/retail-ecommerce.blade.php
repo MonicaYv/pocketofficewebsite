@@ -3,26 +3,26 @@
  @section('meta-title', 'Retail & E-commerce Solutions | Online Business Growth')
  @section('meta-description', 'Discover Pocket Office retail and e-commerce solutions for online business growth, secure customer workflows, and cloud-based storefront management.')
  @section('meta-keywords', 'retail ecommerce solutions, online business growth, cloud storefront, retail workflow')
- @section('meta-image', 'https://pocketdesk.sizaf.com/assets/img/hero-images/industries/Retail-E-commerce/Retail & E-commerce 1.svg')
- @section('canonical', 'https://pocketdesk.sizaf.com/retail-ecommerce')
- @section('meta-url', 'https://pocketdesk.sizaf.com/retail-ecommerce')
+ @section('meta-image', 'https://pocket-office.ai/assets/img/hero-images/industries/Retail-E-commerce/Retail & E-commerce 1.svg')
+ @section('canonical', 'https://pocket-office.ai/retail-ecommerce')
+ @section('meta-url', 'https://pocket-office.ai/retail-ecommerce')
  @section('structured-data')
  @verbatim
  {
    "@context": "https://schema.org",
    "@type": "WebPage",
    "name": "Retail & E-commerce | Pocket Office",
-   "url": "https://pocketdesk.sizaf.com/retail-ecommerce",
+   "url": "https://pocket-office.ai/retail-ecommerce",
    "description": "Discover Pocket Office retail and e-commerce solutions for online business growth, secure customer workflows, and cloud-based storefront management.",
    "inLanguage": "en",
-   "image": "https://pocketdesk.sizaf.com/assets/img/hero-images/industries/Retail-E-commerce/Retail & E-commerce 1.svg",
+   "image": "https://pocket-office.ai/assets/img/hero-images/industries/Retail-E-commerce/Retail & E-commerce 1.svg",
    "publisher": {
      "@type": "Organization",
      "name": "Pocket Office",
-     "url": "https://pocketdesk.sizaf.com",
+     "url": "https://pocket-office.ai/",
      "logo": {
        "@type": "ImageObject",
-       "url": "https://pocketdesk.sizaf.com/assets/img/logo/pocket-office-tm-final-logo.png"
+       "url": "https://pocket-office.ai/assets/img/logo/pocket-office-tm-final-logo.png"
      }
    }
  }

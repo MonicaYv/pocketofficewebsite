@@ -3,26 +3,26 @@
  @section('meta-title', 'Finance & Accounting Services | Smart Business Solutions')
  @section('meta-description', 'Discover Pocket Office solutions for finance and accounting, providing smart business tools for secure document management and financial workflows.')
  @section('meta-keywords', 'finance accounting services, smart business solutions, financial workflows, secure document management')
- @section('meta-image', 'https://pocketdesk.sizaf.com/assets/img/hero-images/industries/Finance-Accounting/Finance & Accounting 1.svg')
- @section('canonical', 'https://pocketdesk.sizaf.com/finance-accounting')
- @section('meta-url', 'https://pocketdesk.sizaf.com/finance-accounting')
+ @section('meta-image', 'https://pocket-office.ai/assets/img/hero-images/industries/Finance-Accounting/Finance & Accounting 1.svg')
+ @section('canonical', 'https://pocket-office.ai/finance-accounting')
+ @section('meta-url', 'https://pocket-office.ai/finance-accounting')
  @section('structured-data')
  @verbatim
  {
    "@context": "https://schema.org",
    "@type": "WebPage",
    "name": "Finance & Accounting | Pocket Office",
-   "url": "https://pocketdesk.sizaf.com/finance-accounting",
+   "url": "https://pocket-office.ai/finance-accounting",
    "description": "Discover Pocket Office solutions for finance and accounting, providing smart business tools for secure document management and financial workflows.",
    "inLanguage": "en",
-   "image": "https://pocketdesk.sizaf.com/assets/img/hero-images/industries/Finance-Accounting/Finance & Accounting 1.svg",
+   "image": "https://pocket-office.ai/assets/img/hero-images/industries/Finance-Accounting/Finance & Accounting 1.svg",
    "publisher": {
      "@type": "Organization",
      "name": "Pocket Office",
-     "url": "https://pocketdesk.sizaf.com",
+     "url": "https://pocket-office.ai/",
      "logo": {
        "@type": "ImageObject",
-       "url": "https://pocketdesk.sizaf.com/assets/img/logo/pocket-office-tm-final-logo.png"
+       "url": "https://pocket-office.ai/assets/img/logo/pocket-office-tm-final-logo.png"
      }
    }
  }

@@ -3,26 +3,26 @@
  @section('meta-title', 'Business Consulting Services | Strategy & Growth Experts')
  @section('meta-description', 'Get expert business consulting services from Pocket Office to optimize your cloud desktop strategy and drive growth in modern workspaces.')
  @section('meta-keywords', 'business consulting, cloud desktop strategy, growth experts, workspace consulting, business strategy')
- @section('meta-image', 'https://pocketdesk.sizaf.com/assets/img/hero-images/industries/Consulting/Consulting 2.svg')
- @section('canonical', 'https://pocketdesk.sizaf.com/consulting')
- @section('meta-url', 'https://pocketdesk.sizaf.com/consulting')
+ @section('meta-image', 'https://pocket-office.ai/assets/img/hero-images/industries/Consulting/Consulting 2.svg')
+ @section('canonical', 'https://pocket-office.ai/consulting')
+ @section('meta-url', 'https://pocket-office.ai/consulting')
  @section('structured-data')
  @verbatim
  {
    "@context": "https://schema.org",
    "@type": "WebPage",
    "name": "Consulting | Pocket Office",
-   "url": "https://pocketdesk.sizaf.com/consulting",
+   "url": "https://pocket-office.ai/consulting",
    "description": "Get expert business consulting services from Pocket Office to optimize your cloud desktop strategy and drive growth in modern workspaces.",
    "inLanguage": "en",
-   "image": "https://pocketdesk.sizaf.com/assets/img/hero-images/industries/Consulting/Consulting 2.svg",
+   "image": "https://pocket-office.ai/assets/img/hero-images/industries/Consulting/Consulting 2.svg",
    "publisher": {
      "@type": "Organization",
      "name": "Pocket Office",
-     "url": "https://pocketdesk.sizaf.com",
+     "url": "https://pocket-office.ai/",
      "logo": {
        "@type": "ImageObject",
-       "url": "https://pocketdesk.sizaf.com/assets/img/logo/pocket-office-tm-final-logo.png"
+       "url": "https://pocket-office.ai/assets/img/logo/pocket-office-tm-final-logo.png"
      }
    }
  }

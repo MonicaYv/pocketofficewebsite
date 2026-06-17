@@ -3,26 +3,26 @@
   @section('meta-title', 'Search Result | Pocket Office')
   @section('meta-description', 'Search Pocket Office for pages, resources, and content across the cloud desktop website with fast result filtering and navigation.')
   @section('meta-keywords', 'search result, website search, cloud desktop search, pocket office search')
-  @section('meta-image', 'https://pocketdesk.sizaf.com/assets/img/logo/pocket-office-tm-final-logo.png')
-  @section('canonical', 'https://pocketdesk.sizaf.com/search-result')
-  @section('meta-url', 'https://pocketdesk.sizaf.com/search-result')
+  @section('meta-image', 'https://pocket-office.ai/assets/img/logo/pocket-office-tm-final-logo.png')
+  @section('canonical', 'https://pocket-office.ai/search-result')
+  @section('meta-url', 'https://pocket-office.ai/search-result')
   @section('structured-data')
   @verbatim
   {
     "@context": "https://schema.org",
     "@type": "WebPage",
     "name": "Search Result | Pocket Office",
-    "url": "https://pocketdesk.sizaf.com/search-result",
+    "url": "https://pocket-office.ai/search-result",
     "description": "Search Pocket Office for pages, resources, and content across the cloud desktop website with fast result filtering and navigation.",
     "inLanguage": "en",
-    "image": "https://pocketdesk.sizaf.com/assets/img/logo/pocket-office-tm-final-logo.png",
+    "image": "https://pocket-office.ai/assets/img/logo/pocket-office-tm-final-logo.png",
     "publisher": {
       "@type": "Organization",
       "name": "Pocket Office",
-      "url": "https://pocketdesk.sizaf.com",
+      "url": "https://pocket-office.ai/",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://pocketdesk.sizaf.com/assets/img/logo/pocket-office-tm-final-logo.png"
+        "url": "https://pocket-office.ai/assets/img/logo/pocket-office-tm-final-logo.png"
       }
     }
   }
