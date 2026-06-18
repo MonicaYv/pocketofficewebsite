@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const allPlans = JSON.parse(localStorage.getItem("allPlans")) || [];
 
     const selectedPlan = JSON.parse(localStorage.getItem("selectedPlan"));
-    console.log("selectedPlan", selectedPlan);
+    // console.log("selectedPlan", selectedPlan);
 
     const selectedCurrency = JSON.parse(
         localStorage.getItem("selectedCurrency"),
@@ -309,15 +309,15 @@ document.addEventListener("DOMContentLoaded", function () {
                 tile.classList.add("selected");
             }
 
-            console.log(
-    "Tile:",
-    tile.dataset.name,
-    tile.dataset.planId,
-    tile.dataset.planType,
-    "| Current:",
-    currentPlan.plan_id,
-    currentPlan.plan_type
-);
+            // console.log(
+            //     "Tile:",
+            //     tile.dataset.name,
+            //     tile.dataset.planId,
+            //     tile.dataset.planType,
+            //     "| Current:",
+            //     currentPlan.plan_id,
+            //     currentPlan.plan_type
+            // );
 
             const tilePrice = tile.querySelector(".view_plan_price_details");
 
@@ -1131,10 +1131,10 @@ document.addEventListener("DOMContentLoaded", function () {
     //selected plans from pricing page
     planTiles.forEach((tile) => {
         tile.addEventListener("click", function () {
-            console.log("Clicked Plan");
-            console.log("Plan Name:", this.dataset.name);
-            console.log("Plan Type:", this.dataset.planType);
-            console.log("Plan ID:", this.dataset.planId);
+            // console.log("Clicked Plan");
+            // console.log("Plan Name:", this.dataset.name);
+            // console.log("Plan Type:", this.dataset.planType);
+            // console.log("Plan ID:", this.dataset.planId);
 
             planTiles.forEach((t) => t.classList.remove("selected"));
 

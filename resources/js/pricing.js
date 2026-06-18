@@ -1073,7 +1073,7 @@ function handlePlanSelection(btn, forcedType) {
             0,
     };
 
-    console.log("FINAL PLAN:", planData);
+    // console.log("FINAL PLAN:", planData);
 
     localStorage.setItem("selectedPlan", JSON.stringify(planData));
 

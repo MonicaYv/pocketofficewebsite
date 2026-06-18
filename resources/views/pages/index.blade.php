@@ -3,7 +3,7 @@
 @section('meta-title', 'Cloud Desktop That Runs Anywhere | Pocket Office')
 @section('meta-description', 'Experience Pocket Office, the secure browser-based cloud desktop workspace that lets your team access files, apps, and collaboration tools from anywhere without installation.')
 @section('meta-keywords', 'cloud desktop, browser-based workspace, secure cloud desktop, remote collaboration, file management, virtual desktop')
-@section('meta-image', 'https://pocket-office.ai/assets/img/Hero Section.webp')
+@section('meta-image', 'https://pocket-office.ai/assets/img/Hero-Section.webp')
 @section('canonical', 'https://pocket-office.ai/')
 @section('meta-url', 'https://pocket-office.ai/')
 @section('structured-data')
@@ -15,7 +15,7 @@
   "url": "https://pocket-office.ai/",
   "description": "Pocket Office is a secure browser-based cloud desktop workspace that lets teams access files, apps, and collaboration tools from anywhere without installation.",
   "inLanguage": "en",
-  "image": "https://pocket-office.ai/assets/img/Hero Section.webp",
+  "image": "https://pocket-office.ai/assets/img/Hero-Section.webp",
   "publisher": {
     "@type": "Organization",
     "name": "Pocket Office",
@@ -29,15 +29,15 @@
 @endverbatim
 @endsection
 @section('preload')
-<link rel="preload" href="{{ asset('assets/img/Hero Section.webp') }}" as="image" type="image/webp">
+<link rel="preload" href="{{ asset('assets/img/Hero-Section.webp') }}" as="image" type="image/webp">
 @endsection
 @section('content')
 <!-- header area start -->
 <section class="hero-header">
     <!-- Background Image -->
     <div class="hero-bg">
-        <img src="assets/img/Hero Section.webp"
-            srcset="assets/img/Hero Section-480.webp 480w, assets/img/Hero Section.webp 1200w"
+        <img src="assets/img/Hero-Section.webp"
+            srcset="assets/img/Hero-Section-480.webp 480w, assets/img/Hero-Section.webp 1200w"
             sizes="(max-width: 768px) 100vw, 1200px"
             alt="Digital productivity interface with modern workspace layout" width="1200" height="900"
             loading="eager" />

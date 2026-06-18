@@ -50,7 +50,7 @@
 
     {{-- Footer --}}
     @include('layouts.footer')
-    <script src="{{ asset('assets/js/blog.js') }}"></script>
+    
     {{-- Scripts --}}
     @include('layouts.script')
 
