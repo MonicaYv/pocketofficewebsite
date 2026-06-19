@@ -35,18 +35,18 @@
                             <i class="fa-solid fa-cart-shopping"></i>
                         </a>
                     </li>
-                    <li class="search">
+                    <!-- <li class="search">
                         <i class="ti-search"></i>
-                    </li>
+                    </li> -->
                 </ul>
             </div>
             <button
                 class="navbar-toggler"
-    type="button"
-    data-bs-toggle="collapse"
-    data-bs-target="#MapUI_main_menu"
-    aria-controls="MapUI_main_menu"
-    aria-expanded="false">
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#MapUI_main_menu"
+                aria-controls="MapUI_main_menu"
+                aria-expanded="false">
                 <span class="navbar-toggle-icon default-blue">
                     <span class="line"></span>
                     <span class="line"></span>
@@ -498,7 +498,7 @@
                         <li><a href="{{ url('contact-us') }}">Contact Us</a></li>
                     </ul>
                 </li>
-                <div class="col-md-2 text-md-end">
+                <div class="col-md-2 text-md-end pb-2">
                     <div class="mobile-buttons">
                         <a
                             href="https://pocketoffice.sizaf.com/login"

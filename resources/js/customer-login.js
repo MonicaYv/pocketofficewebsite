@@ -34,7 +34,7 @@ function handleLogin() {
     
     if (isDocsPage) {
         // Docs login page redirect
-        window.location.href = "https://documentation.pocketoffice.sizaf.com/user/login";
+        window.location.href = "https://documentation.pocket-office.ai/user/login";
     } else {
         // Customer login page redirect
         window.open("https://documentation.officelescloud.sizaf.com:5050/books", "_blank");

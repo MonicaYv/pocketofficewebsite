@@ -84,9 +84,9 @@ class PortalLoginController extends Controller
     private function resolveSsoBaseUrl(?string $userType): ?string
     {
         return match (strtolower((string) $userType)) {
-            'client' => 'https://documentation.pocketoffice.sizaf.com/partner',
-            'company' => 'https://documentation.pocketoffice.sizaf.com/company',
-            'user', 'group' => 'https://documentation.pocketoffice.sizaf.com/user',
+            'client' => 'https://documentation.pocket-office.ai/partner',
+            'company' => 'https://documentation.pocket-office.ai/company',
+            'user', 'group' => 'https://documentation.pocket-office.ai/user',
             default => null,
         };
     }

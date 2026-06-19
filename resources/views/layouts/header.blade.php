@@ -1,111 +1,44 @@
-<link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css"
-    integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g=="
-    crossorigin="anonymous"
-    referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-    
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<!-- Leaflet CSS contact us page -->
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-<!-- team type -->
+ <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" />
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet" />
-
-<!-- Favicon -->
- <!-- Favicon -->
 <link rel="icon" href="/favicon.ico" type="image/x-icon">
 <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 <link rel="icon" href="{{ asset('assets/img/logo/favicon.ico') }}" sizes="any">
 <link rel="icon" type="image/svg+xml" href="{{ asset('assets/img/logo/fav-icon.svg') }}">
 <link rel="apple-touch-icon" href="{{ asset('assets/img/logo/apple-touch-icon.png') }}">
 
-
 @vite([
-'resources/css/bootstrap.min.css',
-'resources/css/font-awesome.min.css',
-'resources/css/themify-icons.css',
-'resources/css/magnific-popup.css',
-'resources/css/style.css',
-'resources/css/enquiry.css',
-'resources/css/responsive.css',
-'resources/css/animate.css',
-'resources/css/owl.carousel.min.css',
-'resources/css/line-awesome.min.css',
-'resources/css/flaticon.css',
-'resources/css/nice-select.css',
-'resources/css/animated-slider.css',
+    // Main Javascript Entrypoint
+    'resources/js/app.js',
 
+    // Core Layout Styles
+    'resources/css/bootstrap.min.css',
+    // REMOVED: 'resources/css/font-awesome.min.css', <--- This was causing the 404 error
+    'resources/css/themify-icons.css',
+    'resources/css/line-awesome.min.css',
+    'resources/css/flaticon.css',
+    
+    // Component Plugins
+    'resources/css/magnific-popup.css',
+    'resources/css/owl.carousel.min.css',
+    'resources/css/nice-select.css',
+    'resources/css/animate.css',
+    'resources/css/animated-slider.css',
+    
+    // Custom App Layer Stylesheets
+    'resources/css/style.css',
+    'resources/css/enquiry.css',
+    'resources/css/responsive.css'
 ])
 
-
 <style>
-    /* #sales-enquiry-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.6);
-        z-index: 9999;
-        display: none;
-    }
-
-    #sales-enquiry-modal {
-       position: relative;
-    background: #fff;
-    border-radius: 12px;
-    width: 100%;
-    max-width: 780px;
-    max-height: 90vh;
-    overflow-y: auto;
-    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.25);
-    animation: seModalIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-    padding: 0;
-    } */
-
-    /* #sales-enquiry-modal {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 95%;
-  max-width: 780px;
-  background: #fff;
-  border-radius: 16px;
-  max-height: 90vh;
-  overflow-y: auto;
-} */
-
-    /* #sales-enquiry-close {
-        position: absolute;
-        top: 10px;
-        right: 15px;
-        font-size: 20px;
-        cursor: pointer;
-    } */
-
-    .hidden {
-        display: none !important;
-    }
-
-    .custom-error {
-        font-size: 12px;
-        color: red;
-        margin-top: 4px;
-    }
-
-    .is-invalid {
-        border: 1px solid red !important;
-    }
-
-    select.is-invalid,
-    input.is-invalid,
-    textarea.is-invalid {
-        border: 1px solid red !important;
-    }
+    .hidden { display: none !important; }
+    .custom-error { font-size: 12px; color: red; margin-top: 4px; }
+    .is-invalid { border: 1px solid red !important; }
+    select.is-invalid, input.is-invalid, textarea.is-invalid { border: 1px solid red !important; }
 </style>
