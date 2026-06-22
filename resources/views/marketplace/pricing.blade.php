@@ -29,6 +29,7 @@
     .currency-dropdown-wrapper {
       position: relative;
       display: inline-block;
+      max-width: 350px;
     }
 
     .currency-btn {

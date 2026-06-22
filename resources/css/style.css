@@ -16202,7 +16202,7 @@ h5.footer-sub-heading {
 .currency-dropdown-wrapper {
   position: absolute;
   left: 120%;
-  width: 200px;
+  max-width: 350px;
 }
 
 
