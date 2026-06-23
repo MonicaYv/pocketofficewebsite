@@ -18,6 +18,8 @@
         "imagesloaded": "^5.0.0",
         "isotope-layout": "^3.0.6",
         "jquery": "^4.0.0",
+        "jquery.counterup": "^2.1.0",
+        "magnific-popup": "^1.2.0",
         "slick-carousel": "^1.8.1",
         "waypoints": "^4.0.1",
         "wowjs": "^1.1.3"

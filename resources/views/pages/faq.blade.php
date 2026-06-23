@@ -242,6 +242,13 @@
     color: #9ca3af;
     font-size: 14px;
 }
+.faq-grid {
+    align-items: start !important;
+}
+
+.faq-grid > * {
+    height: auto !important;
+}
 </style>
 <script>
 const faqData = [

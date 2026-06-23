@@ -9,7 +9,8 @@ window.$ = $;
 import imagesLoaded from 'imagesloaded';
 import Isotope from 'isotope-layout';
 import 'slick-carousel'; 
-
+import 'magnific-popup';
+import 'magnific-popup/dist/magnific-popup.css';
 // Make imagesLoaded available as a jQuery plugin if your code expects it that way
 imagesLoaded.makeJQueryPlugin($);
 

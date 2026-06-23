@@ -22,9 +22,9 @@
     <div class="login-register-popup-wrap">
         <div class="row no-gutters">
             <div class="col-md-6">
-                <div class="thumb">
+                <!-- <div class="thumb">
                     <img src="assets/img/others/admin-login.png" alt="img" loading="lazy" />
-                </div>
+                </div> -->
             </div>
             <div class="col-md-6 desktop-center-item">
 
@@ -102,9 +102,9 @@
     <div class="login-register-popup-wrap">
         <div class="row no-gutters">
             <div class="col-md-6">
-                <div class="thumb">
+                <!-- <div class="thumb">
                     <img src="assets/img/client-login.png" alt="img" loading="lazy" />
-                </div>
+                </div> -->
             </div>
             <div class="col-md-6 desktop-center-item">
 
