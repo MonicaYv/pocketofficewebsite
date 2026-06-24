@@ -53,7 +53,7 @@
          <h2>Table Of Contents</h2>
 
          <a href="#service-availability">
-           <i class="fa fa-clock-o mr-2"></i> Service Availability
+           <i class="fa fa-clock mr-2"></i> Service Availability
          </a>
 
          <a href="#features">
@@ -95,7 +95,7 @@
        <section id="service-availability" class="card">
          <div class="card-header">
            <div class="icon-box">
-             <i class="fa fa-clock-o"></i>
+             <i class="fa fa-clock"></i>
            </div>
            <div>
              <h3>1. Service Availability</h3>

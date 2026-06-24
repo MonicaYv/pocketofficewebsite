@@ -55,7 +55,7 @@
        <h2>Table Of Contents</h2>
 
        <a href="#overview">
-         <i class="fa fa-file-text-o mr-2"></i> Overview
+         <i class="fa fa-file-text mr-2"></i> Overview
        </a>
 
        <a href="#account-responsibilities">
@@ -63,11 +63,11 @@
        </a>
 
        <a href="#acceptable-use">
-         <i class="fa fa-check-square-o mr-2"></i> Acceptable Use
+         <i class="fa fa-check-square mr-2"></i> Acceptable Use
        </a>
 
        <a href="#content-responsibility">
-         <i class="fa fa-pencil-square-o mr-2"></i> Content Responsibility
+         <i class="fa fa-pencil-square mr-2"></i> Content Responsibility
        </a>
 
        <a href="#team-responsibility">
@@ -88,7 +88,7 @@
        </a>
 
        <a href="#intellectual-property">
-         <i class="fa fa-lightbulb-o mr-2"></i> Intellectual Property
+         <i class="fa fa-lightbulb mr-2"></i> Intellectual Property
        </a>
 
        <a href="#suspension">
@@ -118,7 +118,7 @@
      <section id="overview" class="card">
        <div class="card-header">
          <div class="icon-box">
-           <i class="fa fa-file-text-o"></i>
+           <i class="fa fa-file-text"></i>
          </div>
          <div>
            <h3>1. Overview</h3>
@@ -170,7 +170,7 @@
      <section id="acceptable-use" class="card">
        <div class="card-header">
          <div class="icon-box">
-           <i class="fa fa-check-square-o"></i>
+           <i class="fa fa-check-square"></i>
          </div>
          <div>
            <h3>3. Acceptable Use</h3>
@@ -209,7 +209,7 @@
      <section id="content-responsibility" class="card">
        <div class="card-header">
          <div class="icon-box">
-           <i class="fa fa-pencil-square-o"></i>
+           <i class="fa fa-pencil-square"></i>
          </div>
          <div>
            <h3>4. Content Responsibility</h3>
@@ -276,7 +276,7 @@
      <section id="security-responsibility" class="card">
        <div class="card-header">
          <div class="icon-box">
-           <i class="fa fa-users"></i>
+           <i class="fa fa-lock"></i>
          </div>
          <div>
            <h3>6. Security Responsibility</h3>
@@ -355,7 +355,7 @@
      <section id="intellectual-property" class="card">
        <div class="card-header">
          <div class="icon-box">
-           <i class="fa fa-lightbulb-o"></i>
+           <i class="fa fa-lightbulb"></i>
          </div>
          <div>
            <h3>9. Intellectual Property</h3>

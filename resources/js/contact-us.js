@@ -156,6 +156,12 @@ $(document).ready(function () {
     e.stopPropagation();
   });
 
+  $(".contact-support").on("click", function (e) {
+    e.preventDefault();
+    $(".modal-overlay").removeClass("active");
+    $("body").css("overflow", "");
+  });
+
   // Support Modal
   $(".open-support-modal").on("click", function (e) {
     e.preventDefault();
