@@ -272,7 +272,7 @@
 .faq-acc-item.open .faq-acc-chevron { transform: rotate(180deg); }
 .faq-acc-body {
     display: none;
-    padding: 0 16px 14px 56px;
+    padding: 0 16px 14px 15px;
     font-size: 13px;
     color: #6b7280;
     line-height: 1.6;

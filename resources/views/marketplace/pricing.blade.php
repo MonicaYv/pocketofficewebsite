@@ -363,7 +363,55 @@
                 </button>
               </div>
             </div>
-            <div class="personal-annual-strip show-strip" style="display: block; display: none;">🎉 {{$additional_disc_year_single}}% off — You save on annual billing</div>
+
+            @php
+            $main = $plan->monthly_discount ?? 0;
+            $extra = $plan->monthly_extra_disc ?? 0;
+
+            $parts = [];
+
+            if($main > 0) {
+            $parts[] = $main . '% discount';
+            }
+
+            if($extra > 0) {
+            $parts[] = $extra . '% special offer';
+            }
+            @endphp
+
+            @if(count($parts))
+            <div class="personal-annual-strip show-strip-month">
+              🎉 {{ implode(' + ', $parts) }} — You save on monthly billing
+            </div>
+            @endif
+
+
+
+
+            @php
+            $main = $additional_disc_year_single ?? 0;
+            $extra = $plan->yearly_extra_disc ?? 0;
+            @endphp
+
+            @if($main > 0 || $extra > 0)
+            <div class="personal-annual-strip show-strip" style="display: block; display: none;">
+              🎉
+
+              @if($main > 0)
+              {{ $main }}% off
+              @endif
+
+              @if($main > 0 && $extra > 0)
+              +
+              @endif
+
+              @if($extra > 0)
+              {{ $extra }}% special offer
+              @endif
+
+              — You save on annual billing
+            </div>
+            @endif
 
           </div>
           @endif
@@ -458,7 +506,7 @@
                     <li class="mb-3 d-flex align-items-start">
                       <div class="quantity-box ul-quantity-container">
                         <button class="qty-btn  ul-decrement">−</button>
-                        <input type="text" class="qty-input ul-quantity-input" value="1" readonly />
+                        <input type="text" class="qty-input ul-quantity-input" value="{{ $plan->default_qty }}" readonly />
                         <button class="qty-btn  ul-increment">+</button>
                       </div>
                     </li>
@@ -479,7 +527,7 @@
 
                   <!-- discount  -->
                   <!-- <div class="ul-discount ul-save-badge team-discount-badge" -->
-                  @if($plan->is_team_allowed == 1 && $plan->is_team_discount_apply = 1 && !empty($plan->monthly_discount) && $plan->monthly_discount > 0)
+                  @if($plan->is_team_discount_apply == 1)
                   <div class="ul-discount ul-save-badge "
                     data-is-single="{{ $plan->is_team_discount_apply }}"
                     data-monthly="{{ $plan->is_team_discount_apply == 1 ? 0 : ($plan->monthly_discount ?? 0) }}"

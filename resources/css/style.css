@@ -14063,6 +14063,10 @@ h5.footer-sub-heading {
   line-height: 1;
 }
 
+.contact-support:focus{
+  outline: none;
+}
+
 /* Title */
 .modal-title {
   font-size: 20px;
