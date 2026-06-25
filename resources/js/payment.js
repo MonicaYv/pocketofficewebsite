@@ -4,9 +4,17 @@ document.addEventListener("DOMContentLoaded", function () {
     const selectedPlan = JSON.parse(localStorage.getItem("selectedPlan"));
     // console.log("selectedPlan", selectedPlan);
 
-    const selectedCurrency = JSON.parse(
-        localStorage.getItem("selectedCurrency"),
-    );
+    // const selectedCurrency = JSON.parse(
+    //     localStorage.getItem("selectedCurrency"),
+    // );
+
+    const urlParams = new URLSearchParams(window.location.search);
+
+    const selectedCurrency = {
+        currency_code: urlParams.get("currency_code"),
+    };
+
+    console.log(selectedCurrency.currency_code);
 
     if (!selectedPlan) {
         // toastr.error("No selected plan found");
