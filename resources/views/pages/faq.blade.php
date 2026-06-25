@@ -25,7 +25,7 @@
             <h2 class="faq-main-title mt-3 mb-2"><span class="text-purple">Frequently Asked Questions</h2>
             <p class="faq-sub-text mx-auto mb-4">Find answers to commonly asked questions about our services, support, and company information.</p>
             <div class="faq-search-wrap mx-auto">
-                <i class="ti ti-search faq-search-icon"></i>
+                <i class="fa fa-search faq-search-icon"></i>
                 <input type="text" id="faqSearch" class="faq-search-input" placeholder="Search for questions or keywords..." oninput="filterFAQ()">
             </div>
         </div>
@@ -175,14 +175,57 @@
 
 /* ── Grid ── */
 .faq-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 14px;
-    max-width: 920px;
+    display: flex;
+    gap: 20px;
+    max-width: 1200px;
     margin: 0 auto;
+    align-items: flex-start;
 }
-@media (max-width: 640px) {
-    .faq-grid { grid-template-columns: 1fr; }
+
+.faq-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.faq-acc-item {
+    width: 100%;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.faq-acc-body {
+    max-height: 0;
+    overflow: hidden;
+    padding: 0 16px;
+    transition: all 0.35s ease;
+}
+
+.faq-acc-item.open .faq-acc-body {
+    max-height: 500px;
+    padding: 0 16px 14px;
+}
+
+.faq-acc-item.open {
+    border-color: #c4b9f7;
+}
+
+.faq-acc-chevron {
+    transition: transform .3s ease;
+}
+
+.faq-acc-item.open .faq-acc-chevron {
+    transform: rotate(180deg);
+}
+
+@media (max-width: 768px) {
+    .faq-grid {
+        flex-direction: column;
+    }
 }
 
 /* ── Accordion card ── */
@@ -439,22 +482,45 @@ function getFiltered(query) {
 
 function renderFAQ(list) {
     const grid = document.getElementById('faqGrid');
+
     if (!list.length) {
-        grid.innerHTML = '<div class="faq-no-results"><i class="ti ti-mood-sad" style="font-size:24px;display:block;margin-bottom:8px"></i>No questions found.</div>';
+        grid.innerHTML = `
+            <div class="faq-no-results">
+                <i class="ti ti-mood-sad" style="font-size:24px;display:block;margin-bottom:8px"></i>
+                No questions found.
+            </div>
+        `;
         return;
     }
-    grid.innerHTML = list.map((f, i) => `
-        <div class="faq-acc-item" id="faqAcc${i}">
-            <div class="faq-acc-head" onclick="toggleAcc(${i})">
-                
-                <span class="faq-acc-q">${f.q}</span>
-                <i class="fa fa-angle-down"></i>
-            </div>
-            <div class="faq-acc-body">${f.a}</div>
-        </div>
-    `).join('');
-}
 
+    const mid = Math.ceil(list.length / 2);
+
+    const leftColumn = list.slice(0, mid);
+    const rightColumn = list.slice(mid);
+
+    const createItems = (items, startIndex) =>
+        items.map((f, i) => `
+            <div class="faq-acc-item" id="faqAcc${startIndex + i}">
+                <div class="faq-acc-head" onclick="toggleAcc(${startIndex + i})">
+                    <span class="faq-acc-q">${f.q}</span>
+                    <i class="fa fa-angle-down faq-acc-chevron"></i>
+                </div>
+                <div class="faq-acc-body">
+                    ${f.a}
+                </div>
+            </div>
+        `).join('');
+
+    grid.innerHTML = `
+        <div class="faq-column">
+            ${createItems(leftColumn, 0)}
+        </div>
+
+        <div class="faq-column">
+            ${createItems(rightColumn, mid)}
+        </div>
+    `;
+}
 function toggleAcc(i) {
     const el = document.getElementById('faqAcc' + i);
     const wasOpen = el.classList.contains('open');

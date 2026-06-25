@@ -49,10 +49,14 @@ items.forEach((item) => {
 });
 
 /* Default first open */
-
 window.addEventListener("load", () => {
-  const first = document.querySelector(".storage-item.active");
-  const body = first.querySelector(".storage-body");
+    const first = document.querySelector(".storage-item.active");
 
-  body.style.maxHeight = body.scrollHeight + "px";
+    if (!first) return;
+
+    const body = first.querySelector(".storage-body");
+
+    if (!body) return;
+
+    body.style.maxHeight = body.scrollHeight + "px";
 });
