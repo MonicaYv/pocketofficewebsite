@@ -20,6 +20,9 @@ function updateTeamPlans(
     CURRENT_TEAM_AMOUNT = convertedAmount;
 
     document.querySelectorAll(".monthly-plans").forEach(function (planBox) {
+        let quantityInput = planBox.querySelector(".ul-quantity-input");
+        let quantity = parseInt(quantityInput?.value);
+
         // =========================
         // CHECK TEAM FLAG (NEW)
         // =========================
@@ -112,14 +115,12 @@ function updateTeamPlans(
 
         let totalAmountView = planBox.querySelector(".view-total-amount-count");
         if (totalAmountView) {
-            totalAmountView.textContent = finalTotal;
+            totalAmountView.textContent = finalTotal * quantity;
         }
 
         // =========================
         // LICENSE COUNT
         // =========================
-        let quantityInput = planBox.querySelector(".ul-quantity-input");
-        let quantity = parseInt(quantityInput?.value) || 1;
 
         let baseLicenceCount =
             parseInt(
@@ -163,196 +164,6 @@ function updateTeamPlans(
         }
     });
 }
-
-function updateTeamPlans7788(
-    currencySymbol,
-    convertedAmount,
-    billingType = "monthly",
-) {
-    convertedAmount = Math.round(convertedAmount);
-
-    CURRENT_TEAM_AMOUNT = convertedAmount;
-
-    document.querySelectorAll(".monthly-plans").forEach(function (planBox) {
-        // Currency Symbol
-        planBox
-            .querySelectorAll(".personal-card-symbol-ul")
-            .forEach(function (el) {
-                el.textContent = currencySymbol;
-            });
-
-        // Base Price
-        let priceAmountEl = planBox.querySelector(".price-amount");
-
-        if (priceAmountEl) {
-            priceAmountEl.textContent = convertedAmount;
-        }
-
-        // User Count
-        let userCount =
-            parseInt(
-                planBox.querySelector(".user-count-ul")?.textContent.trim(),
-            ) || 0;
-
-        // Discount
-        let discountEl = planBox.querySelector(".discount-ul");
-
-        let discount = 0;
-
-        if (discountEl) {
-            discount =
-                billingType === "yearly"
-                    ? parseFloat(discountEl.getAttribute("data-yearly")) || 0
-                    : parseFloat(discountEl.getAttribute("data-monthly")) || 0;
-        }
-
-        // Extra Discount
-        let extraDiscountEl = planBox.querySelector(".extra-discount-ul");
-
-        let extraDiscount = 0;
-
-        if (extraDiscountEl) {
-            extraDiscount =
-                billingType === "yearly"
-                    ? parseFloat(extraDiscountEl.getAttribute("data-yearly")) ||
-                      0
-                    : parseFloat(
-                          extraDiscountEl.getAttribute("data-monthly"),
-                      ) || 0;
-        }
-
-        // Total
-        let total =
-            billingType === "yearly"
-                ? convertedAmount * 12 * userCount
-                : convertedAmount * userCount;
-
-        // First Discount
-        let afterFirstDiscount = total - (total * discount) / 100;
-
-        // Extra Discount
-        let finalTotal =
-            afterFirstDiscount - (afterFirstDiscount * extraDiscount) / 100;
-
-        // Round
-        finalTotal = Math.round(finalTotal);
-
-        // Update Final Amount
-        let totalPriceEl = planBox.querySelector(".total-price-ul");
-
-        if (totalPriceEl) {
-            totalPriceEl.textContent = finalTotal;
-        }
-
-        // Update Currency
-        let viewCurrency = planBox.querySelector(".view-currency");
-
-        if (viewCurrency) {
-            viewCurrency.textContent = currencySymbol;
-        }
-
-        // =========================
-        // Update Amount View
-        // =========================
-        let totalAmountView = planBox.querySelector(".view-total-amount-count");
-
-        if (totalAmountView) {
-            totalAmountView.textContent = finalTotal;
-        }
-
-        // =========================
-        // Total Licence Count
-        // =========================
-        let quantityInput = planBox.querySelector(".ul-quantity-input");
-
-        let quantity = parseInt(quantityInput?.value) || 1;
-
-        // Base Licence Count
-        let baseLicenceCount =
-            parseInt(
-                planBox
-                    .querySelector(".base-licence-count")
-                    ?.textContent.trim(),
-            ) || 0;
-
-        // Total Licence Count
-        let totalLicenceCount = baseLicenceCount * quantity;
-
-        // Update Total Licence Count
-        let totalLicenceView = planBox.querySelector(
-            ".view-total-license-count",
-        );
-
-        if (totalLicenceView) {
-            totalLicenceView.textContent = totalLicenceCount;
-        }
-
-        // =========================
-        // Per User Storage
-        // =========================
-        let perUserStorage =
-            parseInt(
-                planBox.querySelector(".base-storage")?.textContent.trim(),
-            ) || 0;
-
-        // Total Pool Storage
-        let totalPoolStorage = perUserStorage * totalLicenceCount;
-
-        // Update Pool Storage
-        let totalPoolStorageView = planBox.querySelector(
-            ".view-total-poolstorage-count",
-        );
-
-        if (totalPoolStorageView) {
-            totalPoolStorageView.textContent = totalPoolStorage;
-        }
-
-        // Period Text
-        let userText = planBox.querySelector(".user-text");
-
-        if (userText) {
-            userText.textContent =
-                billingType === "yearly" ? "user/year" : "user/month";
-        }
-    });
-}
-
-// =========================
-// Update Team Discount Badge
-// =========================
-// function updateTeamDiscountBadges(billingType = "monthly") {
-//     $(".team-discount-badge").each(function () {
-//         let monthlyDiscount = parseFloat($(this).attr("data-monthly")) || 0;
-
-//         let yearlyDiscount = parseFloat($(this).attr("data-yearly")) || 0;
-
-//         // Monthly
-//         if (billingType === "monthly") {
-//             if (monthlyDiscount > 0) {
-//                 $(this)
-//                     .html(
-//                         `🎉 ${monthlyDiscount}% off — Enjoy extra savings with monthly billing`,
-//                     )
-//                     .show();
-//             } else {
-//                 $(this).hide();
-//             }
-//         }
-
-//         // Yearly
-//         else {
-//             if (yearlyDiscount > 0) {
-//                 $(this)
-//                     .html(
-//                         `🎉 ${yearlyDiscount}% off — Enjoy extra savings with annual billing`,
-//                     )
-//                     .show();
-//             } else {
-//                 $(this).hide();
-//             }
-//         }
-//     });
-// }
 
 // =========================
 // Update Single User Plans
@@ -732,8 +543,11 @@ $(document).ready(function () {
         // Show / Hide Annual Strip
         if (SINGLE_USER_BILLING === "yearly") {
             $(".show-strip").slideDown();
+            $(".show-strip-month").slideUp();            
         } else {
             $(".show-strip").slideUp();
+            $(".show-strip-month").slideDown();            
+
         }
 
         // Update Combined Table
@@ -753,7 +567,7 @@ $(document).ready(function () {
 
         let qtyInput = planBox.find(".ul-quantity-input");
 
-        let currentQty = parseInt(qtyInput.val()) || 1;
+        let currentQty = parseInt(qtyInput.val());
 
         currentQty++;
 
@@ -770,7 +584,7 @@ $(document).ready(function () {
 
         let qtyInput = planBox.find(".ul-quantity-input");
 
-        let currentQty = parseInt(qtyInput.val()) || 1;
+        let currentQty = parseInt(qtyInput.val());
 
         if (currentQty > 1) {
             currentQty--;
@@ -954,7 +768,7 @@ $(document).ready(function () {
 
             success: function (response) {
                 //RESET ALL QUANTITY INPUTS
-                $(".ul-quantity-input").val(1);
+                $(".ul-quantity-input").val();
 
                 // Update Pricing
                 updateCurrency(response.amount, response.symbol);
@@ -1032,20 +846,34 @@ function handlePlanSelection(btn, forcedType) {
     amount = amount.replace(/,/g, "");
 
     let qty = container.find(".ul-quantity-input").length
-        ? parseInt(container.find(".ul-quantity-input").val()) || 1
+        ? parseInt(container.find(".ul-quantity-input").val())
         : 1;
 
     let discountEl = container.find(".discount-ul");
     let extraDiscountEl = container.find(".extra-discount-ul");
     let tableAmountEl = container.find(".table-plan-amount");
 
+    let billingType = "monthly";
+
+    if (forcedType === "team") {
+        billingType =
+            $(".team-billing-toggle.active").data("type") || "monthly";
+    } else {
+        billingType = container.find(".billing-toggle").is(":checked")
+            ? "yearly"
+            : "monthly";
+    }
+
     const planData = {
-        plan_type: forcedType, // 🔥 IMPORTANT FIX
+        plan_type: forcedType,
+        billing_type: billingType,
 
         plan_id: btn.data("plan-id"),
         name: btn.data("name"),
 
-        license: qty,
+        // license: qty,
+        license: btn.data("license"),
+        quantity: qty,
         storage: parseInt(btn.data("storage")) || 10,
         storage_unit: btn.data("storage-unit") || "GB",
 
@@ -1079,215 +907,8 @@ function handlePlanSelection(btn, forcedType) {
 
     window.location.href =
         "/payment?currency_code=" +
-        (document.querySelector("#currencyMenu li.active")?.dataset.currency ||
-            "") +
-        "&plan_type=" +
-        planData.plan_type;
+        (document.querySelector("#currencyMenu li.active")?.dataset.currency || "") +
+        "&plan_type=" + planData.plan_type +
+        "&billing_type=" + planData.billing_type
+        ;
 }
-
-
-
-// $(document).on(
-//     "click",
-//     ".js-select-plan, .team-js-select-plan, .js-select-plan-compare, .team-js-select-plan-compare",
-//     function () {
-//         const btn = $(this);
-
-//         const isPersonal = btn.hasClass("js-select-plan");
-//         const isTeam = btn.hasClass("team-js-select-plan");
-
-//         //comapare
-//         const isPersonalCompare = btn.hasClass("js-select-plan-compare");
-//         const isTeamCompare = btn.hasClass("team-js-select-plan-compare");
-
-//         let container;
-
-//         // Personal Card
-//         if (btn.closest(".personal-card").length) {
-//             container = btn.closest(".personal-card");
-//         }
-
-//         // Team Card
-//         else if (btn.closest(".ul-cards").length) {
-//             container = btn.closest(".ul-cards");
-//         }
-
-//         // Compare Table
-//         else if (btn.closest("td").length) {
-//             let td = btn.closest("td");
-
-//             let columnIndex = td.index();
-
-//             let table = td.closest("table");
-
-//             let matchingTh = table.find("thead th").eq(columnIndex);
-
-//             container = $("<div>");
-
-//             // Add current td
-//             container.append(td.clone());
-
-//             // Add matching header
-//             container.append(matchingTh.clone());
-//         }
-
-//         let symbol = "";
-
-//         // From cards
-//         symbol = container
-//             .find(".personal-card-symbol-ul")
-//             .first()
-//             .text()
-//             .trim();
-
-//         // From compare table
-//         if (!symbol) {
-//             symbol = container.find(".table-plan-symbol").first().text().trim();
-//         }
-
-//         // fallback
-//         if (!symbol) {
-//             symbol = $(".table-plan-symbol").first().text().trim();
-//         }
-
-//         let amount = "";
-
-//         // Personal / Team card
-//         amount = container.find(".total-price-ul").first().text().trim();
-
-//         // Compare table
-//         if (!amount) {
-//             amount = container.find(".table-plan-amount").first().text().trim();
-//         }
-
-//         // fallback
-//         if (!amount) {
-//             amount = $(".table-plan-amount").first().text().trim();
-//         }
-
-//         amount = amount.replace(/,/g, "");
-
-//         let discountEl = container.find(".discount-ul");
-
-//         let extraDiscountEl = container.find(".extra-discount-ul");
-
-//         let tableAmountEl = container.find(".table-plan-amount");
-
-//         let qty = 1;
-
-//         if (container.find(".ul-quantity-input").length) {
-//             qty = parseInt(container.find(".ul-quantity-input").val()) || 1;
-//         }
-
-//         let billingType = "monthly";
-
-//         // SINGLE USER
-//         if (btn.data("plan-type") === "single") {
-//             billingType = SINGLE_USER_BILLING;
-//         }
-
-//         // TEAM
-//         if (btn.data("plan-type") === "team") {
-//             billingType = TEAM_BILLING;
-//         }
-
-//         const planData = {
-//             plan_type: btn.data("plan-type"),
-
-//             billing_type: billingType,
-
-//             plan_id: btn.data("plan-id"),
-
-//             name: btn.data("name"),
-
-//             license: qty,
-
-//             storage: parseInt(btn.data("storage")) || 10,
-
-//             storage_unit: btn.data("storage-unit") || "GB",
-
-//             symbol: symbol,
-
-//             price: parseFloat(amount) || 0,
-
-//             monthly_discount:
-//                 parseFloat(discountEl.data("monthly")) ||
-//                 parseFloat(tableAmountEl.data("monthly-discount")) ||
-//                 0,
-
-//             yearly_discount:
-//                 parseFloat(discountEl.data("yearly")) ||
-//                 parseFloat(tableAmountEl.data("yearly-discount")) ||
-//                 0,
-
-//             extra_monthly:
-//                 parseFloat(extraDiscountEl.data("monthly")) ||
-//                 parseFloat(tableAmountEl.data("extra-monthly")) ||
-//                 0,
-
-//             extra_yearly:
-//                 parseFloat(extraDiscountEl.data("yearly")) ||
-//                 parseFloat(tableAmountEl.data("extra-yearly")) ||
-//                 0,
-//         };
-
-//         // SELECTED CURRENCY
-//         const activeCurrency = document.querySelector(
-//             "#currencyMenu li.active",
-//         );
-
-//         const currencyData = activeCurrency
-//             ? {
-//                   currency_code: activeCurrency.dataset.currency,
-//                   symbol: activeCurrency.dataset.symbol,
-//                   base_amount: activeCurrency.dataset.amount,
-//                   country: activeCurrency.dataset.country,
-//                   is_base_currency: activeCurrency.dataset.base,
-//               }
-//             : null;
-
-//         // Save Currency
-//         localStorage.setItem("selectedCurrency", JSON.stringify(currencyData));
-
-//         const allPlans = [];
-
-//         $(
-//             ".js-select-plan, .team-js-select-plan, .js-select-plan-compare, .team-js-select-plan-compare",
-//         ).each(function () {
-//             const btn = $(this);
-
-//             allPlans.push({
-//                 plan_id: btn.data("plan-id"),
-//                 plan_type: btn.data("plan-type"),
-//                 name: btn.data("name"),
-//                 storage: btn.data("storage"),
-//                 storage_unit: btn.data("storage-unit"),
-//                 license: btn.data("license"),
-
-//                 price:
-//                     parseFloat(
-//                         btn
-//                             .closest(".personal-card, .ul-cards")
-//                             .find(".total-price-ul")
-//                             .first()
-//                             .text()
-//                             .replace(/,/g, ""),
-//                     ) || 0,
-
-//                 monthly_discount: btn.data("monthly-discount") || 0,
-//                 yearly_discount: btn.data("yearly-discount") || 0,
-
-//                 extra_monthly_discount: btn.data("extra-monthly-discount") || 0,
-
-//                 extra_yearly_discount: btn.data("extra-yearly-discount") || 0,
-//             });
-//         });
-
-//         localStorage.setItem("allPlans", JSON.stringify(allPlans));
-
-//         localStorage.setItem("selectedPlan", JSON.stringify(planData));
-
-//         window.location.href =
-//             "/payment?currency_code=" + currencyData.currency_code;
-//     },
-// );

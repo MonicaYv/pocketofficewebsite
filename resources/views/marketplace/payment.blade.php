@@ -498,7 +498,7 @@
                                      class="summary-row hidden"
                                      id="discountRow"
                                      style="color: #16a34a">
-                                     <span>Coupon Discount (10%)</span>
+                                     <span></span>
                                      <span id="discountAmt">—</span>
                                  </div>
 

@@ -203,7 +203,8 @@ class UserLicensePlansController extends Controller
     //call payment page
     public function payment(Request $request)
     {
-        $planLists = UsersLicensePlan::where('pof_plan_status', 1)->get();
+        $selectedPlanType = $request->plan_type;
+        $billing_type = $request->billing_type;
 
         $currencyData = CurrencyRate::where('currency_code', $request->currency_code)->first();
 
@@ -211,67 +212,187 @@ class UserLicensePlansController extends Controller
             abort(400, "Invalid currency selected");
         }
 
-        $rate = $currencyData->actual_amount;
+        $rate = round($currencyData->actual_amount);
 
-        if (!$rate) {
-            abort(400, "Currency rate not available");
-        }
+        // =========================
+        // GET PLANS BY TYPE
+        // =========================
+        $planLists = UsersLicensePlan::where('pof_plan_status', 1)
+            ->when($selectedPlanType === 'single', function ($query) {
+                $query->where('is_single_user', 1);
+            })
+            ->when($selectedPlanType === 'team', function ($query) {
+                $query->where('is_team_allowed', 1);
+            })
+            ->get();
 
-        foreach ($planLists as $plan) {
+        // =========================
+        // SINGLE USER PRICING
+        // =========================
+        if ($selectedPlanType === 'single') {
 
-            // =========================
-            // BASE PRICE
-            // =========================
-            $base = $rate * ($plan->plans_license ?? 1);
+            foreach ($planLists as $plan) {
 
-            // =========================
-            // MONTHLY BASE
-            // =========================
-            $monthly = $base;
+                $base = $rate * ($plan->plans_license ?? 1);
 
-            // =========================
-            // YEARLY BASE
-            // =========================
-            $yearly = $base * 12;
+                $monthly = $base;
+                $yearly  = $base * 12;
 
-            // =========================
-            // SINGLE USER LOGIC
-            // =========================
-            if ($plan->is_single_user == 1) {
+                $plan->final_monthly_price =
+                    $monthly
+                    * (1 - ($plan->monthly_discount ?? 0) / 100)
+                    * (1 - ($plan->monthly_extra_disc ?? 0) / 100);
 
-                $finalMonthlyPrice = $monthly;
-                $finalYearlyPrice  = $yearly;
-            } else {
+                $plan->final_yearly_price =
+                    $yearly
+                    * (1 - ($plan->yearly_discount ?? 0) / 100)
+                    * (1 - ($plan->yearly_extra_disc ?? 0) / 100);
 
-                // =========================
-                // MONTHLY DISCOUNT (STEPWISE)
-                // =========================
-                $finalMonthlyPrice = $monthly;
+                $plan->active_price = ($billing_type === 'yearly')
+                    ? round($plan->final_yearly_price)
+                    : round($plan->final_monthly_price);
 
-                $finalMonthlyPrice -= ($finalMonthlyPrice * ($plan->monthly_discount ?? 0) / 100);
-                $finalMonthlyPrice -= ($finalMonthlyPrice * ($plan->monthly_extra_disc ?? 0) / 100);
-
-                // =========================
-                // YEARLY DISCOUNT (STEPWISE)
-                // =========================
-                $finalYearlyPrice = $yearly;
-
-                $finalYearlyPrice -= ($finalYearlyPrice * ($plan->yearly_discount ?? 0) / 100);
-                $finalYearlyPrice -= ($finalYearlyPrice * ($plan->yearly_extra_disc ?? 0) / 100);
+                $plan->currency_symbol = $currencyData->currency_symbol ?? '$';
             }
-
-            // =========================
-            // FINAL ROUND (ONLY ONCE)
-            // =========================
-            $plan->base_price = round($base, 2);
-            $plan->final_monthly_price = round($finalMonthlyPrice); // integer
-            $plan->final_yearly_price  = round($finalYearlyPrice);  // integer
-
-            $plan->currency_symbol = $currencyData->currency_symbol ?? '$';
         }
 
-        return view('marketplace.payment', compact('planLists'));
+        // =========================
+        // TEAM PRICING
+        // =========================
+        if ($selectedPlanType === 'team') {
+
+            foreach ($planLists as $plan) {
+
+                $base = $rate * ($plan->plans_license ?? 1);
+
+                $monthly = $base;
+                $yearly  = $base * 12;
+
+                // TEAM MAY HAVE DIFFERENT DISCOUNT RULES
+                $plan->final_monthly_price =
+                    $monthly
+                    * (1 - ($plan->monthly_discount ?? 0) / 100)
+                    * (1 - ($plan->monthly_extra_disc ?? 0) / 100);
+
+                $plan->final_yearly_price =
+                    $yearly
+                    * (1 - ($plan->yearly_discount ?? 0) / 100)
+                    * (1 - ($plan->yearly_extra_disc ?? 0) / 100);
+
+                $plan->active_price = ($billing_type === 'yearly')
+                    ? round($plan->final_yearly_price)
+                    : round($plan->final_monthly_price);
+
+                $plan->currency_symbol = $currencyData->currency_symbol ?? '$';
+            }
+        }
+
+        return view('marketplace.payment', compact('planLists', 'selectedPlanType', 'billing_type'));
     }
+
+
+
+    // public function payment(Request $request)
+    // {
+    //     // $planLists = UsersLicensePlan::where('pof_plan_status', 1)->get();
+    //     $selectedPlanType = $request->plan_type;
+    //     $billing_type = $request->billing_type;
+
+    //     $planLists = UsersLicensePlan::where('pof_plan_status', 1)
+
+    //         ->when($selectedPlanType === 'single', function ($query) {
+    //             $query->where('is_single_user', 1);
+    //         })
+
+    //         ->when($selectedPlanType === 'team', function ($query) {
+    //             $query->where('is_team_allowed', 1);
+    //         })
+
+    //         ->get();
+
+    //     $currencyData = CurrencyRate::where('currency_code', $request->currency_code)->first();
+
+    //     if (!$currencyData) {
+    //         abort(400, "Invalid currency selected");
+    //     }
+
+    //     $rate = $currencyData->actual_amount;
+
+    //     if (!$rate) {
+    //         abort(400, "Currency rate not available");
+    //     }
+
+    //     // foreach ($planLists as $plan) {
+    //     //     $base = $rate * ($plan->plans_license ?? 1);
+
+    //     //     $monthly = $base;
+    //     //     $yearly = $base * 12;
+
+    //     //     // SINGLE USER LOGIC
+    //     //     if ($plan->is_single_user == 1) {
+    //     //         $finalMonthlyPrice = $monthly;
+
+    //     //         $finalMonthlyPrice -= ($finalMonthlyPrice * ($plan->monthly_discount ?? 0) / 100);
+    //     //         $finalMonthlyPrice -= ($finalMonthlyPrice * ($plan->monthly_extra_disc ?? 0) / 100);
+
+    //     //         $finalYearlyPrice  = $yearly;
+    //     //         $finalYearlyPrice -= ($finalYearlyPrice * ($plan->yearly_discount ?? 0) / 100);
+    //     //         $finalYearlyPrice -= ($finalYearlyPrice * ($plan->yearly_extra_disc ?? 0) / 100);
+    //     //         echo $finalMonthlyPrice;
+    //     //     } else {
+    //     //         // MONTHLY DISCOUNT (STEPWISE)
+    //     //         $finalMonthlyPrice = $monthly;
+
+    //     //         $finalMonthlyPrice -= ($finalMonthlyPrice * ($plan->monthly_discount ?? 0) / 100);
+    //     //         $finalMonthlyPrice -= ($finalMonthlyPrice * ($plan->monthly_extra_disc ?? 0) / 100);
+
+    //     //         // YEARLY DISCOUNT (STEPWISE)
+    //     //         $finalYearlyPrice = $yearly;
+
+    //     //         $finalYearlyPrice -= ($finalYearlyPrice * ($plan->yearly_discount ?? 0) / 100);
+    //     //         $finalYearlyPrice -= ($finalYearlyPrice * ($plan->yearly_extra_disc ?? 0) / 100);
+    //     //         echo  $finalMonthlyPrice;
+    //     //     }
+
+    //     //     // FINAL ROUND (ONLY ONCE)
+    //     //     $plan->base_price = round($base, 2);
+    //     //     $plan->final_monthly_price = round($finalMonthlyPrice); // integer
+    //     //     $plan->final_yearly_price  = round($finalYearlyPrice);  // integer
+
+    //     //     $plan->currency_symbol = $currencyData->currency_symbol ?? '$';
+    //     // }
+
+    //     foreach ($planLists as $plan) {
+
+    //         $base = $rate * ($plan->plans_license ?? 1);
+
+    //         $monthly = $base;
+    //         $yearly = $base * 12;
+
+    //         // MONTHLY PRICE CALCULATION
+    //         $monthlyPrice = $monthly;
+    //         $monthlyPrice -= ($monthlyPrice * ($plan->monthly_discount ?? 0) / 100);
+    //         $monthlyPrice -= ($monthlyPrice * ($plan->monthly_extra_disc ?? 0) / 100);
+
+    //         // YEARLY PRICE CALCULATION
+    //         $yearlyPrice = $yearly;
+    //         $yearlyPrice -= ($yearlyPrice * ($plan->yearly_discount ?? 0) / 100);
+    //         $yearlyPrice -= ($yearlyPrice * ($plan->yearly_extra_disc ?? 0) / 100);
+
+    //         // STORE BOTH (for UI switching if needed)
+    //         $plan->final_monthly_price = round($monthlyPrice);
+    //         $plan->final_yearly_price  = round($yearlyPrice);
+
+    //         // ⭐ ADD THIS: ACTIVE PRICE BASED ON USER SELECTION
+    //         $plan->active_price = ($billing_type === 'yearly')
+    //             ? $plan->final_yearly_price
+    //             : $plan->final_monthly_price;
+
+    //         $plan->currency_symbol = $currencyData->currency_symbol ?? '$';
+    //     }
+
+    //     return view('marketplace.payment', compact('planLists'));
+    // }
 
     //get plan data
     public function getPlanList(Request $request)

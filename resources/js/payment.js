@@ -2,10 +2,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const allPlans = JSON.parse(localStorage.getItem("allPlans")) || [];
 
     const selectedPlan = JSON.parse(localStorage.getItem("selectedPlan"));
-    // console.log("selectedPlan", selectedPlan);
 
     // const selectedCurrency = JSON.parse(
-    //     localStorage.getItem("selectedCurrency"),
+    //     localStorage.getItem("selectedCurrency"), 
     // );
 
     const urlParams = new URLSearchParams(window.location.search);
@@ -14,12 +13,16 @@ document.addEventListener("DOMContentLoaded", function () {
         currency_code: urlParams.get("currency_code"),
     };
 
-    console.log(selectedCurrency.currency_code);
-
     if (!selectedPlan) {
-        // toastr.error("No selected plan found");
         return;
     }
+
+    const qty = selectedPlan.quantity || 1;
+    const input = document.getElementById("payQtyInput");
+    input.value = qty;
+
+    const license = selectedPlan.license;
+    // console.log(license);
 
     const summaryPlanName = document.getElementById("summaryPlanName");
     const summarySymbol = document.getElementById("summarySymbol");
@@ -228,14 +231,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (monthlyDiscount > 0) {
             monthlyDiscountBadge.style.display = "inline-block";
-            monthlyDiscountBadge.innerText = monthlyDiscount + "% OFF";
+            monthlyDiscountBadge.innerText = monthlyDiscount + "% off";
         } else {
             monthlyDiscountBadge.style.display = "none";
         }
 
         if (yearlyDiscount > 0) {
             yearlyDiscountBadge.style.display = "inline-block";
-            yearlyDiscountBadge.innerText = yearlyDiscount + "% OFF";
+            yearlyDiscountBadge.innerText = yearlyDiscount + "% off";
         } else {
             yearlyDiscountBadge.style.display = "none";
         }
@@ -245,9 +248,10 @@ document.addEventListener("DOMContentLoaded", function () {
             discountRow.style.display = "flex";
 
             discountRow.querySelector("span:first-child").innerText =
-                `Discount (${activeDiscount}%)`;
+                `Discount `;
 
-            discountAmt.innerText = "- " + discountValue;
+            discountAmt.innerText =  discountValue + "%";
+            
         } else {
             discountRow.classList.add("hidden");
             discountRow.style.display = "none";
@@ -296,9 +300,8 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         let totalStorage = parseInt(currentPlan.storage || 0) * quantity;
-
         planFeatureList.innerHTML = `
-        <li>${quantity} User License</li>
+        <li>${license} User License</li>
         <li>${currentPlan.storage} ${currentPlan.storage_unit} Per User</li>
         <li>Total Storage : ${totalStorage} ${currentPlan.storage_unit}</li>
         `;
