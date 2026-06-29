@@ -40,7 +40,9 @@
             srcset="assets/img/Hero-Section-480.webp 480w, assets/img/Hero-Section.webp 1200w"
             sizes="(max-width: 768px) 100vw, 1200px"
             alt="Digital productivity interface with modern workspace layout" width="1200" height="900"
-            loading="eager" />
+            loading="eager" 
+            fetchpriority="high"
+            />
     </div>
     <div class="">
         <div class="hero-wrapper">
