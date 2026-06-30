@@ -25,16 +25,16 @@
                   </td>
                   <td align="right">
                     <!-- Social Icons -->
-                    <a href="#" style="display:inline-block;margin-left:10px;">
+                    <a href="https://x.com/twitt_login?lang=en" style="display:inline-block;margin-left:10px;">
                       <img src="{{ asset($constants['IMAGEFILEPATH'] . 'twitter-2.png') }}" alt="Twitter" width="20" height="20" style="display:block;" />
                     </a>
-                    <a href="#" style="display:inline-block;margin-left:10px;">
+                    <a href="https://www.facebook.com/login/" style="display:inline-block;margin-left:10px;">
                       <img src="{{ asset($constants['IMAGEFILEPATH'] . 'facebook-2.png') }}" alt="Facebook" width="20" height="20" style="display:block;" />
                     </a>
-                    <a href="#" style="display:inline-block;margin-left:10px;">
+                    <a href="https://www.instagram.com/accounts/login/?hl=en" style="display:inline-block;margin-left:10px;">
                       <img src="{{ asset($constants['IMAGEFILEPATH'] . 'instagram-2.png') }}" alt="Instagram" width="20" height="20" style="display:block;" />
                     </a>
-                    <a href="#" style="display:inline-block;margin-left:10px;">
+                    <a href="https://in.linkedin.com/" style="display:inline-block;margin-left:10px;">
                       <img src="{{ asset($constants['IMAGEFILEPATH'] . 'linkdlen-2.png') }}" alt="linkdlen" width="20" height="20" style="display:block;" />
                     </a>
                   </td>
@@ -168,7 +168,7 @@
           <tr>
             <td style="background:#f7fafc;border-top:1px solid #eef2f6;padding:22px 28px;text-align:center;">
               <p style="margin:0 0 4px;font-size:12px;color:#999;font-family:Arial,Helvetica,sans-serif;">
-                Need help? Contact us at <a href="mailto:support@sizaf.com" style="color:#0694B7;text-decoration:none;font-weight:700;">support@sizaf.com</a>
+                Need help? Contact us at <a href="mailto:hello@Pocketoffice.com" style="color:#0694B7;text-decoration:none;font-weight:700;">hello@Pocketoffice.com</a>
               </p>
               <p style="margin:0 0 14px;font-size:12px;color:#999;font-family:Arial,Helvetica,sans-serif;">
                 © 2024 Sizaf Technologies Pvt. Ltd. All rights reserved.
@@ -177,22 +177,22 @@
               <table cellpadding="0" cellspacing="0" border="0" style="margin:0 auto;">
                 <tr>
                   <td style="padding:0 8px;">
-                    <a href="#" style="display:inline-block;width:34px;height:34px;background:#ffffff;border:1.5px solid #e0e7ef;border-radius:50%;text-align:center;line-height:34px;text-decoration:none;">
+                    <a href="https://www.facebook.com/login/" style="display:inline-block;width:34px;height:34px;background:#ffffff;border:1.5px solid #e0e7ef;border-radius:50%;text-align:center;line-height:34px;text-decoration:none;">
                       <img src="{{ asset($constants['IMAGEFILEPATH'] . 'facebook-2.png') }}" alt="Facebook" width="15" height="15" style="display:block;margin:9px auto;" />
                     </a>
                   </td>
                   <td style="padding:0 8px;">
-                    <a href="#" style="display:inline-block;width:34px;height:34px;background:#ffffff;border:1.5px solid #e0e7ef;border-radius:50%;text-align:center;line-height:34px;text-decoration:none;">
+                    <a href="https://x.com/twitt_login?lang=en" style="display:inline-block;width:34px;height:34px;background:#ffffff;border:1.5px solid #e0e7ef;border-radius:50%;text-align:center;line-height:34px;text-decoration:none;">
                       <img src="{{ asset($constants['IMAGEFILEPATH'] . 'twitter-2.png') }}" alt="Twitter" width="15" height="15" style="display:block;margin:9px auto;" />
                     </a>
                   </td>
                   <td style="padding:0 8px;">
-                    <a href="#" style="display:inline-block;width:34px;height:34px;background:#ffffff;border:1.5px solid #e0e7ef;border-radius:50%;text-align:center;line-height:34px;text-decoration:none;">
+                    <a href="https://in.linkedin.com/" style="display:inline-block;width:34px;height:34px;background:#ffffff;border:1.5px solid #e0e7ef;border-radius:50%;text-align:center;line-height:34px;text-decoration:none;">
                       <img src="{{ asset($constants['IMAGEFILEPATH'] . 'linkdlen-2.png') }}" alt="linkdlen" width="15" height="15" style="display:block;margin:9px auto;" />
                     </a>
                   </td>
                   <td style="padding:0 8px;">
-                    <a href="#" style="display:inline-block;width:34px;height:34px;background:#ffffff;border:1.5px solid #e0e7ef;border-radius:50%;text-align:center;line-height:34px;text-decoration:none;">
+                    <a href="https://www.instagram.com/accounts/login/?hl=en" style="display:inline-block;width:34px;height:34px;background:#ffffff;border:1.5px solid #e0e7ef;border-radius:50%;text-align:center;line-height:34px;text-decoration:none;">
                       <img src="{{ asset($constants['IMAGEFILEPATH'] . 'instagram-2.png') }}" alt="Instagram" width="15" height="15" style="display:block;margin:9px auto;" />
                     </a>
                   </td>
