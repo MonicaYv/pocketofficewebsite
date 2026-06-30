@@ -552,8 +552,8 @@
                                  style="font-size: 12px; margin-top: 6px"></div>
 
                              <button id="removeCouponBtn"
-                                 style="display:none; margin-top:6px; background:none; border:none; color:red; cursor:pointer;">
-                                 ❌ Remove Coupon
+                                 style="display:none; margin-top: 6px; background:none; border:none; color:red; cursor:pointer; font-size:12px; padding:0 12px; border-radius: 8px; box-shadow: 0 4px 6px #07a6cc52;" class="btn">
+                                  Remove Coupon
                              </button>
 
                              <hr style="margin: 14px 0" />
