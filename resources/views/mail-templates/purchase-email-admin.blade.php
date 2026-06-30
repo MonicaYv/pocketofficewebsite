@@ -39,16 +39,16 @@
                     <table border="0" cellpadding="0" cellspacing="0">
                       <tr>
                         <td style="padding: 0 4px;">
-                          <a href="#" target="_blank" style="text-decoration: none;"><img src="{{ asset($constants['IMAGEFILEPATH'] . 'twitter-2.png') }}" alt="Twitter" width="20" height="20" style="display: block; border: 0;" /></a>
+                          <a href="https://x.com/twitt_login?lang=en" target="_blank" style="text-decoration: none;"><img src="{{ asset($constants['IMAGEFILEPATH'] . 'twitter-2.png') }}" alt="Twitter" width="20" height="20" style="display: block; border: 0;" /></a>
                         </td>
                         <td style="padding: 0 4px;">
-                          <a href="#" target="_blank" style="text-decoration: none;"><img src="{{ asset($constants['IMAGEFILEPATH'] . 'facebook-2.png') }}" alt="Facebook" width="20" height="20" style="display: block; border: 0;" /></a>
+                          <a href="https://www.facebook.com/login/" target="_blank" style="text-decoration: none;"><img src="{{ asset($constants['IMAGEFILEPATH'] . 'facebook-2.png') }}" alt="Facebook" width="20" height="20" style="display: block; border: 0;" /></a>
                         </td>
                         <td style="padding: 0 4px;">
-                          <a href="#" target="_blank" style="text-decoration: none;"><img src="{{ asset($constants['IMAGEFILEPATH'] . 'instagram-2.png') }}" alt="Instagram" width="20" height="20" style="display: block; border: 0;" /></a>
+                          <a href="https://www.instagram.com/accounts/login/?hl=en" target="_blank" style="text-decoration: none;"><img src="{{ asset($constants['IMAGEFILEPATH'] . 'instagram-2.png') }}" alt="Instagram" width="20" height="20" style="display: block; border: 0;" /></a>
                         </td>
                         <td style="padding: 0 4px;">
-                          <a href="#" target="_blank" style="text-decoration: none;"><img src="{{ asset($constants['IMAGEFILEPATH'] . 'linkdlen-2.png') }}" alt="LinkedIn" width="20" height="20" style="display: block; border: 0;" /></a>
+                          <a href="https://in.linkedin.com/" target="_blank" style="text-decoration: none;"><img src="{{ asset($constants['IMAGEFILEPATH'] . 'linkdlen-2.png') }}" alt="LinkedIn" width="20" height="20" style="display: block; border: 0;" /></a>
                         </td>
                       </tr>
                     </table>
@@ -193,7 +193,7 @@
               <table border="0" cellpadding="0" cellspacing="0" width="100%">
                 <tr>
                   <td style="font-family: 'Nunito', Helvetica, Arial, sans-serif; font-size: 12.5px; color: #999999; line-height: 1.6; padding-bottom: 12px;">
-                    Need help? Contact us at <a href="mailto:support@sizaf.com" style="color: #0694B7; text-decoration: none; font-weight: 700;">support@sizaf.com</a><br />
+                    Need help? Contact us at <a href="mailto:hello@Pocketoffice.com" style="color: #0694B7; text-decoration: none; font-weight: 700;">hello@Pocketoffice.com</a><br />
                     &copy; 2026 Sizaf Technologies Pvt. Ltd. All rights reserved.
                   </td>
                 </tr>
@@ -202,16 +202,16 @@
                     <table border="0" cellpadding="0" cellspacing="0">
                       <tr>
                         <td style="padding: 0 6px;">
-                          <a href="#" target="_blank"><img src="{{ asset($constants['IMAGEFILEPATH'] . 'facebook-2.png') }}" alt="Facebook" width="28" height="28" style="display: block; border: 0;" /></a>
+                          <a href="https://www.facebook.com/login/" target="_blank"><img src="{{ asset($constants['IMAGEFILEPATH'] . 'facebook-2.png') }}" alt="Facebook" width="28" height="28" style="display: block; border: 0;" /></a>
                         </td>
                         <td style="padding: 0 6px;">
-                          <a href="#" target="_blank"><img src="{{ asset($constants['IMAGEFILEPATH'] . 'twitter-2.png') }}" alt="Twitter" width="28" height="28" style="display: block; border: 0;" /></a>
+                          <a href="https://x.com/twitt_login?lang=en" target="_blank"><img src="{{ asset($constants['IMAGEFILEPATH'] . 'twitter-2.png') }}" alt="Twitter" width="28" height="28" style="display: block; border: 0;" /></a>
                         </td>
                         <td style="padding: 0 6px;">
-                          <a href="#" target="_blank"><img src="{{ asset($constants['IMAGEFILEPATH'] . 'linkdlen-2.png') }}" alt="LinkedIn" width="28" height="28" style="display: block; border: 0;" /></a>
+                          <a href="https://in.linkedin.com/" target="_blank"><img src="{{ asset($constants['IMAGEFILEPATH'] . 'linkdlen-2.png') }}" alt="LinkedIn" width="28" height="28" style="display: block; border: 0;" /></a>
                         </td>
                         <td style="padding: 0 6px;">
-                          <a href="#" target="_blank"><img src="{{ asset($constants['IMAGEFILEPATH'] . 'instagram-2.png') }}" alt="Instagram" width="28" height="28" style="display: block; border: 0;" /></a>
+                          <a href="https://www.instagram.com/accounts/login/?hl=en" target="_blank"><img src="{{ asset($constants['IMAGEFILEPATH'] . 'instagram-2.png') }}" alt="Instagram" width="28" height="28" style="display: block; border: 0;" /></a>
                         </td>
                       </tr>
                     </table>

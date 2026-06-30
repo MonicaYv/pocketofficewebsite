@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const selectedPlan = JSON.parse(localStorage.getItem("selectedPlan"));
 
     // const selectedCurrency = JSON.parse(
-    //     localStorage.getItem("selectedCurrency"), 
+    //     localStorage.getItem("selectedCurrency"),
     // );
 
     const urlParams = new URLSearchParams(window.location.search);
@@ -250,8 +250,7 @@ document.addEventListener("DOMContentLoaded", function () {
             discountRow.querySelector("span:first-child").innerText =
                 `Discount `;
 
-            discountAmt.innerText =  discountValue + "%";
-            
+            discountAmt.innerText = discountValue + "%";
         } else {
             discountRow.classList.add("hidden");
             discountRow.style.display = "none";
@@ -396,7 +395,11 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function validateUsername(username) {
-        return /^(?=.*[A-Z])[A-Za-z_]+$/.test(username);
+        return /^(?=.*[A-Z])[A-Za-z]+$/.test(username);
+    }
+
+    function validateContactPerson(name) {
+        return /^[A-Za-z]+$/.test(name);
     }
 
     // FORM VALIDATION
@@ -453,11 +456,24 @@ document.addEventListener("DOMContentLoaded", function () {
         // SINGLE + TEAM
         // =========================
 
+        // const contactPerson =
+        //     document.getElementById("contactPerson")?.value.trim() || "";
+
+        // if (contactPerson.length < 2) {
+        //     showError("contactPerson", "Enter contact person");
+        //     valid = false;
+        // } else {
+        //     hideError("contactPerson");
+        // }
+
         const contactPerson =
             document.getElementById("contactPerson")?.value.trim() || "";
 
         if (contactPerson.length < 2) {
-            showError("contactPerson", "Enter contact person");
+            showError("contactPerson", "Contact person is required");
+            valid = false;
+        } else if (!validateContactPerson(contactPerson)) {
+            showError("contactPerson", "Only letters are allowed");
             valid = false;
         } else {
             hideError("contactPerson");
@@ -494,10 +510,7 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("username")?.value.trim() || "";
 
         if (!validateUsername(username)) {
-            showError(
-                "username",
-                "Only letters + underscore with 1 capital letter",
-            );
+            showError("username", "Only letters with atleast 1 capital letter");
 
             valid = false;
         } else {
@@ -944,7 +957,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // USERNAME
     document.getElementById("username")?.addEventListener("input", function () {
-        this.value = this.value.replace(/[^A-Za-z_]/g, "");
+        this.value = this.value.replace(/[^A-Za-z]/g, "");
 
         if (validateUsername(this.value.trim())) {
             hideError("username");
@@ -952,10 +965,24 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // CONTACT PERSON
+    // document
+    //     .getElementById("contactPerson")
+    //     ?.addEventListener("input", function () {
+    //         if (this.value.trim().length >= 2) {
+    //             hideError("contactPerson");
+    //         }
+    //     });
+
     document
         .getElementById("contactPerson")
         ?.addEventListener("input", function () {
-            if (this.value.trim().length >= 2) {
+            // Allow only A-Z and a-z
+            this.value = this.value.replace(/[^A-Za-z]/g, "");
+
+            if (
+                validateContactPerson(this.value.trim()) &&
+                this.value.trim().length >= 2
+            ) {
                 hideError("contactPerson");
             }
         });

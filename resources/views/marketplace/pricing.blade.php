@@ -506,7 +506,10 @@
                     <li class="mb-3 d-flex align-items-start">
                       <div class="quantity-box ul-quantity-container">
                         <button class="qty-btn  ul-decrement">−</button>
-                        <input type="text" class="qty-input ul-quantity-input" value="{{ $plan->default_qty }}" readonly />
+                        <input type="text" class="qty-input ul-quantity-input" 
+                        value="{{ $plan->default_qty }}" 
+                         data-default-qty="{{ $plan->default_qty }}"
+                         readonly />
                         <button class="qty-btn  ul-increment">+</button>
                       </div>
                     </li>
@@ -727,6 +730,7 @@
                     data-storage="{{ $singlePlan->plans_users }}"
                     data-plan-id="{{ $singlePlan->id }}"
                     data-plan-discount="{{ $singlePlan->monthly_discount }}"
+                    data-default-qty="{{ $singlePlan->default_qty }}"
                     data-storage-unit="{{ $singlePlan->storage_unit }}">
                     Get Started
                   </button>
@@ -740,7 +744,8 @@
                     data-plan-id="{{ $plan->id }}"
                     data-name="{{ $plan->plans_name }}"
                     data-license="{{ $plan->plans_license }}"
-                    data-storage="{{ $plan->plans_users }}">
+                    data-storage="{{ $plan->plans_users }}"
+                    data-default-qty="{{ $plan->default_qty }}">
                     Get Started
                   </button>
                 </td>

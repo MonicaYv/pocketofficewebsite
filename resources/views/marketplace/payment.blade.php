@@ -363,7 +363,7 @@
                                  <label>
                                      <input type="checkbox" id="terms" />
                                      I accept the
-                                     <a href="#" style="color: #057a96">terms and conditions</a>
+                                     <a href="{{ url('terms-condition') }}" style="color: #057a96">terms and conditions</a>
                                  </label>
                                  <span
                                      class="help-block text-danger"
