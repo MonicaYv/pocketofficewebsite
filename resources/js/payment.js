@@ -396,7 +396,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function validateUsername(username) {
-        return /^(?=.*[A-Z])[A-Za-z_]+$/.test(username);
+        return /^(?=.*[A-Z])[A-Za-z]+$/.test(username);
     }
 
     // FORM VALIDATION
@@ -496,7 +496,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (!validateUsername(username)) {
             showError(
                 "username",
-                "Only letters + underscore with 1 capital letter",
+                "Only letters with atleast 1 capital letter",
             );
 
             valid = false;
@@ -944,7 +944,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // USERNAME
     document.getElementById("username")?.addEventListener("input", function () {
-        this.value = this.value.replace(/[^A-Za-z_]/g, "");
+        this.value = this.value.replace(/[^A-Za-z]/g, "");
 
         if (validateUsername(this.value.trim())) {
             hideError("username");
@@ -1343,7 +1343,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 document.getElementById("existingUserModal").style.display =
                     "none";
             }
-        });
+        }); 
     }
     const redirectBtn = document.getElementById("redirectPricingBtn");
 

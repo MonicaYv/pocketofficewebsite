@@ -543,11 +543,10 @@ $(document).ready(function () {
         // Show / Hide Annual Strip
         if (SINGLE_USER_BILLING === "yearly") {
             $(".show-strip").slideDown();
-            $(".show-strip-month").slideUp();            
+            $(".show-strip-month").slideUp();
         } else {
             $(".show-strip").slideUp();
-            $(".show-strip-month").slideDown();            
-
+            $(".show-strip-month").slideDown();
         }
 
         // Update Combined Table
@@ -583,16 +582,26 @@ $(document).ready(function () {
         let planBox = $(this).closest(".monthly-plans");
 
         let qtyInput = planBox.find(".ul-quantity-input");
-
         let currentQty = parseInt(qtyInput.val());
+        let defaultQty = parseInt(qtyInput.data("default-qty")) || 1;
 
-        if (currentQty > 1) {
+        if (currentQty > defaultQty) {
             currentQty--;
 
             qtyInput.val(currentQty);
 
             updateTeamCardCalculation(planBox, currentQty);
         }
+
+        // let currentQty = parseInt(qtyInput.val());
+
+        // if (currentQty > 1) {
+        //     currentQty--;
+
+        //     qtyInput.val(currentQty);
+
+        //     updateTeamCardCalculation(planBox, currentQty);
+        // }
     });
 
     // =========================
@@ -845,9 +854,13 @@ function handlePlanSelection(btn, forcedType) {
 
     amount = amount.replace(/,/g, "");
 
+    // let qty = container.find(".ul-quantity-input").length
+    //     ? parseInt(container.find(".ul-quantity-input").val())
+    //     : 1;
+
     let qty = container.find(".ul-quantity-input").length
         ? parseInt(container.find(".ul-quantity-input").val())
-        : 1;
+        : parseInt(btn.data("default-qty")) || 1;
 
     let discountEl = container.find(".discount-ul");
     let extraDiscountEl = container.find(".extra-discount-ul");
@@ -907,8 +920,10 @@ function handlePlanSelection(btn, forcedType) {
 
     window.location.href =
         "/payment?currency_code=" +
-        (document.querySelector("#currencyMenu li.active")?.dataset.currency || "") +
-        "&plan_type=" + planData.plan_type +
-        "&billing_type=" + planData.billing_type
-        ;
+        (document.querySelector("#currencyMenu li.active")?.dataset.currency ||
+            "") +
+        "&plan_type=" +
+        planData.plan_type +
+        "&billing_type=" +
+        planData.billing_type;
 }
