@@ -77,13 +77,13 @@ class UserLicensePlansController extends Controller
 
         $additional_disc_year = UsersLicensePlan::where('yearly_extra_disc', '>', 0)
             ->where('is_single_user', '!=', 1)
-            ->where('is_team_discount_apply', 1)
+            ->where('is_team_extraY_discount_apply', 1)
             ->where('pof_plan_status', 1)
             ->max('yearly_extra_disc') ?? 0;
 
         $additional_disc_month = UsersLicensePlan::where('monthly_extra_disc', '>', 0)
             // ->where('is_single_user', '!=', 1)
-            ->where('is_team_discount_apply', 1)
+            ->where('is_team_extraM_discount_apply', 1)
             ->where('pof_plan_status', 1)
             ->max('monthly_extra_disc') ?? 0;
 
@@ -268,16 +268,35 @@ class UserLicensePlansController extends Controller
                 $monthly = $base;
                 $yearly  = $base * 12;
 
-                // TEAM MAY HAVE DIFFERENT DISCOUNT RULES
+                // Monthly discounts
+                $monthlyDiscount = ($plan->is_team_discount_apply == 1)
+                    ? ($plan->monthly_discount ?? 0)
+                    : 0;
+
+                $monthlyExtraDiscount = ($plan->is_team_extraM_discount_apply == 1)
+                    ? ($plan->monthly_extra_disc ?? 0)
+                    : 0;
+
+                // Yearly discounts
+                $yearlyDiscount = ($plan->is_team_discount_apply == 1)
+                    ? ($plan->yearly_discount ?? 0)
+                    : 0;
+
+                $yearlyExtraDiscount = ($plan->is_team_extraY_discount_apply == 1)
+                    ? ($plan->yearly_extra_disc ?? 0)
+                    : 0;
+
+                // Apply monthly price
                 $plan->final_monthly_price =
                     $monthly
-                    * (1 - ($plan->monthly_discount ?? 0) / 100)
-                    * (1 - ($plan->monthly_extra_disc ?? 0) / 100);
+                    * (1 - $monthlyDiscount / 100)
+                    * (1 - $monthlyExtraDiscount / 100);
 
+                // Apply yearly price
                 $plan->final_yearly_price =
                     $yearly
-                    * (1 - ($plan->yearly_discount ?? 0) / 100)
-                    * (1 - ($plan->yearly_extra_disc ?? 0) / 100);
+                    * (1 - $yearlyDiscount / 100)
+                    * (1 - $yearlyExtraDiscount / 100);
 
                 $plan->active_price = ($billing_type === 'yearly')
                     ? round($plan->final_yearly_price)
@@ -286,6 +305,36 @@ class UserLicensePlansController extends Controller
                 $plan->currency_symbol = $currencyData->currency_symbol ?? '$';
             }
         }
+        // if ($selectedPlanType === 'team') {
+
+        //     foreach ($planLists as $plan) {
+
+        //         $base = $rate * ($plan->plans_license ?? 1);
+
+        //         $monthly = $base;
+        //         $yearly  = $base * 12;
+        //         if($plan->is_team_discount_apply == 1){
+
+        //         }
+
+        //         // TEAM MAY HAVE DIFFERENT DISCOUNT RULES
+        //         $plan->final_monthly_price =
+        //             $monthly
+        //             * (1 - ($plan->monthly_discount ?? 0) / 100)
+        //             * (1 - ($plan->monthly_extra_disc ?? 0) / 100);
+
+        //         $plan->final_yearly_price =
+        //             $yearly
+        //             * (1 - ($plan->yearly_discount ?? 0) / 100)
+        //             * (1 - ($plan->yearly_extra_disc ?? 0) / 100);
+
+        //         $plan->active_price = ($billing_type === 'yearly')
+        //             ? round($plan->final_yearly_price)
+        //             : round($plan->final_monthly_price);
+
+        //         $plan->currency_symbol = $currencyData->currency_symbol ?? '$';
+        //     }
+        // }
 
         return view('marketplace.payment', compact('planLists', 'selectedPlanType', 'billing_type'));
     }

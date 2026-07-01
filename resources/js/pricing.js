@@ -2,6 +2,7 @@
 let CURRENT_AMOUNT = 0;
 let CURRENT_SYMBOL = "";
 let CURRENT_TEAM_AMOUNT = 0;
+let CURRENT_ORIGINAL_AMOUNT = 0;
 
 // Separate Billing Types
 let SINGLE_USER_BILLING = "monthly";
@@ -101,6 +102,32 @@ function updateTeamPlans(
         finalTotal = Math.round(finalTotal);
 
         // =========================
+        // ORIGINAL PRICE (TEAM)
+        // =========================
+        const originalPriceRow = planBox.querySelector(".original-price-team");
+
+        if (originalPriceRow) {
+            // Show only if any discount is applied
+            if (discount > 0 || extraDiscount > 0) {
+                originalPriceRow.style.display = "flex";
+
+                originalPriceRow.querySelector(
+                    ".personal-card-symbol-ul-team",
+                ).textContent = currencySymbol;
+
+                originalPriceRow.querySelector(
+                    ".ul-original-price-team",
+                ).textContent = Math.round(total);
+
+                originalPriceRow.querySelector(
+                    ".ul-personal-card-period-team",
+                ).textContent = billingType === "yearly" ? "/year" : "/month";
+            } else {
+                originalPriceRow.style.display = "none";
+            }
+        }
+
+        // =========================
         // UPDATE UI
         // =========================
         let totalPriceEl = planBox.querySelector(".total-price-ul");
@@ -156,6 +183,49 @@ function updateTeamPlans(
             totalPoolStorageView.textContent = totalPoolStorage;
         }
 
+        //strip
+        // =========================
+        // UPDATE DISCOUNT STRIP
+        // =========================
+        let discountBadge = planBox.querySelector(".ul-discount");
+
+        if (discountBadge) {
+            const discountApply =
+                parseInt(discountBadge.dataset.discountApply) || 0;
+
+            const extraApply =
+                billingType === "yearly"
+                    ? parseInt(discountBadge.dataset.extraYearlyApply) || 0
+                    : parseInt(discountBadge.dataset.extraMonthlyApply) || 0;
+
+            const discount =
+                billingType === "yearly"
+                    ? parseFloat(discountBadge.dataset.yearlyDiscount) || 0
+                    : parseFloat(discountBadge.dataset.monthlyDiscount) || 0;
+
+            const extraDiscount =
+                billingType === "yearly"
+                    ? parseFloat(discountBadge.dataset.yearlyExtra) || 0
+                    : parseFloat(discountBadge.dataset.monthlyExtra) || 0;
+
+            let message = "";
+
+            if (discountApply && extraApply) {
+                message = `🎉 Enjoy ${discount}% off + Special Offer: Extra ${extraDiscount}% off`;
+            } else if (discountApply) {
+                message = `🎉 Enjoy ${discount}% off`;
+            } else if (extraApply) {
+                message = `🎉 Special Offer: Extra ${extraDiscount}% off`;
+            }
+
+            if (message) {
+                discountBadge.style.display = "";
+                discountBadge.innerHTML = message;
+            } else {
+                discountBadge.style.display = "none";
+            }
+        }
+
         // Period text
         let userText = planBox.querySelector(".user-text");
         if (userText) {
@@ -171,7 +241,7 @@ function updateTeamPlans(
 function updateSingleUserPlans(amount, symbol, billingType = "monthly") {
     // amount = Math.round(amount);
 
-    $(".personal-card__amount").each(function () {
+    $(".ul-personal-card-amount").each(function () {
         let el = $(this);
 
         // Discounts
@@ -207,11 +277,63 @@ function updateSingleUserPlans(amount, symbol, billingType = "monthly") {
         el.text(total);
     });
 
+    // $(".ul-original-price").each(function () {
+    //     let el = $(this);
+
+    //     // Base Amount
+    //     let total = billingType === "yearly" ? amount * 12 : amount;
+
+    //     // Final Round
+    //     total = Math.round(total);
+
+    //     // Update Amount
+    //     el.text(total);
+    // });
+
+    $(".ul-personal-card-amount").each(function () {
+        let el = $(this);
+
+        let monthlyDiscount = parseFloat(el.attr("data-monthly-discount")) || 0;
+        let yearlyDiscount = parseFloat(el.attr("data-yearly-discount")) || 0;
+
+        let extraMonthly = parseFloat(el.attr("data-extra-monthly")) || 0;
+        let extraYearly = parseFloat(el.attr("data-extra-yearly")) || 0;
+
+        let discount =
+            billingType === "yearly" ? yearlyDiscount : monthlyDiscount;
+
+        let extraDiscount =
+            billingType === "yearly" ? extraYearly : extraMonthly;
+
+        let originalPrice = billingType === "yearly" ? amount * 12 : amount;
+
+        CURRENT_ORIGINAL_AMOUNT = Math.round(originalPrice);
+
+        let finalPrice = originalPrice;
+        finalPrice -= (finalPrice * discount) / 100;
+        finalPrice -= (finalPrice * extraDiscount) / 100;
+
+        el.text(Math.round(finalPrice));
+
+        const originalPriceRow = el
+            .closest(".personal-card")
+            .find(".original-price-single");
+
+        if (discount > 0 || extraDiscount > 0) {
+            originalPriceRow.show();
+            originalPriceRow
+                .find(".ul-original-price")
+                .text(Math.round(originalPrice));
+        } else {
+            originalPriceRow.hide();
+        }
+    });
+
     // Currency Symbol
     $(".personal-card-symbol-ul").text(symbol);
 
     // Period
-    $(".personal-card__period").text(
+    $(".ul-personal-card-period").text(
         billingType === "yearly" ? "/year" : "/month",
     );
 }
@@ -292,7 +414,7 @@ function updateTablePricing(amount, symbol) {
         let discount = 0;
         let extraDiscount = 0;
 
-        // Apply Discount ONLY if is_team_discount_apply = 1
+        // Apply Discount ONLY if
         if (isTeamDiscount === 1) {
             discount =
                 billingType === "yearly"
@@ -315,120 +437,6 @@ function updateTablePricing(amount, symbol) {
             billingType === "yearly" ? "user/year" : "user/month",
         );
     });
-}
-
-function updateTablePricing9990(amount, symbol) {
-    amount = Math.round(amount);
-
-    // =========================
-    // Update Symbols
-    // =========================
-    $(".table-plan-symbol").text(symbol);
-
-    // =========================
-    // PERSONAL TABLE
-    // =========================
-    $(".ul-pricing-tbl-single").each(function () {
-        let th = $(this);
-
-        let amountEl = th.find(".table-plan-amount");
-
-        let monthlyDiscount =
-            parseFloat(amountEl.attr("data-monthly-discount")) || 0;
-
-        let yearlyDiscount =
-            parseFloat(amountEl.attr("data-yearly-discount")) || 0;
-
-        let extraMonthly = parseFloat(amountEl.attr("data-extra-monthly")) || 0;
-
-        let extraYearly = parseFloat(amountEl.attr("data-extra-yearly")) || 0;
-
-        let billingType = SINGLE_USER_BILLING;
-
-        let discount =
-            billingType === "yearly" ? yearlyDiscount : monthlyDiscount;
-
-        let extraDiscount =
-            billingType === "yearly" ? extraYearly : extraMonthly;
-
-        // Single User Price
-        let total = billingType === "yearly" ? amount * 12 : amount;
-
-        // Apply Discounts
-        total = total - (total * discount) / 100;
-
-        total = total - (total * extraDiscount) / 100;
-
-        total = Math.round(total);
-
-        amountEl.text(total);
-
-        // Period
-        th.find(".table-plan-period").text(
-            billingType === "yearly" ? "user/year" : "user/month",
-        );
-    });
-
-    // =========================
-    // TEAM TABLE
-    // =========================
-    $("#pricingTable thead th")
-        .not("[data-plan-col='personal']")
-        .each(function () {
-            let th = $(this);
-
-            let amountEl = th.find(".table-plan-amount");
-
-            // Users Count
-            let users =
-                parseInt(
-                    th
-                        .closest("table")
-                        .find("tbody tr:eq(0) td")
-                        .eq(th.index())
-                        .text(),
-                ) || 1;
-
-            let monthlyDiscount =
-                parseFloat(amountEl.attr("data-monthly-discount")) || 0;
-
-            let yearlyDiscount =
-                parseFloat(amountEl.attr("data-yearly-discount")) || 0;
-
-            let extraMonthly =
-                parseFloat(amountEl.attr("data-extra-monthly")) || 0;
-
-            let extraYearly =
-                parseFloat(amountEl.attr("data-extra-yearly")) || 0;
-
-            let billingType = TEAM_BILLING;
-
-            let discount =
-                billingType === "yearly" ? yearlyDiscount : monthlyDiscount;
-
-            let extraDiscount =
-                billingType === "yearly" ? extraYearly : extraMonthly;
-
-            // IMPORTANT
-            // Multiply by user count
-            let total =
-                billingType === "yearly" ? amount * 12 * users : amount * users;
-
-            // Discount
-            total = total - (total * discount) / 100;
-
-            // Extra Discount
-            total = total - (total * extraDiscount) / 100;
-
-            total = Math.round(total);
-
-            amountEl.text(total);
-
-            // Period
-            th.find(".table-plan-period").text(
-                billingType === "yearly" ? "user/year" : "user/month",
-            );
-        });
 }
 
 // =========================
@@ -892,6 +900,7 @@ function handlePlanSelection(btn, forcedType) {
 
         symbol: symbol,
         price: parseFloat(amount) || 0,
+        original_price: CURRENT_ORIGINAL_AMOUNT,
 
         monthly_discount:
             parseFloat(discountEl.data("monthly")) ||
