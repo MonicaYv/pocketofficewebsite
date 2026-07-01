@@ -147,9 +147,15 @@ document.addEventListener("DOMContentLoaded", function () {
         //     ? parseFloat(currentPlan.price || 0)
         //     : parseFloat(currentPlan.price || 0);
 
-        let basePrice = isYearly
-            ? currentPlan.priceY || 0
-            : currentPlan.priceM || 0;
+        // let basePrice = isYearly
+        //     ? currentPlan.priceY || 0
+        //     : currentPlan.priceM || 0;
+
+        let basePrice = parseFloat(
+            isYearly
+                ? (currentPlan.priceY ?? currentPlan.price)
+                : (currentPlan.priceM ?? currentPlan.price)
+        ) || 0;
 
         basePrice = parseFloat(basePrice) || 0;
 
