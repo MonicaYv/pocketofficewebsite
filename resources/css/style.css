@@ -16899,7 +16899,7 @@ body {
    ============================================================ */
 .ty-hero {
   background: var(--ty-primary-grad);
-  padding: 52px 20px 44px;
+  padding: 7rem 20px 44px;
   text-align: center;
   position: relative;
   overflow: hidden;

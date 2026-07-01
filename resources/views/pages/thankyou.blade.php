@@ -1,23 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.backendsettings')
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Thank you</title>
-  <link rel="icon" type="image/svg+xml" href="assets/img/logo/fav-icon.svg">
+@section('title', 'Thank You')
 
-  <!-- Bootstrap (same version as your site) -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
-  <!-- Bootstrap Icons -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
-  <!-- Thank You page styles -->
-  @vite([
-  'resources/css/style.css',
-  ])
-</head>
+@section('content')
 
-<body>
+
 
   <!-- Confetti canvas — drawn by pricing.js IIFE -->
   <canvas id="confettiCanvas"></canvas>
@@ -38,7 +25,7 @@
 
     <!-- ── Main content ── -->
     <div class="container" style="margin-top:30px; margin-bottom:48px;">
-      <div class="row">
+      <div class="row justify-content-center">
 
         <!-- ════════════════════════════════
          LEFT: Plan + Order Details
@@ -113,13 +100,8 @@
 
 
   </div><!-- /ty-page-wrap -->
+@endsection
 
-  <!-- jQuery (required by pricing.js) -->
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-  @vite([
-  'resources/js/pricing.js',
-  ])
-
-</body>
-
-</html>
+@push('scripts')
+    @vite('resources/js/pricing.js')
+@endpush

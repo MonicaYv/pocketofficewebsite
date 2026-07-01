@@ -104,7 +104,7 @@
          </div>
 
          <div class="copyright-text">
-             © 2025 PocketOffice. All rights reserved.
+             © 2026 PocketOffice. All rights reserved.
          </div>
      </div>
  </footer>
@@ -114,25 +114,3 @@
      <span class="back-top"><i class="fa fa-angle-up"></i></span>
  </div>
 
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-    const backToTop = document.querySelector(".back-to-top");
-
-    if (!backToTop) return;
-
-    window.addEventListener("scroll", function () {
-        if (window.scrollY > 300) {
-            backToTop.style.display = "block";
-        } else {
-            backToTop.style.display = "none";
-        }
-    });
-
-    backToTop.addEventListener("click", function () {
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        });
-    });
-});
-</script>
