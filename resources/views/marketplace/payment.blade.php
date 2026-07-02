@@ -430,7 +430,7 @@
 
                                      @foreach ($planLists as $plan)
                                      <div
-                                         class="pay-plan-tile selected-plan-option {{ $loop->first ? 'selected' : '' }}"
+                                         class="pay-plan-tile selected-plan-option {{ $loop->first ? 'selected' : '' }} payment-tab-{{ $plan->id }}"
 
                                          data-plan-type="{{ $selectedPlanType }}"
                                          data-apply-discount="{{ $plan->is_team_discount_apply == 1 }}"

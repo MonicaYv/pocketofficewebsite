@@ -3,6 +3,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const selectedPlan = JSON.parse(localStorage.getItem("selectedPlan"));
 
+    console.log("selectedPlan", selectedPlan);
+
     // const selectedCurrency = JSON.parse(
     //     localStorage.getItem("selectedCurrency"),
     // );
@@ -1379,4 +1381,7 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("existingUserCheck").checked = false;
         });
     });
+
+    $(`.payment-tab-${selectedPlan.plan_id}`).trigger('click');
+    
 });
