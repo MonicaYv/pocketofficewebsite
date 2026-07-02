@@ -785,8 +785,11 @@
                     <td></td>
                     <td></td>
 
-                    <td>Discount ({{$discount}}%)</td>
-                    <td>{{ $currency }}{{ $discountAmount }}</td>
+                    <td>Discount Applied</td>
+                    <td>{{$discount}}%</td>
+
+                    <td>Extra Discount Applied</td>
+                    <td>{{$discountExtra}}%</td>
                 </tr>
                 <tr class="total-row">
                     <td></td>

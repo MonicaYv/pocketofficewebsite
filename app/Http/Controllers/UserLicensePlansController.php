@@ -510,7 +510,8 @@ class UserLicensePlansController extends Controller
             if (
                 !in_array(request()->getHost(), ['localhost', '127.0.0.1'])
             ) {
-                $pdfPath = $this->generateInvoice($request, $userId, $paymentData['total_amount']);
+                // $pdfPath = $this->generateInvoice($request, $userId, $paymentData['total_amount']);
+                $pdfPath = $this->generateInvoice($payment->id);
                 $this->sendAdminMail($request, $pdfPath);
                 $this->sendUserMail($request, $pdfPath);
             }
@@ -819,7 +820,118 @@ class UserLicensePlansController extends Controller
             ->increment('used_count');
     }
 
-    private function generateInvoice($request, $userId, $finalAmount)
+    private function generateInvoice($paymentId)
+    {
+        // PAYMENT DETAILS
+        $payment = UsersLicensePayment::find($paymentId);
+
+        if (!$payment) {
+            throw new \Exception('Payment not found.');
+        }
+
+        // USER
+        $user = DB::table('users')
+            ->where('id', $payment->user_id)
+            ->first();
+
+        // PLAN
+        $plan = DB::table('users_license_plans')
+            ->where('id', $payment->plan_id)
+            ->first();
+
+        // PROMOCODE
+        $promocode = null;
+
+        if (!empty($payment->promocode_id)) {
+            $promocode = DB::table('promocodes')
+                ->where('id', $payment->promocode_id)
+                ->first();
+        }
+
+        // COMPANY
+        $company = null;
+
+        if (!empty($user->company_id)) {
+            $company = DB::table('companies')
+                ->where('id', $user->company_id)
+                ->first();
+        }
+
+        // CALCULATIONS
+        $price = (float) $payment->total_amount;
+        $qty = (int) $payment->quantity;
+
+        $subtotal = $price * $qty;
+
+        $discount = $payment->discount;
+        $discountExtra = $payment->extra_discount;
+
+        $currency = $payment->currency_symbol;
+
+        $pdf = Pdf::loadView('marketplace.invoices', [
+
+            'user' => $user,
+
+            // PLAN
+            'plan_name' => $plan->name ?? '',
+            'subscription_type' => $payment->plan_subscription,
+            'license' => $payment->quantity,
+            'storage' => $payment->total_pool_storage,
+            'unit' => '',
+
+            // PRICE
+            'price' => number_format($price, 2),
+            'qty' => $qty,
+            'subtotal' => number_format($subtotal, 2),
+            'discount' => $discount,
+            'extra_discount' => $discountExtra,
+            'finalAmount' => number_format($payment->total_amount, 2),
+            'total_amount' => number_format($payment->total_amount, 2),
+
+            // CURRENCY
+            'currency' => $currency,
+
+            // PROMO
+            'promocode' => $promocode->code ?? 'N/A', 
+
+            // COMPANY
+            'plan_type' => $company ? 'team' : 'single',
+            'company' => $company,
+
+            // PAYMENT
+            'payment_mode' => ucfirst($payment->payment_mode),
+            'payment_status' => 'Paid',
+            'payment_date' => Carbon::parse($payment->payment_date)->format('d M Y'),
+
+            // INVOICE META
+            'invoice_no' => $payment->order_id,
+            'invoice_date' => Carbon::parse($payment->payment_date)->format('d M Y'),
+            'billing_period' => ucfirst($payment->plan_subscription),
+
+        ])
+            ->setPaper('a4', 'portrait')
+            ->setOptions([
+                'isHtml5ParserEnabled' => true,
+                'isRemoteEnabled' => true,
+                'defaultFont' => 'DejaVu Sans',
+            ]);
+
+        $fileName = 'invoice_' . time() . '_' . Str::random(6) . '.pdf';
+
+        $filePath = storage_path('app/invoices/' . $fileName);
+
+        $invoiceDir = storage_path('app/invoices');
+
+        if (!file_exists($invoiceDir)) {
+            mkdir($invoiceDir, 0775, true);
+        }
+
+        $pdf->save($filePath);
+
+        return $filePath;
+    }
+
+    private function generateInvoiceOLD($request, $userId, $finalAmount)
     {
         $user = DB::table('users')
             ->where('id', $userId)
@@ -879,7 +991,7 @@ class UserLicensePlansController extends Controller
             'total_amount' => number_format($finalAmount, 2),
 
             // CURRENCY
-            'currency' => $currency->currency_symbol ?? '',
+            'currency' => $plan->currency_symbol ?? '',
 
             // PROMO
             'promocode' => $request->promocode_id ?? 'N/A',
