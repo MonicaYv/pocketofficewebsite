@@ -2,7 +2,7 @@
 let CURRENT_AMOUNT = 0;
 let CURRENT_SYMBOL = "";
 let CURRENT_TEAM_AMOUNT = 0;
-let CURRENT_ORIGINAL_AMOUNT = 0;
+// let CURRENT_ORIGINAL_AMOUNT = 0;
 
 // Separate Billing Types
 let SINGLE_USER_BILLING = "monthly";
@@ -307,7 +307,7 @@ function updateSingleUserPlans(amount, symbol, billingType = "monthly") {
 
         let originalPrice = billingType === "yearly" ? amount * 12 : amount;
 
-        CURRENT_ORIGINAL_AMOUNT = Math.round(originalPrice);
+        // CURRENT_ORIGINAL_AMOUNT = Math.round(originalPrice);
 
         let finalPrice = originalPrice;
         finalPrice -= (finalPrice * discount) / 100;
@@ -886,6 +886,24 @@ function handlePlanSelection(btn, forcedType) {
             : "monthly";
     }
 
+    let originalPrice = 0;
+
+    if (forcedType === "team") {
+        // Team plans
+        const users = parseInt(btn.data("license")) || 1;
+
+        originalPrice =
+            billingType === "yearly"
+                ? CURRENT_AMOUNT * 12 * users
+                : CURRENT_AMOUNT * users;
+    } else {
+        // Single user plans
+        originalPrice =
+            billingType === "yearly" ? CURRENT_AMOUNT * 12 : CURRENT_AMOUNT;
+    }
+
+    originalPrice = Math.round(originalPrice);
+
     const planData = {
         plan_type: forcedType,
         billing_type: billingType,
@@ -901,7 +919,8 @@ function handlePlanSelection(btn, forcedType) {
 
         symbol: symbol,
         price: parseFloat(amount) || 0,
-        original_price: CURRENT_ORIGINAL_AMOUNT,
+        original_price: originalPrice,
+        // original_price: CURRENT_ORIGINAL_AMOUNT,
 
         monthly_discount:
             parseFloat(singleAmountEl.data("monthly-discount")) ||
@@ -961,4 +980,3 @@ function handlePlanSelection(btn, forcedType) {
         "&billing_type=" +
         planData.billing_type;
 }
-
