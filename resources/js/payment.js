@@ -84,6 +84,27 @@ document.addEventListener("DOMContentLoaded", function () {
         extra_yr_discount: selectedPlan.extra_yearly || 0,
     };
 
+    const selectedTile = document.querySelector(
+        ".selected-plan-option.selected"
+    );
+
+    if (selectedTile) {
+        currentPlan.priceM = parseFloat(selectedTile.dataset.monthlyPrice) || 0;
+        currentPlan.priceY = parseFloat(selectedTile.dataset.yearlyPrice) || 0;
+
+        currentPlan.originalPriceM =
+            parseFloat(selectedTile.dataset.originalMonthly) || 0;
+
+        currentPlan.originalPriceY =
+            parseFloat(selectedTile.dataset.originalYearly) || 0;
+
+        currentPlan.extra_mo_discount =
+            parseFloat(selectedTile.dataset.extraMoDiscount) || 0;
+
+        currentPlan.extra_yr_discount =
+            parseFloat(selectedTile.dataset.extraYrDiscount) || 0;
+    }
+
     currentPlan.currencyid = selectedCurrency?.currency_code || null;
     currentPlan.symbol = selectedCurrency?.symbol || currentPlan.symbol;
     currentPlan.base_amount = selectedCurrency?.base_amount || 0;
@@ -1333,3 +1354,4 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
+

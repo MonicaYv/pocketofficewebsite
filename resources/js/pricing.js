@@ -961,3 +961,4 @@ function handlePlanSelection(btn, forcedType) {
         "&billing_type=" +
         planData.billing_type;
 }
+

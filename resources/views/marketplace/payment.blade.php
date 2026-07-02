@@ -495,7 +495,7 @@
                              <div style="margin-top: 14px">
                                 <div class="summary-row">
                                      <span>Total</span>
-                                     <span id="summaryOrgTotal">—</span>
+                                     <span id="summaryOrgTotal">—</span>  
                                  </div>
                                  
                                  <div

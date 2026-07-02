@@ -484,7 +484,7 @@
                     <span class="user-text">{{ $plan->plans_subscription_type }}</span>
                   </h6>
 
-                  <!-- original price  -->
+                  <!-- original price  --> 
                   <div class="original-price-wrapper">
                     <div class="flex original-price original-price-team">
                       <span class="personal-card-symbol-ul-team"></span> &nbsp; <span class="ul-original-price-team"></span>
