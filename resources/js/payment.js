@@ -19,7 +19,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const qty = selectedPlan.quantity || 1;
     const input = document.getElementById("payQtyInput");
-    input.value = qty;
+    if (input) {
+        input.value = qty;
+    }
 
     const license = selectedPlan.license;
 
@@ -85,7 +87,7 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 
     const selectedTile = document.querySelector(
-        ".selected-plan-option.selected"
+        ".selected-plan-option.selected",
     );
 
     if (selectedTile) {
@@ -114,7 +116,10 @@ document.addEventListener("DOMContentLoaded", function () {
     const initialBillingType =
         currentPlan.billing_type || currentPlan.subscription || "monthly";
 
-    payBillingToggle.checked = initialBillingType.toLowerCase() === "yearly";
+    if (payBillingToggle) {
+        payBillingToggle.checked =
+            initialBillingType.toLowerCase() === "yearly";
+    }
 
     planTiles.forEach((tile) => {
         const tileType = tile.dataset.planType;
@@ -132,6 +137,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     //toggle change for monthly or yearly
     function updateToggleUI() {
+        if (!payBillingToggle) {
+            return;
+        }
         const yearly = payBillingToggle.checked;
 
         if (yearly) {
@@ -168,6 +176,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     //refresh data
     function renderPlanData() {
+        if (!payBillingToggle) {
+            return;
+        }
         const isYearly = payBillingToggle.checked;
 
         payQtyControls.style.display = "none";
@@ -672,7 +683,10 @@ document.addEventListener("DOMContentLoaded", function () {
             promoDiscountRow.style.display = "flex";
 
             promoDiscountAmt.innerText =
-                "-"+currentPlan.symbol + "" + Math.round(appliedDiscountAmount);
+                "-" +
+                currentPlan.symbol +
+                "" +
+                Math.round(appliedDiscountAmount);
         } else {
             promoDiscountRow.classList.add("hidden");
             promoDiscountRow.style.display = "none";
@@ -1177,45 +1191,53 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     //on change toggle
-    payBillingToggle.addEventListener("change", function () {
-        updateToggleUI();
-        renderPlanData();
-    });
+    if (payBillingToggle) {
+        payBillingToggle.addEventListener("change", function () {
+            updateToggleUI();
+            renderPlanData();
+        });
+    }
 
     //quantity increase
-    payQtyPlus.addEventListener("click", function () {
-        quantity++;
-
-        payQtyInput.value = quantity;
-
-        renderPlanData();
-    });
-
-    //quantity decrease
-    payQtyMinus.addEventListener("click", function () {
-        if (quantity > 1) {
-            quantity--;
+    if (payQtyPlus && payQtyInput) {
+        payQtyPlus.addEventListener("click", function () {
+            quantity++;
 
             payQtyInput.value = quantity;
 
             renderPlanData();
-        }
-    });
+        });
+    }
+
+    //quantity decrease
+    if (payQtyMinus && payQtyInput) {
+        payQtyMinus.addEventListener("click", function () {
+            if (quantity > 1) {
+                quantity--;
+
+                payQtyInput.value = quantity;
+
+                renderPlanData();
+            }
+        });
+    }
 
     //quantity data
-    payQtyInput.addEventListener("input", function () {
-        let value = parseInt(this.value);
+    if (payQtyInput) {
+        payQtyInput.addEventListener("input", function () {
+            let value = parseInt(this.value);
 
-        if (isNaN(value) || value < 1) {
-            value = 1;
-        }
+            if (isNaN(value) || value < 1) {
+                value = 1;
+            }
 
-        quantity = value;
+            quantity = value;
 
-        this.value = quantity;
+            this.value = quantity;
 
-        renderPlanData();
-    });
+            renderPlanData();
+        });
+    }
 
     //selected plans from pricing page
     planTiles.forEach((tile) => {
@@ -1354,4 +1376,3 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
-
