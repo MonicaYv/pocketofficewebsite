@@ -873,7 +873,7 @@ class UserLicensePlansController extends Controller
             'user' => $user,
 
             // PLAN
-            'plan_name' => $plan->name ?? '',
+            'plan_name' => $plan->plans_name ?? '',
             'subscription_type' => $payment->plan_subscription,
             'license' => $payment->quantity,
             'storage' => $payment->total_pool_storage,
@@ -884,7 +884,7 @@ class UserLicensePlansController extends Controller
             'qty' => $qty,
             'subtotal' => number_format($subtotal, 2),
             'discount' => $discount,
-            'extra_discount' => $discountExtra,
+            'discountExtra' => $discountExtra,
             'finalAmount' => number_format($payment->total_amount, 2),
             'total_amount' => number_format($payment->total_amount, 2),
 
