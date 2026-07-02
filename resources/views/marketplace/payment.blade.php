@@ -417,7 +417,7 @@
                                      </label>
                                  </div>
                                  <hr style="margin:10px 0 0 0;">
-                                 
+
                              </div>
 
                              <div class="pay-plan-selector">
@@ -443,6 +443,8 @@
                                          data-storage-unit="{{ $plan->storage_unit }}"
                                          data-monthly-price="{{ $plan->final_monthly_price }}"
                                          data-yearly-price="{{ $plan->final_yearly_price }}"
+                                         data-original-monthly="{{ $plan->original_monthly_price }}"
+                                         data-original-yearly="{{ $plan->original_yearly_price }}"
                                          data-monthly-discount="{{ $plan->monthly_discount ?? 0 }}"
                                          data-yearly-discount="{{ $plan->yearly_discount ?? 0 }}"
                                          data-extra-monthly-discount="{{ $plan->additional_disc_month ?? 0 }}"
@@ -493,11 +495,11 @@
                              </div>
 
                              <div style="margin-top: 14px">
-                                <div class="summary-row">
+                                 <div class="summary-row">
                                      <span>Total</span>
-                                     <span id="summaryOrgTotal">—</span>  
+                                     <span id="summaryOrgTotal">—</span>
                                  </div>
-                                 
+
                                  <div
                                      class="summary-row hidden"
                                      id="discountRow">

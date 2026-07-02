@@ -186,15 +186,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const billingType = isYearly ? "yearly" : "monthly";
 
-        // let basePrice = parseFloat(currentPlan.price || 0);
-        // let basePrice = isYearly
-        //     ? parseFloat(currentPlan.price || 0)
-        //     : parseFloat(currentPlan.price || 0);
-
-        // let basePrice = isYearly
-        //     ? currentPlan.priceY || 0
-        //     : currentPlan.priceM || 0;
-
         let basePrice =
             parseFloat(
                 isYearly
@@ -207,11 +198,6 @@ document.addEventListener("DOMContentLoaded", function () {
         const originalPrice = isYearly
             ? currentPlan.originalPriceY
             : currentPlan.originalPriceM;
-
-        // let quantityValue =
-        //     currentPlan.plan_type === "team"
-        //         ? parseInt(payQtyInput.value || 1)
-        //         : 1;
 
         let quantityValue = 1;
 
@@ -227,17 +213,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
         let subtotalAmount = basePrice * quantityValue;
 
-        let activeDiscount = 0;
+        // let activeDiscount = 0;
 
-        if (currentPlan.plan_type === "team") {
-            activeDiscount = isYearly
-                ? parseFloat(currentPlan.extra_yearly_discount || 0)
-                : parseFloat(currentPlan.extra_monthly_discount || 0);
-        } else {
-            activeDiscount = isYearly
-                ? parseFloat(currentPlan.yearly_discount || 0)
-                : parseFloat(currentPlan.monthly_discount || 0);
-        }
+        // if (currentPlan.plan_type === "team") {
+        //     activeDiscount = isYearly
+        //         ? parseFloat(currentPlan.extra_yearly_discount || 0)
+        //         : parseFloat(currentPlan.extra_monthly_discount || 0);
+        // } else {
+        //     activeDiscount = isYearly
+        //         ? parseFloat(currentPlan.yearly_discount || 0)
+        //         : parseFloat(currentPlan.monthly_discount || 0);
+        // }
+
+        let activeDiscount = isYearly
+            ? parseFloat(currentPlan.yearly_discount || 0)
+            : parseFloat(currentPlan.monthly_discount || 0);
 
         let discountValue = activeDiscount;
 
@@ -284,20 +274,23 @@ document.addEventListener("DOMContentLoaded", function () {
             periodText.innerText = isYearly ? "/year" : "/month";
         }
 
-        let monthlyDiscount = 0;
-        let yearlyDiscount = 0;
+        // let monthlyDiscount = 0;
+        // let yearlyDiscount = 0;
 
-        if (currentPlan.plan_type === "team") {
-            monthlyDiscount = parseFloat(
-                currentPlan.extra_monthly_discount || 0,
-            );
+        // if (currentPlan.plan_type === "team") {
+        //     monthlyDiscount = parseFloat(
+        //         currentPlan.extra_monthly_discount || 0,
+        //     );
 
-            yearlyDiscount = parseFloat(currentPlan.extra_yearly_discount || 0);
-        } else {
-            monthlyDiscount = parseFloat(currentPlan.monthly_discount || 0);
+        //     yearlyDiscount = parseFloat(currentPlan.extra_yearly_discount || 0);
+        // } else {
+        //     monthlyDiscount = parseFloat(currentPlan.monthly_discount || 0);
 
-            yearlyDiscount = parseFloat(currentPlan.yearly_discount || 0);
-        }
+        //     yearlyDiscount = parseFloat(currentPlan.yearly_discount || 0);
+        // }
+
+        let monthlyDiscount = parseFloat(currentPlan.monthly_discount || 0);
+        let yearlyDiscount = parseFloat(currentPlan.yearly_discount || 0);
 
         if (monthlyDiscount > 0) {
             monthlyDiscountBadge.style.display = "inline-block";
@@ -339,46 +332,39 @@ document.addEventListener("DOMContentLoaded", function () {
             extradiscountRow.style.display = "none";
         }
 
-        if (
-            (activeDiscount > 0 || extraDiscount > 0) &&
-            currentPlan.original_price
-        ) {
-            summaryOrgTotal.innerHTML = `<del>${currentPlan.symbol}${Math.round(currentPlan.original_price)}</del>`;
+        // if (
+        //     (activeDiscount > 0 || extraDiscount > 0) &&
+        //     currentPlan.original_price
+        // ) {
+        //     summaryOrgTotal.innerHTML = `<del>${currentPlan.symbol}${Math.round(currentPlan.original_price)}</del>`;
+        // } else {
+        //     summaryOrgTotal.innerHTML = "";
+        // }
+
+        if ((activeDiscount > 0 || extraDiscount > 0) && originalPrice > 0) {
+            summaryOrgTotal.innerHTML = `<del>${currentPlan.symbol}${Math.round(originalPrice)}</del>`;
         } else {
-            summaryOrgTotal.innerHTML = "";
+            summaryOrgTotal.innerHTML = `${currentPlan.symbol}${Math.round(originalPrice)}`;
+            // summaryOrgTotal.innerHTML = "";
         }
 
-        if (activeDiscount > 0 || extraDiscount > 0) {
+        const discountMessages = [];
+
+        if (activeDiscount > 0) {
+            discountMessages.push(`${activeDiscount}% off`);
+        }
+
+        if (extraDiscount > 0) {
+            discountMessages.push(`${extraDiscount}% extra off`);
+        }
+
+        if (discountMessages.length > 0) {
             paySavingsNotice.classList.remove("hidden");
-
-            let message = "🎉 ";
-
-            if (activeDiscount > 0) {
-                message += `${activeDiscount}% off`;
-            }
-
-            if (activeDiscount > 0 && extraDiscount > 0) {
-                message += " + ";
-            }
-
-            if (extraDiscount > 0) {
-                message += `${extraDiscount}% extra off`;
-            }
-
-            message += ` with ${billingType} billing`;
-
-            paySavingsNotice.innerHTML = message;
+            paySavingsNotice.innerHTML = `🎉 ${discountMessages.join(" + ")} with ${billingType} billing`;
         } else {
             paySavingsNotice.classList.add("hidden");
+            paySavingsNotice.innerHTML = "";
         }
-
-        // if (activeDiscount > 0) {
-        //     paySavingsNotice.classList.remove("hidden");
-
-        //     paySavingsNotice.innerHTML = `🎉 ${activeDiscount}% OFF with ${billingType} billing`;
-        // } else {
-        //     paySavingsNotice.classList.add("hidden");
-        // }
 
         if (currentPlan.plan_type === "team") {
             payQtyControls.style.display = "block";
@@ -1246,6 +1232,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
             this.classList.add("selected");
 
+            // console.log("yy" + this.dataset);
+
             currentPlan = {
                 ...currentPlan,
 
@@ -1285,6 +1273,22 @@ document.addEventListener("DOMContentLoaded", function () {
                 extra_yr_discount:
                     parseFloat(this.dataset.extraYrDiscount) || 0,
             };
+
+            console.log({
+                monthlyDiscount: this.dataset.monthlyDiscount,
+                yearlyDiscount: this.dataset.yearlyDiscount,
+
+                extraMonthlyDiscount: this.dataset.extraMonthlyDiscount,
+                extraYearlyDiscount: this.dataset.extraYearlyDiscount,
+
+                extraMoDiscount: this.dataset.extraMoDiscount,
+                extraYrDiscount: this.dataset.extraYrDiscount,
+
+                monthlyPrice: this.dataset.monthlyPrice,
+                yearlyPrice: this.dataset.yearlyPrice,
+
+                planName: this.dataset.name,
+            });
 
             renderPlanData();
         });

@@ -238,6 +238,9 @@ class UserLicensePlansController extends Controller
                 $monthly = $base;
                 $yearly  = $base * 12;
 
+                $plan->original_monthly_price = $monthly;
+                $plan->original_yearly_price  = $yearly;
+
                 $plan->final_monthly_price =
                     $monthly
                     * (1 - ($plan->monthly_discount ?? 0) / 100)
@@ -258,6 +261,9 @@ class UserLicensePlansController extends Controller
 
         // =========================
         // TEAM PRICING
+
+        // =========================
+        // TEAM PRICING
         // =========================
         if ($selectedPlanType === 'team') {
 
@@ -268,43 +274,73 @@ class UserLicensePlansController extends Controller
                 $monthly = $base;
                 $yearly  = $base * 12;
 
-                // Monthly discounts
+                $plan->original_monthly_price = $monthly;
+                $plan->original_yearly_price  = $yearly;
+
+                // =========================
+                // APPLY TEAM DISCOUNT FLAGS
+                // =========================
+
                 $monthlyDiscount = ($plan->is_team_discount_apply == 1)
                     ? ($plan->monthly_discount ?? 0)
+                    : 0;
+
+                $yearlyDiscount = ($plan->is_team_discount_apply == 1)
+                    ? ($plan->yearly_discount ?? 0)
                     : 0;
 
                 $monthlyExtraDiscount = ($plan->is_team_extraM_discount_apply == 1)
                     ? ($plan->monthly_extra_disc ?? 0)
                     : 0;
 
-                // Yearly discounts
-                $yearlyDiscount = ($plan->is_team_discount_apply == 1)
-                    ? ($plan->yearly_discount ?? 0)
-                    : 0;
-
                 $yearlyExtraDiscount = ($plan->is_team_extraY_discount_apply == 1)
                     ? ($plan->yearly_extra_disc ?? 0)
                     : 0;
 
-                // Apply monthly price
+                // =========================
+                // SEND CORRECT VALUES TO BLADE
+                // =========================
+
+                $plan->monthly_discount = $monthlyDiscount;
+                $plan->yearly_discount = $yearlyDiscount;
+
+                $plan->monthly_extra_disc = $monthlyExtraDiscount;
+                $plan->yearly_extra_disc = $yearlyExtraDiscount;
+
+                // =========================
+                // CALCULATE FINAL PRICES
+                // =========================
+
                 $plan->final_monthly_price =
                     $monthly
                     * (1 - $monthlyDiscount / 100)
                     * (1 - $monthlyExtraDiscount / 100);
 
-                // Apply yearly price
                 $plan->final_yearly_price =
                     $yearly
                     * (1 - $yearlyDiscount / 100)
                     * (1 - $yearlyExtraDiscount / 100);
+
+                // =========================
+                // ACTIVE PRICE
+                // =========================
 
                 $plan->active_price = ($billing_type === 'yearly')
                     ? round($plan->final_yearly_price)
                     : round($plan->final_monthly_price);
 
                 $plan->currency_symbol = $currencyData->currency_symbol ?? '$';
+
+                // =========================
+                // ORIGINAL PRICE
+                // =========================
+
+                $plan->original_monthly_price = $monthly;
+                $plan->original_yearly_price = $yearly;
             }
         }
+
+
         // if ($selectedPlanType === 'team') {
 
         //     foreach ($planLists as $plan) {
@@ -313,20 +349,36 @@ class UserLicensePlansController extends Controller
 
         //         $monthly = $base;
         //         $yearly  = $base * 12;
-        //         if($plan->is_team_discount_apply == 1){
 
-        //         }
+        //         // Monthly discounts
+        //         $monthlyDiscount = ($plan->is_team_discount_apply == 1)
+        //             ? ($plan->monthly_discount ?? 0)
+        //             : 0;
 
-        //         // TEAM MAY HAVE DIFFERENT DISCOUNT RULES
+        //         $monthlyExtraDiscount = ($plan->is_team_extraM_discount_apply == 1)
+        //             ? ($plan->monthly_extra_disc ?? 0)
+        //             : 0;
+
+        //         // Yearly discounts
+        //         $yearlyDiscount = ($plan->is_team_discount_apply == 1)
+        //             ? ($plan->yearly_discount ?? 0)
+        //             : 0;
+
+        //         $yearlyExtraDiscount = ($plan->is_team_extraY_discount_apply == 1)
+        //             ? ($plan->yearly_extra_disc ?? 0)
+        //             : 0;
+
+        //         // Apply monthly price
         //         $plan->final_monthly_price =
         //             $monthly
-        //             * (1 - ($plan->monthly_discount ?? 0) / 100)
-        //             * (1 - ($plan->monthly_extra_disc ?? 0) / 100);
+        //             * (1 - $monthlyDiscount / 100)
+        //             * (1 - $monthlyExtraDiscount / 100);
 
+        //         // Apply yearly price
         //         $plan->final_yearly_price =
         //             $yearly
-        //             * (1 - ($plan->yearly_discount ?? 0) / 100)
-        //             * (1 - ($plan->yearly_extra_disc ?? 0) / 100);
+        //             * (1 - $yearlyDiscount / 100)
+        //             * (1 - $yearlyExtraDiscount / 100);
 
         //         $plan->active_price = ($billing_type === 'yearly')
         //             ? round($plan->final_yearly_price)
@@ -339,109 +391,6 @@ class UserLicensePlansController extends Controller
         return view('marketplace.payment', compact('planLists', 'selectedPlanType', 'billing_type'));
     }
 
-
-
-    // public function payment(Request $request)
-    // {
-    //     // $planLists = UsersLicensePlan::where('pof_plan_status', 1)->get();
-    //     $selectedPlanType = $request->plan_type;
-    //     $billing_type = $request->billing_type;
-
-    //     $planLists = UsersLicensePlan::where('pof_plan_status', 1)
-
-    //         ->when($selectedPlanType === 'single', function ($query) {
-    //             $query->where('is_single_user', 1);
-    //         })
-
-    //         ->when($selectedPlanType === 'team', function ($query) {
-    //             $query->where('is_team_allowed', 1);
-    //         })
-
-    //         ->get();
-
-    //     $currencyData = CurrencyRate::where('currency_code', $request->currency_code)->first();
-
-    //     if (!$currencyData) {
-    //         abort(400, "Invalid currency selected");
-    //     }
-
-    //     $rate = $currencyData->actual_amount;
-
-    //     if (!$rate) {
-    //         abort(400, "Currency rate not available");
-    //     }
-
-    //     // foreach ($planLists as $plan) {
-    //     //     $base = $rate * ($plan->plans_license ?? 1);
-
-    //     //     $monthly = $base;
-    //     //     $yearly = $base * 12;
-
-    //     //     // SINGLE USER LOGIC
-    //     //     if ($plan->is_single_user == 1) {
-    //     //         $finalMonthlyPrice = $monthly;
-
-    //     //         $finalMonthlyPrice -= ($finalMonthlyPrice * ($plan->monthly_discount ?? 0) / 100);
-    //     //         $finalMonthlyPrice -= ($finalMonthlyPrice * ($plan->monthly_extra_disc ?? 0) / 100);
-
-    //     //         $finalYearlyPrice  = $yearly;
-    //     //         $finalYearlyPrice -= ($finalYearlyPrice * ($plan->yearly_discount ?? 0) / 100);
-    //     //         $finalYearlyPrice -= ($finalYearlyPrice * ($plan->yearly_extra_disc ?? 0) / 100);
-    //     //         echo $finalMonthlyPrice;
-    //     //     } else {
-    //     //         // MONTHLY DISCOUNT (STEPWISE)
-    //     //         $finalMonthlyPrice = $monthly;
-
-    //     //         $finalMonthlyPrice -= ($finalMonthlyPrice * ($plan->monthly_discount ?? 0) / 100);
-    //     //         $finalMonthlyPrice -= ($finalMonthlyPrice * ($plan->monthly_extra_disc ?? 0) / 100);
-
-    //     //         // YEARLY DISCOUNT (STEPWISE)
-    //     //         $finalYearlyPrice = $yearly;
-
-    //     //         $finalYearlyPrice -= ($finalYearlyPrice * ($plan->yearly_discount ?? 0) / 100);
-    //     //         $finalYearlyPrice -= ($finalYearlyPrice * ($plan->yearly_extra_disc ?? 0) / 100);
-    //     //         echo  $finalMonthlyPrice;
-    //     //     }
-
-    //     //     // FINAL ROUND (ONLY ONCE)
-    //     //     $plan->base_price = round($base, 2);
-    //     //     $plan->final_monthly_price = round($finalMonthlyPrice); // integer
-    //     //     $plan->final_yearly_price  = round($finalYearlyPrice);  // integer
-
-    //     //     $plan->currency_symbol = $currencyData->currency_symbol ?? '$';
-    //     // }
-
-    //     foreach ($planLists as $plan) {
-
-    //         $base = $rate * ($plan->plans_license ?? 1);
-
-    //         $monthly = $base;
-    //         $yearly = $base * 12;
-
-    //         // MONTHLY PRICE CALCULATION
-    //         $monthlyPrice = $monthly;
-    //         $monthlyPrice -= ($monthlyPrice * ($plan->monthly_discount ?? 0) / 100);
-    //         $monthlyPrice -= ($monthlyPrice * ($plan->monthly_extra_disc ?? 0) / 100);
-
-    //         // YEARLY PRICE CALCULATION
-    //         $yearlyPrice = $yearly;
-    //         $yearlyPrice -= ($yearlyPrice * ($plan->yearly_discount ?? 0) / 100);
-    //         $yearlyPrice -= ($yearlyPrice * ($plan->yearly_extra_disc ?? 0) / 100);
-
-    //         // STORE BOTH (for UI switching if needed)
-    //         $plan->final_monthly_price = round($monthlyPrice);
-    //         $plan->final_yearly_price  = round($yearlyPrice);
-
-    //         // ⭐ ADD THIS: ACTIVE PRICE BASED ON USER SELECTION
-    //         $plan->active_price = ($billing_type === 'yearly')
-    //             ? $plan->final_yearly_price
-    //             : $plan->final_monthly_price;
-
-    //         $plan->currency_symbol = $currencyData->currency_symbol ?? '$';
-    //     }
-
-    //     return view('marketplace.payment', compact('planLists'));
-    // }
 
     //get plan data
     public function getPlanList(Request $request)
