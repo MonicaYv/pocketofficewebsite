@@ -493,14 +493,11 @@
                              </div>
 
                              <div style="margin-top: 14px">
-                                <div class="summary-row hidden">
+                                <div class="summary-row">
                                      <span>Total</span>
                                      <span id="summaryOrgTotal">—</span>
                                  </div>
-                                 <div class="summary-row">
-                                     <span>Subtotal</span>
-                                     <span id="summarySubtotal">—</span>
-                                 </div>
+                                 
                                  <div
                                      class="summary-row hidden"
                                      id="discountRow">
@@ -513,6 +510,11 @@
                                      id="extradiscountRow">
                                      <span></span>
                                      <span id="extradiscountAmt">—</span>
+                                 </div>
+
+                                 <div class="summary-row">
+                                     <span>Subtotal</span>
+                                     <span id="summarySubtotal">—</span>
                                  </div>
 
                                  <div

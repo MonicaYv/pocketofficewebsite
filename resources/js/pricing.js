@@ -873,6 +873,7 @@ function handlePlanSelection(btn, forcedType) {
     let discountEl = container.find(".discount-ul");
     let extraDiscountEl = container.find(".extra-discount-ul");
     let tableAmountEl = container.find(".table-plan-amount");
+    let singleAmountEl = container.find(".ul-personal-card-amount");
 
     let billingType = "monthly";
 
@@ -903,24 +904,48 @@ function handlePlanSelection(btn, forcedType) {
         original_price: CURRENT_ORIGINAL_AMOUNT,
 
         monthly_discount:
+            parseFloat(singleAmountEl.data("monthly-discount")) ||
             parseFloat(discountEl.data("monthly")) ||
             parseFloat(tableAmountEl.data("monthly-discount")) ||
             0,
 
         yearly_discount:
+            parseFloat(singleAmountEl.data("yearly-discount")) ||
             parseFloat(discountEl.data("yearly")) ||
             parseFloat(tableAmountEl.data("yearly-discount")) ||
             0,
 
         extra_monthly:
+            parseFloat(singleAmountEl.data("extra-monthly")) ||
             parseFloat(extraDiscountEl.data("monthly")) ||
             parseFloat(tableAmountEl.data("extra-monthly")) ||
             0,
 
         extra_yearly:
+            parseFloat(singleAmountEl.data("extra-yearly")) ||
             parseFloat(extraDiscountEl.data("yearly")) ||
             parseFloat(tableAmountEl.data("extra-yearly")) ||
             0,
+
+        // monthly_discount:
+        //     parseFloat(discountEl.data("monthly")) ||
+        //     parseFloat(tableAmountEl.data("monthly-discount")) ||
+        //     0,
+
+        // yearly_discount:
+        //     parseFloat(discountEl.data("yearly")) ||
+        //     parseFloat(tableAmountEl.data("yearly-discount")) ||
+        //     0,
+
+        // extra_monthly:
+        //     parseFloat(extraDiscountEl.data("monthly")) ||
+        //     parseFloat(tableAmountEl.data("extra-monthly")) ||
+        //     0,
+
+        // extra_yearly:
+        //     parseFloat(extraDiscountEl.data("yearly")) ||
+        //     parseFloat(tableAmountEl.data("extra-yearly")) ||
+        //     0,
     };
 
     // console.log("FINAL PLAN:", planData);

@@ -79,6 +79,9 @@ document.addEventListener("DOMContentLoaded", function () {
         // map localStorage values
         extra_monthly_discount: selectedPlan.extra_monthly || 0,
         extra_yearly_discount: selectedPlan.extra_yearly || 0,
+
+        extra_mo_discount: selectedPlan.extra_monthly || 0,
+        extra_yr_discount: selectedPlan.extra_yearly || 0,
     };
 
     currentPlan.currencyid = selectedCurrency?.currency_code || null;
@@ -168,7 +171,6 @@ document.addEventListener("DOMContentLoaded", function () {
             ) || 0;
 
         basePrice = parseFloat(basePrice) || 0;
-        console.log("basePrice" + basePrice);
 
         const originalPrice = isYearly
             ? currentPlan.originalPriceY
@@ -649,7 +651,7 @@ document.addEventListener("DOMContentLoaded", function () {
             promoDiscountRow.style.display = "flex";
 
             promoDiscountAmt.innerText =
-                currentPlan.symbol + "" + Math.round(appliedDiscountAmount);
+                "-"+currentPlan.symbol + "" + Math.round(appliedDiscountAmount);
         } else {
             promoDiscountRow.classList.add("hidden");
             promoDiscountRow.style.display = "none";
