@@ -93,6 +93,20 @@
       align-items: center;
       gap: 2px;
     }
+
+    .original-price-wrapper {
+      height: 24px;
+      /* adjust if needed */
+    }
+
+    .original-price {
+      margin-top: 1px;
+      font-size: 16px;
+      color: #8a8a8a;
+      text-decoration: line-through;
+      text-decoration-color: #b5b5b5;
+      opacity: 0.8;
+    }
   </style>
   @section('content')
   <!-- breadcrumb area start -->
@@ -306,9 +320,14 @@
               <div class="personal-card__right">
                 <div class="personal-card__price-cta">
                   <div class="personal-card__price-row">
+                    <span
+                      class="extra-discount-ul hidden"
+                      data-monthly="{{ $plan->monthly_extra_disc ?? 0 }}"
+                      data-yearly="{{ $plan->yearly_extra_disc ?? 0 }}">
+                    </span>
                     <span class="personal-card__symbol personal-card-symbol-ul"></span>
                     <span
-                      class="personal-card__amount"
+                      class="personal-card__amount ul-personal-card-amount"
                       data-monthly-discount="{{ $plan->monthly_discount ?? 0 }}"
                       data-yearly-discount="{{ $plan->yearly_discount ?? 0 }}"
                       data-extra-monthly-constant="{{ $additional_disc_month ?? 0 }}"
@@ -317,9 +336,13 @@
                       data-extra-yearly="{{ $plan->yearly_extra_disc ?? 0 }}">
                     </span>
                     <span
-                      class="personal-card__period"
+                      class="personal-card__period ul-personal-card-period"
                       id="personalPeriodLabel">/{{ $plan->plans_subscription_type }}</span>
                   </div>
+                </div>
+                <div class="flex original-price original-price-single">
+                  <span class="personal-card-symbol-ul"></span> <span class="ul-original-price"></span>
+                  <span class="ul-personal-card-period"></span>
                 </div>
 
                 <div class="personal-card__toggle-row">
@@ -461,6 +484,14 @@
                     <span class="user-text">{{ $plan->plans_subscription_type }}</span>
                   </h6>
 
+                  <!-- original price  --> 
+                  <div class="original-price-wrapper">
+                    <div class="flex original-price original-price-team">
+                      <span class="personal-card-symbol-ul-team"></span> &nbsp; <span class="ul-original-price-team"></span>
+                      <span class="ul-personal-card-period-team"></span>
+                    </div>
+                  </div>
+
                   <span class="user-count-ul hidden">{{ $plan->plans_license }}</span>
                   <span class="discount-ul hidden"
                     data-monthly="{{ $plan->is_team_discount_apply == 1 ? ($plan->monthly_discount ?? 0) : 0 }}"
@@ -472,8 +503,8 @@
                   <span class="extra-discount-ul hidden"
                     data-monthly-constant="{{ $additional_disc_month ?? 0 }}"
                     data-yearly-constant="{{ $additional_disc_year ?? 0 }}"
-                    data-monthly="{{ $plan->is_team_discount_apply == 1 ? ($plan->monthly_extra_disc ?? 0) : 0 }}"
-                    data-yearly="{{ $plan->is_team_discount_apply == 1 ? ($plan->yearly_extra_disc ?? 0) : 0 }}">
+                    data-monthly="{{ $plan->is_team_extraM_discount_apply == 1 ? ($plan->monthly_extra_disc ?? 0) : 0 }}"
+                    data-yearly="{{ $plan->is_team_extraY_discount_apply == 1 ? ($plan->yearly_extra_disc ?? 0) : 0 }}">
                   </span>
 
 
@@ -506,10 +537,10 @@
                     <li class="mb-3 d-flex align-items-start">
                       <div class="quantity-box ul-quantity-container">
                         <button class="qty-btn  ul-decrement">−</button>
-                        <input type="text" class="qty-input ul-quantity-input" 
-                        value="{{ $plan->default_qty }}" 
-                         data-default-qty="{{ $plan->default_qty }}"
-                         readonly />
+                        <input type="text" class="qty-input ul-quantity-input"
+                          value="{{ $plan->default_qty }}"
+                          data-default-qty="{{ $plan->default_qty }}"
+                          readonly />
                         <button class="qty-btn  ul-increment">+</button>
                       </div>
                     </li>
@@ -524,20 +555,77 @@
                     </li>
                     <li class="mb-3 d-flex align-items-start">
                       <span>Total Amount :&nbsp;</span>
-                      <span class="view-currency"></span> &nbsp; <span class="total-amount view-total-amount-count"></span>
+                      <span class="view-currency" style="gap:3px"></span><span class="total-amount view-total-amount-count"></span>
                     </li>
                   </ul>
 
                   <!-- discount  -->
+                  <div class="ul-discount ul-save-badge"
+                    data-discount-apply="{{ $plan->is_team_discount_apply }}"
+                    data-extra-monthly-apply="{{ $plan->is_team_extraM_discount_apply }}"
+                    data-extra-yearly-apply="{{ $plan->is_team_extraY_discount_apply }}"
+                    data-monthly-discount="{{ $plan->monthly_discount ?? 0 }}"
+                    data-yearly-discount="{{ $plan->yearly_discount ?? 0 }}"
+                    data-monthly-extra="{{ $plan->monthly_extra_disc ?? 0 }}"
+                    data-yearly-extra="{{ $plan->yearly_extra_disc ?? 0 }}">
+                  </div>
+
+
+
+
                   <!-- <div class="ul-discount ul-save-badge team-discount-badge" -->
-                  @if($plan->is_team_discount_apply == 1)
+                  <!-- @if($plan->is_team_discount_apply == 1 || $plan->is_team_extra_discount_apply == 1)
                   <div class="ul-discount ul-save-badge "
                     data-is-single="{{ $plan->is_team_discount_apply }}"
                     data-monthly="{{ $plan->is_team_discount_apply == 1 ? 0 : ($plan->monthly_discount ?? 0) }}"
                     data-yearly="{{ $plan->is_team_discount_apply == 1 ? 0 : ($plan->yearly_discount ?? 0) }}">
                     🎉 {{ $plan->monthly_discount }}% off — Enjoy extra savings with monthly billing
                   </div>
-                  @endif
+                  @endif -->
+
+                  <!-- @php
+                  $billing_type = ($plan->plans_subscription_type == 'month') ? 'monthly' : 'yearly';
+                  @endphp
+
+                  @if(
+                  $plan->is_team_discount_apply == 1 ||
+                  ($billing_type == 'monthly' && $plan->is_team_extraM_discount_apply == 1) ||
+                  ($billing_type == 'yearly' && $plan->is_team_extraY_discount_apply == 1)
+                  )
+
+                  <div class="ul-discount ul-save-badge"
+                    data-is-single="{{ $plan->is_team_discount_apply }}"
+                    data-monthly="{{ $plan->monthly_discount ?? 0 }}"
+                    data-yearly="{{ $plan->yearly_discount ?? 0 }}">
+
+                    @if($billing_type == 'monthly')
+
+                    @if($plan->is_team_discount_apply == 1 && $plan->is_team_extraM_discount_apply == 1)
+                    🎉 Enjoy {{ $plan->monthly_discount }}% OFF + Special Offer: Extra {{ $plan->monthly_extra_disc }}% OFF
+
+                    @elseif($plan->is_team_discount_apply == 1)
+                    🎉 Enjoy {{ $plan->monthly_discount }}% OFF
+
+                    @elseif($plan->is_team_extraM_discount_apply == 1)
+                    🎉 Special Offer: Extra {{ $plan->monthly_extra_disc }}% OFF
+                    @endif
+
+                    @else
+
+                    @if($plan->is_team_discount_apply == 1 && $plan->is_team_extraY_discount_apply == 1)
+                    🎉 {{ $plan->yearly_discount }}% Yearly OFF + Special Offer: Extra {{ $plan->yearly_extra_disc }}% OFF
+
+                    @elseif($plan->is_team_discount_apply == 1)
+                    🎉 {{ $plan->yearly_discount }}% Yearly OFF
+
+                    @elseif($plan->is_team_extraY_discount_apply == 1)
+                    🎉 Special Offer: Extra {{ $plan->yearly_extra_disc }}% OFF
+                    @endif
+
+                    @endif
+
+                  </div>
+                  @endif -->
 
 
                   <!-- Annual badge lives here, injected by JS -->

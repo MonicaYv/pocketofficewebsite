@@ -417,6 +417,7 @@
                                      </label>
                                  </div>
                                  <hr style="margin:10px 0 0 0;">
+
                              </div>
 
                              <div class="pay-plan-selector">
@@ -442,10 +443,14 @@
                                          data-storage-unit="{{ $plan->storage_unit }}"
                                          data-monthly-price="{{ $plan->final_monthly_price }}"
                                          data-yearly-price="{{ $plan->final_yearly_price }}"
+                                         data-original-monthly="{{ $plan->original_monthly_price }}"
+                                         data-original-yearly="{{ $plan->original_yearly_price }}"
                                          data-monthly-discount="{{ $plan->monthly_discount ?? 0 }}"
                                          data-yearly-discount="{{ $plan->yearly_discount ?? 0 }}"
                                          data-extra-monthly-discount="{{ $plan->additional_disc_month ?? 0 }}"
                                          data-extra-yearly-discount="{{ $plan->additional_disc_year ?? 0 }}"
+                                         data-extra-mo-discount="{{ $plan->monthly_extra_disc ?? 0 }}"
+                                         data-extra-yr-discount="{{ $plan->yearly_extra_disc ?? 0 }}"
                                          data-symbol="{{ $plan->currency_symbol ?? '₹' }}">
 
                                          {{ $plan->plans_name }}
@@ -491,15 +496,35 @@
 
                              <div style="margin-top: 14px">
                                  <div class="summary-row">
+                                     <span>Total</span>
+                                     <span id="summaryOrgTotal">—</span>
+                                 </div>
+
+                                 <div
+                                     class="summary-row hidden"
+                                     id="discountRow">
+                                     <span></span>
+                                     <span id="discountAmt">—</span>
+                                 </div>
+
+                                 <div
+                                     class="summary-row hidden"
+                                     id="extradiscountRow">
+                                     <span></span>
+                                     <span id="extradiscountAmt">—</span>
+                                 </div>
+
+                                 <div class="summary-row">
                                      <span>Subtotal</span>
                                      <span id="summarySubtotal">—</span>
                                  </div>
+
                                  <div
                                      class="summary-row hidden"
-                                     id="discountRow"
-                                     style="color: #16a34a">
-                                     <span></span>
-                                     <span id="discountAmt">—</span>
+                                     id="promoDiscountRow"
+                                     style="color:#16a34a">
+                                     <span>Promo Code</span>
+                                     <span id="promoDiscountAmt">—</span>
                                  </div>
 
                                  <div class="summary-row hidden">
@@ -507,7 +532,7 @@
                                      <span id="summaryTax">0</span>
                                  </div>
                                  <div class="summary-total">
-                                     <span>Total</span>
+                                     <span>Final Amount</span>
                                      <span id="summaryTotal" style="color: #057a96">—</span>
                                  </div>
                              </div>
@@ -526,7 +551,6 @@
                                 text-align: center;
                                 width: 100%;
                                 box-sizing: border-box;">
-                                 <!-- 🎉 10% off — you save ₹ 719 by paying annually -->
                              </div>
 
                              <label
@@ -553,7 +577,7 @@
 
                              <button id="removeCouponBtn"
                                  style="display:none; margin-top: 6px; background:none; border:none; color:red; cursor:pointer; font-size:12px; padding:0 12px; border-radius: 8px; box-shadow: 0 4px 6px #07a6cc52;" class="btn">
-                                  Remove Coupon
+                                 Remove Promo Code
                              </button>
 
                              <hr style="margin: 14px 0" />
