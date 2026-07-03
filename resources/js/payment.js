@@ -476,7 +476,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function validateContactPerson(name) {
         // return /^[A-Za-z]+$/.test(name);
-        return /^[A-Za-z0-9 ]+$/.test(name);
+        return /^[A-Za-z ]+$/.test(name);
+        // return /^[A-Za-z0-9 ]+$/.test(name);
     }
 
     function validatecompanyNamePlan(name) {
@@ -1084,7 +1085,8 @@ document.addEventListener("DOMContentLoaded", function () {
         .getElementById("contactPerson")
         ?.addEventListener("input", function () {
             // Allow letters, numbers and spaces
-            this.value = this.value.replace(/[^A-Za-z0-9 ]/g, "");
+            // this.value = this.value.replace(/[^A-Za-z0-9 ]/g, "");
+            this.value = this.value.replace(/[^A-Za-z ]/g, "");
 
             if (
                 validateContactPerson(this.value.trim()) &&
