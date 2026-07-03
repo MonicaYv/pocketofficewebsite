@@ -604,7 +604,6 @@ class UserLicensePlansController extends Controller
         ];
     }
 
-
     private function createCompany($request, $clientId = null)
     {
         if ($request->plan_type != 'team') {
@@ -775,14 +774,15 @@ class UserLicensePlansController extends Controller
             : Carbon::now()->addMonth();
 
         //check used and remaining lisence
+        $planLicense = (($request->license) * ($request->quantity));
         if ($request->plan_type == 'team') {
             $usedLisence = 1;
-            $remainLisence = ($request->license) - 1;
+            $remainLisence = $planLicense - $usedLisence;
         } else {
             $usedLisence = 1;
             $remainLisence = ($request->license) - 1;
         }
-
+        
         return [
             'user_id' => $userId,
             'plan_id' => $request->plan_id,
@@ -1076,7 +1076,7 @@ class UserLicensePlansController extends Controller
             function ($message) use ($request, $pdfPath) {
 
                 $message->to($request->email)
-                    ->subject('We received your enquiry');
+                    ->subject('Thank you for purchasing our plan');
 
                 // ✅ SAFE ATTACHMENT
                 if (file_exists($pdfPath)) {

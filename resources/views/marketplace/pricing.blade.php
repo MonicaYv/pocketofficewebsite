@@ -774,7 +774,7 @@
               <tr>
                 <td>Device &amp; IP Control</td>
                 <td class="ul-pricing-tbl-single" data-plan-col="personal"><i class="bi bi-x-circle-fill cross"></i></td>
-                <td><i class="bi bi-x-circle-fill cross"></i></td>
+                <td><i class="bi bi-x-circle-fill check"></i></td>
                 <td><i class="bi bi-check-circle-fill check"></i></td>
                 <td><i class="bi bi-check-circle-fill check"></i></td>
                 <td>Enterprise</td>
