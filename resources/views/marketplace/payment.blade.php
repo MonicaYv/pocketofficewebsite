@@ -43,16 +43,16 @@
                                          <input
                                              type="text"
                                              class="form-control"
-                                             id="companyName"
+                                             id="companyNamePlan"
                                              placeholder="XYZ Company"
                                              data-rule="required|minlen:2" />
                                          <span
                                              class="glyphicon form-control-feedback"
-                                             id="companyName-icon"></span>
+                                             id="companyNamePlan-icon"></span>
                                          <span
                                              class="help-block text-danger"
                                              style="display: none"
-                                             id="companyName-err">
+                                             id="companyNamePlan-err">
                                              Company name is required (min 2 chars)
                                          </span>
                                      </div>
@@ -451,9 +451,10 @@
                                          data-extra-yearly-discount="{{ $plan->additional_disc_year ?? 0 }}"
                                          data-extra-mo-discount="{{ $plan->monthly_extra_disc ?? 0 }}"
                                          data-extra-yr-discount="{{ $plan->yearly_extra_disc ?? 0 }}"
+                                         data-def-qty="{{ $plan->default_qty ?? 1 }}"
                                          data-symbol="{{ $plan->currency_symbol ?? '₹' }}">
 
-                                         {{ $plan->plans_name }}
+                                         {{ $plan->plans_name }} 
 
                                          <!-- <span class="pay-plan-tile__price plan_price_details"></span> -->
                                          <span class="pay-plan-tile__price plan_price_details hidden"></span>
@@ -514,7 +515,7 @@
                                      <span id="extradiscountAmt">—</span>
                                  </div>
 
-                                 <div class="summary-row">
+                                 <div class="summary-row hidden">
                                      <span>Subtotal</span>
                                      <span id="summarySubtotal">—</span>
                                  </div>

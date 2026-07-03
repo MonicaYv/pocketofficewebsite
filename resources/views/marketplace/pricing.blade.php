@@ -557,6 +557,9 @@
                       <span>Total Amount :&nbsp;</span>
                       <span class="view-currency" style="gap:3px"></span><span class="total-amount view-total-amount-count"></span>
                     </li>
+                    @if($plan->plans_name == "Basic")
+                      <li class="">Minimum of 2 licenses must be selected</li>
+                    @endif 
                   </ul>
 
                   <!-- discount  -->
@@ -570,8 +573,7 @@
                     data-yearly-extra="{{ $plan->yearly_extra_disc ?? 0 }}">
                   </div>
 
-
-
+                  
 
                   <!-- <div class="ul-discount ul-save-badge team-discount-badge" -->
                   <!-- @if($plan->is_team_discount_apply == 1 || $plan->is_team_extra_discount_apply == 1)
