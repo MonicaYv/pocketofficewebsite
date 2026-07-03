@@ -709,7 +709,7 @@
                 @endforeach
 
                 @foreach ($userLicenseData['getPlanList']['planLists'] as $plan)
-                <td> {{ $plan->plans_license }} </td>
+                <td> {{ ($plan->plans_license) * ($plan->default_qty) }} </td>
                 @endforeach
               </tr>
 
