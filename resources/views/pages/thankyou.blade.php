@@ -81,7 +81,7 @@
               <a href="{{ url('index') }}" class="btn btn-brand btn-block">
                 <i class="bi bi-grid-1x2"></i>&nbsp; Go to Home
               </a>
-              <a href="{{ route('marketplace.pricing') }}" class="btn btn-default btn-block">
+              <a href="{{ route('marketplace.pricing') }}" class="btn btn-default btn-block" style="color: #0056b3;">
                 <i class="bi bi-arrow-left"></i>&nbsp; Back to Pricing
               </a>
             </div>

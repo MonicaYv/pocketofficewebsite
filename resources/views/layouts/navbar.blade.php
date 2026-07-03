@@ -8,7 +8,7 @@
                     <span class="divider">|</span>
                     <!-- <a href="https://helpdesk.pocket-office.ai/submit-ticket">Submit a
                         Ticket</a> -->
-                    <a href="https://noc.officelescloud.sizaf.com/submit-ticket">Submit a
+                    <a href="https://helpdesk.pocket-office.ai/submit-ticket">Submit a
                         Ticket</a>
                     <span class="divider">|</span>
                     <a href="{{ url('contact-us') }}">Contact us</a>
