@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const selectedPlan = JSON.parse(localStorage.getItem("selectedPlan"));
 
-    console.log("selectedPlan", selectedPlan);
+    // console.log("selectedPlan", selectedPlan);
 
     // const selectedCurrency = JSON.parse(
     //     localStorage.getItem("selectedCurrency"),
@@ -1276,21 +1276,21 @@ document.addEventListener("DOMContentLoaded", function () {
                     parseFloat(this.dataset.extraYrDiscount) || 0,
             };
 
-            console.log({
-                monthlyDiscount: this.dataset.monthlyDiscount,
-                yearlyDiscount: this.dataset.yearlyDiscount,
+            // console.log({
+            //     monthlyDiscount: this.dataset.monthlyDiscount,
+            //     yearlyDiscount: this.dataset.yearlyDiscount,
 
-                extraMonthlyDiscount: this.dataset.extraMonthlyDiscount,
-                extraYearlyDiscount: this.dataset.extraYearlyDiscount,
+            //     extraMonthlyDiscount: this.dataset.extraMonthlyDiscount,
+            //     extraYearlyDiscount: this.dataset.extraYearlyDiscount,
 
-                extraMoDiscount: this.dataset.extraMoDiscount,
-                extraYrDiscount: this.dataset.extraYrDiscount,
+            //     extraMoDiscount: this.dataset.extraMoDiscount,
+            //     extraYrDiscount: this.dataset.extraYrDiscount,
 
-                monthlyPrice: this.dataset.monthlyPrice,
-                yearlyPrice: this.dataset.yearlyPrice,
+            //     monthlyPrice: this.dataset.monthlyPrice,
+            //     yearlyPrice: this.dataset.yearlyPrice,
 
-                planName: this.dataset.name,
-            });
+            //     planName: this.dataset.name,
+            // });
 
             renderPlanData();
         });
