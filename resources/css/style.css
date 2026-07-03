@@ -11729,6 +11729,21 @@ input[type=number] {
   /* center block */
 }
 
+@media (max-width: 480px) {
+  .teams-section-wrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .shared-billing-toggle {
+    margin: 0;
+    margin-bottom: 20px;
+    width: auto;
+  }
+
+}
+
 .billing-pill-btn {
   border: none;
   outline: none;

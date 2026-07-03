@@ -5,7 +5,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Invoice – PocketOffice</title>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
     <style>
         * {
             margin: 0;
@@ -15,42 +14,32 @@
 
         body {
             background: #e8f5fa;
-            font-family: 'Nunito', sans-serif;
+            font-family: DejaVu Sans, sans-serif;
             color: #222;
         }
 
         .email-wrapper {
+           padding:20px;
             max-width: 620px;
             margin: 30px auto;
             background: #fff;
             border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 4px 28px rgba(6, 148, 183, 0.13);
+        }
+
+        table {
+            border-collapse: collapse;
         }
 
         /* ── TOP BAR ── */
-        .topbar {
+        .topbar-table {
+            width: 100%;
+            background: #0694B7;
+        }
+
+        .topbar-table td {
             padding: 18px 28px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            text-decoration: none;
-        }
-
-        .logo-box {
-            width: 34px;
-            height: 34px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            vertical-align: middle;
         }
 
         .logo-text {
@@ -60,29 +49,32 @@
             letter-spacing: -0.5px;
         }
 
-        .logo-text sup {
-            font-size: 9px;
-            font-weight: 700;
-            color: rgba(255, 255, 255, 0.8);
-        }
-
         .invoice-badge {
-            color: #141414;
+            color: #fff;
             font-size: 20px;
             font-weight: 800;
-            padding: 6px 18px;
-            border-radius: 8px;
             letter-spacing: 2px;
+            text-align: right;
         }
 
         /* ── SENDER / META ── */
-        .meta-row {
+        .meta-row-table {
+            width: 100%;
             padding: 22px 28px 0;
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 16px;
+        }
+
+        .meta-row-table td {
+            vertical-align: top;
+            padding: 22px 0 0;
+        }
+
+        .meta-left {
+            padding-left: 28px;
+        }
+
+        .meta-right {
+            padding-right: 28px;
+            text-align: right;
         }
 
         .sender-name {
@@ -100,24 +92,21 @@
         }
 
         .meta-icon-row {
-            display: flex;
-            align-items: center;
-            gap: 6px;
             font-size: 12px;
             color: #555;
             margin-bottom: 4px;
         }
 
-        .meta-icon-row svg {
-            width: 13px;
-            height: 13px;
-            flex-shrink: 0;
+        .meta-icon-row td.icon-cell {
+            width: 16px;
             color: #0694B7;
+            padding-right: 4px;
         }
 
         .inv-table {
             border-collapse: collapse;
             font-size: 12.5px;
+            margin-left: auto;
         }
 
         .inv-table td {
@@ -156,38 +145,29 @@
 
         /* ── BILLED / COMPANY ── */
         .two-col {
-            display: flex;
-            gap: 0;
+            width: calc(100% - 56px);
             margin: 0 28px 18px;
             border: 1.5px solid #e8f0f4;
             border-radius: 12px;
-            overflow: hidden;
         }
 
-        .col-half {
-            flex: 1;
+        .two-col td.col-half {
+            width: 50%;
             padding: 16px 18px;
+            vertical-align: top;
         }
 
-        .col-half+.col-half {
+        .two-col td.col-half.with-border {
             border-left: 1.5px solid #e8f0f4;
         }
 
         .col-label {
-            display: flex;
-            align-items: center;
-            gap: 7px;
             font-size: 10px;
             font-weight: 800;
             color: #0694B7;
             text-transform: uppercase;
             letter-spacing: 1px;
             margin-bottom: 10px;
-        }
-
-        .col-label svg {
-            width: 14px;
-            height: 14px;
         }
 
         .col-name {
@@ -205,50 +185,51 @@
         }
 
         .col-detail {
-            display: flex;
-            align-items: center;
-            gap: 6px;
             font-size: 12px;
             color: #555;
             margin-bottom: 4px;
         }
 
-        .col-detail svg {
-            width: 13px;
-            height: 13px;
+        .col-detail td.icon-cell {
+            width: 16px;
             color: #0694B7;
-            flex-shrink: 0;
+            padding-right: 4px;
         }
 
         .det-row {
-            display: flex;
+            width: 100%;
             font-size: 12px;
             margin-bottom: 5px;
-            gap: 6px;
         }
 
-        .det-key {
+        .det-row td.det-key {
             color: #aaa;
             min-width: 110px;
+            width: 110px;
             font-weight: 600;
         }
 
-        .det-val {
+        .det-row td.det-val {
             color: #1a1a2e;
             font-weight: 700;
         }
 
         /* ── PLAN CARD ── */
         .plan-card {
+            width: calc(100% - 56px);
             margin: 0 28px 18px;
-            background: linear-gradient(135deg, #e8f7fb 0%, #f0fafd 100%);
+            background: #eaf8fb;
             border: 1.5px solid #c9eaf3;
             border-radius: 12px;
+        }
+
+        .plan-card > tbody > tr > td {
             padding: 16px 20px;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: flex-start;
-            gap: 14px;
+            vertical-align: top;
+        }
+
+        .plan-icon-cell {
+            width: 44px;
         }
 
         .plan-icon {
@@ -256,21 +237,8 @@
             height: 44px;
             background: #0694B7;
             border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-
-        .plan-icon svg {
-            width: 24px;
-            height: 24px;
-            fill: white;
-        }
-
-        .plan-info {
-            flex: 1;
-            min-width: 120px;
+            text-align: center;
+            vertical-align: middle;
         }
 
         .plan-label {
@@ -300,27 +268,25 @@
             font-weight: 600;
         }
 
+        /* plan-features: was CSS Grid (unsupported by dompdf) — now a plain table */
         .plan-features {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 5px 18px;
-            padding-top: 4px;
+            width: 100%;
+            margin-top: 8px;
         }
 
-        .feat {
-            display: flex;
-            align-items: center;
-            gap: 6px;
+        .plan-features td {
+            width: 50%;
             font-size: 12px;
             color: #444;
             font-weight: 600;
+            padding: 3px 9px 3px 0;
         }
 
-        .feat svg {
-            width: 13px;
-            height: 13px;
+        .plan-features td.check {
             color: #0694B7;
-            flex-shrink: 0;
+            font-weight: 800;
+            width: 14px;
+            padding-right: 4px;
         }
 
         /* ── INVOICE TABLE ── */
@@ -330,7 +296,6 @@
 
         .inv-section table {
             width: 100%;
-            border-collapse: collapse;
             font-size: 13px;
         }
 
@@ -383,7 +348,6 @@
 
         .totals table {
             width: 100%;
-            border-collapse: collapse;
             font-size: 13px;
         }
 
@@ -391,12 +355,12 @@
             padding: 5px 10px;
         }
 
-        .totals tr td:first-child {
+        .totals tr td.label {
             color: #888;
             font-weight: 600;
         }
 
-        .totals tr td:last-child {
+        .totals tr td.value {
             text-align: right;
             font-weight: 700;
             color: #333;
@@ -412,11 +376,11 @@
             font-weight: 800;
         }
 
-        .totals .total-row td:first-child {
+        .totals .total-row td.label {
             color: #1a1a2e;
         }
 
-        .totals .total-row td:last-child {
+        .totals .total-row td.value {
             color: #0694B7;
             font-size: 17px;
         }
@@ -427,28 +391,25 @@
             border: 1.5px dashed #c9eaf3;
             border-radius: 10px;
             padding: 12px 16px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
             font-size: 13px;
             color: #aaa;
             font-weight: 600;
         }
 
-        .promo svg {
-            width: 18px;
-            height: 18px;
+        .promo td.icon-cell {
+            width: 24px;
             color: #0694B7;
-            flex-shrink: 0;
+            vertical-align: top;
         }
 
         /* ── FOOTER ── */
         .footer-bar {
+            width: 100%;
             background: #0694B7;
+        }
+
+        .footer-bar td {
             padding: 10px 28px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
             font-size: 12px;
             color: rgba(255, 255, 255, 0.85);
         }
@@ -458,27 +419,29 @@
             font-weight: 700;
             text-decoration: none;
         }
-
+        a{
+            text-decoration: none;
+        }
         .footer-note {
             font-size: 11px;
             color: rgba(255, 255, 255, 0.7);
+            text-align: right;
         }
 
         .thank-pay {
+            width: calc(100% - 56px);
             margin: 0 28px 0;
-            display: flex;
-            gap: 0;
             border: 1.5px solid #e8f0f4;
             border-radius: 12px 12px 0 0;
-            overflow: hidden;
         }
 
-        .thank-col {
-            flex: 1;
+        .thank-pay td.thank-col {
+            width: 50%;
             padding: 16px 18px;
+            vertical-align: top;
         }
 
-        .thank-col+.thank-col {
+        .thank-pay td.thank-col.with-border {
             border-left: 1.5px solid #e8f0f4;
         }
 
@@ -496,20 +459,29 @@
         }
 
         .pay-row {
-            display: flex;
-            justify-content: space-between;
+            width: 100%;
             font-size: 12px;
             margin-bottom: 5px;
         }
 
-        .pay-key {
+        .pay-row td.pay-key {
             color: #aaa;
             font-weight: 600;
         }
 
-        .pay-val {
+        .pay-row td.pay-val {
+            text-align: right;
             color: #1a1a2e;
             font-weight: 700;
+        }
+
+        /* Prevent boxed sections from splitting awkwardly across a page break */
+        .two-col,
+        .plan-card,
+        .thank-pay,
+        .inv-section,
+        .totals {
+            page-break-inside: avoid;
         }
     </style>
 </head>
@@ -519,221 +491,158 @@
     <div class="email-wrapper">
 
         <!-- TOP BAR -->
-        <div class="topbar">
-            <a href="#" class="logo">
+        <table class="topbar-table">
+            <tr>
+                <td style="width:50%;">
+                    <a href="" class="logo">
                 <img src="{{ asset($constants['IMAGEFILEPATH'] . 'office.png') }}" alt="office-logo" />
             </a>
-            <div class="invoice-badge">INVOICE</div>
-        </div>
+                </td>
+                <td class="invoice-badge">INVOICE</td>
+            </tr>
+        </table>
 
         <!-- SENDER + META -->
-        <div class="meta-row">
-            <div>
-                <div class="sender-name">Aibuzz Technoventures</div>
-                <div class="sender-sub">IT &amp; Software Development</div>
-                <div class="meta-icon-row">
-                    <svg viewBox="0 0 24 24" fill="currentColor">
-                        <path
-                            d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z" />
-                    </svg>
-                    Delhi, India
-                </div>
-                <div class="meta-icon-row">
-                    <svg viewBox="0 0 24 24" fill="currentColor">
-                        <path
-                            d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24c1.12.37 2.33.57 3.57.57a1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57a1 1 0 01-.25 1.02l-2.2 2.2z" />
-                    </svg>
-                    {{$user->phone}}
-                </div>
-                <div class="meta-icon-row">
-                    <svg viewBox="0 0 24 24" fill="currentColor">
-                        <path
-                            d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
-                    </svg>
-                    officelescloud@gmail.com
-                </div>
-            </div>
-            <table class="inv-table">
-                <tr>
-                    <td>Invoice Number</td>
-                    <td>:</td>
-                    <td class="val" style="color:#0694B7;">{{ $invoice_no }}</td>
-                </tr>
-                <tr>
-                    <td>Invoice Date</td>
-                    <td>:</td>
-                    <td class="val">{{$invoice_date }}</td>
-                </tr>
-                <tr>
-                    <td>Billing Period</td>
-                    <td>:</td>
-                    <td class="val">{{$billing_period }}</td>
-                </tr>
-                <tr>
-                    <td>Payment Status</td>
-                    <td>:</td>
-                    <td><span class="paid-badge">Paid</span></td>
-                </tr>
-            </table>
-        </div>
+        <table class="meta-row-table">
+            <tr>
+                <td class="meta-left" style="width:55%;">
+                    <div class="sender-name">Aibuzz Technoventures</div>
+                    <div class="sender-sub">IT &amp; Software Development</div>
+
+                    <table class="meta-icon-row"><tr>
+                        <td class="icon-cell">📍</td>
+                        <td>Delhi, India</td>
+                    </tr></table>
+
+                    <table class="meta-icon-row"><tr>
+                        <td class="icon-cell">📞</td>
+                        <td>{{ $user->phone }}</td>
+                    </tr></table>
+
+                    <table class="meta-icon-row"><tr>
+                        <td class="icon-cell">✉️</td>
+                        <td>officelescloud@gmail.com</td>
+                    </tr></table>
+                </td>
+                <td class="meta-right" style="width:45%;">
+                    <table class="inv-table">
+                        <tr>
+                            <td>Invoice Number</td>
+                            <td>:</td>
+                            <td class="val" style="color:#0694B7;">{{ $invoice_no }}</td>
+                        </tr>
+                        <tr>
+                            <td>Invoice Date</td>
+                            <td>:</td>
+                            <td class="val">{{ $invoice_date }}</td>
+                        </tr>
+                        <tr>
+                            <td>Billing Period</td>
+                            <td>:</td>
+                            <td class="val">{{ $billing_period }}</td>
+                        </tr>
+                        <tr>
+                            <td>Payment Status</td>
+                            <td>:</td>
+                            <td><span class="paid-badge">Paid</span></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
 
         <div class="divider"></div>
 
         <!-- BILLED TO / COMPANY DETAILS -->
-        <div class="two-col">
-            <div class="col-half">
-                <div class="col-label">
-                    <svg viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
-                        <circle cx="12" cy="7" r="4" />
-                    </svg>
-                    Billed To
-                </div>
-                <div class="col-name">{{ $user->name }}</div>
-                <div class="col-role">{{ $user->designation }}</div>
-                <div class="col-detail">
-                    <svg viewBox="0 0 24 24" fill="currentColor">
-                        <path
-                            d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
-                    </svg>
-                    {{ $user->email }}
-                </div>
-                <div class="col-detail">
-                    <svg viewBox="0 0 24 24" fill="currentColor">
-                        <path
-                            d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24c1.12.37 2.33.57 3.57.57a1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57a1 1 0 01-.25 1.02l-2.2 2.2z" />
-                    </svg>
-                    {{ $user->phone }}
-                </div>
-            </div>
-            @if($plan_type == 'team' && $company)
+        <table class="two-col">
+            <tr>
+                <td class="col-half">
+                    <div class="col-label">BILLED TO</div>
+                    <div class="col-name">{{ $user->name }}</div>
+                    <div class="col-role">{{ $user->designation }}</div>
 
-            <div class="col-half">
-                <div class="col-label">
-                    <svg viewBox="0 0 24 24" fill="currentColor">
-                        <path
-                            d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z" />
-                    </svg>
-                    Company Details
-                </div>
+                    <table class="col-detail"><tr>
+                        <td class="icon-cell">✉️</td>
+                        <td>{{ $user->email }}</td>
+                    </tr></table>
 
-                <div class="det-row">
-                    <span class="det-key">Company Name</span>
-                    <span class="det-val">{{ optional($company)->name }}</span>
-                </div>
+                    <table class="col-detail"><tr>
+                        <td class="icon-cell">📞</td>
+                        <td>{{ $user->phone }}</td>
+                    </tr></table>
+                </td>
 
-                <div class="det-row">
-                    <span class="det-key">Company Type</span>
-                    <span class="det-val">{{ optional($company)->company_type }}</span>
-                </div>
+                @if($plan_type == 'team' && $company)
+                <td class="col-half with-border">
+                    <div class="col-label">COMPANY DETAILS</div>
 
-                <div class="det-row">
-                    <span class="det-key">Industry</span>
-                    <span class="det-val">{{ optional($company)->industry }}</span>
-                </div>
+                    <table class="det-row"><tr>
+                        <td class="det-key">Company Name</td>
+                        <td class="det-val">{{ optional($company)->name }}</td>
+                    </tr></table>
 
-                <div class="det-row">
-                    <span class="det-key">Address</span>
-                    <span class="det-val">{{ optional($company)->company_address }}</span>
-                </div>
+                    <table class="det-row"><tr>
+                        <td class="det-key">Company Type</td>
+                        <td class="det-val">{{ optional($company)->company_type }}</td>
+                    </tr></table>
 
-                <div class="det-row">
-                    <span class="det-key">Company Email</span>
-                    <span class="det-val" style="color:#0694B7;font-size:11.5px;">
-                        {{ optional($company)->email }}
-                    </span>
-                </div>
-            </div>
+                    <table class="det-row"><tr>
+                        <td class="det-key">Industry</td>
+                        <td class="det-val">{{ optional($company)->industry }}</td>
+                    </tr></table>
 
-            @endif
-        </div>
+                    <table class="det-row"><tr>
+                        <td class="det-key">Address</td>
+                        <td class="det-val">{{ optional($company)->company_address }}</td>
+                    </tr></table>
+
+                    <table class="det-row"><tr>
+                        <td class="det-key">Company Email</td>
+                        <td class="det-val" style="color:#0694B7;font-size:11.5px;">{{ optional($company)->email }}</td>
+                    </tr></table>
+                </td>
+                @endif
+            </tr>
+        </table>
 
         <!-- PLAN CARD -->
-        <div class="plan-card">
-            <div class="plan-icon">
-                <svg viewBox="0 0 24 24">
-                    <path
-                        d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                </svg>
-            </div>
-            <div class="plan-info">
-                <div class="plan-label">Your Plan</div>
-                <div class="plan-name">{{ $plan_name }}</div>
-                <div class="plan-price">{{ $currency }}{{ $price }} <span>{{ $subscription_type }}</span></div>
-            </div>
-            <div class="plan-features">
-                <div class="feat">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <polyline points="20 6 9 17 4 12" />
-                    </svg>
-                    License: {{ $license }}
-                </div>
-                <div class="feat">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <polyline points="20 6 9 17 4 12" />
-                    </svg>
-                    Enterprise Security
-                </div>
-                <div class="feat">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <polyline points="20 6 9 17 4 12" />
-                    </svg>
-                    Total Storage: {{ $storage }} {{ $unit }}
-                </div>
-                <div class="feat">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <polyline points="20 6 9 17 4 12" />
-                    </svg>
-                    Personal Workspace
-                </div>
-                <div class="feat">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <polyline points="20 6 9 17 4 12" />
-                    </svg>
-                    Security Controls
-                </div>
-                <div class="feat">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <polyline points="20 6 9 17 4 12" />
-                    </svg>
-                    Manage Infra
-                </div>
-                <div class="feat">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <polyline points="20 6 9 17 4 12" />
-                    </svg>
-                    App Integration
-                </div>
-                <div class="feat">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <polyline points="20 6 9 17 4 12" />
-                    </svg>
-                    Backup & Recovery
-                </div>
-                <div class="feat">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <polyline points="20 6 9 17 4 12" />
-                    </svg>
-                    Storage Add-ons
-                </div>
-                <div class="feat">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <polyline points="20 6 9 17 4 12" />
-                    </svg>
-                    Feature Add-ons
-                </div>
-            </div>
-        </div>
+        <table class="plan-card">
+            <tr>
+                <td class="plan-icon-cell">
+                    <div class="plan-icon">
+                        <span style="color:#fff;font-size:22px;">★</span>
+                    </div>
+                </td>
+                <td>
+                    <div class="plan-label">YOUR PLAN</div>
+                    <div class="plan-name">{{ $plan_name }}</div>
+                    <div class="plan-price">{{ $currency }}{{ $price }} <span>{{ $subscription_type }}</span></div>
+
+                    <table class="plan-features">
+                        <tr>
+                            <td class="check">✓</td><td>License: {{ $license }}</td>
+                            <td class="check">✓</td><td>Enterprise Security</td>
+                        </tr>
+                        <tr>
+                            <td class="check">✓</td><td>Total Storage: {{ $storage }} {{ $unit }}</td>
+                            <td class="check">✓</td><td>Personal Workspace</td>
+                        </tr>
+                        <tr>
+                            <td class="check">✓</td><td>Security Controls</td>
+                            <td class="check">✓</td><td>Manage Infra</td>
+                        </tr>
+                        <tr>
+                            <td class="check">✓</td><td>App Integration</td>
+                            <td class="check">✓</td><td>Backup &amp; Recovery</td>
+                        </tr>
+                        <tr>
+                            <td class="check">✓</td><td>Storage Add-ons</td>
+                            <td class="check">✓</td><td>Feature Add-ons</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
 
         <!-- ITEMS TABLE -->
         <div class="inv-section">
@@ -751,13 +660,11 @@
                         <td>
                             <div class="item-name">{{ $plan_name }} ({{ $subscription_type }})</div>
                             <div class="item-sub">
-                                <div class="item-sub">
-                                    @if($plan_type == 'team')
+                                @if($plan_type == 'team')
                                     Billed for Team ({{ $qty }} {{ $qty > 1 ? 'users' : 'user' }})
-                                    @else
+                                @else
                                     Billed for Single User
-                                    @endif
-                                </div>
+                                @endif
                             </div>
                         </td>
                         <td style="text-align:center;font-weight:700;">{{ $qty }}</td>
@@ -770,33 +677,24 @@
 
         <div class="divider"></div>
 
-        <!-- TOTALS -->
+        <!-- TOTALS (fixed: was a single row with 6 <td>s, now each line has its own row of 2) -->
         <div class="totals">
             <table>
                 <tr>
-                    <td></td>
-                    <td></td>
-
-                    <td>Subtotal</td>
-                    <td>{{ $currency }}{{ $subtotal }}</td>
+                    <td class="label">Subtotal</td>
+                    <td class="value">{{ $currency }}{{ $subtotal }}</td>
                 </tr>
-
                 <tr>
-                    <td></td>
-                    <td></td>
-
-                    <td>Discount Applied</td>
-                    <td>{{$discount}}%</td>
-
-                    <td>Extra Discount Applied</td>
-                    <td>{{$discountExtra}}%</td>
+                    <td class="label">Discount Applied</td>
+                    <td class="value">{{ $discount }}%</td>
+                </tr>
+                <tr>
+                    <td class="label">Extra Discount Applied</td>
+                    <td class="value">{{ $discountExtra }}%</td>
                 </tr>
                 <tr class="total-row">
-                    <td></td>
-
-                    <td></td>
-                    <td>Total</td>
-                    <td>{{$currency}}{{$finalAmount}}</td>
+                    <td class="label">Total</td>
+                    <td class="value">{{ $currency }}{{ $finalAmount }}</td>
                 </tr>
             </table>
         </div>
@@ -804,75 +702,70 @@
         <div class="divider"></div>
 
         <!-- PROMO CODE -->
-        <div class="promo">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                stroke-linejoin="round">
-                <path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z" />
-                <line x1="7" y1="7" x2="7.01" y2="7" />
-            </svg>
-            <div>
-                <div style="font-size:12px;font-weight:800;color:#555;">Promo Code</div>
-                <div style="font-size:11.5px;color:#bbb;">{{ $promocode }}</div>
-            </div>
-        </div>
+        <table class="promo">
+            <tr>
+                <td class="icon-cell">🎁</td>
+                <td>
+                    <div style="font-size:12px;font-weight:800;color:#555;">Promo Code</div>
+                    <div style="font-size:11.5px;color:#bbb;">{{ $promocode }}</div>
+                </td>
+            </tr>
+        </table>
 
         <div class="divider"></div>
 
         <!-- THANK YOU / PAYMENT INFO -->
-        <div class="thank-pay">
-            <div class="thank-col">
-                <div class="thank-title">Thank you for your business!</div>
-                <div class="thank-sub">If you have any questions, feel free to reach out to us.</div>
-                <div class="col-detail" style="margin-bottom:5px;">
-                    <svg viewBox="0 0 24 24" fill="currentColor" width="13" height="13" style="color:#0694B7;">
-                        <path
-                            d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
-                    </svg>
-                    <span style="font-size:12px;color:#0694B7;font-weight:700;">
-                        {{ $company->email ?? '' }}</span>
-                </div>
-                @if($plan_type == 'team' && $company)
+        <table class="thank-pay">
+            <tr>
+                <td class="thank-col">
+                    <div class="thank-title">Thank you for your business!</div>
+                    <div class="thank-sub">If you have any questions, feel free to reach out to us.</div>
 
-                <div class="col-detail" style="margin-bottom:5px;">
-                    <svg viewBox="0 0 24 24" fill="currentColor" width="13" height="13" style="color:#0694B7;">
-                        <path
-                            d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
-                    </svg>
+                    <table class="col-detail"><tr>
+                        <td class="icon-cell">✉️</td>
+                        <td style="color:#0694B7;font-weight:700;">{{ $company->email ?? '' }}</td>
+                    </tr></table>
 
-                    <span style="font-size:12px;color:#0694B7;font-weight:700;">
-                        {{ optional($company)->email }}
-                    </span>
-                </div>
+                    @if($plan_type == 'team' && $company)
+                    <table class="col-detail"><tr>
+                        <td class="icon-cell">✉️</td>
+                        <td style="color:#0694B7;font-weight:700;">{{ optional($company)->email }}</td>
+                    </tr></table>
 
-                <div class="col-detail">
-                    <svg viewBox="0 0 24 24" fill="currentColor" width="13" height="13" style="color:#0694B7;">
-                        <path
-                            d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24c1.12.37 2.33.57 3.57.57a1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57a1 1 0 01-.25 1.02l-2.2 2.2z" />
-                    </svg>
+                    <table class="col-detail"><tr>
+                        <td class="icon-cell">📞</td>
+                        <td>{{ optional($company)->contact }}</td>
+                    </tr></table>
+                    @endif
+                </td>
+                <td class="thank-col with-border">
+                    <div class="thank-title">Payment Information</div>
 
-                    <span style="font-size:12px;color:#555;font-weight:600;">
-                        {{ optional($company)->contact }}
-                    </span>
-                </div>
+                    <table class="pay-row"><tr>
+                        <td class="pay-key">Payment Method</td>
+                        <td class="pay-val">{{ $payment_mode }}</td>
+                    </tr></table>
 
-                @endif
-            </div>
-            <div class="thank-col">
-                <div class="thank-title">Payment Information</div>
-                <div class="pay-row"><span class="pay-key">Payment Method</span><span class="pay-val">{{ $payment_mode }}</span></div>
-                <div class="pay-row"><span class="pay-key">Payment Status</span><span class="pay-val"
-                        style="font-size:11.5px;">{{ $payment_status }}</span></div>
-                <div class="pay-row"><span class="pay-key">Payment Date</span><span class="pay-val">
-                        {{ $payment_date }}</span>
-                </div>
-            </div>
-        </div>
+                    <table class="pay-row"><tr>
+                        <td class="pay-key">Payment Status</td>
+                        <td class="pay-val" style="font-size:11.5px;">{{ $payment_status }}</td>
+                    </tr></table>
+
+                    <table class="pay-row"><tr>
+                        <td class="pay-key">Payment Date</td>
+                        <td class="pay-val">{{ $payment_date }}</td>
+                    </tr></table>
+                </td>
+            </tr>
+        </table>
 
         <!-- BOTTOM BAR -->
-        <div class="footer-bar">
-            <a href="https://www.poffice.com">🌐 www.poffice.com</a>
-            <div class="footer-note">This is a system-generated invoice and does not require a signature.</div>
-        </div>
+        <table class="footer-bar">
+            <tr>
+                <td style="width:50%;"><a href="https://www.pocket-office.ai">www.pocket-office.ai</a></td>
+                <td class="footer-note">This is a system-generated invoice and does not require a signature.</td>
+            </tr>
+        </table>
 
     </div>
 

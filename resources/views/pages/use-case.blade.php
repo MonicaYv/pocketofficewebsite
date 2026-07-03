@@ -92,7 +92,7 @@
                      <div class="usecase-card">
                          <div class="card-video">
                              <video autoplay loop muted playsinline>
-                                 <source src="{{ asset('assets/img/videos/solutions-use-case/file-sharing/permission-based-sharing.mp4') }}" type="video/mp4">
+                                 <source src="https://wnhq4j5mc7yjym73.public.blob.vercel-storage.com/pof/solutions-use-case/file-sharing/Permission-Based%20Sharing.mp4" type="video/mp4">
                                  Your browser does not support the video tag.
                              </video>
                          </div>
@@ -109,7 +109,7 @@
                      <div class="usecase-card">
                          <div class="card-video">
                              <video autoplay loop muted playsinline>
-                                 <source src="{{ asset('assets/img/videos/solutions-use-case/file-sharing/time-controlled-access.mp4') }}" type="video/mp4">
+                                 <source src="https://wnhq4j5mc7yjym73.public.blob.vercel-storage.com/pof/solutions-use-case/file-sharing/Time-Controlled%20Access.mp4" type="video/mp4">
                                  Your browser does not support the video tag.
                              </video>
                          </div>
@@ -125,7 +125,7 @@
                      <div class="usecase-card">
                          <div class="card-video">
                              <video autoplay loop muted playsinline>
-                                 <source src="{{ asset('assets/img/videos/solutions-use-case/file-sharing/internal-external-use.mp4') }}" type="video/mp4">
+                                 <source src="https://wnhq4j5mc7yjym73.public.blob.vercel-storage.com/pof/solutions-use-case/file-sharing/Internal%20&%20External%20Use.mp4" type="video/mp4">
                                  Your browser does not support the video tag.
                              </video>
                          </div>
@@ -141,7 +141,7 @@
                      <div class="usecase-card">
                          <div class="card-video">
                              <video autoplay loop muted playsinline>
-                                 <source src="{{ asset('assets/img/videos/solutions-use-case/file-sharing/built-in-security.mp4') }}" type="video/mp4">
+                                 <source src="https://wnhq4j5mc7yjym73.public.blob.vercel-storage.com/pof/solutions-use-case/file-sharing/Built-In%20Security.mp4" type="video/mp4">
                                  Your browser does not support the video tag.
                              </video>
                          </div>
@@ -175,7 +175,7 @@
                      <div class="usecase-card">
                          <div class="card-video">
                              <video autoplay loop muted playsinline>
-                                 <source src="{{ asset('assets/img/videos/solutions-use-case/virtual-desktop/browser-based-desktop.mp4') }}" type="video/mp4">
+                                 <source src="https://wnhq4j5mc7yjym73.public.blob.vercel-storage.com/pof/solutions-use-case/virtual-desktop/browser-based-desktop.mp4" type="video/mp4">
                                  Your browser does not support the video tag.
                              </video>
                          </div>
@@ -191,7 +191,7 @@
                      <div class="usecase-card">
                          <div class="card-video">
                              <video autoplay loop muted playsinline>
-                                 <source src="{{ asset('assets/img/videos/solutions-use-case/virtual-desktop/device-independence.mp4') }}" type="video/mp4">
+                                 <source src="https://wnhq4j5mc7yjym73.public.blob.vercel-storage.com/pof/solutions-use-case/virtual-desktop/Device%20Independence.mp4" type="video/mp4">
                                  Your browser does not support the video tag.
                              </video>
                          </div>
@@ -207,7 +207,7 @@
                      <div class="usecase-card">
                          <div class="card-video">
                              <video autoplay loop muted playsinline>
-                                 <source src="{{ asset('assets/img/videos/solutions-use-case/virtual-desktop/simplified-it-management.mp4') }}" type="video/mp4">
+                                 <source src="https://wnhq4j5mc7yjym73.public.blob.vercel-storage.com/pof/solutions-use-case/virtual-desktop/Simplified%20IT%20Management.mp4" type="video/mp4">
                                  Your browser does not support the video tag.
                              </video>
                          </div>
@@ -223,7 +223,7 @@
                      <div class="usecase-card">
                          <div class="card-video">
                              <video autoplay loop muted playsinline>
-                                 <source src="{{ asset('assets/img/videos/solutions-use-case/virtual-desktop/secure-by-design.mp4') }}" type="video/mp4">
+                                 <source src="https://wnhq4j5mc7yjym73.public.blob.vercel-storage.com/pof/solutions-use-case/virtual-desktop/Secure%20by%20Design.mp4" type="video/mp4">
                                  Your browser does not support the video tag.
                              </video>
                          </div>
@@ -257,7 +257,7 @@
                      <div class="usecase-card">
                          <div class="card-video">
                              <video autoplay loop muted playsinline>
-                                 <source src="{{ asset('assets/img/videos/solutions-use-case/team-workspaces/centralized-collaboration.mp4') }}" type="video/mp4">
+                                 <source src="https://wnhq4j5mc7yjym73.public.blob.vercel-storage.com/pof/solutions-use-case/team-worksppace/Centralized%20Collaboration.mp4" type="video/mp4">
                                  Your browser does not support the video tag.
                              </video>
                          </div>
@@ -273,7 +273,7 @@
                      <div class="usecase-card">
                          <div class="card-video">
                             <video autoplay loop muted playsinline>
-                                 <source src="{{ asset('assets/img/videos/solutions-use-case/team-workspaces/structured-workflows.mp4') }}" type="video/mp4">
+                                 <source src="https://wnhq4j5mc7yjym73.public.blob.vercel-storage.com/pof/solutions-use-case/team-worksppace/Structured%20Workflows.mp4" type="video/mp4">
                                  Your browser does not support the video tag.
                              </video>
                          </div>
@@ -289,7 +289,7 @@
                      <div class="usecase-card">
                          <div class="card-video">
                             <video autoplay loop muted playsinline>
-                                 <source src="{{ asset('assets/img/videos/solutions-use-case/team-workspaces/real-time-updates.mp4') }}" type="video/mp4">
+                                 <source src="https://wnhq4j5mc7yjym73.public.blob.vercel-storage.com/pof/solutions-use-case/team-worksppace/Real-Time%20Updates.mp4" type="video/mp4">
                                  Your browser does not support the video tag.
                              </video>
                          </div>
@@ -305,7 +305,7 @@
                      <div class="usecase-card">
                          <div class="card-video">
                             <video autoplay loop muted playsinline>
-                                 <source src="{{ asset('assets/img/videos/solutions-use-case/team-workspaces/controlled-access.mp4') }}" type="video/mp4">
+                                 <source src="https://wnhq4j5mc7yjym73.public.blob.vercel-storage.com/pof/solutions-use-case/team-worksppace/Controlled%20Access.mp4" type="video/mp4">
                                  Your browser does not support the video tag.
                              </video>
                          </div>
@@ -339,7 +339,7 @@
                      <div class="usecase-card">
                          <div class="card-video">
                             <video autoplay loop muted playsinline>
-                                <source src="{{ asset('assets/img/videos/solutions-use-case/cloud-storage/centralized-file-management.mp4') }}" type="video/mp4">
+                                <source src="https://wnhq4j5mc7yjym73.public.blob.vercel-storage.com/pof/solutions-use-case/cloud-storage/Centralized%20File%20Management.mp4" type="video/mp4">
                                 Your browser does not support the video tag.
                             </video>
                          </div>
@@ -355,7 +355,7 @@
                      <div class="usecase-card">
                          <div class="card-video">
                              <video autoplay loop muted playsinline>
-                                <source src="{{ asset('assets/img/videos/solutions-use-case/cloud-storage/unified-access.mp4') }}" type="video/mp4">
+                                <source src="https://wnhq4j5mc7yjym73.public.blob.vercel-storage.com/pof/solutions-use-case/cloud-storage/Unified%20Access.mp4" type="video/mp4">
                                 Your browser does not support the video tag.
                             </video>
                          </div>
@@ -371,7 +371,7 @@
                      <div class="usecase-card">
                          <div class="card-video">
                              <video autoplay loop muted playsinline>
-                                <source src="{{ asset('assets/img/videos/solutions-use-case/cloud-storage/scalable-storage.mp4') }}" type="video/mp4">
+                                <source src="https://wnhq4j5mc7yjym73.public.blob.vercel-storage.com/pof/solutions-use-case/cloud-storage/Scalable%20Storage.mp4" type="video/mp4">
                                 Your browser does not support the video tag.
                             </video>
                          </div>
@@ -387,7 +387,7 @@
                      <div class="usecase-card">
                          <div class="card-video">
                              <video autoplay loop muted playsinline>
-                                <source src="{{ asset('assets/img/videos/solutions-use-case/cloud-storage/secure-by-default.mp4') }}" type="video/mp4">
+                                <source src="https://wnhq4j5mc7yjym73.public.blob.vercel-storage.com/pof/solutions-use-case/cloud-storage/Secure%20by%20Default.mp4" type="video/mp4">
                                 Your browser does not support the video tag.
                             </video>
                          </div>
