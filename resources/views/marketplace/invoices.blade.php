@@ -511,7 +511,7 @@
 
                     <table class="meta-icon-row"><tr>
                         <td class="icon-cell">📍</td>
-                        <td>{{ $masterData->address ?? NA }}</td>
+                        <td>{{ $masterData->address ?? 'NA' }}</td>
                     </tr></table>
 
                     <table class="meta-icon-row"><tr>
