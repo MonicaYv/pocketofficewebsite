@@ -16,6 +16,7 @@ use App\Models\CurrencyRate;
 use App\Models\UsersLicensePayment;
 use App\Models\UsersLicensePlan;
 use App\Models\User;
+use App\Models\Company;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
@@ -782,7 +783,7 @@ class UserLicensePlansController extends Controller
             $usedLisence = 1;
             $remainLisence = ($request->license) - 1;
         }
-        
+
         return [
             'user_id' => $userId,
             'plan_id' => $request->plan_id,
@@ -822,6 +823,11 @@ class UserLicensePlansController extends Controller
 
     private function generateInvoice($paymentId)
     {
+        //Master data        
+        $masterData = DB::table('users')
+            ->where('usertype', 'master')
+            ->first();
+
         // PAYMENT DETAILS
         $payment = UsersLicensePayment::find($paymentId);
 
@@ -838,6 +844,9 @@ class UserLicensePlansController extends Controller
         $plan = DB::table('users_license_plans')
             ->where('id', $payment->plan_id)
             ->first();
+
+        //order id format
+        $orderIdFormat = 'ORDERID#LIC2025';
 
         // PROMOCODE
         $promocode = null;
@@ -870,6 +879,9 @@ class UserLicensePlansController extends Controller
 
         $pdf = Pdf::loadView('marketplace.invoices', [
 
+            //master data
+            'masterData' => $masterData,
+
             'user' => $user,
 
             // PLAN
@@ -892,7 +904,7 @@ class UserLicensePlansController extends Controller
             'currency' => $currency,
 
             // PROMO
-            'promocode' => $promocode->code ?? 'N/A', 
+            'promocode' => $promocode->code ?? 'N/A',
 
             // COMPANY
             'plan_type' => $company ? 'team' : 'single',
@@ -904,7 +916,7 @@ class UserLicensePlansController extends Controller
             'payment_date' => Carbon::parse($payment->payment_date)->format('d M Y'),
 
             // INVOICE META
-            'invoice_no' => $payment->order_id,
+            'invoice_no' => $orderIdFormat . $payment->order_id,
             'invoice_date' => Carbon::parse($payment->payment_date)->format('d M Y'),
             'billing_period' => ucfirst($payment->plan_subscription),
 
@@ -929,6 +941,58 @@ class UserLicensePlansController extends Controller
         $pdf->save($filePath);
 
         return $filePath;
+    }
+
+    private function sendAdminMail($request, $pdfPath)
+    {
+        $adminEmail = 'officelescloud@gmail.com';
+        $companyEmail = null;
+
+        if ($request->plan_type == 'team') {
+
+            $userData = User::where('username', $request->username)->first();
+
+            if ($userData) {
+                $companyData = Company::find($userData->company_id);
+
+                if ($companyData) {
+                    $companyFinalData = User::find($companyData->company_head);
+                    $companyEmail = $companyFinalData?->email;
+                }
+            }
+        }
+
+        $recipients = [$adminEmail];
+
+        if (!empty($companyEmail)) {
+            $recipients[] = $companyEmail;
+        }
+
+        Mail::send(
+            'mail-templates.purchase-email-admin',
+            [
+                'name' => $request->contactPerson,
+                'username' => $request->username,
+                'phone' => $request->phone,
+                'email' => $request->email,
+                'designation' => $request->designation,
+                'password' => 'Password@123',
+                'usertype' => $request->plan_type == 'team' ? 'company' : 'special_user',
+            ],
+            function ($message) use ($request, $pdfPath, $recipients) {
+
+                $message->to($recipients)
+                    ->replyTo($request->email)
+                    ->subject('Purchase Details');
+
+                if (file_exists($pdfPath)) {
+                    $message->attach($pdfPath, [
+                        'as' => 'invoice.pdf',
+                        'mime' => 'application/pdf',
+                    ]);
+                }
+            }
+        );
     }
 
     private function generateInvoiceOLD($request, $userId, $finalAmount)
@@ -1033,7 +1097,48 @@ class UserLicensePlansController extends Controller
         return $filePath;
     }
 
-    private function sendAdminMail($request, $pdfPath)
+    // private function sendAdminMail($request, $pdfPath)
+    // {
+    //     //get request data
+    //     $username = $request->username;
+    //     $planType = $request->plan_type;
+    //     if ($planType == 'team') {
+    //         $userData = User::where('username', $username)->first();
+    //         $companyData = Company::where('id', $userData->company_id)->first();
+    //         $companyFinalData = User::where('id', $companyData->company_head)->first();
+    //     }
+
+    //     $adminEmail = 'officelescloud@gmail.com';
+    //     $companyEmail = $request->company_email; // or fetch from DB
+
+    //     Mail::send(
+    //         'mail-templates.purchase-email-admin',
+    //         [
+    //             'name' => $request->contactPerson,
+    //             'username' => $request->username,
+    //             'phone' => $request->phone,
+    //             'email' => $request->email,
+    //             'designation' => $request->designation,
+    //             'password' => 'Password@123',
+    //             'usertype' => $request->plan_type == 'team' ? 'company' : 'special_user',
+    //         ],
+    //         function ($message) use ($request, $pdfPath, $adminEmail, $companyEmail) {
+
+    //             $message->to([$adminEmail, $companyEmail])
+    //                 ->replyTo($request->email)
+    //                 ->subject('Purchase Details');
+
+    //             if (file_exists($pdfPath)) {
+    //                 $message->attach($pdfPath, [
+    //                     'as' => 'invoice.pdf',
+    //                     'mime' => 'application/pdf',
+    //                 ]);
+    //             }
+    //         }
+    //     );
+    // }
+
+    private function sendAdminMailOLD($request, $pdfPath)
     {
         Mail::send(
             'mail-templates.purchase-email-admin',
