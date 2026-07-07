@@ -222,9 +222,16 @@
     transform: rotate(180deg);
 }
 
+.faq-tabs-bar{
+  gap:8px;
+}
+
 @media (max-width: 768px) {
     .faq-grid {
         flex-direction: column;
+    }
+    .faq-tab-btn{
+        padding: 7px 9px;
     }
 }
 
