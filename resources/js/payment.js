@@ -343,10 +343,14 @@ document.addEventListener("DOMContentLoaded", function () {
         //     summaryOrgTotal.innerHTML = "";
         // }
 
+        const originalTotal = originalPrice * (currentPlan.default_qty || 1);
+
         if ((activeDiscount > 0 || extraDiscount > 0) && originalPrice > 0) {
-            summaryOrgTotal.innerHTML = `<del>${currentPlan.symbol}${Math.round(originalPrice)}</del>`;
+            // summaryOrgTotal.innerHTML = `${currentPlan.symbol}${Math.round(originalPrice )}`;
+            summaryOrgTotal.innerHTML = `${currentPlan.symbol}${Math.round(originalTotal)}`;
         } else {
-            summaryOrgTotal.innerHTML = `${currentPlan.symbol}${Math.round(originalPrice)}`;
+            // summaryOrgTotal.innerHTML = `${currentPlan.symbol}${Math.round(originalPrice)}`;
+            summaryOrgTotal.innerHTML = `${currentPlan.symbol}${Math.round(originalTotal)}`;
             // summaryOrgTotal.innerHTML = "";
         }
 
@@ -471,7 +475,13 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function validateContactPerson(name) {
-        return /^[A-Za-z]+$/.test(name);
+        // return /^[A-Za-z]+$/.test(name);
+        return /^[A-Za-z ]+$/.test(name);
+        // return /^[A-Za-z0-9 ]+$/.test(name);
+    }
+
+    function validatecompanyNamePlan(name) {
+        return /^[A-Za-z0-9 ]+$/.test(name);
     }
 
     // FORM VALIDATION
@@ -482,8 +492,8 @@ document.addEventListener("DOMContentLoaded", function () {
         // TEAM ONLY VALIDATION
         // =========================
         if (currentPlan.plan_type === "team") {
-            const companyName =
-                document.getElementById("companyName")?.value.trim() || "";
+            const companyNamePlan =
+                document.getElementById("companyNamePlan")?.value.trim() || "";
 
             const address =
                 document.getElementById("address")?.value.trim() || "";
@@ -501,11 +511,24 @@ document.addEventListener("DOMContentLoaded", function () {
                 hideError("companyNumber");
             }
 
-            if (companyName.length < 2) {
-                showError("companyName", "Company name is required");
+            // if (companyNamePlan.length < 2) {
+            //     showError("companyNamePlan", "Company name is required");
+            //     valid = false;
+            // } else {
+            //     hideError("companyNamePlan");
+            // }
+
+            if (companyNamePlan.length < 2) {
+                showError("companyNamePlan", "Company name is required");
+                valid = false;
+            } else if (!validatecompanyNamePlan(companyNamePlan)) {
+                showError(
+                    "companyNamePlan",
+                    "Only letters, numbers, and spaces are allowed",
+                );
                 valid = false;
             } else {
-                hideError("companyName");
+                hideError("companyNamePlan");
             }
 
             if (address === "") {
@@ -538,6 +561,19 @@ document.addEventListener("DOMContentLoaded", function () {
         //     hideError("contactPerson");
         // }
 
+        // const contactPerson =
+        //     document.getElementById("contactPerson")?.value.trim() || "";
+
+        // if (contactPerson.length < 2) {
+        //     showError("contactPerson", "Contact person is required");
+        //     valid = false;
+        // } else if (!validateContactPerson(contactPerson)) {
+        //     showError("contactPerson", "Only letters are allowed");
+        //     valid = false;
+        // } else {
+        //     hideError("contactPerson");
+        // }
+
         const contactPerson =
             document.getElementById("contactPerson")?.value.trim() || "";
 
@@ -545,7 +581,10 @@ document.addEventListener("DOMContentLoaded", function () {
             showError("contactPerson", "Contact person is required");
             valid = false;
         } else if (!validateContactPerson(contactPerson)) {
-            showError("contactPerson", "Only letters are allowed");
+            showError(
+                "contactPerson",
+                "Only letters, numbers, and spaces are allowed",
+            );
             valid = false;
         } else {
             hideError("contactPerson");
@@ -917,7 +956,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // COMPANY (TEAM ONLY)
             company_name:
-                currentPlan.plan_type === "team" ? $("#companyName").val() : "",
+                currentPlan.plan_type === "team"
+                    ? $("#companyNamePlan").val()
+                    : "",
 
             company_type:
                 currentPlan.plan_type === "team" ? $("#companyType").val() : "",
@@ -1026,11 +1067,26 @@ document.addEventListener("DOMContentLoaded", function () {
     //         }
     //     });
 
+    // document
+    //     .getElementById("contactPerson")
+    //     ?.addEventListener("input", function () {
+    //         // Allow only A-Z and a-z
+    //         this.value = this.value.replace(/[^A-Za-z]/g, "");
+
+    //         if (
+    //             validateContactPerson(this.value.trim()) &&
+    //             this.value.trim().length >= 2
+    //         ) {
+    //             hideError("contactPerson");
+    //         }
+    //     });
+
     document
         .getElementById("contactPerson")
         ?.addEventListener("input", function () {
-            // Allow only A-Z and a-z
-            this.value = this.value.replace(/[^A-Za-z]/g, "");
+            // Allow letters, numbers and spaces
+            // this.value = this.value.replace(/[^A-Za-z0-9 ]/g, "");
+            this.value = this.value.replace(/[^A-Za-z ]/g, "");
 
             if (
                 validateContactPerson(this.value.trim()) &&
@@ -1041,11 +1097,23 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
     // COMPANY NAME
+    // document
+    //     .getElementById("companyNamePlan")
+    //     ?.addEventListener("input", function () {
+    //         if (this.value.trim().length >= 2) {
+    //             hideError("companyNamePlan");
+    //         }
+    //     });
     document
-        .getElementById("companyName")
+        .getElementById("companyNamePlan")
         ?.addEventListener("input", function () {
-            if (this.value.trim().length >= 2) {
-                hideError("companyName");
+            this.value = this.value.replace(/[^A-Za-z0-9 ]/g, "");
+
+            if (
+                validatecompanyNamePlan(this.value.trim()) &&
+                this.value.trim().length >= 2
+            ) {
+                hideError("companyNamePlan");
             }
         });
 
@@ -1243,6 +1311,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 plan_id: this.dataset.planId,
                 // name: this.dataset.name,
                 name: this.dataset.name,
+                default_qty: parseInt(tile.dataset.defQty || 1),
 
                 price: this.dataset.pricemonth || 0,
 
@@ -1382,6 +1451,5 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    $(`.payment-tab-${selectedPlan.plan_id}`).trigger('click');
-    
+    $(`.payment-tab-${selectedPlan.plan_id}`).trigger("click");
 });

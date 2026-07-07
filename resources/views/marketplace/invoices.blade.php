@@ -502,26 +502,26 @@
             </tr>
         </table>
 
-        <!-- SENDER + META -->
+        <!-- Invoice from -->
         <table class="meta-row-table">
             <tr>
                 <td class="meta-left" style="width:55%;">
-                    <div class="sender-name">Aibuzz Technoventures</div>
-                    <div class="sender-sub">IT &amp; Software Development</div>
+                    <div class="sender-name">{{ $masterData->name }}</div>
+                    <div class="sender-sub">{{ $masterData->designation }}</div>
 
                     <table class="meta-icon-row"><tr>
                         <td class="icon-cell">📍</td>
-                        <td>Delhi, India</td>
+                        <td>{{ $masterData->address ?? NA }}</td>
                     </tr></table>
 
                     <table class="meta-icon-row"><tr>
                         <td class="icon-cell">📞</td>
-                        <td>{{ $user->phone }}</td>
+                        <td>{{ $masterData->phone }}</td>
                     </tr></table>
 
                     <table class="meta-icon-row"><tr>
                         <td class="icon-cell">✉️</td>
-                        <td>officelescloud@gmail.com</td>
+                        <td>{{ $masterData->email }}</td>
                     </tr></table>
                 </td>
                 <td class="meta-right" style="width:45%;">
@@ -553,7 +553,7 @@
 
         <div class="divider"></div>
 
-        <!-- BILLED TO / COMPANY DETAILS -->
+        <!-- invoice to -->
         <table class="two-col">
             <tr>
                 <td class="col-half">
@@ -680,10 +680,10 @@
         <!-- TOTALS (fixed: was a single row with 6 <td>s, now each line has its own row of 2) -->
         <div class="totals">
             <table>
-                <tr>
+                <!-- <tr>
                     <td class="label">Subtotal</td>
                     <td class="value">{{ $currency }}{{ $subtotal }}</td>
-                </tr>
+                </tr> -->
                 <tr>
                     <td class="label">Discount Applied</td>
                     <td class="value">{{ $discount }}%</td>
@@ -762,7 +762,7 @@
         <!-- BOTTOM BAR -->
         <table class="footer-bar">
             <tr>
-                <td style="width:50%;"><a href="https://www.pocket-office.ai">www.pocket-office.ai</a></td>
+                <td style="width:50%;"><a href="https://pocket-office.ai/">pocket-office.ai</a></td>
                 <td class="footer-note">This is a system-generated invoice and does not require a signature.</td>
             </tr>
         </table>
