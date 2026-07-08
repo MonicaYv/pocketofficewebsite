@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Stevebauman\Location\Facades\Location;
 use Illuminate\Support\Facades\Cache;
+use App\Helpers\CardEncryption;
 
 class UserLicensePlansController extends Controller
 {
@@ -651,19 +652,15 @@ class UserLicensePlansController extends Controller
             'phone' => $request->phone,
             'email' => $request->email,
             'designation' => $request->designation,
+            'sizeMax' => '10',
             'password' => Hash::make('Password@123'),
-
             'client_id' => $clientId,
             'company_id' => $companyId,
-
             'is_support_face' => 1,
-
             'usertype' => $request->plan_type == 'team' ? 'company' : 'special_user',
-
             'security_question' => $request->security_question,
             'security_ans' => $request->security_answer,
             'term_condition' => $request->term_condition,
-
             'created_at' => now(),
             'updated_at' => now(),
         ]);
@@ -703,13 +700,11 @@ class UserLicensePlansController extends Controller
 
             'card_holder_name' => $request->card_name,
 
-            'card_number' =>
-            Crypt::encryptString($request->card_number),
+            'card_number' => CardEncryption::encrypt($request->card_number),
 
             'card_expiry_date' => $request->card_expiry,
 
-            'card_cvv' =>
-            Crypt::encryptString($request->card_cvv),
+            'card_cvv' => CardEncryption::encrypt($request->card_cvv),
 
             'card_pin' => null,
             'card_save' => 1,
@@ -993,181 +988,7 @@ class UserLicensePlansController extends Controller
                 }
             }
         );
-    }
-
-    private function generateInvoiceOLD($request, $userId, $finalAmount)
-    {
-        $user = DB::table('users')
-            ->where('id', $userId)
-            ->first();
-
-        // PLAN
-        $plan = DB::table('users_license_plans')
-            ->where('id', $request->plan_id)
-            ->first();
-
-        // CURRENCY
-        $currency = DB::table('currency_rates')
-            ->where('currency_code', $request->currencyid)
-            ->first();
-
-        // COMPANY DETAILS
-        $company = null;
-
-        if ($request->plan_type == 'team' && $user->company_id) {
-            $company = DB::table('companies')
-                ->where('id', $user->company_id)
-                ->first();
-        }
-
-        // DISCOUNT
-        $isYearly = ($request->subscription_type === 'year');
-
-        $discount = $isYearly
-            ? ($plan->yearly_discount ?? 0)
-            : ($plan->monthly_discount ?? 0);
-
-        $price = (float)$request->price;
-        $qty = (int)$request->quantity;
-
-        $subtotal = $price * $qty;
-
-        $discountAmount = ($subtotal * $discount) / 100;
-
-        $pdf = Pdf::loadView('marketplace.invoices', [
-
-            'user' => $user,
-
-            // PLAN
-            'plan_name' => $request->plan_name,
-            'subscription_type' => $request->subscription_type,
-            'license' => $request->license,
-            'storage' => $request->storage,
-            'unit' => $request->storage_unit,
-
-            // PRICE
-            'price' => number_format($price, 2),
-            'qty' => $qty,
-            'subtotal' => number_format($subtotal, 2),
-            'discount' => $discount,
-            'discountAmount' => number_format($discountAmount, 2),
-            'finalAmount' => number_format($finalAmount, 2),
-            'total_amount' => number_format($finalAmount, 2),
-
-            // CURRENCY
-            'currency' => $plan->currency_symbol ?? '',
-
-            // PROMO
-            'promocode' => $request->promocode_id ?? 'N/A',
-
-            // COMPANY
-            'plan_type' => $request->plan_type,
-            'company' => $company,
-
-            // PAYMENT
-            'payment_mode' => 'Card',
-            'payment_status' => 'Paid',
-            'payment_date' => now()->format('d M Y'),
-
-            // INVOICE META
-            'invoice_no' => 'INV-' . date('Y') . '-' . rand(1000, 9999),
-            'invoice_date' => now()->format('d M Y'),
-            'billing_period' => ucfirst($request->subscription_type),
-
-        ])->setPaper('a4', 'portrait')
-            ->setOptions([
-                'isHtml5ParserEnabled' => true,
-                'isRemoteEnabled' => true,
-                'defaultFont' => 'DejaVu Sans',
-            ]);
-
-        $fileName = 'invoice_' . time() . '_' . Str::random(6) . '.pdf';
-
-        $filePath = storage_path('app/invoices/' . $fileName);
-
-        $invoiceDir = storage_path('app/invoices');
-
-        if (!file_exists($invoiceDir)) {
-
-            mkdir($invoiceDir, 0775, true);
-        }
-
-        $pdf->save($filePath);
-
-        return $filePath;
-    }
-
-    // private function sendAdminMail($request, $pdfPath)
-    // {
-    //     //get request data
-    //     $username = $request->username;
-    //     $planType = $request->plan_type;
-    //     if ($planType == 'team') {
-    //         $userData = User::where('username', $username)->first();
-    //         $companyData = Company::where('id', $userData->company_id)->first();
-    //         $companyFinalData = User::where('id', $companyData->company_head)->first();
-    //     }
-
-    //     $adminEmail = 'officelescloud@gmail.com';
-    //     $companyEmail = $request->company_email; // or fetch from DB
-
-    //     Mail::send(
-    //         'mail-templates.purchase-email-admin',
-    //         [
-    //             'name' => $request->contactPerson,
-    //             'username' => $request->username,
-    //             'phone' => $request->phone,
-    //             'email' => $request->email,
-    //             'designation' => $request->designation,
-    //             'password' => 'Password@123',
-    //             'usertype' => $request->plan_type == 'team' ? 'company' : 'special_user',
-    //         ],
-    //         function ($message) use ($request, $pdfPath, $adminEmail, $companyEmail) {
-
-    //             $message->to([$adminEmail, $companyEmail])
-    //                 ->replyTo($request->email)
-    //                 ->subject('Purchase Details');
-
-    //             if (file_exists($pdfPath)) {
-    //                 $message->attach($pdfPath, [
-    //                     'as' => 'invoice.pdf',
-    //                     'mime' => 'application/pdf',
-    //                 ]);
-    //             }
-    //         }
-    //     );
-    // }
-
-    private function sendAdminMailOLD($request, $pdfPath)
-    {
-        Mail::send(
-            'mail-templates.purchase-email-admin',
-            [
-                'name' => $request->contactPerson,
-                'username' => $request->username,
-                'phone' => $request->phone,
-                'email' => $request->email,
-                'designation' => $request->designation,
-                'password' => 'Password@123',
-                'usertype' => $request->plan_type == 'team' ? 'company' : 'special_user',
-            ],
-            function ($message) use ($request, $pdfPath) {
-
-                //officelescloud@gmail.com
-                $message->to('officelescloud@gmail.com')
-                    ->replyTo($request->email)
-                    ->subject('Purchase Details');
-
-                // ✅ SAFE ATTACHMENT
-                if (file_exists($pdfPath)) {
-                    $message->attach($pdfPath, [
-                        'as' => 'invoice.pdf',
-                        'mime' => 'application/pdf',
-                    ]);
-                }
-            }
-        );
-    }
+    }    
 
     private function sendUserMail($request, $pdfPath)
     {
