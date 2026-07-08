@@ -442,14 +442,15 @@ class UserLicensePlansController extends Controller
         $discount = 0;
 
         if ($promocode->discount_type == 'percent') {
-            $discount = ($request->amount * $promocode->discount_value) / 100;
+            $discount = ($request->amount * round($promocode->discount_value)) / 100;
 
-            if ($promocode->max_discount) {
-                $discount = min($discount, $promocode->max_discount);
-            }
+            // if ($promocode->max_discount) {
+            //     $discount = min($discount, $promocode->max_discount);
+            // }
         } else {
             $discount = $promocode->discount_value;
         }
+
 
         return response()->json([
             'status' => true,
