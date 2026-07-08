@@ -454,6 +454,7 @@ class UserLicensePlansController extends Controller
         return response()->json([
             'status' => true,
             'discount' => round($discount, 2),
+            'promodiscount' => $promocode->discount_value,
             'promocode_id' => $promocode->id,
             'type' => $promocode->discount_type,
             'value' => $promocode->discount_value

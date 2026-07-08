@@ -497,7 +497,7 @@
 
                              <div style="margin-top: 14px">
                                  <div class="summary-row">
-                                     <span>Total</span>
+                                     <span>Total</span> 
                                      <span id="summaryOrgTotal">—</span>
                                  </div>
 
@@ -515,7 +515,7 @@
                                      <span id="extradiscountAmt">—</span>
                                  </div>
 
-                                 <div class="summary-row hidden">
+                                 <div class="summary-row">
                                      <span>Subtotal</span>
                                      <span id="summarySubtotal">—</span>
                                  </div>

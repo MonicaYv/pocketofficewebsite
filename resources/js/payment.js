@@ -343,7 +343,8 @@ document.addEventListener("DOMContentLoaded", function () {
         //     summaryOrgTotal.innerHTML = "";
         // }
 
-        const originalTotal = originalPrice * (currentPlan.default_qty || 1);
+        // const originalTotal = originalPrice * (currentPlan.default_qty || 1);
+        const originalTotal = originalPrice * quantityValue;
 
         if ((activeDiscount > 0 || extraDiscount > 0) && originalPrice > 0) {
             // summaryOrgTotal.innerHTML = `${currentPlan.symbol}${Math.round(originalPrice )}`;
@@ -471,7 +472,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function validateUsername(username) {
-        return /^(?=.*[A-Z])[A-Za-z]+$/.test(username);
+        // return /^(?=.*[A-Z])[A-Za-z]+$/.test(username); //letter , capital letter
+        return /^(?=.*[A-Z])(?=.*[A-Za-z])[A-Za-z0-9]+$/.test(username); // //letter , capital letter , number
     }
 
     function validateContactPerson(name) {
@@ -621,7 +623,9 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("username")?.value.trim() || "";
 
         if (!validateUsername(username)) {
-            showError("username", "Only letters with atleast 1 capital letter");
+            // showError("username", "Only letters with atleast 1 capital letter");
+            showError("username", "Username must contain only letters and numbers, with at least one uppercase letter");
+            
 
             valid = false;
         } else {
@@ -689,6 +693,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let appliedPromocodeId = null;
     let appliedPromocodeCode = "";
     let appliedDiscountAmount = 0;
+    let appliedPromo = 0;
 
     // CALCULATE FINAL TOTAL
     function updateFinalAmounts() {
@@ -710,10 +715,7 @@ document.addEventListener("DOMContentLoaded", function () {
             promoDiscountRow.style.display = "flex";
 
             promoDiscountAmt.innerText =
-                "-" +
-                currentPlan.symbol +
-                "" +
-                Math.round(appliedDiscountAmount);
+                "-" + Math.round(appliedPromo) + "%";
         } else {
             promoDiscountRow.classList.add("hidden");
             promoDiscountRow.style.display = "none";
@@ -759,6 +761,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     appliedPromocodeCode = code;
 
                     appliedDiscountAmount = parseFloat(response.discount || 0);
+                    appliedPromo = parseFloat(response.promodiscount || 0);
+                    
 
                     // UPDATE TOTAL
                     updateFinalAmounts();
@@ -776,6 +780,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     appliedPromocodeCode = "";
 
                     appliedDiscountAmount = 0;
+                    appliedPromo = 0;
 
                     updateFinalAmounts();
 
@@ -802,6 +807,7 @@ document.addEventListener("DOMContentLoaded", function () {
         appliedPromocodeCode = "";
 
         appliedDiscountAmount = 0;
+        appliedPromo = 0;
 
         // CLEAR INPUT
         $("#couponInput").val("");
@@ -1051,7 +1057,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // USERNAME
     document.getElementById("username")?.addEventListener("input", function () {
-        this.value = this.value.replace(/[^A-Za-z]/g, "");
+        // this.value = this.value.replace(/[^A-Za-z]/g, "");
+        this.value = this.value.replace(/[^A-Za-z0-9]/g, "");
 
         if (validateUsername(this.value.trim())) {
             hideError("username");
