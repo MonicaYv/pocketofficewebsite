@@ -900,6 +900,8 @@ class UserLicensePlansController extends Controller
 
             // PROMO
             'promocode' => $promocode->code ?? 'N/A',
+            'promocodeValue' => $promocode->discount_value ?? 'N/A',
+            'promocodeType' => $promocode->discount_type ?? 'N/A',
 
             // COMPANY
             'plan_type' => $company ? 'team' : 'single',
