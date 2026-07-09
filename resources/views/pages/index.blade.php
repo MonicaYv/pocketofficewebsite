@@ -29,7 +29,8 @@
 @endverbatim
 @endsection
 @section('preload')
-<link rel="preload" href="{{ asset('assets/img/Hero-Section.webp') }}" as="image" type="image/webp">
+    <link rel="preload" href="{{ asset('assets/img/Hero-Section.webp') }}" as="image" type="image/webp" media="(min-width: 769px)">
+    <link rel="preload" href="{{ asset('assets/img/hero_section_mob.png') }}" as="image" type="image/webp" media="(max-width: 768px)">
 @endsection
 @section('content')
 <!-- header area start -->
@@ -37,10 +38,14 @@
     <!-- Background Image -->
     <div class="hero-bg">
         <img src="assets/img/Hero-Section.webp"
-            alt="Digital productivity interface with modern workspace layout" width="1200" height="800"
+            srcset="assets/img/hero_section_mob.png 768w, 
+                    assets/img/Hero-Section.webp 1200w"
+            sizes="(max-width: 768px) 100vw, 1200px"
+            alt="Digital productivity interface with modern workspace layout" 
+            width="1200" 
+            height="800"
             loading="eager" 
-            fetchpriority="high"
-            />
+            fetchpriority="high" />
     </div>
     <div class="">
         <div class="hero-wrapper">
@@ -250,7 +255,7 @@
             <!-- RIGHT SIDE IMAGE -->
             <div class="core-feature-right">
                 <div class="feature-image-wrapper">
-                    <video autoplay muted loop playsinline preload="auto">
+                    <video autoplay muted loop playsinline preload="metadata">
                         <source src="/assets/img/animated-videos/index/index-core-features-video.mp4" type="video/mp4">
                     </video>
                 </div>
@@ -320,7 +325,7 @@
                 </div>
 
                 <div class="sector-right">
-                    <video autoplay muted loop playsinline loading="lazy">
+                    <video autoplay muted loop playsinline preload="metadata">
                         <source src="/assets/img/animated-videos/index/education.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
@@ -355,7 +360,7 @@
                 </div>
 
                 <div class="sector-right">
-                    <video autoplay muted loop playsinline loading="lazy">
+                    <video autoplay muted loop playsinline preload="metadata">
                         <source src="/assets/img/animated-videos/index/healthcare.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
@@ -390,7 +395,7 @@
 
 
                 <div class="sector-right">
-                    <video autoplay muted loop playsinline loading="lazy">
+                    <video autoplay muted loop playsinline preload="metadata">
                         <source src="/assets/img/animated-videos/index/finance-legal.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
@@ -423,7 +428,7 @@
                 </div>
 
                 <div class="sector-right">
-                    <video autoplay muted loop playsinline loading="lazy">
+                    <video autoplay muted loop playsinline preload="metadata">
                         <source src="/assets/img/animated-videos/index/it-software.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
@@ -468,7 +473,7 @@
                                 easier to access and manage.
                             </p>
                             <div class="storage-video-mobile">
-                                <video autoplay muted loop playsinline preload="auto">
+                                <video autoplay muted loop playsinline preload="metadata">
                                     <source src="/assets/img/animated-videos/index/works-with-your-cloud-storage.mp4"
                                         type="video/mp4">
                                 </video>
@@ -496,7 +501,7 @@
                                 duplicating data.
                             </p>
                             <div class="storage-video-mobile">
-                                <video autoplay muted loop playsinline preload="auto">
+                                <video autoplay muted loop playsinline preload="metadata">
                                     <source src="/assets/img/animated-videos/index/one-unified-desktop-view.mp4"
                                         type="video/mp4">
                                 </video>
@@ -523,7 +528,7 @@
                                 Tianyi Cloud securely through your browser-based desktop.
                             </p>
                             <div class="storage-video-mobile">
-                                <video autoplay muted loop playsinline preload="auto">
+                                <video autoplay muted loop playsinline preload="metadata">
                                     <source src="/assets/img/animated-videos/index/enterprise-on-prem-support.mp4"
                                         type="video/mp4">
                                 </video>
@@ -552,7 +557,7 @@
                                 different providers without switching platforms or duplicating data.
                             </p>
                             <div class="storage-video-mobile">
-                                <video autoplay muted loop playsinline preload="auto">
+                                <video autoplay muted loop playsinline preload="metadata">
                                     <source src="/assets/img/animated-videos/index/no-migration-required.mp4"
                                         type="video/mp4">
                                 </video>
@@ -566,7 +571,7 @@
 
             <!-- RIGHT IMAGE -->
             <div class="storage-right">
-                <video id="storage-video" autoplay muted loop playsinline preload="auto">
+                <video id="storage-video" autoplay muted loop playsinline preload="metadata">
 
                     <source id="storage-video-source"
                         src="/assets/img/animated-videos/index/works-with-your-cloud-storage.mp4" type="video/mp4">

@@ -15674,8 +15674,7 @@ h5.footer-sub-heading {
   justify-content: space-between;
   font-size: 16px;
   font-weight: 700;
-  padding: 10px 0 14px;
-  border-top: 2px solid #ddd;
+  
   margin-top: 4px;
 }
 
@@ -16544,6 +16543,7 @@ h5.footer-sub-heading {
 
 /* Individual plan tile — default (unselected) state */
 .pay-plan-tile {
+  width:100%;
   border: 2px solid #d1e8ef;
   border-radius: 6px;
   padding: 9px 10px;
@@ -16557,7 +16557,16 @@ h5.footer-sub-heading {
   background: #fff;
   line-height: 1.3;
 }
-
+.ten-percent-savings{
+  background: rgb(209, 250, 229); 
+  color: rgb(6, 95, 70);
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 12px;
+  text-align: center;
+  box-sizing: border-box;
+}
 .pay-plan-tile:hover {
   border-color: #7ecadb;
   background: #f0f9fc;
@@ -17278,4 +17287,329 @@ body {
 .single-input-wrap.active label {
     top: -10px;
     font-size: 12px;
+}
+
+/* ===== Order Summary — scoped to this card ===== */
+.order-summary-card {
+    background: #fff;
+    border: 1px solid #e3e8ee;
+    border-radius: 16px;
+    padding: 22px 20px;
+    box-shadow: 0 1px 2px rgba(16, 24, 40, .04);
+}
+
+.os-section { margin-bottom: 16px; }
+
+.os-header { margin-bottom: 16px; }
+.os-title { margin: 0; font-size: 17px; font-weight: 700; color: #1a2b3c; }
+
+.os-label { margin: 0 0 8px; font-size: 12.5px; font-weight: 600; color: #5b6b7c; }
+.os-label--inline { margin: 0; }
+
+/* Billing toggle */
+/* Billing toggle */
+.os-billing-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+ 
+.os-toggle 
+{ 
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+.os-toggle__input { position: absolute; opacity: 0; width: 0; height: 0; }
+.os-toggle__track {
+    position: relative;
+    display: flex;
+    width: 168px;
+    height: 34px;
+    background: #E5E7EB;
+    border-radius: 6px;
+    padding: 3px;
+    cursor: pointer;
+    user-select: none;
+    margin: 0;
+}
+.os-toggle__thumb {
+    position: absolute;
+    top: 3px; left: 3px;
+    width: calc(50% - 3px);
+    height: calc(100% - 6px);
+    background: #057a96;
+    border-radius: 6px;
+    transition: left .2s ease;
+    z-index: 0;
+}
+.os-toggle__input:checked ~ .os-toggle__track .os-toggle__thumb { left: calc(50% + 0px); border-radius: 6px; }
+.os-toggle__pill {
+    position: relative;
+    left: 0 !important;
+    z-index: 1;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+    color: #8a96a3;
+    transition: color .2s ease;
+}
+.os-toggle__input:not(:checked) ~ .os-toggle__track .os-toggle__pill--left { color: #fff;border-radius: 6px; }
+.os-toggle__input:checked ~ .os-toggle__track .os-toggle__pill--right { color: #fff;border-radius: 6px; }
+ 
+.os-savings-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #057a96;
+    background: #e6f6fa;
+   padding: 8px 12px;
+    border-radius: 6px;
+}
+/* Plan tiles */
+.pay-plan-selector__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+}
+.pay-plan-tile {
+    position: relative;
+    border: 1.5px solid #e3e8ee;
+    border-radius: 12px;
+    padding: 12px 10px;
+    cursor: pointer;
+    transition: border-color .15s ease, box-shadow .15s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.pay-plan-tile:hover { border-color: #b9c6d1; }
+.pay-plan-tile.selected {
+    border-color: #057a96;
+    box-shadow: 0 0 0 1px #057a96;
+}
+.pay-plan-tile__check {
+    display: none;
+    position: absolute;
+    top: 8px; right: 8px;
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    background: #057a96;
+    align-items: center;
+    justify-content: center;
+}
+.pay-plan-tile.selected .pay-plan-tile__check { display: flex; }
+.pay-plan-tile__icon {
+    width: 26px; height: 26px;
+    border-radius: 7px;
+    background: #e6f6fa;
+    color: #057a96;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.pay-plan-tile__name { font-size: 13px; font-weight: 600; color: #1a2b3c; }
+.pay-plan-tile__price { font-size: 13px; font-weight: 700; color: #057a96; }
+.pay-plan-tile__price small { font-size: 10px; font-weight: 500; color: #8a96a3; margin-left: 2px; }
+.pay-plan-tile__price.hidden { display: none; }
+
+/* Users stepper */
+.os-qty-box 
+{ 
+  border: 1px solid #D8EEF5;
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-bottom: 16px;
+  background: rgb(216 238 245 / 7%);
+}
+.os-qty-info{
+  display: flex;
+  gap:4px;
+  flex-direction: column;
+}
+.os-qty-row { display: flex; align-items: center; justify-content: space-between; }
+.os-qty-label { font-size: 13px; font-weight: 600; color: #1a2b3c; }
+.os-qty-stepper {
+    display: flex;
+    align-items: center;
+    border: 1px solid #e3e8ee;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.os-qty-btn {
+    width: 30px; height: 30px;
+    border: none;
+    background: #f5f7f9;
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    cursor: pointer;
+}
+.os-qty-input {
+    width: 40px; height: 30px;
+    text-align: center;
+    border: none;
+    border-left: 1px solid #e3e8ee;
+    border-right: 1px solid #e3e8ee;
+    font-size: 13px;
+    font-weight: 600;
+    outline: none;
+}
+
+/* Plan detail box */
+.plan-box {
+    display: flex;
+    gap: 12px;
+    background: #eef7fa;
+    border-radius: 12px;
+    padding: 14px;
+    margin: 16px 0;
+}
+.plan-box__icon {
+    flex: none;
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    background: #fff;
+    color: #057a96;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.plan-box__body { flex: 1; min-width: 0; }
+.plan-box__top { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+.plan-box__top strong { font-size: 15px; color: #1a2b3c; }
+.plan-box__price { font-size: 17px; font-weight: 700; color: #057a96; white-space: nowrap; }
+.plan-box__price small { display: block; font-size: 10.5px; font-weight: 500; color: #8a96a3; text-align: right; }
+.plan-box__features { list-style: none; margin: 8px 0 0; padding: 0; }
+.plan-box__features li {
+    font-size: 12px;
+    color: #45566a;
+    padding: 2px 0 2px 18px;
+    position: relative;
+}
+.plan-box__features li::before {
+    content: "✓";
+    position: absolute;
+    left: -0.8rem;
+    color: #057a96;
+    font-weight: 700;
+    font-size: 11px;
+}
+
+/* Totals */
+.os-totals { margin-bottom: 16px; }
+.summary-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 13px;
+    color: #5b6b7c;
+    padding: 5px 0;
+}
+.summary-row.hidden { display: none; }
+.os-discount-amt { color: #DC2626; font-weight: 600; }
+.os-total-divider {
+    border-top: 2px dashed #000000;
+    margin: 6px 0;
+}
+.summary-total {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 15px;
+    font-weight: 700;
+    color: #1a2b3c;
+    padding-top: 4px;
+}
+.summary-total span:last-child { color: #057a96; font-size: 17px; }
+
+/* Savings notice */
+.os-savings-notice {
+    background: #eef7fa;
+    color: #057a96;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 8px 12px;
+    margin-bottom: 16px;
+    text-align: center;
+}
+.os-savings-notice:empty { display: none; }
+
+/* Promo code */
+.os-promo-row { display: flex; gap: 8px; margin-top: 8px; }
+.os-promo-input {
+    flex: 1;
+    height: 38px;
+    border: 1px solid #e3e8ee;
+    border-radius: 8px;
+    padding: 0 12px;
+    font-size: 13px;
+    outline: none;
+}
+.os-promo-input:focus { border-color: #057a96; }
+.os-promo-btn {
+    height: 38px;
+    padding: 0 18px;
+    background: #057a96;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+}
+.os-promo-btn:hover { background: #046882; }
+.os-coupon-msg { font-size: 12px; margin-top: 6px; }
+.os-remove-coupon {
+    margin-top: 6px;
+    background: none;
+    border: none;
+    color: #e0455a;
+    cursor: pointer;
+    font-size: 12px;
+    padding: 0;
+}
+
+/* Submit */
+.os-submit-btn {
+    width: 100%;
+    height: 46px;
+    background: #057a96;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 14.5px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 18px;
+}
+.os-submit-btn:hover { background: #046882; }
+
+.os-footnote {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-size: 11px;
+    color: #8a96a3;
+    margin: 10px 0 0;
+}
+
+@media (min-width: 768px) {
+  .pay-plan-selector__grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.sm-qty-box{
+  border: 1px solid #D8EEF5;
+  border-radius: 12px;
+  padding: 14px 16px;
+  background: rgb(216 238 245 / 7%);
+  margin-bottom: 10px;
 }

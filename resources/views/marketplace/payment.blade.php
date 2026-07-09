@@ -28,7 +28,7 @@
      <div class="container my-4">
          <div class="row">
              <!--LEFT COLUMN — Registration Form -->
-             <div class="col-md-8" id="formCol">
+             <div class="col-md-7" id="formCol">
                  <form>
                      <!-- company details-->
                      <div class="panel panel-default mb-4 pay-company-form hidden">
@@ -378,221 +378,224 @@
              </div>
 
              <!-- RIGHT COLUMN — Order Summary -->
-             <div class="col-md-4">
+             <div class="col-md-5">
                  <div class="sidebar-sticky">
-                     <div class="panel panel-default">
-                         <div class="panel-heading" style="border-bottom: 1px solid #ddd">
-                             <h4 style="color: #333; margin: 0; font-size: 15px; font-weight: 600; ">
-                                 Order Summary
-                             </h4>
+                    <div class="order-summary-card">
+
+                        <!-- Header -->
+                         <div class="os-header">
+                            <h4 class="os-title">Order Summary</h4>
+                            <p class="os-subtitle">Review your selected plan before proceeding.</p>
                          </div>
 
-                         <div class="panel-body">
-                             <div id="payBillingControls" style="margin-bottom: 10px;">
-                                 @php
-                                 $singlePlan = collect($planLists)->firstWhere('is_single_user', 1);
-                                 $selectedPlanType = request('plan_type', 'single');
-                                 @endphp
-                                 <div style="display:flex;align-items:center;justify-content:space-between;">
-                                     <span style="font-size:13px;font-weight:600;color:#333;">Billing Period</span>
-                                     <label style="display:flex;align-items:center;gap:8px;cursor:pointer;margin:0;">
-                                         <span id="payBillingMonthLabel" style="font-size:12px;font-weight:600;color:#057A96;">
-                                             Monthly <span
-                                                 id="monthlyDiscountBadge"
-                                                 style="display:none;background:#d1fae5;color:#065f46;border-radius:999px;font-size:10px;font-weight:700;padding:1px 6px;margin-left:2px;">
-                                             </span>
-                                         </span>
-                                         <span style="position:relative;display:inline-block;width:40px;height:22px;">
-                                             <input type="checkbox" id="payBillingToggle" style="opacity:0;width:0;height:0;position:absolute;">
-                                             <span id="payToggleTrack" style="position:absolute;inset:0;border-radius:999px;cursor:pointer;background:#ccc;transition:background .2s;">
-                                                 <span id="payToggleThumb" style="position:absolute;top:3px;width:16px;height:16px;border-radius:50%;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,.2);transition:left .2s;left:3px;"></span>
-                                             </span>
-                                         </span>
-                                         <span id="payBillingYearLabel" style="font-size:12px;font-weight:400;color:#888;">
-                                             Yearly <span
-                                                 id="yearlyDiscountBadge"
-                                                 style="display:none;background:#d1fae5;color:#065f46;border-radius:999px;font-size:10px;font-weight:700;padding:1px 6px;margin-left:2px;">
-                                             </span>
-                                         </span>
-                                     </label>
-                                 </div>
-                                 <hr style="margin:10px 0 0 0;">
+                        <!-- Billing Period -->
+                        <div id="payBillingControls" class="os-section">
+                            @php
+                                $singlePlan = collect($planLists)->firstWhere('is_single_user', 1);
+                                $selectedPlanType = request('plan_type', 'single');
+                            @endphp
 
-                             </div>
+                            <div class="">
+                                <p class="os-label os-label--inline">Billing Period</p>
 
-                             <div class="pay-plan-selector">
-                                 <p class="pay-plan-selector__label">Change Plan</p>
+                                <label class="os-toggle" for="payBillingToggle">
+                                    <input type="checkbox" id="payBillingToggle" class="os-toggle__input">
+                                    <span class="os-toggle__track" id="payToggleTrack">
+                                        <span id="payBillingMonthLabel" class="os-toggle__pill os-toggle__pill--left">
+                                            Monthly
+                                            <span id="monthlyDiscountBadge" class="os-mini-badge">—</span>
+                                        </span>
+                                        <span id="payBillingYearLabel" class="os-toggle__pill os-toggle__pill--right">
+                                            Yearly
+                                            <span id="yearlyDiscountBadge" class="os-mini-badge">—</span>
+                                        </span>
+                                        <span class="os-toggle__thumb" id="payToggleThumb"></span>
+                                    </span>
+                                    <span class="os-savings-chip ten-percent-savings">
+                                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41 11 22.99 1 13V3h10l9.59 9.41a2 2 0 0 1 0 2.82Z"/><circle cx="7.5" cy="7.5" r="1.5" fill="currentColor" stroke="none"/></svg>
+                                        Save 10% with Yearly Billing
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
 
-                                 <div
-                                     class="pay-plan-selector__grid"
-                                     id="planOptions"
-                                     style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
+                        <!-- Change Plan -->
+                        <div class="pay-plan-selector os-section">
+                            <p class="pay-plan-selector__label os-label">Change Plan</p>
 
-                                     @foreach ($planLists as $plan)
-                                     <div
-                                         class="pay-plan-tile selected-plan-option {{ $loop->first ? 'selected' : '' }} payment-tab-{{ $plan->id }}"
+                            <div class="pay-plan-selector__grid" id="planOptions">
+                                @foreach ($planLists as $plan)
+                                    @php
+                                        $icons = ['cloud', 'monitor', 'box', 'shield'];
+                                        $iconKey = $icons[$loop->index % count($icons)];
+                                    @endphp
+                                    <div
+                                        class="pay-plan-tile selected-plan-option {{ $loop->first ? 'selected' : '' }} payment-tab-{{ $plan->id }}"
+                                        data-plan-type="{{ $selectedPlanType }}"
+                                        data-apply-discount="{{ $plan->is_team_discount_apply == 1 }}"
+                                        data-team-allowed="{{ $plan->is_team_allowed == 1 }}"
+                                        data-plan-id="{{ $plan->id }}"
+                                        data-name="{{ $plan->plans_name }}"
+                                        data-subscription="{{ $plan->plans_subscription_type }}"
+                                        data-license="{{ $plan->plans_license }}"
+                                        data-storage="{{ $plan->plans_users }}"
+                                        data-storage-unit="{{ $plan->storage_unit }}"
+                                        data-monthly-price="{{ $plan->final_monthly_price }}"
+                                        data-yearly-price="{{ $plan->final_yearly_price }}"
+                                        data-original-monthly="{{ $plan->original_monthly_price }}"
+                                        data-original-yearly="{{ $plan->original_yearly_price }}"
+                                        data-monthly-discount="{{ $plan->monthly_discount ?? 0 }}"
+                                        data-yearly-discount="{{ $plan->yearly_discount ?? 0 }}"
+                                        data-extra-monthly-discount="{{ $plan->additional_disc_month ?? 0 }}"
+                                        data-extra-yearly-discount="{{ $plan->additional_disc_year ?? 0 }}"
+                                        data-extra-mo-discount="{{ $plan->monthly_extra_disc ?? 0 }}"
+                                        data-extra-yr-discount="{{ $plan->yearly_extra_disc ?? 0 }}"
+                                        data-def-qty="{{ $plan->default_qty ?? 1 }}"
+                                        data-symbol="{{ $plan->currency_symbol ?? '₹' }}">
 
-                                         data-plan-type="{{ $selectedPlanType }}"
-                                         data-apply-discount="{{ $plan->is_team_discount_apply == 1 }}"
-                                         data-team-allowed="{{ $plan->is_team_allowed == 1 }}"
-                                         data-plan-id="{{ $plan->id }}"
-                                         data-name="{{ $plan->plans_name }}"
-                                         data-subscription="{{ $plan->plans_subscription_type }}"
-                                         data-license="{{ $plan->plans_license }}"
-                                         data-storage="{{ $plan->plans_users }}"
-                                         data-storage-unit="{{ $plan->storage_unit }}"
-                                         data-monthly-price="{{ $plan->final_monthly_price }}"
-                                         data-yearly-price="{{ $plan->final_yearly_price }}"
-                                         data-original-monthly="{{ $plan->original_monthly_price }}"
-                                         data-original-yearly="{{ $plan->original_yearly_price }}"
-                                         data-monthly-discount="{{ $plan->monthly_discount ?? 0 }}"
-                                         data-yearly-discount="{{ $plan->yearly_discount ?? 0 }}"
-                                         data-extra-monthly-discount="{{ $plan->additional_disc_month ?? 0 }}"
-                                         data-extra-yearly-discount="{{ $plan->additional_disc_year ?? 0 }}"
-                                         data-extra-mo-discount="{{ $plan->monthly_extra_disc ?? 0 }}"
-                                         data-extra-yr-discount="{{ $plan->yearly_extra_disc ?? 0 }}"
-                                         data-def-qty="{{ $plan->default_qty ?? 1 }}"
-                                         data-symbol="{{ $plan->currency_symbol ?? '₹' }}">
+                                        <span class="pay-plan-tile__check">
+                                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                                        </span>
 
-                                         {{ $plan->plans_name }} 
+                                        <span class="pay-plan-tile__icon">
+                                            @switch($iconKey)
+                                                @case('cloud')
+                                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h.79a4.5 4.5 0 1 1 0 9Z"/></svg>
+                                                    @break
+                                                @case('monitor')
+                                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                                                    @break
+                                                @case('box')
+                                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21 8-9-5-9 5 9 5 9-5Z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/></svg>
+                                                    @break
+                                                @default
+                                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5.25 3.4 9.74 8 11 4.6-1.26 8-5.75 8-11V5l-8-3Z"/><polyline points="9 12 11 14 15 10"/></svg>
+                                            @endswitch
+                                        </span>
 
-                                         <!-- <span class="pay-plan-tile__price plan_price_details"></span> -->
-                                         <span class="pay-plan-tile__price plan_price_details hidden"></span>
-                                         <span class="pay-plan-tile__price view_plan_price_details">
-                                             {{ $plan->currency_symbol }}{{ $plan->final_monthly_price }}
-                                         </span>
-                                     </div>
-                                     @endforeach
-                                 </div>
-                             </div>
+                                        <span class="pay-plan-tile__name">{{ $plan->plans_name }}</span>
 
-                             <div id="payQtyControls" style="margin-top: 10px;">
-                                 <hr style="margin:0 0 10px 0;">
-                                 <div style="display:flex;align-items:center;justify-content:space-between;">
-                                     <span style="font-size:13px;font-weight:600;color:#333;" id="payQtyLabel">Users</span>
-                                     <div id="payQtyBox" style="display: flex; align-items: center; border: 1px solid rgb(221, 221, 221); border-radius: 8px; overflow: hidden; opacity: 1; pointer-events: auto;">
-                                         <button id="payQtyMinus" type="button" style="width:32px;height:32px;border:none;background:#f5f5f5;font-size:18px;font-weight:600;cursor:pointer;color:#333;display:flex;align-items:center;justify-content:center;">−</button>
-                                         <input type="number" id="payQtyInput" value="1" min="1" style="width:42px;height:32px;text-align:center;border:none;border-left:1px solid #ddd;border-right:1px solid #ddd;font-size:13px;font-weight:600;color:#333-moz-appearance:textfield;outline:none;background:#fff;">
-                                         <button id="payQtyPlus" type="button" style="width:32px;height:32px;border:none;background:#f5f5f5;font-size:18px;font-weight:600;cursor:pointer;color:#333; display:flex;align-items:center;justify-content:center;">+</button>
-                                     </div>
-                                 </div>
-                             </div>
+                                        <span class="pay-plan-tile__price plan_price_details hidden"></span>
+                                        <span class="pay-plan-tile__price view_plan_price_details">
+                                            {{ $plan->currency_symbol }}{{ $plan->final_monthly_price }}<small>/year</small>
+                                        </span>
+                                        <small>/year</small>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
 
-                             <hr style="margin: 12px 0">
+                        <!-- Users -->
+                        <!-- Users -->
+                <div id="payQtyControls" class="os-section os-qty-box">
+                    <div class="os-qty-row">
+                        <div class="os-qty-info">
+                            <span class="os-qty-label" id="payQtyLabel">Users</span>
+                            <span class="os-qty-sublabel">Select the number of user licenses</span>
+                        </div>
+                        <div class="os-qty-controls-wrap">
+                            <div id="payQtyBox" class="os-qty-stepper">
+                                <button id="payQtyMinus" type="button" class="os-qty-btn">−</button>
+                                <input type="number" id="payQtyInput" value="1" min="1" class="os-qty-input">
+                                <button id="payQtyPlus" type="button" class="os-qty-btn">+</button>
+                            </div>
+                            <span class="os-qty-price-hint" id="payQtyPriceHint"></span>
+                        </div>
+                    </div>
+                </div>
 
-                             <div class="plan-box">
-                                 <div class="clearfix">
-                                     <strong
-                                         id="summaryPlanName"
-                                         style="font-size: 18px; color: #057a96">—</strong>
-                                     <span class="pull-right plan-price">
-                                         <span id="summarySymbol"></span><span id="summaryUnitPrice">—</span>
-                                         <small class="text-muted" style="font-size: 13px; font-weight: 400"></small>
-                                     </span>
-                                 </div>
-                                 <ul id="planFeatureList">
-                                     <li>Loading…</li>
-                                 </ul>
-                             </div>
+                        <!-- Plan Detail -->
+                        <div class="plan-box">
+                            <div class="plan-box__icon">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5.25 3.4 9.74 8 11 4.6-1.26 8-5.75 8-11V5l-8-3Z"/></svg>
+                            </div>
+                            <div class="plan-box__body">
+                                <div class="plan-box__top">
+                                    <strong id="summaryPlanName">—</strong>
+                                    <span class="plan-box__price">
+                                        <span id="summarySymbol"></span><span id="summaryUnitPrice">—</span>
+                                        <small class="text-muted"></small>
+                                        <small>/year</small>
+                                    </span>
+                                </div>
+                                <ul id="planFeatureList" class="plan-box__features">
+                                    <li>Loading…</li>
+                                </ul>
+                            </div>
+                        </div>
 
-                             <div style="margin-top: 14px">
-                                 <div class="summary-row">
-                                     <span>Total</span>
-                                     <span id="summaryOrgTotal">—</span>
-                                 </div>
+                        <!-- Totals -->
+                        <div class="sm-qty-box">
+                            <div class="os-totals">
+                                <div class="summary-row">
+                                <span>Subtotal</span>
+                                <span id="summaryOrgTotal">—</span>
+                            </div>
 
-                                 <div
-                                     class="summary-row hidden"
-                                     id="discountRow">
-                                     <span></span>
-                                     <span id="discountAmt">—</span>
-                                 </div>
+                            <div class="summary-row hidden" id="discountRow">
+                                <span></span>
+                                <span id="discountAmt" class="os-discount-amt">—</span>
+                            </div>
 
-                                 <div
-                                     class="summary-row hidden"
-                                     id="extradiscountRow">
-                                     <span></span>
-                                     <span id="extradiscountAmt">—</span>
-                                 </div>
+                            <div class="summary-row hidden" id="extradiscountRow">
+                                <span></span>
+                                <span id="extradiscountAmt">—</span>
+                            </div>
 
-                                 <div class="summary-row hidden">
-                                     <span>Subtotal</span>
-                                     <span id="summarySubtotal">—</span>
-                                 </div>
+                            <div class="summary-row hidden">
+                                <span>Subtotal</span>
+                                <span id="summarySubtotal">—</span>
+                            </div>
 
-                                 <div
-                                     class="summary-row hidden"
-                                     id="promoDiscountRow"
-                                     style="color:#16a34a">
-                                     <span>Promo Code</span>
-                                     <span id="promoDiscountAmt">—</span>
-                                 </div>
+                            <div class="summary-row hidden" id="promoDiscountRow">
+                                <span>Promo Code</span>
+                                <span id="promoDiscountAmt" class="os-discount-amt">—</span>
+                            </div>
 
-                                 <div class="summary-row hidden">
-                                     <span>Estimated tax</span>
-                                     <span id="summaryTax">0</span>
-                                 </div>
-                                 <div class="summary-total">
-                                     <span>Final Amount</span>
-                                     <span id="summaryTotal" style="color: #057a96">—</span>
-                                 </div>
-                             </div>
+                            <div class="summary-row hidden">
+                                <span>Estimated tax</span>
+                                <span id="summaryTax">0</span>
+                            </div>
 
-                             <hr style="margin: 14px 0" />
+                            <div class="os-total-divider"></div>
 
-                             <div id="paySavingsNotice"
-                                 class=""
-                                 style="background: rgb(209, 250, 229);
-                                color: rgb(6, 95, 70);
-                                border-radius: 8px;
-                                font-size: 12px;
-                                font-weight: 600;
-                                padding: 6px 12px;
-                                margin-bottom: 10px;
-                                text-align: center;
-                                width: 100%;
-                                box-sizing: border-box;">
-                             </div>
+                            <div class="summary-total">
+                                <span>Final Amount</span>
+                                <span id="summaryTotal">—</span>
+                            </div>
+                            </div>
+                        </div>
 
-                             <label
-                                 class="text-muted"
-                                 style="font-size: 13px; font-weight: 500">Promo code</label>
-                             <div class="input-group">
-                                 <input
-                                     type="text"
-                                     class="form-control"
-                                     id="couponInput"
-                                     placeholder="1234" />
-                                 <span class="input-group-btn">
-                                     <button
-                                         class="btn btn-brand"
-                                         type="button"
-                                         id="applyPromoBtn">
-                                         Apply
-                                     </button>
-                                 </span>
-                             </div>
-                             <div
-                                 id="couponMsg"
-                                 style="font-size: 12px; margin-top: 6px"></div>
+                        <!-- Savings Notice -->
+                        <div id="paySavingsNotice" class="os-savings-notice"></div>
 
-                             <button id="removeCouponBtn"
-                                 style="display:none; margin-top: 6px; background:none; border:none; color:red; cursor:pointer; font-size:12px; padding:0 12px; border-radius: 8px; box-shadow: 0 4px 6px #07a6cc52;" class="btn">
-                                 Remove Promo Code
-                             </button>
+                        <!-- Promo Code -->
+                        <label class="os-label" for="couponInput">Promo code</label>
+                        <div class="os-promo-row">
+                            <input type="text" class="os-promo-input" id="couponInput" placeholder="1234" />
+                            <button class="os-promo-btn" type="button" id="applyPromoBtn">Apply</button>
+                        </div>
+                        <div id="couponMsg" class="os-coupon-msg"></div>
 
-                             <hr style="margin: 14px 0" />
+                        <button id="removeCouponBtn" class="os-remove-coupon" style="display:none;">
+                            Remove Promo Code
+                        </button>
 
-                             <button
-                                 class="btn btn-brand btn-block"
-                                 id="sideSubmitBtnForTeam"
-                                 type="button">
-                                 Save &amp; Verify
-                             </button>
-                         </div>
-                     </div>
-                 </div>
+                        <!-- Submit -->
+                        <button class="os-submit-btn" id="sideSubmitBtnForTeam" type="button">
+                            Save &amp; Verify
+                        </button>
+
+                        <p class="os-footnote">
+                            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                            Your payment details are secure and encrypted.
+                        </p>
+
+                    </div>
              </div>
+           </div>
+
+
          </div>
      </div>
 

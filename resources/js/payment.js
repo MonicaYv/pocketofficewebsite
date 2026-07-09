@@ -142,27 +142,27 @@ document.addEventListener("DOMContentLoaded", function () {
         if (!payBillingToggle) {
             return;
         }
-        const yearly = payBillingToggle.checked;
+        // const yearly = payBillingToggle.checked;
 
-        if (yearly) {
-            payBillingMonthLabel.style.color = "#888";
-            payBillingMonthLabel.style.fontWeight = "400";
+        // if (yearly) {
+        //     payBillingMonthLabel.style.color = "#888";
+        //     payBillingMonthLabel.style.fontWeight = "400";
 
-            payBillingYearLabel.style.color = "#057A96";
-            payBillingYearLabel.style.fontWeight = "600";
+        //     payBillingYearLabel.style.color = "#057A96";
+        //     payBillingYearLabel.style.fontWeight = "600";
 
-            payToggleTrack.style.background = "#057A96";
-            payToggleThumb.style.left = "21px";
-        } else {
-            payBillingMonthLabel.style.color = "#057A96";
-            payBillingMonthLabel.style.fontWeight = "600";
+        //     payToggleTrack.style.background = "#057A96";
+        //     // payToggleThumb.style.left = "21px";
+        // } else {
+        //     payBillingMonthLabel.style.color = "#057A96";
+        //     payBillingMonthLabel.style.fontWeight = "600";
 
-            payBillingYearLabel.style.color = "#888";
-            payBillingYearLabel.style.fontWeight = "400";
+        //     payBillingYearLabel.style.color = "#888";
+        //     payBillingYearLabel.style.fontWeight = "400";
 
-            payToggleTrack.style.background = "#ccc";
-            payToggleThumb.style.left = "3px";
-        }
+        //     payToggleTrack.style.background = "#ccc";
+        //     payToggleThumb.style.left = "3px";
+        // }
     }
 
     //load amount
