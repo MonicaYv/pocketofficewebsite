@@ -73,7 +73,7 @@
      </div>
 
      <div class="tab-content use-case-content">
-         <div class="features-tab-pane active" id="file-sharing">
+         <div class="features-tab-pane active fade-in" id="file-sharing">
              <div class="content">
                  <div class="text-section">
                      <h4>File Sharing</h4>
