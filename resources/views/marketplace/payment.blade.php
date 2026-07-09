@@ -526,11 +526,11 @@
 
                         <!-- Totals -->
                         <div class="sm-qty-box">
-                            <div class="os-totals">
-                                <div class="summary-row">
-                                <span>Subtotal</span>
-                                <span id="summaryOrgTotal">—</span>
+                            <div class="summary-row">
+                                     <span>subtotal</span>
+                                     <span id="summarySubtotal">—</span>
                             </div>
+                            
 
                             <div class="summary-row hidden" id="discountRow">
                                 <span></span>
@@ -542,10 +542,12 @@
                                 <span id="extradiscountAmt">—</span>
                             </div>
 
-                            <div class="summary-row hidden">
-                                <span>Subtotal</span>
-                                <span id="summarySubtotal">—</span>
+                                 <div class="os-totals">
+                                <div class="summary-row">
+                                <span>Total</span>
+                                <span id="summaryOrgTotal">—</span>
                             </div>
+                            
 
                             <div class="summary-row hidden" id="promoDiscountRow">
                                 <span>Promo Code</span>

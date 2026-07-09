@@ -911,12 +911,15 @@ document.addEventListener("DOMContentLoaded", () => {
 /* ===============================
      TEAM TYPE
   =============================== */
-$(".nav-link").click(function (e) {
+$(".features-tabs .nav-link").click(function (e) {
   e.preventDefault();
 
-  var tabId = $(this).data("tab");
+  var tabId = ($(this).data("tab") || "").toString().trim();
 
-  $(".nav-link").removeClass("active");
+  // If there's no matching pane, do nothing.
+  if (!tabId || $("#" + tabId + ".features-tab-pane").length === 0) return;
+
+  $(".features-tabs .nav-link").removeClass("active");
   $(".features-tab-pane").removeClass("active");
 
   $(this).addClass("active");
@@ -984,7 +987,7 @@ const tab = urlParams.get("tab");
 
 if (tab) {
   if ($("#" + tab + ".features-tab-pane").length) {
-    $('.nav-link[data-tab="' + tab + '"]').click();
+    $('.features-tabs .nav-link[data-tab="' + tab + '"]').click();
   }
 
   if ($("#" + tab + ".core-features-panel").length) {

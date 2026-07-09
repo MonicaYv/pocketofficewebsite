@@ -599,6 +599,8 @@ $(document).ready(function () {
             qtyInput.val(currentQty);
 
             updateTeamCardCalculation(planBox, currentQty);
+        } else {
+            toastr.error(`Minimum quantity is ${defaultQty}.`);
         }
 
         // let currentQty = parseInt(qtyInput.val());

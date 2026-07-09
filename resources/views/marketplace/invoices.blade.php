@@ -19,7 +19,7 @@
         }
 
         .email-wrapper {
-           padding:20px;
+            padding: 20px;
             max-width: 620px;
             margin: 30px auto;
             background: #fff;
@@ -223,7 +223,7 @@
             border-radius: 12px;
         }
 
-        .plan-card > tbody > tr > td {
+        .plan-card>tbody>tr>td {
             padding: 16px 20px;
             vertical-align: top;
         }
@@ -419,9 +419,11 @@
             font-weight: 700;
             text-decoration: none;
         }
-        a{
+
+        a {
             text-decoration: none;
         }
+
         .footer-note {
             font-size: 11px;
             color: rgba(255, 255, 255, 0.7);
@@ -495,8 +497,8 @@
             <tr>
                 <td style="width:50%;">
                     <a href="" class="logo">
-                <img src="{{ asset($constants['IMAGEFILEPATH'] . 'office.png') }}" alt="office-logo" />
-            </a>
+                        <img src="{{ asset($constants['IMAGEFILEPATH'] . 'office.png') }}" alt="office-logo" />
+                    </a>
                 </td>
                 <td class="invoice-badge">INVOICE</td>
             </tr>
@@ -509,20 +511,26 @@
                     <div class="sender-name">{{ $masterData->name }}</div>
                     <div class="sender-sub">{{ $masterData->designation }}</div>
 
-                    <table class="meta-icon-row"><tr>
-                        <td class="icon-cell">📍</td>
-                        <td>{{ $masterData->address ?? 'NA' }}</td>
-                    </tr></table>
+                    <table class="meta-icon-row">
+                        <tr>
+                            <td class="icon-cell">📍</td>
+                            <td>{{ $masterData->address ?? 'NA' }}</td>
+                        </tr>
+                    </table>
 
-                    <table class="meta-icon-row"><tr>
-                        <td class="icon-cell">📞</td>
-                        <td>{{ $masterData->phone }}</td>
-                    </tr></table>
+                    <table class="meta-icon-row">
+                        <tr>
+                            <td class="icon-cell">📞</td>
+                            <td>{{ $masterData->phone }}</td>
+                        </tr>
+                    </table>
 
-                    <table class="meta-icon-row"><tr>
-                        <td class="icon-cell">✉️</td>
-                        <td>{{ $masterData->email }}</td>
-                    </tr></table>
+                    <table class="meta-icon-row">
+                        <tr>
+                            <td class="icon-cell">✉️</td>
+                            <td>{{ $masterData->email }}</td>
+                        </tr>
+                    </table>
                 </td>
                 <td class="meta-right" style="width:45%;">
                     <table class="inv-table">
@@ -561,45 +569,59 @@
                     <div class="col-name">{{ $user->name }}</div>
                     <div class="col-role">{{ $user->designation }}</div>
 
-                    <table class="col-detail"><tr>
-                        <td class="icon-cell">✉️</td>
-                        <td>{{ $user->email }}</td>
-                    </tr></table>
+                    <table class="col-detail">
+                        <tr>
+                            <td class="icon-cell">✉️</td>
+                            <td>{{ $user->email }}</td>
+                        </tr>
+                    </table>
 
-                    <table class="col-detail"><tr>
-                        <td class="icon-cell">📞</td>
-                        <td>{{ $user->phone }}</td>
-                    </tr></table>
+                    <table class="col-detail">
+                        <tr>
+                            <td class="icon-cell">📞</td>
+                            <td>{{ $user->phone }}</td>
+                        </tr>
+                    </table>
                 </td>
 
                 @if($plan_type == 'team' && $company)
                 <td class="col-half with-border">
                     <div class="col-label">COMPANY DETAILS</div>
 
-                    <table class="det-row"><tr>
-                        <td class="det-key">Company Name</td>
-                        <td class="det-val">{{ optional($company)->name }}</td>
-                    </tr></table>
+                    <table class="det-row">
+                        <tr>
+                            <td class="det-key">Company Name</td>
+                            <td class="det-val">{{ optional($company)->name }}</td>
+                        </tr>
+                    </table>
 
-                    <table class="det-row"><tr>
-                        <td class="det-key">Company Type</td>
-                        <td class="det-val">{{ optional($company)->company_type }}</td>
-                    </tr></table>
+                    <table class="det-row">
+                        <tr>
+                            <td class="det-key">Company Type</td>
+                            <td class="det-val">{{ optional($company)->company_type }}</td>
+                        </tr>
+                    </table>
 
-                    <table class="det-row"><tr>
-                        <td class="det-key">Industry</td>
-                        <td class="det-val">{{ optional($company)->industry }}</td>
-                    </tr></table>
+                    <table class="det-row">
+                        <tr>
+                            <td class="det-key">Industry</td>
+                            <td class="det-val">{{ optional($company)->industry }}</td>
+                        </tr>
+                    </table>
 
-                    <table class="det-row"><tr>
-                        <td class="det-key">Address</td>
-                        <td class="det-val">{{ optional($company)->company_address }}</td>
-                    </tr></table>
+                    <table class="det-row">
+                        <tr>
+                            <td class="det-key">Address</td>
+                            <td class="det-val">{{ optional($company)->company_address }}</td>
+                        </tr>
+                    </table>
 
-                    <table class="det-row"><tr>
-                        <td class="det-key">Company Email</td>
-                        <td class="det-val" style="color:#0694B7;font-size:11.5px;">{{ optional($company)->email }}</td>
-                    </tr></table>
+                    <table class="det-row">
+                        <tr>
+                            <td class="det-key">Company Email</td>
+                            <td class="det-val" style="color:#0694B7;font-size:11.5px;">{{ optional($company)->email }}</td>
+                        </tr>
+                    </table>
                 </td>
                 @endif
             </tr>
@@ -620,24 +642,34 @@
 
                     <table class="plan-features">
                         <tr>
-                            <td class="check">✓</td><td>License: {{ $license }}</td>
-                            <td class="check">✓</td><td>Enterprise Security</td>
+                            <td class="check">✓</td>
+                            <td>License: {{ $license }}</td>
+                            <td class="check">✓</td>
+                            <td>Enterprise Security</td>
                         </tr>
                         <tr>
-                            <td class="check">✓</td><td>Total Storage: {{ $storage }} {{ $unit }}</td>
-                            <td class="check">✓</td><td>Personal Workspace</td>
+                            <td class="check">✓</td>
+                            <td>Total Storage: {{ $storage }} {{ $unit }}</td>
+                            <td class="check">✓</td>
+                            <td>Personal Workspace</td>
                         </tr>
                         <tr>
-                            <td class="check">✓</td><td>Security Controls</td>
-                            <td class="check">✓</td><td>Manage Infra</td>
+                            <td class="check">✓</td>
+                            <td>Security Controls</td>
+                            <td class="check">✓</td>
+                            <td>Manage Infra</td>
                         </tr>
                         <tr>
-                            <td class="check">✓</td><td>App Integration</td>
-                            <td class="check">✓</td><td>Backup &amp; Recovery</td>
+                            <td class="check">✓</td>
+                            <td>App Integration</td>
+                            <td class="check">✓</td>
+                            <td>Backup &amp; Recovery</td>
                         </tr>
                         <tr>
-                            <td class="check">✓</td><td>Storage Add-ons</td>
-                            <td class="check">✓</td><td>Feature Add-ons</td>
+                            <td class="check">✓</td>
+                            <td>Storage Add-ons</td>
+                            <td class="check">✓</td>
+                            <td>Feature Add-ons</td>
                         </tr>
                     </table>
                 </td>
@@ -661,9 +693,9 @@
                             <div class="item-name">{{ $plan_name }} ({{ $subscription_type }})</div>
                             <div class="item-sub">
                                 @if($plan_type == 'team')
-                                    Billed for Team ({{ $qty }} {{ $qty > 1 ? 'users' : 'user' }})
+                                Billed for Team ({{ $qty }} {{ $qty > 1 ? 'users' : 'user' }})
                                 @else
-                                    Billed for Single User
+                                Billed for Single User
                                 @endif
                             </div>
                         </td>
@@ -684,14 +716,33 @@
                     <td class="label">Subtotal</td>
                     <td class="value">{{ $currency }}{{ $subtotal }}</td>
                 </tr> -->
+                @if(!empty($discount))
                 <tr>
                     <td class="label">Discount Applied</td>
                     <td class="value">{{ $discount }}%</td>
                 </tr>
+                @endif
+
+                @if(!empty($discountExtra))
                 <tr>
                     <td class="label">Extra Discount Applied</td>
                     <td class="value">{{ $discountExtra }}%</td>
                 </tr>
+                @endif
+
+                @if(!empty($promocode))
+                <tr>
+                    <td class="label">Promocode Discount Applied</td>
+                    <td class="value">
+                        @if($promocodeType == 'percentage')
+                        {{ $promocodeValue }}%
+                        @elseif($promocodeType == 'flat')
+                        {{ $promocodeValue }}
+                        @endif
+                    </td>
+                </tr>
+                @endif
+
                 <tr class="total-row">
                     <td class="label">Total</td>
                     <td class="value">{{ $currency }}{{ $finalAmount }}</td>
@@ -721,40 +772,52 @@
                     <div class="thank-title">Thank you for your business!</div>
                     <div class="thank-sub">If you have any questions, feel free to reach out to us.</div>
 
-                    <table class="col-detail"><tr>
-                        <td class="icon-cell">✉️</td>
-                        <td style="color:#0694B7;font-weight:700;">{{ $company->email ?? '' }}</td>
-                    </tr></table>
+                    <table class="col-detail">
+                        <tr>
+                            <td class="icon-cell">✉️</td>
+                            <td style="color:#0694B7;font-weight:700;">{{ $company->email ?? '' }}</td>
+                        </tr>
+                    </table>
 
                     @if($plan_type == 'team' && $company)
-                    <table class="col-detail"><tr>
-                        <td class="icon-cell">✉️</td>
-                        <td style="color:#0694B7;font-weight:700;">{{ optional($company)->email }}</td>
-                    </tr></table>
+                    <table class="col-detail">
+                        <tr>
+                            <td class="icon-cell">✉️</td>
+                            <td style="color:#0694B7;font-weight:700;">{{ optional($company)->email }}</td>
+                        </tr>
+                    </table>
 
-                    <table class="col-detail"><tr>
-                        <td class="icon-cell">📞</td>
-                        <td>{{ optional($company)->contact }}</td>
-                    </tr></table>
+                    <table class="col-detail">
+                        <tr>
+                            <td class="icon-cell">📞</td>
+                            <td>{{ optional($company)->contact }}</td>
+                        </tr>
+                    </table>
                     @endif
                 </td>
                 <td class="thank-col with-border">
                     <div class="thank-title">Payment Information</div>
 
-                    <table class="pay-row"><tr>
-                        <td class="pay-key">Payment Method</td>
-                        <td class="pay-val">{{ $payment_mode }}</td>
-                    </tr></table>
+                    <table class="pay-row">
+                        <tr>
+                            <td class="pay-key">Payment Method</td>
+                            <td class="pay-val">{{ $payment_mode }}</td>
+                        </tr>
+                    </table>
 
-                    <table class="pay-row"><tr>
-                        <td class="pay-key">Payment Status</td>
-                        <td class="pay-val" style="font-size:11.5px;">{{ $payment_status }}</td>
-                    </tr></table>
+                    <table class="pay-row">
+                        <tr>
+                            <td class="pay-key">Payment Status</td>
+                            <td class="pay-val" style="font-size:11.5px;">{{ $payment_status }}</td>
+                        </tr>
+                    </table>
 
-                    <table class="pay-row"><tr>
-                        <td class="pay-key">Payment Date</td>
-                        <td class="pay-val">{{ $payment_date }}</td>
-                    </tr></table>
+                    <table class="pay-row">
+                        <tr>
+                            <td class="pay-key">Payment Date</td>
+                            <td class="pay-val">{{ $payment_date }}</td>
+                        </tr>
+                    </table>
                 </td>
             </tr>
         </table>

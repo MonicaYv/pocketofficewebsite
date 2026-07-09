@@ -1,16 +1,25 @@
 function handleFeaturesTabClick(link) {
+    // Read target id safely (prevents whitespace/empty-string bugs).
+    const targetId = (link.getAttribute("data-tab") || "").trim();
+
+    // Validate target pane first; if it's missing, avoid removing
+    // the existing "active" state (this fixes "highlight but no content").
+    if (targetId === "all") {
+        const allPane = document.getElementById("all");
+        if (!allPane) return;
+    } else {
+        const targetPane = document.getElementById(targetId);
+        if (!targetPane) return;
+    }
+
     // Remove active class from all tabs
-    document.querySelectorAll(".features-tabs .nav-link")
-        .forEach(el => el.classList.remove("active"));
+    document.querySelectorAll(".features-tabs .nav-link").forEach(el => el.classList.remove("active"));
     link.classList.add("active");
 
     // Hide all tab panes
-    document.querySelectorAll(".features-tab-pane")
-        .forEach(pane => pane.classList.remove("active", "fade-in"));
+    document.querySelectorAll(".features-tab-pane").forEach(pane => pane.classList.remove("active", "fade-in"));
 
     // Show the selected tab
-    const targetId = link.getAttribute("data-tab");
-
     if (targetId === "all") {
         const allPane = document.getElementById("all");
 
@@ -21,7 +30,9 @@ function handleFeaturesTabClick(link) {
         // Collect other panes and append their innerHTML
         document.querySelectorAll(".features-tab-pane").forEach(pane => {
             if (pane.id !== "all") {
-                const cloneContent = pane.querySelector(".content").cloneNode(true);
+                const content = pane.querySelector(".content");
+                if (!content) return;
+                const cloneContent = content.cloneNode(true);
                 contentWrapper.appendChild(cloneContent);
             }
         });

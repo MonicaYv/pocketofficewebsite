@@ -558,7 +558,7 @@
                       <span class="view-currency" style="gap:3px"></span><span class="total-amount view-total-amount-count"></span>
                     </li>
                     @if($plan->plans_name == "Basic")
-                      <li class="">Minimum of 2 licenses must be selected</li>
+                      <li class="" style="color:red; font: bold">Note: Minimum of 2 licenses must be selected</li>
                     @endif 
                   </ul>
 
