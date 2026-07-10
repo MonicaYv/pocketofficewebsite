@@ -29,8 +29,8 @@
 @endverbatim
 @endsection
 @section('preload')
-    <link rel="preload" href="{{ asset('assets/img/Hero-Section.webp') }}" as="image" type="image/webp" media="(min-width: 769px)">
-    <link rel="preload" href="{{ asset('assets/img/hero_section_mob.png') }}" as="image" type="image/webp" media="(max-width: 768px)">
+    <link rel="preload" href="{{ asset('assets/img/Hero-Section.webp') }}" as="image" type="image/webp" media="(min-width: 769px)" fetchpriority="high">
+    <link rel="preload" href="{{ asset('assets/img/hero_section_mob.webp') }}" as="image" type="image/webp" media="(max-width: 768px)" fetchpriority="high">
 @endsection
 @section('content')
 <!-- header area start -->
@@ -38,13 +38,14 @@
     <!-- Background Image -->
     <div class="hero-bg">
         <img src="assets/img/Hero-Section.webp"
-            srcset="assets/img/hero_section_mob.png 768w, 
+            srcset="assets/img/hero_section_mob.webp 768w, 
                     assets/img/Hero-Section.webp 1200w"
             sizes="(max-width: 768px) 100vw, 1200px"
-            alt="Digital productivity interface with modern workspace layout" 
-            width="1200" 
-            height="800"
-            loading="eager" 
+            alt="Digital productivity interface with modern workspace layout"
+            width="2500"
+            height="1117"
+            loading="eager"
+            decoding="async"
             fetchpriority="high" />
     </div>
     <div class="">
@@ -87,8 +88,8 @@
 
             <div class="how-card">
                 <div class="how-card-img">
-                    <video autoplay muted loop playsinline preload="metadata">
-                        <source src="/assets/img/animated-videos/index/access-from-anywhere.mp4" type="video/mp4">
+                    <video muted loop playsinline preload="none" class="lazy-video">
+                        <source data-src="/assets/img/animated-videos/index/access-from-anywhere.mp4" type="video/mp4">
                     </video>
                 </div>
 
@@ -103,8 +104,8 @@
 
             <div class="how-card">
                 <div class="how-card-img">
-                    <video autoplay muted loop playsinline preload="metadata">
-                        <source src="/assets/img/animated-videos/index/work-without-distraction-video.mp4"
+                    <video muted loop playsinline preload="none" class="lazy-video">
+                        <source data-src="/assets/img/animated-videos/index/work-without-distraction-video.mp4"
                             type="video/mp4">
                     </video>
                 </div>
@@ -120,8 +121,8 @@
 
             <div class="how-card">
                 <div class="how-card-img">
-                    <video autoplay muted loop playsinline preload="metadata">
-                        <source src="/assets/img/animated-videos/index/secure-by-design-video.mp4" type="video/mp4">
+                    <video muted loop playsinline preload="none" class="lazy-video">
+                        <source data-src="/assets/img/animated-videos/index/secure-by-design-video.mp4" type="video/mp4">
                     </video>
                 </div>
 
@@ -255,8 +256,8 @@
             <!-- RIGHT SIDE IMAGE -->
             <div class="core-feature-right">
                 <div class="feature-image-wrapper">
-                    <video autoplay muted loop playsinline preload="metadata">
-                        <source src="/assets/img/animated-videos/index/index-core-features-video.mp4" type="video/mp4">
+                    <video muted loop playsinline preload="none" class="lazy-video">
+                        <source data-src="/assets/img/animated-videos/index/index-core-features-video.mp4" type="video/mp4">
                     </video>
                 </div>
             </div>
@@ -325,8 +326,8 @@
                 </div>
 
                 <div class="sector-right">
-                    <video autoplay muted loop playsinline preload="metadata">
-                        <source src="/assets/img/animated-videos/index/education.mp4" type="video/mp4">
+                    <video muted loop playsinline preload="none" class="lazy-video">
+                        <source data-src="/assets/img/animated-videos/index/education.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
                 </div>
@@ -360,8 +361,8 @@
                 </div>
 
                 <div class="sector-right">
-                    <video autoplay muted loop playsinline preload="metadata">
-                        <source src="/assets/img/animated-videos/index/healthcare.mp4" type="video/mp4">
+                    <video muted loop playsinline preload="none" class="lazy-video">
+                        <source data-src="/assets/img/animated-videos/index/healthcare.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
                 </div>
@@ -395,8 +396,8 @@
 
 
                 <div class="sector-right">
-                    <video autoplay muted loop playsinline preload="metadata">
-                        <source src="/assets/img/animated-videos/index/finance-legal.mp4" type="video/mp4">
+                    <video muted loop playsinline preload="none" class="lazy-video">
+                        <source data-src="/assets/img/animated-videos/index/finance-legal.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
                 </div>
@@ -428,8 +429,8 @@
                 </div>
 
                 <div class="sector-right">
-                    <video autoplay muted loop playsinline preload="metadata">
-                        <source src="/assets/img/animated-videos/index/it-software.mp4" type="video/mp4">
+                    <video muted loop playsinline preload="none" class="lazy-video">
+                        <source data-src="/assets/img/animated-videos/index/it-software.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
                 </div>
@@ -473,8 +474,8 @@
                                 easier to access and manage.
                             </p>
                             <div class="storage-video-mobile">
-                                <video autoplay muted loop playsinline preload="metadata">
-                                    <source src="/assets/img/animated-videos/index/works-with-your-cloud-storage.mp4"
+                                <video muted loop playsinline preload="none" class="lazy-video">
+                                    <source data-src="/assets/img/animated-videos/index/works-with-your-cloud-storage.mp4"
                                         type="video/mp4">
                                 </video>
                             </div>
@@ -501,8 +502,8 @@
                                 duplicating data.
                             </p>
                             <div class="storage-video-mobile">
-                                <video autoplay muted loop playsinline preload="metadata">
-                                    <source src="/assets/img/animated-videos/index/one-unified-desktop-view.mp4"
+                                <video muted loop playsinline preload="none" class="lazy-video">
+                                    <source data-src="/assets/img/animated-videos/index/one-unified-desktop-view.mp4"
                                         type="video/mp4">
                                 </video>
                             </div>
@@ -528,8 +529,8 @@
                                 Tianyi Cloud securely through your browser-based desktop.
                             </p>
                             <div class="storage-video-mobile">
-                                <video autoplay muted loop playsinline preload="metadata">
-                                    <source src="/assets/img/animated-videos/index/enterprise-on-prem-support.mp4"
+                                <video muted loop playsinline preload="none" class="lazy-video">
+                                    <source data-src="/assets/img/animated-videos/index/enterprise-on-prem-support.mp4"
                                         type="video/mp4">
                                 </video>
                             </div>
@@ -557,8 +558,8 @@
                                 different providers without switching platforms or duplicating data.
                             </p>
                             <div class="storage-video-mobile">
-                                <video autoplay muted loop playsinline preload="metadata">
-                                    <source src="/assets/img/animated-videos/index/no-migration-required.mp4"
+                                <video muted loop playsinline preload="none" class="lazy-video">
+                                    <source data-src="/assets/img/animated-videos/index/no-migration-required.mp4"
                                         type="video/mp4">
                                 </video>
                             </div>
@@ -571,11 +572,10 @@
 
             <!-- RIGHT IMAGE -->
             <div class="storage-right">
-                <video id="storage-video" autoplay muted loop playsinline preload="metadata">
+                <video id="storage-video" muted loop playsinline preload="none" class="lazy-video">
 
                     <source id="storage-video-source"
-                        src="/assets/img/animated-videos/index/works-with-your-cloud-storage.mp4" type="video/mp4">
-
+                        data-src="/assets/img/animated-videos/index/works-with-your-cloud-storage.mp4" type="video/mp4">
                 </video>
             </div>
 

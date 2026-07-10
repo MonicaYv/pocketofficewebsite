@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    @yield('preload')
+   
 
     <title>@yield('title', 'Pocket Office')</title>
     <meta name="description" content="@yield('meta-description', 'Pocket Office is a browser-based cloud desktop workspace that lets teams securely access files, apps and collaboration tools from anywhere.')" />
@@ -23,12 +23,20 @@
     <meta name="twitter:title" content="@yield('meta-title', 'Pocket Office')" />
     <meta name="twitter:description" content="@yield('meta-description', 'Pocket Office is a browser-based cloud desktop workspace that lets teams securely access files, apps and collaboration tools from anywhere.')" />
     <meta name="twitter:image" content="@yield('meta-image', asset('assets/img/logo/pocket-office-tm-final-logo.png'))" />
-    
+    <meta name="google-site-verification" content="bUzgqRdlMmzEuKfBDNRCnwuGJCvahgolXtaqzZ2a9TU" />
     <script type="application/ld+json">
         @yield('structured-data', '{}')
     </script>
-
+ @yield('preload')
     @include('layouts.header')
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HQ34D3KCXF"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-HQ34D3KCXF');
+    </script>
 </head>
 
 <body>

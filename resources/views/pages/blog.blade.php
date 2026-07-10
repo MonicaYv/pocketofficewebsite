@@ -608,7 +608,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     : cleanExcerpt;
 
                 // 5. Try to extract the featured image URL from the embedded data stream
-                let imageUrl = '/assets/img/index/default-blog.webp';
+                // let imageUrl = '/assets/img/index/default-blog.webp';
                 try {
                     if (post._embedded && post._embedded['wp:featuredmedia'] && post._embedded['wp:featuredmedia'][0]) {
                         imageUrl = post._embedded['wp:featuredmedia'][0].source_url || imageUrl;

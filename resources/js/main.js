@@ -1120,3 +1120,38 @@ $(function () {
     $("body").css("overflow", "");
   }
 });
+
+$(document).ready(function () {
+    const $lazyVideos = $('video.lazy-video');
+
+    if ($lazyVideos.length === 0) return;
+
+    const observer = new IntersectionObserver(function (entries, obs) {
+        entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+                const $video = $(entry.target);
+                const $source = $video.find('source[data-src]');
+
+                if ($source.length) {
+                    $source.attr('src', $source.data('src'));
+                    entry.target.load();
+
+                    const playPromise = entry.target.play();
+                    if (playPromise !== undefined) {
+                        playPromise.catch(function (err) {
+                            console.warn('Autoplay prevented:', err);
+                        });
+                    }
+
+                    $source.removeAttr('data-src');
+                }
+
+                obs.unobserve(entry.target);
+            }
+        });
+    }, { rootMargin: '200px' });
+
+    $lazyVideos.each(function () {
+        observer.observe(this);
+    });
+});
