@@ -85,7 +85,7 @@
          <div class="features-tab-pane" id="all">
              <div class="content"></div>
          </div>
-         <div class="features-tab-pane active" id="remote">
+         <div class="features-tab-pane active fade-in" id="remote">
              <div class="content">
                  <div class="text-section">
                      <h4>Remote Teams</h4>

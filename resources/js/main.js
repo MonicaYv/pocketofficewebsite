@@ -920,10 +920,10 @@ $(".features-tabs .nav-link").click(function (e) {
   if (!tabId || $("#" + tabId + ".features-tab-pane").length === 0) return;
 
   $(".features-tabs .nav-link").removeClass("active");
-  $(".features-tab-pane").removeClass("active");
+  $(".features-tab-pane").removeClass("active fade-in");
 
   $(this).addClass("active");
-  $("#" + tabId).addClass("active");
+  $("#" + tabId).addClass("active fade-in");
 
   window.history.pushState(null, null, "?tab=" + tabId);
 });
