@@ -38,8 +38,8 @@
     <!-- Background Image -->
     <div class="hero-bg">
         <img src="assets/img/Hero-Section.webp"
-            srcset="assets/img/hero_section_mob.webp 768w, 
-                    assets/img/Hero-Section.webp 1200w"
+            srcset="assets/img/hero_section_mob.webp 1080w, 
+        assets/img/Hero-Section.webp 2500w"
             sizes="(max-width: 768px) 100vw, 1200px"
             alt="Digital productivity interface with modern workspace layout"
             width="2500"
