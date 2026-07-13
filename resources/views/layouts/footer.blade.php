@@ -94,13 +94,14 @@
      <!-- Bottom Section -->
      <div class="footer-bottom">
          <div class="social-icons">
-             <a href="https://x.com/aibuzz_tech" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-x-twitter"></i></a>
-             <a href="https://www.facebook.com/profile.php?id=61591500014745" target="_blank" rel="noopener noreferrer"><i
-                     class="fa-brands fa-facebook-f"></i></a>
-             <a href="https://www.linkedin.com/company/aibuzz-techno/" target="_blank" rel="noopener noreferrer"><i
-                     class="fa-brands fa-linkedin"></i></a>
-             <a href="https://www.instagram.com/getpocketoffice/" target="_blank" rel="noopener noreferrer"><i
-                     class="fa-brands fa-instagram"></i></a>
+             <a href="https://x.com/pocketofficee" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-x-twitter"></i></a>
+             <a href="https://www.youtube.com/@GetPocketOffice" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-youtube-square"></i></a>
+             <a href="https://www.facebook.com/profile.php?id=61591500014745" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-facebook-square"></i></a>
+             <a href="https://www.linkedin.com/company/pocket-officee" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-linkedin"></i></a>
+             <a href="https://www.instagram.com/getpocketoffice" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://in.pinterest.com/getpocketoffice/" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-pinterest-square"></i></a>
+            <a href="https://www.reddit.com/user/pocketoffice/" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-reddit-square"></i></a>
+            <a href="https://www.quora.com/profile/PocketOffice" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-quora"></i></a>
          </div>
 
          <div class="copyright-text">
