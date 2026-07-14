@@ -431,9 +431,9 @@ class UserLicensePlansController extends Controller
             return response()->json(['status' => false, 'message' => 'Promocode expired']);
         }
 
-        if ($request->amount < $promocode->min_amount) {
-            return response()->json(['status' => false, 'message' => 'Minimum amount not met']);
-        }
+        // if ($request->amount < $promocode->min_amount) {
+        //     return response()->json(['status' => false, 'message' => 'Minimum amount not met']);
+        // }
 
         if ($promocode->usage_limit && $promocode->used_count >= $promocode->usage_limit) {
             return response()->json(['status' => false, 'message' => 'Usage limit reached']);
