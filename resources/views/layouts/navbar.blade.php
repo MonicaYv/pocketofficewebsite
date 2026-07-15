@@ -494,7 +494,7 @@
                 <li class="menu-item-has-children d-lg-none">
                     <a href="#">More</a>
                     <ul class="sub-menu">
-                        <li><a id="sales-enquiry-trigger-mob">Sales Enquiry</a></li>
+                        <li><a id="sales-enquiry-trigger">Sales Enquiry</a></li>
                         <li> <a href="https://helpdesk.pocket-office.ai/submit-ticket" target="_blank" rel="noopener noreferrer">Submit
                                 a Ticket</a></li>
                         <li><a href="{{ url('contact-us') }}">Contact Us</a></li>
