@@ -282,36 +282,35 @@
                     </li>
                     <li>
                       <span class="personal-card__check">&#10003;</span>
-                      Personal Workspace
+                      Personal Cloud Desktop
                     </li>
                   </ul>
 
                   <ul class="personal-card__features">
                     <li>
                       <span class="personal-card__check">&#10003;</span>
-                      Security Controls
+                      Data Security
                     </li>
                     <li>
                       <span class="personal-card__check">&#10003;</span>
-                      Manage Infra
+                      Managed IT Services
                     </li>
                     <li>
-                      <span class="personal-card__check">&#10003;</span> App
-                      Integration
+                      <span class="personal-card__check">&#10003;</span> Apps & Software
                     </li>
                   </ul>
 
                   <ul class="personal-card__features">
                     <li>
                       <span class="personal-card__check">&#10003;</span>
-                      Backup & Recovery
+                      Automatic Backup
                     </li>
                     <li>
                       <span class="personal-card__check">&#10003;</span>
-                      Storage Add-ons
+                      Extra Storage
                     </li>
                     <li>
-                      <span class="personal-card__check">&#10003;</span>Feature Add-ons
+                      <span class="personal-card__check">&#10003;</span>Additional Features
                     </li>
                   </ul>
                 </div>
@@ -747,7 +746,7 @@
               </tr>
 
               <tr>
-                <td>Security Controls</td>
+                <td>Data Security</td>
                 <td class="ul-pricing-tbl-single" data-plan-col="personal"><i class="bi bi-check-circle-fill check"></i></td>
                 <td><i class="bi bi-check-circle-fill check"></i></td>
                 <td><i class="bi bi-check-circle-fill check"></i></td>
@@ -756,7 +755,7 @@
               </tr>
               <!-- Core Features Title Row (Fixed - No colspan) -->
               <tr>
-                <td>Manage Infra</td>
+                <td>Managed IT</td>
                 <td class="ul-pricing-tbl-single" data-plan-col="personal"><i class="bi bi-check-circle-fill check"></i></td>
                 <td><i class="bi bi-check-circle-fill check"></i></td>
                 <td><i class="bi bi-check-circle-fill check"></i></td>
@@ -765,7 +764,7 @@
               </tr>
 
               <tr>
-                <td>App Integration</td>
+                <td>Apps & Software</td>
                 <td class="ul-pricing-tbl-single" data-plan-col="personal"><i class="bi bi-check-circle-fill check"></i></td>
                 <td><i class="bi bi-check-circle-fill check"></i></td>
                 <td><i class="bi bi-check-circle-fill check"></i></td>
@@ -774,7 +773,7 @@
               </tr>
 
               <tr>
-                <td>Device &amp; IP Control</td>
+                <td>Device Access Control</td>
                 <td class="ul-pricing-tbl-single" data-plan-col="personal"><i class="bi bi-x-circle-fill cross"></i></td>
                 <td><i class="bi bi-x-circle-fill check"></i></td>
                 <td><i class="bi bi-check-circle-fill check"></i></td>
@@ -782,7 +781,7 @@
                 <td>Enterprise</td>
               </tr>
               <tr>
-                <td>Backup &amp; Recovery</td>
+                <td>Automatic Backup</td>
                 <td class="ul-pricing-tbl-single" data-plan-col="personal"><i class="bi bi-check-circle-fill check"></i></td>
                 <td><i class="bi bi-check-circle-fill check"></i></td>
                 <td><i class="bi bi-check-circle-fill check"></i></td>
@@ -791,7 +790,7 @@
               </tr>
 
               <tr>
-                <td>Storage Add-ons</td>
+                <td>Extra Storage</td>
                 <td class="ul-pricing-tbl-single" data-plan-col="personal"><i class="bi bi-check-circle-fill check"></i></td>
                 <td><i class="bi bi-check-circle-fill check"></i></td>
                 <td><i class="bi bi-check-circle-fill check"></i></td>
@@ -800,7 +799,7 @@
               </tr>
 
               <tr>
-                <td>Feature Add-ons</td>
+                <td>Extra Features</td>
                 <td class="ul-pricing-tbl-single" data-plan-col="personal"><i class="bi bi-check-circle-fill check"></i></td>
                 <td><i class="bi bi-check-circle-fill check"></i></td>
                 <td><i class="bi bi-check-circle-fill check"></i></td>

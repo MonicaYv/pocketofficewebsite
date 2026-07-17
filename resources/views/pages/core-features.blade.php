@@ -109,12 +109,10 @@ Office')
 
                         <div class="core-features-card-content">
                             <h3>
-                                Desktop & Laptop: Your full cloud desktop on any computer.
+                                Desktop & Laptop
                             </h3>
                             <p>
-                                Pocketoffice runs entirely in the browser, giving you
-                                instant access to your desktop from Windows, macOS, or Linux
-                                systems—no software installation required.
+                                Access your personal cloud desktop from any Windows, Mac, or Linux computer—no installation required. Just open your web browser and start working.
                             </p>
                         </div>
                     </div>
@@ -132,13 +130,10 @@ Office')
 
                         <div class="core-features-card-content">
                             <h3>
-                                Tablets & Mobile Devices: Work on the go, without
-                                compromise.
+                                Tablets & Mobile Devices
                             </h3>
                             <p>
-                                Access your cloud desktop from tablets and mobile devices to
-                                review files, manage tasks, or continue work while
-                                traveling—everything stays automatically synced.
+                               Access your cloud desktop from your tablet or smartphone anytime. View files, manage your work, and stay productive wherever you are.
                             </p>
                         </div>
                     </div>
@@ -155,11 +150,9 @@ Office')
                         </div>
 
                         <div class="core-features-card-content">
-                            <h3>Modern Browsers: No downloads. Just open and work.</h3>
+                            <h3>Web Browser Access</h3>
                             <p>
-                                Pocketoffice supports all major modern browsers, ensuring a
-                                consistent, secure, and fast desktop experience across
-                                devices.
+                                Open your cloud desktop in any modern web browser. Access your cloud desktop instantly using Chrome, Edge, Firefox, Safari, or any modern web browser.
                             </p>
                         </div>
                     </div>
@@ -173,13 +166,10 @@ Office')
                         </div>
                         <div class="core-features-card-content">
                             <h3>
-                                Calendar Widget: Stay on schedule without leaving your
-                                desktop.
+                                Calendar & Reminders
                             </h3>
                             <p>
-                                The built-in calendar widget keeps your daily agenda visible
-                                at a glance, helping you manage meetings, deadlines, and
-                                reminders directly from your cloud desktop.
+                                Keep your work organized with an easy-to-use calendar. Schedule meetings, track important dates, and receive timely reminders.
                             </p>
                         </div>
                     </div>
@@ -196,12 +186,10 @@ Office')
 
                         <div class="core-features-card-content">
                             <h3>
-                                System Monitor: Real-time visibility into your workspace.
+                                Real-Time System Status
                             </h3>
                             <p>
-                                Track active applications, system activity, and resource
-                                usage through a lightweight system monitor—full visibility
-                                without disrupting your workflow.
+                                Keep an eye on your cloud desktop's performance with real-time updates on apps, memory, storage, and system activity—all in one place.
                             </p>
                         </div>
                     </div>
@@ -217,11 +205,9 @@ Office')
                         </div>
 
                         <div class="core-features-card-content">
-                            <h3>Notifications Center: Never miss what matters.</h3>
+                            <h3>Smart Notification Center</h3>
                             <p>
-                                Instant alerts for file activity, sharing updates, and
-                                system events, all centralized in one notifications widget
-                                for quick access.
+                               Get instant alerts for shared files, important updates, reminders, and system events to keep your work on track.
                             </p>
                         </div>
                     </div>
@@ -245,11 +231,9 @@ Office')
                         </div>
 
                         <div class="core-features-card-content">
-                            <h3>View Access: See files without making changes.</h3>
+                            <h3>View-Only Access</h3>
                             <p>
-                                Grant view-only access to files and folders so users can
-                                review content securely without the risk of edits or
-                                accidental changes.
+                                Share files and folders with confidence. Others can open and view your content without editing, deleting, or making any changes.
                             </p>
                         </div>
                     </div>
@@ -267,11 +251,9 @@ Office')
                         </div>
 
                         <div class="core-features-card-content">
-                            <h3>Edit Access: Collaborate with confidence.</h3>
+                            <h3>Easy File Collaboration</h3>
                             <p>
-                                Allow users to edit files and folders while maintaining
-                                visibility and control—perfect for active team
-                                collaboration.
+                                Work together on files and folders in real time. Give trusted users permission to edit, update, and save changes with ease.
                             </p>
                         </div>
                     </div>
@@ -289,11 +271,9 @@ Office')
                         </div>
 
                         <div class="core-features-card-content">
-                            <h3>Share Access: Control file sharing.</h3>
+                            <h3>Share Access</h3>
                             <p>
-                                Manage who can share files externally or internally, with
-                                options to restrict, allow, or time-limit sharing according
-                                to your organization’s policies.
+                                Share files and folders securely with the right people. Choose who can access, view, or edit your content with ease.
                             </p>
                         </div>
                     </div>
@@ -311,12 +291,10 @@ Office')
 
                         <div class="core-features-card-content">
                             <h3>
-                                On-Demand Storage Scaling: Add space whenever you need it.
+                                Expand Storage Anytime
                             </h3>
                             <p>
-                                Pocketoffice let's you expand storage instantly as files,
-                                projects, and teams grow. No migrations, no downtime, no
-                                manual setup—just increase storage and keep working.
+                                Start with the storage you need today and expand it anytime as your files, projects, and team continue to grow.
                             </p>
                         </div>
                     </div>
@@ -334,13 +312,10 @@ Office')
 
                         <div class="core-features-card-content">
                             <h3>
-                                No Disruption, No Downtime: Keep your workflow
-                                uninterrupted.
+                                Upgrade Without Interruptions
                             </h3>
                             <p>
-                                Storage expansion happens seamlessly in the background,
-                                ensuring users can access files without delays or
-                                performance drops.
+                               Add more storage without stopping your work. Everything continues to run smoothly while your storage is upgraded.
                             </p>
                         </div>
                     </div>
@@ -358,12 +333,10 @@ Office')
 
                         <div class="core-features-card-content">
                             <h3>
-                                Admin-Controlled Allocation: Allocate storage where it
-                                matters most.
+                                Smart Storage Management
                             </h3>
                             <p>
-                                Admins can manage storage limits per user, team, or
-                                workspace—maintaining cost control while supporting growth.
+                                Easily allocate and adjust storage for users, teams, and workspaces—all from a single admin dashboard.
                             </p>
                         </div>
                     </div>
@@ -387,14 +360,10 @@ Office')
 
                         <div class="core-features-card-content">
                             <h3>
-                                True Desktop-Style Multitasking: Multiple windows. One
-                                workspace.
+                                Multiple Apps, One Workspace
                             </h3>
                             <p>
-                                Open, resize, and manage multiple application windows
-                                simultaneously in Pocketoffice—just like a traditional OS,
-                                but fully cloud-based.
-                            </p>
+                                Open and use multiple apps at the same time. Resize, switch, and organize windows just like on your personal computer.
                         </div>
                     </div>
 
@@ -411,11 +380,9 @@ Office')
                         </div>
 
                         <div class="core-features-card-content">
-                            <h3>Faster Task Switching: Move between tasks instantly.</h3>
+                            <h3>Smooth Multitasking</h3>
                             <p>
-                                Keep files, apps, and tools visible side by side, reducing
-                                context switching and helping you complete work faster with
-                                fewer interruptions.
+                                Keep multiple windows open and move between files, apps, and tools effortlessly—so you can stay productive without breaking your workflow.
                             </p>
                         </div>
                     </div>
@@ -434,12 +401,10 @@ Office')
 
                         <div class="core-features-card-content">
                             <h3>
-                                Better Focus, Better Flow: See everything that matters.
+                                Everything You Need, All at Once
                             </h3>
                             <p>
-                                Window-based multitasking helps users stay in control,
-                                maintain visual context, and avoid constantly opening and
-                                closing apps.
+                               Keep multiple apps and files visible in one workspace, making it easier to stay focused, organized, and productive throughout your day.
                             </p>
                         </div>
                     </div>
@@ -461,12 +426,10 @@ Office')
 
                         <div class="core-features-card-content">
                             <h3>
-                                Productivity & Office Apps: Get everyday work done faster.
+                                Work Smarter with Office Apps
                             </h3>
                             <p>
-                                Access document editors, spreadsheets, presentations, and
-                                note-taking tools directly from your cloud desktop—no
-                                platform switching required.
+                                Create, edit, and manage documents, spreadsheets, presentations, and notes from one secure cloud desktop Pocketoffice no switching between platforms or devices.
                             </p>
                         </div>
                     </div>
@@ -485,12 +448,10 @@ Office')
 
                         <div class="core-features-card-content">
                             <h3>
-                                Communication & Collaboration: Stay connected without
-                                leaving your workspace.
+                                Communicate with Your Team
                             </h3>
                             <p>
-                                Launch chat and email tools from one place, keeping
-                                conversations and work in sync.
+                                Access chat and email directly from your cloud desktop, keeping conversations, collaboration, and work together in one secure workspace
                             </p>
                         </div>
                     </div>
@@ -508,10 +469,9 @@ Office')
                         </div>
 
                         <div class="core-features-card-content">
-                            <h3>Web & Custom Applications: Bring your own tools.</h3>
+                            <h3>Bring Your Own Apps</h3>
                             <p>
-                                Connect any web-based or internal application via URL or
-                                IP-based access and launch them like native desktop apps.
+                                Access your favorite web applications and business tools directly from your cloud desktop. Add your own apps and launch them instantly Pocketoffice no switching between platforms or devices.
                             </p>
                         </div>
                     </div>
@@ -533,13 +493,10 @@ Office')
 
                         <div class="core-features-card-content">
                             <h3>
-                                Move Files & Folders Instantly: Organize your workspace with
-                                simple drag-and-drop actions.
+                                Drag, Drop & Stay Organized
                             </h3>
                             <p>
-                                Move files or folders across the desktop, into folders, or
-                                between workspaces—just like a traditional operating system,
-                                but fully browser-based.
+                                Easily move files and folders around your cloud desktop with familiar drag-and-drop controls, making file management quick, simple, and hassle-free.
                             </p>
                         </div>
                     </div>
@@ -558,13 +515,10 @@ Office')
 
                         <div class="core-features-card-content">
                             <h3>
-                                Seamless App & File Interaction: Actions feel natural, not
-                                forced.
+                                Move Files Effortlessly
                             </h3>
                             <p>
-                                Drag files into apps, move items between windows, or drop
-                                content into shared folders—all without extra clicks or
-                                menus.
+                                Drag files into applications, organize folders, and share content with ease. Enjoy a familiar desktop-like experience that makes every task faster and more intuitive.
                             </p>
                         </div>
                     </div>
@@ -583,12 +537,10 @@ Office')
 
                         <div class="core-features-card-content">
                             <h3>
-                                Designed for Speed & Accuracy: Less friction. More focus
+                                Designed for Better Productivity
                             </h3>
                             <p>
-                                The intuitive drag-and-drop UI reduces repetitive actions,
-                                helping users stay focused and efficient throughout the
-                                workday.
+                                A simple drag-and-drop experience helps you organize files quickly, so you can spend more time working and less time managing.
                             </p>
                         </div>
                     </div>
@@ -610,12 +562,10 @@ Office')
 
                         <div class="core-features-card-content">
                             <h3>
-                                Use Familiar OS Shortcuts : No learning curve required.
+                                Use Familiar Keyboard Shortcuts
                             </h3>
                             <p>
-                                Pocketoffice supports commonly used keyboard shortcuts from
-                                traditional operating systems, helping users stay productive
-                                from day one.
+                                Use familiar keyboard shortcuts for everyday actions like copy, paste, save, and switch between apps so you can work comfortably and stay productive from the very first login. 
                             </p>
                         </div>
                     </div>
@@ -634,12 +584,10 @@ Office')
 
                         <div class="core-features-card-content">
                             <h3>
-                                Speed Up Daily Actions: Small shortcuts, big time savings.
+                                Save Time on Every Task
                             </h3>
                             <p>
-                                Reduce repetitive actions and complete tasks
-                                faster—especially when managing files, switching windows, or
-                                navigating the desktop.
+                                Use familiar keyboard shortcuts to navigate your workspace, manage files, and switch between applications quickly so you can focus more on your work and less on repetitive actions. 
                             </p>
                         </div>
                     </div>
@@ -658,13 +606,10 @@ Office')
 
                         <div class="core-features-card-content">
                             <h3>
-                                Power-User Productivity: Designed for focused, high-output
-                                work.
+                                Boost Your Productivity
                             </h3>
                             <p>
-                                For advanced users, keyboard shortcuts make multitasking
-                                smoother and keep attention on the task at hand instead of
-                                navigating menus.
+                                Work faster with familiar keyboard shortcuts that help you switch between apps, manage files, and complete tasks efficiently Pocketoffice keeping your attention on your work instead of navigating menus.
                             </p>
                         </div>
                     </div>
@@ -686,13 +631,10 @@ Office')
 
                         <div class="core-features-card-content">
                             <h3>
-                                Work Across Devices Seamlessly : Your desktop follows you
-                                everywhere.
+                                One Workspace. Every Device
                             </h3>
                             <p>
-                                With Pocketoffice multi-device sync, your files, apps, and
-                                open workspace stay in sync across all devices. Simply log
-                                in and continue exactly where you left off.
+                                Your cloud desktop, files, and applications stay synchronized across all your devices. Simply sign in from anywhere and continue working exactly where you left off. 
                             </p>
                         </div>
                     </div>
@@ -711,12 +653,10 @@ Office')
 
                         <div class="core-features-card-content">
                             <h3>
-                                A Day-to-Day Scenario: From office to home to on the move.
+                                Your Workspace Moves with You
                             </h3>
                             <p>
-                                Reduce repetitive actions and complete tasks
-                                faster—especially when managing files, switching windows, or
-                                navigating the desktop.
+                                Start your day at the office, continue from home, or work while traveling. Your desktop, files, and applications stay synchronized, so you can pick up right where you left off. 
                             </p>
                         </div>
                     </div>
@@ -734,10 +674,9 @@ Office')
                         </div>
 
                         <div class="core-features-card-content">
-                            <h3>Always Up to Date: No manual syncing required.</h3>
+                            <h3>Your Workspace, Always Up to Date</h3>
                             <p>
-                                Changes made on one device are automatically reflected
-                                everywhere, keeping your workspace current and consistent.
+                                Every change you make is automatically synchronized across your devices, so your files, applications, and desktop are always ready with the latest updates wherever you work. 
                             </p>
                         </div>
                     </div>
@@ -761,12 +700,10 @@ Office')
 
                         <div class="core-features-card-content">
                             <h3>
-                                Desktop & Laptop: Your full cloud desktop on any computer.
+                                Desktop & Laptop
                             </h3>
                             <p>
-                                Pocketoffice runs entirely in the browser, giving you
-                                instant access to your desktop from Windows, macOS, or Linux
-                                systems—no software installation required.
+                               Access your personal cloud desktop from any Windows, Mac, or Linux computer—no installation required. Just open your web browser and start working.
                             </p>
                         </div>
                     </div>
@@ -784,13 +721,10 @@ Office')
 
                         <div class="core-features-card-content">
                             <h3>
-                                Tablets & Mobile Devices: Work on the go, without
-                                compromise.
+                                Tablets & Mobile Devices
                             </h3>
                             <p>
-                                Access your cloud desktop from tablets and mobile devices to
-                                review files, manage tasks, or continue work while
-                                traveling—everything stays automatically synced.
+                                Access your cloud desktop from your tablet or smartphone anytime. View files, manage your work, and stay productive wherever you are.
                             </p>
                         </div>
                     </div>
@@ -807,11 +741,9 @@ Office')
                         </div>
 
                         <div class="core-features-card-content">
-                            <h3>Modern Browsers: No downloads. Just open and work.</h3>
+                            <h3>Web Browser Access</h3>
                             <p>
-                                Pocketoffice supports all major modern browsers, ensuring a
-                                consistent, secure, and fast desktop experience across
-                                devices.
+                                Open your cloud desktop in any modern web browser. Access your cloud desktop instantly using Chrome, Edge, Firefox, Safari, or any modern web browser.
                             </p>
                         </div>
                     </div>
@@ -827,13 +759,10 @@ Office')
                         </div>
                         <div class="core-features-card-content">
                             <h3>
-                                Calendar Widget: Stay on schedule without leaving your
-                                desktop.
+                                Calendar & Reminders
                             </h3>
                             <p>
-                                The built-in calendar widget keeps your daily agenda visible
-                                at a glance, helping you manage meetings, deadlines, and
-                                reminders directly from your cloud desktop.
+                                Keep your work organized with an easy-to-use calendar. Schedule meetings, track important dates, and receive timely reminders.
                             </p>
                         </div>
                     </div>
@@ -850,12 +779,10 @@ Office')
 
                         <div class="core-features-card-content">
                             <h3>
-                                System Monitor: Real-time visibility into your workspace.
+                                Real-Time System Status
                             </h3>
                             <p>
-                                Track active applications, system activity, and resource
-                                usage through a lightweight system monitor—full visibility
-                                without disrupting your workflow.
+                                Keep an eye on your cloud desktop's performance with real-time updates on apps, memory, storage, and system activity—all in one place.
                             </p>
                         </div>
                     </div>
@@ -871,11 +798,9 @@ Office')
                         </div>
 
                         <div class="core-features-card-content">
-                            <h3>Notifications Center: Never miss what matters.</h3>
+                            <h3>Smart Notification Center</h3>
                             <p>
-                                Instant alerts for file activity, sharing updates, and
-                                system events, all centralized in one notifications widget
-                                for quick access.
+                               Get instant alerts for shared files, important updates, reminders, and system events to keep your work on track.
                             </p>
                         </div>
                     </div>
@@ -898,11 +823,9 @@ Office')
                         </div>
 
                         <div class="core-features-card-content">
-                            <h3>View Access: See files without making changes.</h3>
+                            <h3>View-Only Access</h3>
                             <p>
-                                Grant view-only access to files and folders so users can
-                                review content securely without the risk of edits or
-                                accidental changes.
+                                Share files and folders with confidence. Others can open and view your content without editing, deleting, or making any changes.
                             </p>
                         </div>
                     </div>
@@ -920,11 +843,9 @@ Office')
                         </div>
 
                         <div class="core-features-card-content">
-                            <h3>Edit Access: Collaborate with confidence.</h3>
+                            <h3>Easy File Collaboration</h3>
                             <p>
-                                Allow users to edit files and folders while maintaining
-                                visibility and control—perfect for active team
-                                collaboration.
+                                Work together on files and folders in real time. Give trusted users permission to edit, update, and save changes with ease.
                             </p>
                         </div>
                     </div>
@@ -942,11 +863,9 @@ Office')
                         </div>
 
                         <div class="core-features-card-content">
-                            <h3>Share Access: Control file sharing.</h3>
+                            <h3>Share Access</h3>
                             <p>
-                                Manage who can share files externally or internally, with
-                                options to restrict, allow, or time-limit sharing according
-                                to your organization’s policies.
+                                Share files and folders securely with the right people. Choose who can access, view, or edit your content with ease.
                             </p>
                         </div>
                     </div>
@@ -964,12 +883,10 @@ Office')
 
                         <div class="core-features-card-content">
                             <h3>
-                                On-Demand Storage Scaling: Add space whenever you need it.
+                                Expand Storage Anytime
                             </h3>
                             <p>
-                                Pocketoffice let's you expand storage instantly as files,
-                                projects, and teams grow. No migrations, no downtime, no
-                                manual setup—just increase storage and keep working.
+                                Start with the storage you need today and expand it anytime as your files, projects, and team continue to grow.
                             </p>
                         </div>
                     </div>
@@ -987,13 +904,10 @@ Office')
 
                         <div class="core-features-card-content">
                             <h3>
-                                No Disruption, No Downtime: Keep your workflow
-                                uninterrupted.
+                                Upgrade Without Interruptions
                             </h3>
                             <p>
-                                Storage expansion happens seamlessly in the background,
-                                ensuring users can access files without delays or
-                                performance drops.
+                               Add more storage without stopping your work. Everything continues to run smoothly while your storage is upgraded.
                             </p>
                         </div>
                     </div>
@@ -1011,12 +925,10 @@ Office')
 
                         <div class="core-features-card-content">
                             <h3>
-                                Admin-Controlled Allocation: Allocate storage where it
-                                matters most.
+                                Smart Storage Management
                             </h3>
                             <p>
-                                Admins can manage storage limits per user, team, or
-                                workspace—maintaining cost control while supporting growth.
+                                Easily allocate and adjust storage for users, teams, and workspaces—all from a single admin dashboard.
                             </p>
                         </div>
                     </div>
@@ -1040,14 +952,10 @@ Office')
 
                         <div class="core-features-card-content">
                             <h3>
-                                True Desktop-Style Multitasking: Multiple windows. One
-                                workspace.
+                                Multiple Apps, One Workspace
                             </h3>
                             <p>
-                                Open, resize, and manage multiple application windows
-                                simultaneously in Pocketoffice—just like a traditional OS,
-                                but fully cloud-based.
-                            </p>
+                                Open and use multiple apps at the same time. Resize, switch, and organize windows just like on your personal computer.
                         </div>
                     </div>
 
@@ -1064,11 +972,9 @@ Office')
                         </div>
 
                         <div class="core-features-card-content">
-                            <h3>Faster Task Switching: Move between tasks instantly.</h3>
+                            <h3>Smooth Multitasking</h3>
                             <p>
-                                Keep files, apps, and tools visible side by side, reducing
-                                context switching and helping you complete work faster with
-                                fewer interruptions.
+                                Keep multiple windows open and move between files, apps, and tools effortlessly—so you can stay productive without breaking your workflow.
                             </p>
                         </div>
                     </div>
@@ -1087,12 +993,10 @@ Office')
 
                         <div class="core-features-card-content">
                             <h3>
-                                Better Focus, Better Flow: See everything that matters.
+                                Everything You Need, All at Once
                             </h3>
                             <p>
-                                Window-based multitasking helps users stay in control,
-                                maintain visual context, and avoid constantly opening and
-                                closing apps.
+                               Keep multiple apps and files visible in one workspace, making it easier to stay focused, organized, and productive throughout your day.
                             </p>
                         </div>
                     </div>
@@ -1116,12 +1020,10 @@ Office')
 
                         <div class="core-features-card-content">
                             <h3>
-                                Productivity & Office Apps: Get everyday work done faster.
+                                Work Smarter with Office Apps
                             </h3>
                             <p>
-                                Access document editors, spreadsheets, presentations, and
-                                note-taking tools directly from your cloud desktop—no
-                                platform switching required.
+                                Create, edit, and manage documents, spreadsheets, presentations, and notes from one secure cloud desktop Pocketoffice no switching between platforms or devices.
                             </p>
                         </div>
                     </div>
@@ -1140,12 +1042,10 @@ Office')
 
                         <div class="core-features-card-content">
                             <h3>
-                                Communication & Collaboration: Stay connected without
-                                leaving your workspace.
+                                Communicate with Your Team
                             </h3>
                             <p>
-                                Launch chat and email tools from one place, keeping
-                                conversations and work in sync.
+                                Access chat and email directly from your cloud desktop, keeping conversations, collaboration, and work together in one secure workspace
                             </p>
                         </div>
                     </div>
@@ -1163,10 +1063,9 @@ Office')
                         </div>
 
                         <div class="core-features-card-content">
-                            <h3>Web & Custom Applications: Bring your own tools.</h3>
+                            <h3>Bring Your Own Apps</h3>
                             <p>
-                                Connect any web-based or internal application via URL or
-                                IP-based access and launch them like native desktop apps.
+                                Access your favorite web applications and business tools directly from your cloud desktop. Add your own apps and launch them instantly Pocketoffice no switching between platforms or devices.
                             </p>
                         </div>
                     </div>
@@ -1190,8 +1089,7 @@ Office')
 
                         <div class="core-features-card-content">
                             <h3>
-                                Move Files & Folders Instantly: Organize your workspace with
-                                simple drag-and-drop actions.
+                                Drag, Drop & Stay Organized
                             </h3>
                             <p>
                                 Move files or folders across the desktop, into folders, or
@@ -1215,13 +1113,10 @@ Office')
 
                         <div class="core-features-card-content">
                             <h3>
-                                Seamless App & File Interaction: Actions feel natural, not
-                                forced.
+                                Move Files Effortlessly
                             </h3>
                             <p>
-                                Drag files into apps, move items between windows, or drop
-                                content into shared folders—all without extra clicks or
-                                menus.
+                                Drag files into applications, organize folders, and share content with ease. Enjoy a familiar desktop-like experience that makes every task faster and more intuitive.
                             </p>
                         </div>
                     </div>
@@ -1240,12 +1135,10 @@ Office')
 
                         <div class="core-features-card-content">
                             <h3>
-                                Designed for Speed & Accuracy: Less friction. More focus
+                                Designed for Better Productivity
                             </h3>
                             <p>
-                                The intuitive drag-and-drop UI reduces repetitive actions,
-                                helping users stay focused and efficient throughout the
-                                workday.
+                                A simple drag-and-drop experience helps you organize files quickly, so you can spend more time working and less time managing.
                             </p>
                         </div>
                     </div>
@@ -1269,12 +1162,10 @@ Office')
 
                         <div class="core-features-card-content">
                             <h3>
-                                Use Familiar OS Shortcuts : No learning curve required.
+                                Use Familiar Keyboard Shortcuts
                             </h3>
                             <p>
-                                Pocketoffice supports commonly used keyboard shortcuts from
-                                traditional operating systems, helping users stay productive
-                                from day one.
+                                Use familiar keyboard shortcuts for everyday actions like copy, paste, save, and switch between apps so you can work comfortably and stay productive from the very first login. 
                             </p>
                         </div>
                     </div>
@@ -1293,12 +1184,10 @@ Office')
 
                         <div class="core-features-card-content">
                             <h3>
-                                Speed Up Daily Actions: Small shortcuts, big time savings.
+                                Save Time on Every Task
                             </h3>
                             <p>
-                                Reduce repetitive actions and complete tasks
-                                faster—especially when managing files, switching windows, or
-                                navigating the desktop.
+                                Use familiar keyboard shortcuts to navigate your workspace, manage files, and switch between applications quickly so you can focus more on your work and less on repetitive actions. 
                             </p>
                         </div>
                     </div>
@@ -1317,13 +1206,10 @@ Office')
 
                         <div class="core-features-card-content">
                             <h3>
-                                Power-User Productivity: Designed for focused, high-output
-                                work.
+                                Boost Your Productivity
                             </h3>
                             <p>
-                                For advanced users, keyboard shortcuts make multitasking
-                                smoother and keep attention on the task at hand instead of
-                                navigating menus.
+                                Work faster with familiar keyboard shortcuts that help you switch between apps, manage files, and complete tasks efficiently Pocketoffice keeping your attention on your work instead of navigating menus.
                             </p>
                         </div>
                     </div>
@@ -1347,13 +1233,10 @@ Office')
 
                         <div class="core-features-card-content">
                             <h3>
-                                Work Across Devices Seamlessly : Your desktop follows you
-                                everywhere.
+                                One Workspace. Every Device
                             </h3>
                             <p>
-                                With Pocketoffice multi-device sync, your files, apps, and
-                                open workspace stay in sync across all devices. Simply log
-                                in and continue exactly where you left off.
+                                Your cloud desktop, files, and applications stay synchronized across all your devices. Simply sign in from anywhere and continue working exactly where you left off. 
                             </p>
                         </div>
                     </div>
@@ -1372,7 +1255,7 @@ Office')
 
                         <div class="core-features-card-content">
                             <h3>
-                                A Day-to-Day Scenario: From office to home to on the move.
+                                Your Workspace Moves with You.
                             </h3>
                             <p>
                                 Reduce repetitive actions and complete tasks
@@ -1395,10 +1278,9 @@ Office')
                         </div>
 
                         <div class="core-features-card-content">
-                            <h3>Always Up to Date: No manual syncing required.</h3>
+                            <h3>Your Workspace, Always Up to Date</h3>
                             <p>
-                                Changes made on one device are automatically reflected
-                                everywhere, keeping your workspace current and consistent.
+                                Every change you make is automatically synchronized across your devices, so your files, applications, and desktop are always ready with the latest updates wherever you work. 
                             </p>
                         </div>
                     </div>

@@ -67,7 +67,7 @@
                           Backup & Recovery
                       </button>
                       <button class="collaboration-tab" data-tab="permissions">
-                          Data Privacy Compliance
+                          Secure Data Protection
                       </button>
                   </div>
               </div>
@@ -91,13 +91,10 @@
 
                               <div class="core-features-card-content">
                                   <h3>
-                                      Device-Based Access : Decide which devices can access your
-                                      workspace.
+                                      Secure Access from Trusted Devices
                                   </h3>
                                   <p>
-                                      Pocketoffice allows admins to restrict access based on
-                                      device type, ensuring only trusted devices can log in to
-                                      the cloud desktop.
+                                      Decide which devices can access your cloud desktop. Pocketoffice allows only approved computers, laptops, tablets, or mobile devices to sign in, giving you complete control over workspace security. 
                                   </p>
                               </div>
                           </div>
@@ -116,12 +113,10 @@
 
                               <div class="core-features-card-content">
                                   <h3>
-                                      IP & Location Restrictions: Limit access by network or
-                                      geography.
+                                      Trusted Network Access
                                   </h3>
                                   <p>
-                                      Restrict login access using IP ranges or geographic rules
-                                      to prevent unauthorized access from unapproved locations.
+                                      Allow users to sign in only from approved office networks or selected locations, giving you greater control over who can access your cloud workspace. 
                                   </p>
                               </div>
                           </div>
@@ -140,13 +135,10 @@
 
                               <div class="core-features-card-content">
                                   <h3>
-                                      Stronger Security by Design: Security policies that adapt
-                                      to your organization.
+                                      Smart Security for Every Workspace
                                   </h3>
                                   <p>
-                                      By combining role-based permissions with device and IP
-                                      restrictions, Pocketoffice helps organizations enforce
-                                      advanced security policies without slowing teams down.
+                                      Protect your cloud desktop with flexible access controls, including user permissions, trusted devices, and approved locations—giving your team secure access without slowing down their work. 
                                   </p>
                               </div>
                           </div>
@@ -169,11 +161,9 @@
                               </div>
 
                               <div class="core-features-card-content">
-                                  <h3>Automated Backups: Your data is always protected.</h3>
+                                  <h3>Backup Without the Effort</h3>
                                   <p>
-                                      Pocketoffice automatically backs up files and workspace
-                                      data, reducing the risk of accidental loss or system
-                                      failure.
+                                     Your files and cloud workspace are backed up Pocketoffice automatically, protecting your data from accidental loss and ensuring you can continue working with confidence. 
                                   </p>
                               </div>
                           </div>
@@ -192,13 +182,10 @@
 
                               <div class="core-features-card-content">
                                   <h3>
-                                      Disaster Recovery Readiness: Recover quickly. Resume work
-                                      faster.
+                                     Recover Quickly. Keep Working
                                   </h3>
                                   <p>
-                                      In the event of data loss or disruption, Pocketoffice
-                                      enables fast recovery so teams can restore access and
-                                      continue working with minimal downtime.
+                                      If unexpected issues occur, quickly restore your cloud workspace, files, and applications to minimize downtime and help your team get back to work without delay. 
                                   </p>
                               </div>
                           </div>
@@ -217,12 +204,10 @@
 
                               <div class="core-features-card-content">
                                   <h3>
-                                      Admin-Controlled Restore: Recovery with full control.
+                                      Admin Recovery Controls
                                   </h3>
                                   <p>
-                                      Admins can manage restore actions, ensuring data recovery
-                                      follows organizational policies and compliance
-                                      requirements.
+                                     Give administrators full control over restoring files and workspaces, ensuring secure, reliable recovery while meeting your organization's policies and business needs. 
                                   </p>
                               </div>
                           </div>
@@ -246,13 +231,10 @@
 
                               <div class="core-features-card-content">
                                   <h3>
-                                      Full Ownership, Guaranteed : Pocketoffice never claims
-                                      ownership of your data.
+                                     Your Data. Your Ownership
                                   </h3>
                                   <p>
-                                      All files, documents, and information stored or accessed
-                                      through Pocketoffice remain fully owned by you. We provide
-                                      the workspace — you keep complete control over your data.
+                                     Pocketoffice provides a secure cloud workspace while you retain full ownership and control of your files, documents, and business data. Your information is always yours—never ours.
                                   </p>
                               </div>
                           </div>
@@ -271,13 +253,10 @@
 
                               <div class="core-features-card-content">
                                   <h3>
-                                      Customer-Controlled Storage: You decide where your data
-                                      lives.
+                                     Your Data. Your Storage. Your Choice
                                   </h3>
                                   <p>
-                                      Pocketoffice is designed so organizations retain authority
-                                      over how and where data is stored, accessed, and
-                                      managed—supporting internal policies and regulatory needs.
+                                     Choose where your business data is stored and managed. Pocketoffice gives you the flexibility to use the storage that best meets your organization's security, privacy, and compliance requirements.
                                   </p>
                               </div>
                           </div>
@@ -296,12 +275,10 @@
 
                               <div class="core-features-card-content">
                                   <h3>
-                                      No Vendor Lock-In: Freedom to choose, freedom to move.
+                                      Keep Control of Your Data
                                   </h3>
                                   <p>
-                                      With Pocketoffice, your data is never locked into a
-                                      proprietary system. You can manage, migrate, or integrate
-                                      storage without restrictions or hidden dependencies.
+                                      Your data remains portable and under your control. Manage, migrate, or integrate your storage whenever you need Pocketoffice giving your organization the flexibility to grow without limitations
                                   </p>
                               </div>
                           </div>
