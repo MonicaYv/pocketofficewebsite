@@ -61,7 +61,7 @@
               <div class="collaboration-tabs-wrapper">
                   <div class="collaboration-tabs">
                       <button class="collaboration-tab active" data-tab="realtime">
-                          Role-based Access
+                          Role-based access
                       </button>
                       <button class="collaboration-tab" data-tab="workspace">
                           Backup & Recovery

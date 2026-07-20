@@ -72,27 +72,27 @@
                                     <ul class="mega-section-list">
                                         <li class="mega-section-item">
                                             <a href="{{ url('core-features') }}?tab=cloud" class="mega-item-link">
-                                                <strong class="mega-item-title">Cloud Desktop Environment</strong>
+                                                <strong class="mega-item-title">Cloud Desktop</strong>
                                             </a>
                                         </li>
                                         <li class="mega-section-item">
                                             <a href="{{ url('core-features') }}?tab=file" class="mega-item-link">
-                                                <strong class="mega-item-title">File Manager & Storage</strong>
+                                                <strong class="mega-item-title">Files & Storage</strong>
                                             </a>
                                         </li>
                                         <li class="mega-section-item">
                                             <a href="{{ url('core-features') }}?tab=window" class="mega-item-link">
-                                                <strong class="mega-item-title">Window-based Multitasking</strong>
+                                                <strong class="mega-item-title">Multiple-Window Support </strong>
                                             </a>
                                         </li>
                                         <li class="mega-section-item">
                                             <a href="{{ url('core-features') }}?tab=launcher" class="mega-item-link">
-                                                <strong class="mega-item-title">App Launcher</strong>
+                                                <strong class="mega-item-title">My Apps</strong>
                                             </a>
                                         </li>
                                         <li class="mega-section-item">
                                             <a href="{{ url('core-features') }}?tab=drag" class="mega-item-link">
-                                                <strong class="mega-item-title">Drag & Drop UI</strong>
+                                                <strong class="mega-item-title">One-Click Drag & Drop</strong>
                                             </a>
                                         </li>
                                         <li class="mega-section-item">
@@ -102,7 +102,7 @@
                                         </li>
                                         <li class="mega-section-item">
                                             <a href="{{ url('core-features') }}?tab=sync" class="mega-item-link">
-                                                <strong class="mega-item-title">Multi-device Sync</strong>
+                                                <strong class="mega-item-title">Sync Across Devices</strong>
                                             </a>
                                         </li>
                                     </ul>
@@ -152,7 +152,7 @@
                                         </li>
                                         <li class="mega-section-item">
                                             <a href="{{ url('security') }}?tab=permissions" class="mega-item-link">
-                                                <strong class="mega-item-title">Data Privacy Compliance</strong>
+                                                <strong class="mega-item-title">Secure Data Protection</strong>
                                             </a>
                                         </li>
                                     </ul>

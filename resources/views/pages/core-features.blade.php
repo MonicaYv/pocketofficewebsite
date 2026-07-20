@@ -64,25 +64,25 @@ Office')
                     View All
                 </button>
                 <button class="core-features-tab active" data-tab="cloud">
-                    Cloud Desktop Environment
+                    Cloud Desktop
                 </button>
                 <button class="core-features-tab" data-tab="file">
-                    File Manager & Storage
+                    Files & Storage
                 </button>
                 <button class="core-features-tab" data-tab="window">
-                    Window-based Multitasking
+                    Multiple-Window Support
                 </button>
                 <button class="core-features-tab" data-tab="launcher">
-                    App Launcher
+                    My Apps
                 </button>
                 <button class="core-features-tab" data-tab="drag">
-                    Drag & Drop UI
+                    One-Click Drag & Drop 
                 </button>
                 <button class="core-features-tab" data-tab="keyboard">
-                    Keyboard Shortcuts
+                    Keyboard shortcuts
                 </button>
                 <button class="core-features-tab" data-tab="sync">
-                    Multi-device Sync
+                    Sync Across Devices
                 </button>
             </div>
         </div>

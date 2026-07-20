@@ -12093,6 +12093,7 @@ input:checked+.toggle-slider:before {
 @media (max-width: 600px) {
   .personal-features-wrapper {
     grid-template-columns: 1fr;
+    gap: 0;
   }
 
   .personal-card__features li {
