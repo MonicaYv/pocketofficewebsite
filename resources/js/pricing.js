@@ -209,13 +209,15 @@ function updateTeamPlans(
                     : parseFloat(discountBadge.dataset.monthlyExtra) || 0;
 
             let message = "";
+            const planName =
+            planBox.querySelector("[data-plan-name]")?.dataset.planName || "Plan";
 
             if (discountApply && extraApply) {
-                message = `🎉 Enjoy ${discount}% off + Special Offer: Extra ${extraDiscount}% off`;
+                message = `🎉 ${discount}% off ${planName} user discount + ${extraDiscount}% off special offer for annual billing — You save total ${discount + extraDiscount}% on annual payment`;
             } else if (discountApply) {
-                message = `🎉 Enjoy ${discount}% off`;
+                message = `🎉 ${discount}% off ${planName} user discount — You save total ${discount}% on monthly payment`;
             } else if (extraApply) {
-                message = `🎉 Special Offer: Extra ${extraDiscount}% off`;
+                message = `🎉 ${extraDiscount}% off special offer for annual billing — You save total ${extraDiscount}% on annual payment`;
             }
 
             if (message) {
@@ -864,10 +866,6 @@ function handlePlanSelection(btn, forcedType) {
 
     amount = amount.replace(/,/g, "");
 
-    // let qty = container.find(".ul-quantity-input").length
-    //     ? parseInt(container.find(".ul-quantity-input").val())
-    //     : 1;
-
     let qty = container.find(".ul-quantity-input").length
         ? parseInt(container.find(".ul-quantity-input").val())
         : parseInt(btn.data("default-qty")) || 1;
@@ -947,26 +945,7 @@ function handlePlanSelection(btn, forcedType) {
             parseFloat(extraDiscountEl.data("yearly")) ||
             parseFloat(tableAmountEl.data("extra-yearly")) ||
             0,
-
-        // monthly_discount:
-        //     parseFloat(discountEl.data("monthly")) ||
-        //     parseFloat(tableAmountEl.data("monthly-discount")) ||
-        //     0,
-
-        // yearly_discount:
-        //     parseFloat(discountEl.data("yearly")) ||
-        //     parseFloat(tableAmountEl.data("yearly-discount")) ||
-        //     0,
-
-        // extra_monthly:
-        //     parseFloat(extraDiscountEl.data("monthly")) ||
-        //     parseFloat(tableAmountEl.data("extra-monthly")) ||
-        //     0,
-
-        // extra_yearly:
-        //     parseFloat(extraDiscountEl.data("yearly")) ||
-        //     parseFloat(tableAmountEl.data("extra-yearly")) ||
-        //     0,
+       
     };
 
     // console.log("FINAL PLAN:", planData);

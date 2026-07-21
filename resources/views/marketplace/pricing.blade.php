@@ -321,18 +321,18 @@
                   <div class="personal-card__price-row">
                     <span
                       class="extra-discount-ul hidden"
-                      data-monthly="{{ $plan->monthly_extra_disc ?? 0 }}"
-                      data-yearly="{{ $plan->yearly_extra_disc ?? 0 }}">
+                      data-monthly="{{ $plan->single_user_monthly_extra_disc ?? 0 }}"
+                      data-yearly="{{ $plan->single_user_yearly_extra_disc ?? 0 }}">
                     </span>
                     <span class="personal-card__symbol personal-card-symbol-ul"></span>
                     <span
                       class="personal-card__amount ul-personal-card-amount"
-                      data-monthly-discount="{{ $plan->monthly_discount ?? 0 }}"
-                      data-yearly-discount="{{ $plan->yearly_discount ?? 0 }}"
+                      data-monthly-discount="{{ $plan->single_user_monthly_discount ?? 0 }}"
+                      data-yearly-discount="{{ $plan->single_user_yearly_discount ?? 0 }}"
                       data-extra-monthly-constant="{{ $additional_disc_month ?? 0 }}"
                       data-extra-yearly-constant="{{ $additional_disc_year ?? 0 }}"
-                      data-extra-monthly="{{ $plan->monthly_extra_disc ?? 0 }}"
-                      data-extra-yearly="{{ $plan->yearly_extra_disc ?? 0 }}">
+                      data-extra-monthly="{{ $plan->single_user_monthly_extra_disc ?? 0 }}"
+                      data-extra-yearly="{{ $plan->single_user_yearly_extra_disc ?? 0 }}">
                     </span>
                     <span
                       class="personal-card__period ul-personal-card-period"
@@ -379,7 +379,7 @@
                   data-license="{{ $plan->plans_license }}"
                   data-storage="{{ $plan->plans_users }}"
                   data-plan-id="{{ $plan->id }}"
-                  data-plan-discount="{{ $plan->monthly_discount }}"
+                  data-plan-discount="{{ $plan->single_user_monthly_discount }}"
                   data-storage-unit="{{ $plan->storage_unit }}">
                   Get Started
                 </button>
@@ -387,23 +387,25 @@
             </div>
 
             @php
-            $main = $plan->monthly_discount ?? 0;
-            $extra = $plan->monthly_extra_disc ?? 0;
+            $main = $plan->single_user_monthly_discount ?? 0;
+            $extra = $plan->single_user_monthly_extra_disc ?? 0;
+
+            $totalDiscount = $main + $extra;
 
             $parts = [];
 
             if($main > 0) {
-            $parts[] = $main . '% discount';
+            $parts[] = $main . '% off Individual  user discount';
             }
 
             if($extra > 0) {
-            $parts[] = $extra . '% special offer';
+            $parts[] = $extra . '% special offer for annual billing';
             }
             @endphp
 
             @if(count($parts))
             <div class="personal-annual-strip show-strip-month">
-              🎉 {{ implode(' + ', $parts) }} — You save on monthly billing
+              🎉 {{ implode(' + ', $parts) }} — You save total {{ $totalDiscount }}% on monthly payment
             </div>
             @endif
 
@@ -412,7 +414,8 @@
 
             @php
             $main = $additional_disc_year_single ?? 0;
-            $extra = $plan->yearly_extra_disc ?? 0;
+            $extra = $plan->single_user_yearly_extra_disc ?? 0;
+            $totalDiscount = $main + $extra;
             @endphp
 
             @if($main > 0 || $extra > 0)
@@ -420,7 +423,7 @@
               🎉
 
               @if($main > 0)
-              {{ $main }}% off
+              {{ $main }}% off Individual  user discount
               @endif
 
               @if($main > 0 && $extra > 0)
@@ -428,10 +431,10 @@
               @endif
 
               @if($extra > 0)
-              {{ $extra }}% special offer
+              {{ $extra }}% special offer for annual billing
               @endif
 
-              — You save on annual billing
+              — You save total {{ $totalDiscount }}%  on annual payment
             </div>
             @endif
 
@@ -472,7 +475,7 @@
             <div class="monthly-plans" data-is-team="1">
               <div class="card bg-light border-secondary h-100 ul-cards">
                 <div class="card-body d-flex flex-column p-4">
-                  <h2 class="fw-semibold mb-3">{{ $plan->plans_name }}</h2>
+                  <h2 class="fw-semibold mb-3" data-plan-name="{{ $plan->plans_name }}">{{ $plan->plans_name }}</h2>
                   <h6 class="display-4 fw-bold mb-2 price">
                     <div class="price-wrapper">
                       <span class="personal-card-symbol-ul"></span><span class="total-price-ul"
@@ -667,10 +670,10 @@
 
                     <span
                       class="table-plan-amount"
-                      data-monthly-discount="{{ $singlePlan->monthly_discount ?? 0 }}"
-                      data-yearly-discount="{{ $singlePlan->yearly_discount ?? 0 }}"
-                      data-extra-monthly="{{ $singlePlan->monthly_extra_disc ?? 0 }}"
-                      data-extra-yearly="{{ $singlePlan->yearly_extra_disc ?? 0 }}">
+                      data-monthly-discount="{{ $singlePlan->single_user_monthly_discount ?? 0 }}"
+                      data-yearly-discount="{{ $singlePlan->single_user_yearly_discount ?? 0 }}"
+                      data-extra-monthly="{{ $singlePlan->single_user_monthly_extra_disc ?? 0 }}"
+                      data-extra-yearly="{{ $singlePlan->single_user_yearly_extra_disc ?? 0 }}">
                     </span>
 
                     <small class="table-plan-period">

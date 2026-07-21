@@ -8832,7 +8832,7 @@ select {
   border-radius: 8px;
   position: sticky;
   /* top: 80px; */
-  max-height: 500px;
+  /* max-height: 500px; */
   /* adjust if needed */
   overflow-y: auto;
   align-self: flex-start;
@@ -8909,7 +8909,7 @@ select {
     position: static;
     /* remove sticky for mobile */
     margin-bottom: 20px;
-    max-height: 350px;
+    /* max-height: 350px; */
   }
 
   .sidebar::-webkit-scrollbar {

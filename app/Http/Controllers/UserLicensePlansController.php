@@ -89,15 +89,15 @@ class UserLicensePlansController extends Controller
             ->where('pof_plan_status', 1)
             ->max('monthly_extra_disc') ?? 0;
 
-        $additional_disc_year_single = UsersLicensePlan::where('yearly_discount', '>', 0)
+        $additional_disc_year_single = UsersLicensePlan::where('single_user_yearly_discount', '>', 0)
             ->where('is_single_user', 1)
             ->where('pof_plan_status', 1)
-            ->max('yearly_discount') ?? 0;
+            ->max('single_user_yearly_discount') ?? 0;
 
-        $additional_disc_month_single = UsersLicensePlan::where('monthly_discount', '>', 0)
+        $additional_disc_month_single = UsersLicensePlan::where('single_user_monthly_discount', '>', 0)
             ->where('is_single_user', 1)
             ->where('pof_plan_status', 1)
-            ->max('monthly_discount') ?? 0;
+            ->max('single_user_monthly_discount') ?? 0;
 
         return view(
             'marketplace.pricing',
@@ -245,13 +245,13 @@ class UserLicensePlansController extends Controller
 
                 $plan->final_monthly_price =
                     $monthly
-                    * (1 - ($plan->monthly_discount ?? 0) / 100)
-                    * (1 - ($plan->monthly_extra_disc ?? 0) / 100);
+                    * (1 - ($plan->single_user_monthly_discount ?? 0) / 100)
+                    * (1 - ($plan->single_user_monthly_extra_disc ?? 0) / 100);
 
                 $plan->final_yearly_price =
                     $yearly
-                    * (1 - ($plan->yearly_discount ?? 0) / 100)
-                    * (1 - ($plan->yearly_extra_disc ?? 0) / 100);
+                    * (1 - ($plan->single_user_yearly_discount ?? 0) / 100)
+                    * (1 - ($plan->single_user_yearly_extra_disc ?? 0) / 100);
 
                 $plan->active_price = ($billing_type === 'yearly')
                     ? round($plan->final_yearly_price)
@@ -753,13 +753,33 @@ class UserLicensePlansController extends Controller
         //discount data
         $isYearly = ($request->subscription_type === 'year');
 
-        $discount = $isYearly
-            ? ($plan->yearly_discount ?? 0)
-            : ($plan->monthly_discount ?? 0);
+        if ($request->plan_type === 'single') {
 
-        $extraDiscount = $isYearly
-            ? ($plan->yearly_extra_disc ?? 0)
-            : ($plan->monthly_extra_disc ?? 0);
+            $discount = $isYearly
+                ? ($plan->single_user_yearly_discount ?? 0)
+                : ($plan->single_user_monthly_discount ?? 0);
+
+            $extraDiscount = $isYearly
+                ? ($plan->single_user_yearly_extra_disc ?? 0)
+                : ($plan->single_user_monthly_extra_disc ?? 0);
+        } else {
+
+            $discount = $isYearly
+                ? ($plan->yearly_discount ?? 0)
+                : ($plan->monthly_discount ?? 0);
+
+            $extraDiscount = $isYearly
+                ? ($plan->yearly_extra_disc ?? 0)
+                : ($plan->monthly_extra_disc ?? 0);
+        }
+
+        // $discount = $isYearly
+        //     ? ($plan->yearly_discount ?? 0)
+        //     : ($plan->monthly_discount ?? 0);
+
+        // $extraDiscount = $isYearly
+        //     ? ($plan->yearly_extra_disc ?? 0)
+        //     : ($plan->monthly_extra_disc ?? 0);
 
 
         //subscription type 
@@ -992,7 +1012,7 @@ class UserLicensePlansController extends Controller
                 }
             }
         );
-    }    
+    }
 
     private function sendUserMail($request, $pdfPath)
     {
