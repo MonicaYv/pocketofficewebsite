@@ -33,20 +33,71 @@
 </a>
 
 <a href="{{ url('media-publishing') }}">
-    <i class="fa fa-newspaper-o mr-2"></i>Media & Publishing
+    <i class="fa fa-newspaper mr-2"></i>Media & Publishing
 </a>
 
 <a href="{{ url('retail-ecommerce') }}">
     <i class="fa fa-shopping-cart mr-2"></i>Retail & E-commerce
 </a>
 <script>
-    // Get the exact full URL of the current page
-    const currentUrl = window.location.href;
+    (function () {
+        const savedPageScroll = sessionStorage.getItem("industry_sidebar_page_scroll");
+        const savedSidebarScroll = sessionStorage.getItem("industry_sidebar_scroll");
 
-    document.querySelectorAll(".sidebar a").forEach((link) => {
-        // Compare the link's absolute href with the window's absolute URL
-        if (link.href === currentUrl) {
-            link.classList.add("active");
+        if (savedPageScroll !== null) {
+            if ('scrollRestoration' in history) {
+                history.scrollRestoration = 'manual';
+            }
+
+            const restorePageScroll = () => {
+                window.scrollTo({
+                    top: parseInt(savedPageScroll, 10),
+                    behavior: 'instant'
+                });
+            };
+
+            restorePageScroll();
+            document.addEventListener("DOMContentLoaded", restorePageScroll);
+            window.addEventListener("load", restorePageScroll);
+
+            sessionStorage.removeItem("industry_sidebar_page_scroll");
         }
-    });
+
+        const initSidebar = () => {
+            const currentUrl = window.location.href.split('?')[0].split('#')[0];
+            const sidebarLinks = document.querySelectorAll(".sidebar a");
+
+            sidebarLinks.forEach((link) => {
+                const linkUrl = link.href.split('?')[0].split('#')[0];
+                if (linkUrl === currentUrl) {
+                    link.classList.add("active");
+                }
+
+                link.addEventListener("click", () => {
+                    sessionStorage.setItem(
+                        "industry_sidebar_page_scroll",
+                        window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0
+                    );
+                    const sidebar = link.closest(".sidebar");
+                    if (sidebar) {
+                        sessionStorage.setItem("industry_sidebar_scroll", sidebar.scrollTop);
+                    }
+                });
+            });
+
+            if (savedSidebarScroll !== null) {
+                const sidebar = document.querySelector(".sidebar");
+                if (sidebar) {
+                    sidebar.scrollTop = parseInt(savedSidebarScroll, 10);
+                }
+                sessionStorage.removeItem("industry_sidebar_scroll");
+            }
+        };
+
+        if (document.readyState === "loading") {
+            document.addEventListener("DOMContentLoaded", initSidebar);
+        } else {
+            initSidebar();
+        }
+    })();
 </script>
