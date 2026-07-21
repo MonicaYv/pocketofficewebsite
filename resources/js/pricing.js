@@ -215,7 +215,7 @@ function updateTeamPlans(
             if (discountApply && extraApply) {
                 message = `🎉 ${discount}% off ${planName} user discount + ${extraDiscount}% off special offer for annual billing — You save total ${discount + extraDiscount}% on annual payment`;
             } else if (discountApply) {
-                message = `🎉 ${discount}% off ${planName} user discount — You save total 10% on monthly payment`;
+                message = `🎉 ${discount}% off ${planName} user discount — You save total ${discount}% on monthly payment`;
             } else if (extraApply) {
                 message = `🎉 ${extraDiscount}% off special offer for annual billing — You save total ${extraDiscount}% on annual payment`;
             }
