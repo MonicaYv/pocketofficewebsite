@@ -97,12 +97,12 @@
                              </video>
                          </div>
 
-                         <h1>Permission-Based Sharing</h1>
+                         <h1>Permission Based Sharing</h1>
                          <h6>Only the right people get access.</h6>
                          <p>
                              Pocketoffice enables secure file sharing with granular
                              permissions, ensuring files are accessed only by authorized
-                             users—internally or externally.
+                             users internally or externally.
                          </p>
                      </div>
 
@@ -134,7 +134,7 @@
                          <h6>One system for every sharing need.</h6>
                          <p>
                              Share files within teams or with clients and partners using
-                             the same secure workflow—no separate tools required
+                             the same secure workflow pocketoffice no separate tools required
                          </p>
                      </div>
 
@@ -200,7 +200,7 @@
                          <h6>No reliance on a single machine.</h6>
                          <p>
                              Switch devices anytime without reinstalling apps or
-                             transferring files—your workspace stays intact.
+                             transferring files pocketoffice your workspace stays intact.
                          </p>
                      </div>
 
@@ -243,7 +243,7 @@
                  <div class="text-section">
                      <h4>Team Workspaces</h4>
                      <h2 class="use-case-heading">
-                         Team Collaboration Flow Everything your team needs — in one
+                         Team Collaboration Flow Everything your team needs PocketOffice in one
                          shared space.
                      </h2>
                      <p>
@@ -363,7 +363,7 @@
                          <h1>Unified Access</h1>
                          <h6>One desktop, multiple storage sources.</h6>
                          <p>
-                             Access all connected storage from a single cloud desktop—no
+                             Access all connected storage from a single cloud desktop pocketoffice no
                              platform switching required.
                          </p>
                      </div>

@@ -42,7 +42,6 @@ html {
 body {
   margin: 0;
   color: var(--paragraph-color);
-  overflow-x: hidden;
   font-family: "Inter" !important;
   font-size: var(--body-font-size);
 

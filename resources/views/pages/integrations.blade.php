@@ -56,6 +56,47 @@
           <div class="integration-body">
               <!-- SIDEBAR TABS -->
               <aside class="integration-sidebar">
+
+                   <button class="integration-tab" data-tab="google-drive">
+                      <div class="integration-left">
+                          <img
+                              src="/assets/img/integration-icons/google-drive.svg"
+                              alt="Google Drive"
+                              width="20"
+                              height="20"
+                              class="integration-sidebar-icon"
+                              loading="lazy" />
+                          Google Drive
+                      </div>
+                      <i class="fa fa-angle-right integration-arrow"></i>
+                  </button>
+                  <button class="integration-tab" data-tab="one-drive">
+                      <div class="integration-left">
+                          <img
+                              src="/assets/img/integration-icons/onedrive.svg"
+                              alt="OneDrive"
+                              width="20"
+                              height="20"
+                              class="integration-sidebar-icon"
+                              loading="lazy" />
+                          OneDrive
+                      </div>
+                      <i class="fa fa-angle-right integration-arrow"></i>
+                  </button>
+                   <button class="integration-tab" data-tab="amazon-s3">
+                      <div class="integration-left">
+                          <img
+                              src="/assets/img/integration-icons/amazon-s3.svg"
+                              alt="Amazon S3 Logo"
+                              width="20"
+                              height="20"
+                              class="integration-sidebar-icon"
+                              loading="lazy" />
+                          Amazon S3
+                      </div>
+                      <i class="fa fa-angle-right integration-arrow"></i>
+                  </button>
+                  
                   <button class="integration-tab active" data-tab="alibaba">
                       <div class="integration-left">
                           <img
@@ -66,6 +107,32 @@
                               class="integration-sidebar-icon"
                               loading="lazy" />
                           Alibaba OSS
+                      </div>
+                      <i class="fa fa-angle-right integration-arrow"></i>
+                  </button>
+                    <button class="integration-tab" data-tab="ftp">
+                      <div class="integration-left">
+                          <img
+                              src="/assets/img/integration-icons/ftp.svg"
+                              alt="FTP"
+                              width="20"
+                              height="20"
+                              class="integration-sidebar-icon"
+                              loading="lazy" />
+                          FTP
+                      </div>
+                      <i class="fa fa-angle-right integration-arrow"></i>
+                  </button>
+                  <button class="integration-tab" data-tab="min-io">
+                      <div class="integration-left">
+                          <img
+                              src="/assets/img/integration-icons/mini-io.svg"
+                              alt="MiniIO Logo"
+                              width="20"
+                              height="20"
+                              class="integration-sidebar-icon"
+                              loading="lazy" />
+                          MinIO
                       </div>
                       <i class="fa fa-angle-right integration-arrow"></i>
                   </button>
@@ -83,7 +150,19 @@
                       </div>
                       <i class="fa fa-angle-right integration-arrow"></i>
                   </button>
-
+                  <button class="integration-tab" data-tab="web-dav">
+                      <div class="integration-left">
+                          <img
+                              src="/assets/img/integration-icons/webdav.svg"
+                              alt="WebDav"
+                              width="20"
+                              height="20"
+                              class="integration-sidebar-icon"
+                              loading="lazy" />
+                          WebDAV
+                      </div>
+                      <i class="fa fa-angle-right integration-arrow"></i>
+                  </button>
                   <button class="integration-tab" data-tab="qiniucloud">
                       <div class="integration-left">
                           <img
@@ -94,48 +173,6 @@
                               class="integration-sidebar-icon"
                               loading="lazy" />
                           Qiniu Cloud
-                      </div>
-                      <i class="fa fa-angle-right integration-arrow"></i>
-                  </button>
-
-                  <button class="integration-tab" data-tab="amazon-s3">
-                      <div class="integration-left">
-                          <img
-                              src="/assets/img/integration-icons/amazon-s3.svg"
-                              alt="Amazon S3 Logo"
-                              width="20"
-                              height="20"
-                              class="integration-sidebar-icon"
-                              loading="lazy" />
-                          Amazon S3
-                      </div>
-                      <i class="fa fa-angle-right integration-arrow"></i>
-                  </button>
-
-                  <button class="integration-tab" data-tab="tianyi-cloud">
-                      <div class="integration-left">
-                          <img
-                              src="/assets/img/integration-icons/tianyicloud.svg"
-                              alt="Tianyi cloud logo"
-                              width="20"
-                              height="20"
-                              class="integration-sidebar-icon"
-                              loading="lazy" />
-                          Tianyi Cloud
-                      </div>
-                      <i class="fa fa-angle-right integration-arrow"></i>
-                  </button>
-
-                  <button class="integration-tab" data-tab="sds">
-                      <div class="integration-left">
-                          <img
-                              src="/assets/img/integration-icons/xsky.svg"
-                              alt="Xsky Sds logo"
-                              width="20"
-                              height="20"
-                              class="integration-sidebar-icon"
-                              loading="lazy" />
-                          XSKY SDS
                       </div>
                       <i class="fa fa-angle-right integration-arrow"></i>
                   </button>
@@ -153,73 +190,29 @@
                       </div>
                       <i class="fa fa-angle-right integration-arrow"></i>
                   </button>
-
-                  <button class="integration-tab" data-tab="min-io">
+                  <button class="integration-tab" data-tab="sds">
                       <div class="integration-left">
                           <img
-                              src="/assets/img/integration-icons/mini-io.svg"
-                              alt="MiniIO Logo"
+                              src="/assets/img/integration-icons/xsky.svg"
+                              alt="Xsky Sds logo"
                               width="20"
                               height="20"
                               class="integration-sidebar-icon"
                               loading="lazy" />
-                          MinIO
+                          XSKY SDS
                       </div>
                       <i class="fa fa-angle-right integration-arrow"></i>
                   </button>
-
-                  <button class="integration-tab" data-tab="ftp">
+                  <button class="integration-tab" data-tab="tianyi-cloud">
                       <div class="integration-left">
                           <img
-                              src="/assets/img/integration-icons/ftp.svg"
-                              alt="FTP"
+                              src="/assets/img/integration-icons/tianyicloud.svg"
+                              alt="Tianyi cloud logo"
                               width="20"
                               height="20"
                               class="integration-sidebar-icon"
                               loading="lazy" />
-                          FTP
-                      </div>
-                      <i class="fa fa-angle-right integration-arrow"></i>
-                  </button>
-
-                  <button class="integration-tab" data-tab="web-dav">
-                      <div class="integration-left">
-                          <img
-                              src="/assets/img/integration-icons/webdav.svg"
-                              alt="WebDav"
-                              width="20"
-                              height="20"
-                              class="integration-sidebar-icon"
-                              loading="lazy" />
-                          WebDAV
-                      </div>
-                      <i class="fa fa-angle-right integration-arrow"></i>
-                  </button>
-
-                  <button class="integration-tab" data-tab="one-drive">
-                      <div class="integration-left">
-                          <img
-                              src="/assets/img/integration-icons/onedrive.svg"
-                              alt="OneDrive"
-                              width="20"
-                              height="20"
-                              class="integration-sidebar-icon"
-                              loading="lazy" />
-                          OneDrive
-                      </div>
-                      <i class="fa fa-angle-right integration-arrow"></i>
-                  </button>
-
-                  <button class="integration-tab" data-tab="google-drive">
-                      <div class="integration-left">
-                          <img
-                              src="/assets/img/integration-icons/google-drive.svg"
-                              alt="Google Drive"
-                              width="20"
-                              height="20"
-                              class="integration-sidebar-icon"
-                              loading="lazy" />
-                          Google Drive
+                          Tianyi Cloud
                       </div>
                       <i class="fa fa-angle-right integration-arrow"></i>
                   </button>

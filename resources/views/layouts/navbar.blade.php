@@ -226,26 +226,31 @@
                                     <div class="integration-menu">
                                         <ul class="mega-section-list">
                                             <li class="mega-section-item">
-                                                <a href="{{ url('integrations') }}?tab=alibaba" class="mega-item-link">
-                                                    <strong class="mega-item-title">Alibaba OSS</strong>
+                                                <a href="{{ url('integrations') }}?tab=google-drive" class="mega-item-link">
+                                                    <strong class="mega-item-title">Google Drive</strong>
                                                 </a>
                                             </li>
-
-
+                                            
+                                           <li class="mega-section-item">
+                                                <a href="{{ url('integrations') }}?tab=amazon-s3" class="mega-item-link">
+                                                    <strong class="mega-item-title">Amazon S3</strong>
+                                                </a>
+                                            </li>
+                
+                                            
+                                            <li class="mega-section-item">
+                                                <a href="{{ url('integrations') }}?tab=min-io" class="mega-item-link">
+                                                    <strong class="mega-item-title">MinIO</strong>
+                                                </a>
+                                            </li>
                                             <li class="mega-section-item">
                                                 <a href="{{ url('integrations') }}?tab=tencent-ios" class="mega-item-link">
                                                     <strong class="mega-item-title">Tencent COS</strong>
                                                 </a>
                                             </li>
-
                                             <li class="mega-section-item">
                                                 <a href="{{ url('integrations') }}?tab=qiniucloud" class="mega-item-link">
                                                     <strong class="mega-item-title">Qiniu Cloud</strong>
-                                                </a>
-                                            </li>
-                                            <li class="mega-section-item">
-                                                <a href="{{ url('integrations') }}?tab=amazon-s3" class="mega-item-link">
-                                                    <strong class="mega-item-title">Amazon S3</strong>
                                                 </a>
                                             </li>
 
@@ -255,48 +260,37 @@
                                                 </a>
                                             </li>
 
-                                            <li class="mega-section-item">
-                                                <a href="{{ url('integrations') }}?tab=sds" class="mega-item-link">
-                                                    <strong class="mega-item-title">XSKY SDS</strong>
-                                                </a>
-                                            </li>
                                         </ul>
                                         <ul class="mega-section-list">
-                                            <li class="mega-section-item">
-                                                <a href="{{ url('integrations') }}?tab=sangfor-eds" class="mega-item-link">
-                                                    <strong class="mega-item-title">Sangfor EDS</strong>
-                                                </a>
-                                            </li>
-
-                                            <li class="mega-section-item">
-                                                <a href="{{ url('integrations') }}?tab=min-io" class="mega-item-link">
-                                                    <strong class="mega-item-title">MinIO</strong>
-                                                </a>
-                                            </li>
-
-                                            <li class="mega-section-item">
-                                                <a href="{{ url('integrations') }}?tab=ftp" class="mega-item-link">
-                                                    <strong class="mega-item-title">FTP</strong>
-                                                </a>
-                                            </li>
-
-                                            <li class="mega-section-item">
-                                                <a href="{{ url('integrations') }}?tab=web-dav" class="mega-item-link">
-                                                    <strong class="mega-item-title">WebDAV</strong>
-                                                </a>
-                                            </li>
-
-
-
                                             <li class="mega-section-item">
                                                 <a href="{{ url('integrations') }}?tab=one-drive" class="mega-item-link">
                                                     <strong class="mega-item-title">OneDrive</strong>
                                                 </a>
                                             </li>
-
+                                             <li class="mega-section-item">
+                                                <a href="{{ url('integrations') }}?tab=alibaba" class="mega-item-link">
+                                                    <strong class="mega-item-title">Alibaba OSS</strong>
+                                                </a>
+                                            </li>
                                             <li class="mega-section-item">
-                                                <a href="{{ url('integrations') }}?tab=google-drive" class="mega-item-link">
-                                                    <strong class="mega-item-title">Google Drive</strong>
+                                                <a href="{{ url('integrations') }}?tab=ftp" class="mega-item-link">
+                                                    <strong class="mega-item-title">FTP</strong>
+                                                </a>
+                                            </li>
+                                            <li class="mega-section-item">
+                                                <a href="{{ url('integrations') }}?tab=web-dav" class="mega-item-link">
+                                                    <strong class="mega-item-title">WebDAV</strong>
+                                                </a>
+                                            </li>
+                                            <li class="mega-section-item">
+                                                <a href="{{ url('integrations') }}?tab=sangfor-eds" class="mega-item-link">
+                                                    <strong class="mega-item-title">Sangfor EDS</strong>
+                                                </a>
+                                            </li>
+                                            
+                                            <li class="mega-section-item">
+                                                <a href="{{ url('integrations') }}?tab=sds" class="mega-item-link">
+                                                    <strong class="mega-item-title">XSKY SDS</strong>
                                                 </a>
                                             </li>
                                         </ul>

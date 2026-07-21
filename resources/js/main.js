@@ -158,7 +158,7 @@
         {
           scrollTop: 0,
         },
-        2000,
+        200,
       );
     });
     /*------------------------------
@@ -676,14 +676,16 @@
 
   //define variable for store last scrolltop
   var lastScrollTop = "";
-  $(window).on("scroll", function () {
-    //back to top show/hide
-    var ScrollTop = $(".back-to-top");
-    if ($(window).scrollTop() > 1000) {
-      ScrollTop.fadeIn(1000);
+ $(window).on("scroll", function () {
+    var scrollPosition = $(window).scrollTop();
+    var pageHeight = $(document).height() - $(window).height();
+
+    if (scrollPosition > pageHeight * 0.3) {
+        $(".back-to-top").fadeIn();
     } else {
-      ScrollTop.fadeOut(1000);
+        $(".back-to-top").fadeOut();
     }
+
 
     /*--------------------------
         sticky menu activation

@@ -299,12 +299,11 @@
 
                  <div class="team-container">
                      <div class="team-card">
-                         <h3 class="card-heading">Centralized Management</h3>
+                         <h3 class="card-heading">One Platform. Complete Visibility</h3>
                          <h4 class="card-subheading">One platform. Total visibility.</h4>
 
                          <p class="card-desc">
-                             PocketOffice provides centralized control over users, devices,
-                             permissions, and data across departments and regions.
+                             PocketOffice provides centralized control over users, devices, permissions, and data across departments and regions.
                          </p>
 
                          <div class="card-image">
@@ -318,14 +317,13 @@
                      </div>
 
                      <div class="team-card">
-                         <h3 class="card-heading">Strong Access Governance</h3>
+                         <h3 class="card-heading">Secure Access Control</h3>
                          <h4 class="card-subheading">
-                             Clear roles. Predictable access.
+                             Right Access for Every User.
                          </h4>
 
                          <p class="card-desc">
-                             Role-based permissions, device restrictions, and IP controls
-                             ensure secure access across large teams.
+                             Define user roles and permissions to ensure everyone gets the right level of access while keeping your workspace secure.
                          </p>
 
                          <div class="card-image">
@@ -339,12 +337,11 @@
                      </div>
 
                      <div class="team-card">
-                         <h3 class="card-heading">Audit & Compliance Ready</h3>
-                         <h4 class="card-subheading">Built for accountability.</h4>
+                         <h3 class="card-heading">Easy Audit Tracking</h3>
+                         <h4 class="card-subheading">Built for Trust.</h4>
 
                          <p class="card-desc">
-                             Activity tracking and detailed logs support internal audits
-                             and compliance requirements without disrupting workflows.
+                             Automatically track user activities with detailed audit logs, helping your organization meet compliance requirements while maintaining a secure and efficient workspace.
                          </p>
 
                          <div class="card-image">
@@ -358,14 +355,13 @@
                      </div>
 
                      <div class="team-card">
-                         <h3 class="card-heading">Scale Globally</h3>
+                         <h3 class="card-heading">Grow with Your Business</h3>
                          <h4 class="card-subheading">
-                             Support distributed organizations.
+                             Built for Teams Everywhere.
                          </h4>
 
                          <p class="card-desc">
-                             PocketOffice enables enterprise teams to work across locations
-                             while maintaining consistent policies and security controls.
+                             Whether your team works from one office or across multiple countries, PocketOffice provides a secure, centralized workspace that keeps everyone connected with consistent access, policies, and security.
                          </p>
 
                          <div class="card-image">
