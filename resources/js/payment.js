@@ -102,11 +102,37 @@ document.addEventListener("DOMContentLoaded", function () {
         currentPlan.originalPriceY =
             parseFloat(selectedTile.dataset.originalYearly) || 0;
 
-        currentPlan.extra_mo_discount =
-            parseFloat(selectedTile.dataset.extraMoDiscount) || 0;
+        if (currentPlan.plan_type === "single") {
+            currentPlan.monthly_discount =
+                parseFloat(selectedTile.dataset.singleuserMonthlyDiscount) || 0;
 
-        currentPlan.extra_yr_discount =
-            parseFloat(selectedTile.dataset.extraYrDiscount) || 0;
+            currentPlan.yearly_discount =
+                parseFloat(selectedTile.dataset.singleuserYearlyDiscount) || 0;
+
+            currentPlan.extra_mo_discount =
+                parseFloat(selectedTile.dataset.singleuserExtraMoDiscount) || 0;
+
+            currentPlan.extra_yr_discount =
+                parseFloat(selectedTile.dataset.singleuserExtraYrDiscount) || 0;
+        } else {
+            currentPlan.monthly_discount =
+                parseFloat(selectedTile.dataset.monthlyDiscount) || 0;
+
+            currentPlan.yearly_discount =
+                parseFloat(selectedTile.dataset.yearlyDiscount) || 0;
+
+            currentPlan.extra_mo_discount =
+                parseFloat(selectedTile.dataset.extraMoDiscount) || 0;
+
+            currentPlan.extra_yr_discount =
+                parseFloat(selectedTile.dataset.extraYrDiscount) || 0;
+        }
+
+        // currentPlan.extra_mo_discount =
+        //     parseFloat(selectedTile.dataset.extraMoDiscount) || 0;
+
+        // currentPlan.extra_yr_discount =
+        //     parseFloat(selectedTile.dataset.extraYrDiscount) || 0;
     }
 
     currentPlan.currencyid = selectedCurrency?.currency_code || null;
@@ -362,7 +388,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         if (extraDiscount > 0) {
-            discountMessages.push(`${extraDiscount}% extra off`);
+            discountMessages.push(`${extraDiscount}% special offer`);
         }
 
         if (discountMessages.length > 0) {
@@ -624,8 +650,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (!validateUsername(username)) {
             // showError("username", "Only letters with atleast 1 capital letter");
-            showError("username", "Username must contain only letters and numbers, with at least one uppercase letter");
-            
+            showError(
+                "username",
+                "Username must contain only letters and numbers, with at least one uppercase letter",
+            );
 
             valid = false;
         } else {
@@ -714,8 +742,7 @@ document.addEventListener("DOMContentLoaded", function () {
             promoDiscountRow.classList.remove("hidden");
             promoDiscountRow.style.display = "flex";
 
-            promoDiscountAmt.innerText =
-                "-" + Math.round(appliedPromo) + "%";
+            promoDiscountAmt.innerText = "-" + Math.round(appliedPromo) + "%";
         } else {
             promoDiscountRow.classList.add("hidden");
             promoDiscountRow.style.display = "none";
@@ -762,7 +789,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     appliedDiscountAmount = parseFloat(response.discount || 0);
                     appliedPromo = parseFloat(response.promodiscount || 0);
-                    
 
                     // UPDATE TOTAL
                     updateFinalAmounts();
@@ -831,22 +857,30 @@ document.addEventListener("DOMContentLoaded", function () {
         btn.prop("disabled", true).text("Processing...");
 
         // PLAN DISCOUNT
-        let planDiscount = 0;
+        // let planDiscount = 0;
 
         // EXTRA / PROMO DISCOUNT
-        let extraDiscount = appliedDiscountAmount || 0;
+        // let extraDiscount = appliedDiscountAmount || 0;
 
-        // SINGLE USER
-        if (currentPlan.plan_type === "single") {
-            planDiscount = payBillingToggle.checked
-                ? parseFloat(currentPlan.yearly_discount || 0)
-                : parseFloat(currentPlan.monthly_discount || 0);
-        } else {
-            // TEAM EXTRA DISCOUNT
-            planDiscount = payBillingToggle.checked
-                ? parseFloat(currentPlan.extra_yearly_discount || 0)
-                : parseFloat(currentPlan.extra_monthly_discount || 0);
-        }
+        // console.log(currentPlan);
+
+        let planDiscount = payBillingToggle.checked
+            ? parseFloat(currentPlan.yearly_discount || 0)
+            : parseFloat(currentPlan.monthly_discount || 0);
+
+        let extraDiscount = payBillingToggle.checked
+            ? parseFloat(currentPlan.extra_yr_discount || 0)
+            : parseFloat(currentPlan.extra_mo_discount || 0);
+
+        // if (currentPlan.plan_type === "single") {
+        //     planDiscount = payBillingToggle.checked
+        //         ? parseFloat(currentPlan.yearly_discount || 0)
+        //         : parseFloat(currentPlan.monthly_discount || 0);
+        // } else {
+        //     planDiscount = payBillingToggle.checked
+        //         ? parseFloat(currentPlan.extra_yearly_discount || 0)
+        //         : parseFloat(currentPlan.extra_monthly_discount || 0);
+        // }
 
         // =========================
         // CARD VALIDATION
@@ -997,6 +1031,7 @@ document.addEventListener("DOMContentLoaded", function () {
             card_name: $("#cardName").val(),
         };
 
+        // console.log(paymentData);
         // =========================
         // SAVE URL
         // =========================
@@ -1335,8 +1370,16 @@ document.addEventListener("DOMContentLoaded", function () {
                 storage: this.dataset.storage,
                 storage_unit: this.dataset.storageUnit,
 
-                monthly_discount: parseFloat(this.dataset.monthlyDiscount) || 0,
-                yearly_discount: parseFloat(this.dataset.yearlyDiscount) || 0,
+                monthly_discount:
+                    this.dataset.planType === "single"
+                        ? parseFloat(this.dataset.singleuserMonthlyDiscount) ||
+                          0
+                        : parseFloat(this.dataset.monthlyDiscount) || 0,
+
+                yearly_discount:
+                    this.dataset.planType === "single"
+                        ? parseFloat(this.dataset.singleuserYearlyDiscount) || 0
+                        : parseFloat(this.dataset.yearlyDiscount) || 0,
 
                 extra_monthly_discount:
                     parseFloat(this.dataset.extraMonthlyDiscount) || 0,
@@ -1344,12 +1387,33 @@ document.addEventListener("DOMContentLoaded", function () {
                 extra_yearly_discount:
                     parseFloat(this.dataset.extraYearlyDiscount) || 0,
 
-                // NEW plan-specific extra discount
                 extra_mo_discount:
-                    parseFloat(this.dataset.extraMoDiscount) || 0,
+                    this.dataset.planType === "single"
+                        ? parseFloat(this.dataset.singleuserExtraMoDiscount) ||
+                          0
+                        : parseFloat(this.dataset.extraMoDiscount) || 0,
 
                 extra_yr_discount:
-                    parseFloat(this.dataset.extraYrDiscount) || 0,
+                    this.dataset.planType === "single"
+                        ? parseFloat(this.dataset.singleuserExtraYrDiscount) ||
+                          0
+                        : parseFloat(this.dataset.extraYrDiscount) || 0,
+
+                // monthly_discount: parseFloat(this.dataset.monthlyDiscount) || 0,
+                // yearly_discount: parseFloat(this.dataset.yearlyDiscount) || 0,
+
+                // extra_monthly_discount:
+                //     parseFloat(this.dataset.extraMonthlyDiscount) || 0,
+
+                // extra_yearly_discount:
+                //     parseFloat(this.dataset.extraYearlyDiscount) || 0,
+
+                // // NEW plan-specific extra discount
+                // extra_mo_discount:
+                //     parseFloat(this.dataset.extraMoDiscount) || 0,
+
+                // extra_yr_discount:
+                //     parseFloat(this.dataset.extraYrDiscount) || 0,
             };
 
             // console.log({
