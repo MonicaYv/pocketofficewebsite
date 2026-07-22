@@ -1,5 +1,9 @@
  @extends('layouts.backendsettings')
- @section('title', 'Manufacturing Solutions | Smart Industry Services')
+ @section('title', ' Manufacturing Management Software & Smart Manufacturing | Pocket Office')
+@section('meta-title', 'IT & Software Development Services | Custom Solutions')
+@section('meta-description', 'Discover manufacturing management software, smart manufacturing solutions, and manufacturing workflow automation designed to streamline production, improve efficiency, and optimize operations.')
+@section('meta-keywords', 'IT software development, custom solutions, cloud workspaces developers, IT services')
+  
  @section('content')
  <!-- breadcrumb area start -->
 @include('layouts.industry_hero', ['bgImage' => 'hero-images/industries/Manufacturing/Manufacturing 1.svg'])
@@ -25,7 +29,7 @@
              <img src="./assets/img/hero-images/industries/Manufacturing/Manufacturing 2.svg" alt="Manufacturing" loading="lazy" />
              <div class="overlay">
                  <div class="overlay-text">
-                     <h3>Manufacturing excellence redefined</h3>
+                     <h3>Manufacturing Excellence Redefined with Smart Manufacturing Solutions</h3>
                      <p>Smart processes. Stronger output. Sustainable growth.</p>
                  </div>
              </div>
@@ -34,8 +38,7 @@
          <div class="section">
              <h2>An overview</h2>
              <p>
-                 Pocketoffice enables manufacturing teams to securely access SOPs, reports, and operational data
-                 across locations and devices, ensuring consistent workflows and informed decision-making.
+                  PocketOffice enables manufacturing teams to use manufacturing management software to securely access SOPs, reports, and operational data across locations and devices, ensuring consistent workflows and informed decision-making.
              </p>
          </div>
 
@@ -45,34 +48,30 @@
              <h2>We are ready</h2>
 
              <p>
-                 PocketOffice provides Operations & Documentation Access,
-                 Central access to operational documents.
+                  PocketOffice provides smart manufacturing solutions for operations and documentation access, giving teams centralized access to critical operational documents and information.
              </p>
              <div class="features">
                  <div class="feature">
                      <h4>Central SOP Repository</h4>
                      <h6>One source of operational truth.</h6>
-                     <p>Procedures, manuals, and reports are stored centrally, ensuring teams always reference the
-                         correct documentation.
+                     <p>Manufacturing management software helps store procedures, manuals, and reports centrally, ensuring teams always reference the correct documentation and maintain consistent operational processes.
                      </p>
                  </div>
                  <div class="feature">
                      <h4>Access Across Locations</h4>
                      <h6>Information where it’s needed.</h6>
-                     <p>Teams can access operational documents from offices, plants, or remote sites without delays.
-                     </p>
+                     <p>Smart manufacturing solutions enable teams to securely access operational documents from offices, plants, or remote sites without delays, supporting connected and efficient manufacturing operations.</p>
                  </div>
                  <div class="feature">
                      <h4>Controlled Visibility</h4>
                      <h6>Only relevant information shown.</h6>
-                     <p>Permissions ensure employees see only documents relevant to their role and responsibilities.
+                     <p>Permissions within manufacturing management software help ensure employees see only documents relevant to their roles and responsibilities, improving security and operational control.
                      </p>
                  </div>
                  <div class="feature">
                      <h4>Industry Software Integration</h4>
                      <h6>Integrates with manufacturing systems.</h6>
-                     <p>Works with ERP solutions like SAP, Oracle NetSuite, and Microsoft Dynamics to support
-                         production documentation and operational workflows.</p>
+                     <p> PocketOffice supports manufacturing workflow automation by working with ERP solutions like SAP, Oracle NetSuite, and Microsoft Dynamics to streamline production documentation and operational workflows.</p>
                  </div>
              </div>
          </div>
@@ -103,9 +102,7 @@
          <div class="services-heading">
              <h1>Benefits</h1>
              <p>
-                 Provides efficient and scalable manufacturing solutions that optimize production processes, maintain
-                 high-quality standards, and reduce operational costs while ensuring timely delivery and continuous
-                 innovation.
+                 Provides efficient and scalable manufacturing management software and smart manufacturing solutions that help optimize production processes, maintain high-quality standards, and reduce operational costs. With manufacturing workflow automation, businesses can streamline documentation, improve operational visibility, support consistent workflows, and enable teams to make informed decisions while driving continuous innovation and sustainable growth.
              </p>
          </div>
 

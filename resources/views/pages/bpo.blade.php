@@ -1,8 +1,8 @@
 @extends('layouts.backendsettings')
-@section('title', 'BPO Outsourcing Services | Scalable Business Solutions')
-@section('meta-title', 'BPO Outsourcing Services | Scalable Business Solutions')
-@section('meta-description', 'Discover Pocket Office solutions for BPO outsourcing, providing scalable business process management and secure cloud workspaces for efficient operations.')
-@section('meta-keywords', 'BPO outsourcing services, scalable business solutions, business process management, cloud workspaces')
+@section('title', 'Business Process Outsourcing Services | Pocket Office')
+@section('meta-title', 'Business Process Outsourcing Services | Pocket Office')
+@section('meta-description', 'Get business process outsourcing services with AI business process automation to streamline operations, improve efficiency, reduce costs, and boost growth.')
+@section('meta-keywords', 'business process outsourcing, business process outsourcing services, AI business process automation, cloud workspaces')
 @section('meta-image', 'https://pocket-office.ai/assets/img/hero-images/industries/BPO-Outsourcing/BPO & Outsourcing 1.svg')
 @section('canonical', 'https://pocket-office.ai/bpo')
 @section('meta-url', 'https://pocket-office.ai/bpo')
@@ -13,7 +13,7 @@
   "@type": "WebPage",
   "name": "BPO Outsourcing | Pocket Office",
   "url": "https://pocket-office.ai/bpo",
-  "description": "Discover Pocket Office solutions for BPO outsourcing, providing scalable business process management and secure cloud workspaces for efficient operations.",
+  "description": "Get business process outsourcing services with AI business process automation to streamline operations, improve efficiency, reduce costs, and boost growth.",
   "inLanguage": "en",
   "image": "https://pocket-office.ai/assets/img/hero-images/industries/BPO-Outsourcing/BPO & Outsourcing 1.svg",
   "publisher": {
@@ -46,7 +46,7 @@
     <main class="main">
         <!-- Hero -->
         <div class="hero">
-            <h1>BPO & Outsourcing</h1>
+            <h1>Business Process Outsourcing & Outsourcing Solutions</h1>
         </div>
         <div class="banner">
             <img
@@ -64,10 +64,7 @@
         <div class="section">
             <h2>An overview</h2>
             <p>
-                BPO partners and in-house teams collaborate seamlessly through a
-                centralized platform, sharing workflows, performance metrics, and
-                documentation to ensure consistent service delivery and operational
-                excellence.
+                BPO partners and in-house teams collaborate seamlessly through a centralized platform for business process outsourcing, sharing workflows, performance metrics, and documentation to ensure consistent service delivery and operational excellence.
             </p>
         </div>
 
@@ -76,16 +73,14 @@
             <h2>We are ready</h2>
 
             <p>
-                PocketOffice provides Workforce & Process Collaboration Streamline
-                operations across global teams.
+                PocketOffice provides business process outsourcing services and workforce and process collaboration solutions that streamline operations across global teams.
             </p>
             <div class="features">
                 <div class="feature">
                     <h4>Centralized Operations Hub</h4>
-                    <h6>Gain full visibility into outsourced functions.</h6>
+                    <h6>Gain full visibility into outsourced functions and business process outsourcing services.</h6>
                     <p>
-                        Monitor KPIs, service levels, compliance metrics, and reporting
-                        from a unified dashboard accessible anytime, anywhere.
+                        Monitor KPIs, service levels, compliance metrics, and reporting from a unified dashboard accessible anytime, anywhere.
                     </p>
                 </div>
                 <div class="feature">
@@ -108,8 +103,7 @@
                     <h4>Industry Software Integration</h4>
                     <h6>Built for customer service operations.</h6>
                     <p>
-                        Integrates with tools like Zendesk, Freshdesk, and Salesforce
-                        Service Cloud to streamline documentation and support workflows.
+                        PocketOffice integrates with tools like Zendesk, Freshdesk, and Salesforce Service Cloud to streamline documentation, support workflows, and AI business process automation.
                     </p>
                 </div>
             </div>

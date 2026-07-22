@@ -1,7 +1,7 @@
  @extends('layouts.backendsettings')
- @section('title', 'Education Solutions | Digital Learning & EdTech Services')
- @section('meta-title', 'Education Solutions | Digital Learning & EdTech Services')
- @section('meta-description', 'Discover Pocket Office education solutions for digital learning, EdTech services, and secure cloud workspaces for schools and universities.')
+ @section('title', 'AI in Education & Education Management Software | Pocket Office')
+ @section('meta-title', 'AI in Education & Education Management Software | Pocket Office')
+ @section('meta-description', 'Discover AI in education with artificial intelligence in education and education management software designed to improve learning, administration, efficiency, and outcomes.')
  @section('meta-keywords', 'education solutions, digital learning, EdTech services, cloud workspaces education')
  @section('meta-image', 'https://pocket-office.ai/assets/img/hero-images/industries/Education/Education 1.svg')
  @section('canonical', 'https://pocket-office.ai/education')
@@ -13,7 +13,7 @@
    "@type": "WebPage",
    "name": "Education | Pocket Office",
    "url": "https://pocket-office.ai/education",
-   "description": "Discover Pocket Office education solutions for digital learning, EdTech services, and secure cloud workspaces for schools and universities.",
+   "description": "Discover AI in education with artificial intelligence in education and education management software designed to improve learning, administration, efficiency, and outcomes.",
    "inLanguage": "en",
    "image": "https://pocket-office.ai/assets/img/hero-images/industries/Education/Education 1.svg",
    "publisher": {
@@ -56,7 +56,7 @@
                  loading="lazy" />
              <div class="overlay">
                  <div class="overlay-text">
-                     <h3>Digital learning revolution</h3>
+                     <h3>Digital Learning Revolution with AI in Education</h3>
                      <p>Empowering institutions & future-ready education</p>
                  </div>
              </div>
@@ -65,10 +65,7 @@
          <div class="section">
              <h2>An overview</h2>
              <p>
-                 PocketOffice enables schools and institutions to provide a unified
-                 cloud desktop for learning materials, assignments, and
-                 collaboration—accessible from both classrooms and remote
-                 environments.
+                 PocketOffice enables schools and institutions to embrace AI in education with a unified cloud desktop for learning materials, assignments, and collaboration—accessible from classrooms, labs, and remote learning environments.
              </p>
          </div>
 
@@ -77,17 +74,14 @@
              <h2>We are ready</h2>
 
              <p>
-                 PocketOffice provides Classroom & remote learning One digital
-                 classroom for every student.
+                 PocketOffice provides education management software for classroom and remote learning, creating one digital classroom where students and educators can access learning resources, assignments, and collaboration tools.
              </p>
              <div class="features">
                  <div class="feature">
                      <h4>Unified Digital Classroom</h4>
                      <h6>One workspace for students and educators.</h6>
                      <p>
-                         All lesson materials, assignments, and learning tools live in a
-                         single cloud desktop, providing students and teachers with a
-                         consistent experience across classrooms, labs, and home devices.
+                         Artificial intelligence in education can support more connected and efficient digital learning environments, while lesson materials, assignments, and learning tools live in a single cloud desktop for a consistent experience across classrooms, labs, and home devices.
                      </p>
                  </div>
                  <div class="feature">
@@ -103,18 +97,14 @@
                      <h4>Safe Access for Every Role</h4>
                      <h6>The right content for the right users.</h6>
                      <p>
-                         Role-based permissions ensure students, teachers, and
-                         administrators only access relevant content, helping
-                         institutions maintain structure, safety, and control.
+                         Role-based permissions within education management software ensure students, teachers, and administrators only access relevant content, helping institutions maintain structure, safety, and control.
                      </p>
                  </div>
                  <div class="feature">
                      <h4>Industry Software Integration</h4>
                      <h6>Compatible with modern education platforms.</h6>
                      <p>
-                         Integrates with tools like Google Classroom, Moodle, Canvas LMS,
-                         and Microsoft Teams for Education to simplify course management,
-                         assignments, and collaboration.
+                         PocketOffice's education management software integrates with tools like Google Classroom, Moodle, Canvas LMS, and Microsoft Teams for Education to simplify course management, assignments, and collaboration.
                      </p>
                  </div>
              </div>
@@ -151,8 +141,7 @@
          <div class="services-heading">
              <h1>Benefits</h1>
              <p>
-                 Provides secure, cloud-hosted desktops that enable employees to work
-                 from anywhere while keeping business data protected.
+                 Provides secure, cloud-hosted learning environments that support AI in education and modern digital learning. With artificial intelligence in education and education management software, institutions can improve collaboration, simplify learning management, support remote education, and provide students and educators with secure access to resources from anywhere.
              </p>
          </div>
      </main>

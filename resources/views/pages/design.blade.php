@@ -1,8 +1,8 @@
     @extends('layouts.backendsettings')
-    @section('title', 'Design & Media Services | Creative Branding Solutions')
-    @section('meta-title', 'Design & Media Services | Creative Branding Solutions')
-    @section('meta-description', 'Explore Pocket Office for design and media services, offering creative branding solutions and secure cloud workspaces for media professionals.')
-    @section('meta-keywords', 'design media services, creative branding solutions, media workspaces, cloud design tools')
+    @section('title', 'Website Design & Web Design Services | Pocket Office')
+    @section('meta-title', 'Website Design & Web Design Services | Pocket Office')
+    @section('meta-description', 'Get professional website design and web design services with responsive web design solutions to create engaging, user-friendly websites that support business growth.')
+    @section('meta-keywords', 'website design, web design services, responsive web design, web design solutions, user-friendly websites, business growth')
     @section('meta-image', 'https://pocket-office.ai/assets/img/hero-images/industries/Design/Design 1.svg')
     @section('canonical', 'https://pocket-office.ai/design')
     @section('meta-url', 'https://pocket-office.ai/design')
@@ -13,7 +13,7 @@
       "@type": "WebPage",
       "name": "Design & Media | Pocket Office",
       "url": "https://pocket-office.ai/design",
-      "description": "Explore Pocket Office for design and media services, offering creative branding solutions and secure cloud workspaces for media professionals.",
+      "description": "Get professional website design and web design services with responsive web design solutions to create engaging, user-friendly websites that support business growth.",
       "inLanguage": "en",
       "image": "https://pocket-office.ai/assets/img/hero-images/industries/Design/Design 1.svg",
       "publisher": {
@@ -54,7 +54,7 @@
                     loading="lazy" />
                 <div class="overlay">
                     <div class="overlay-text">
-                        <h3>Creative vision, crafted beautifully</h3>
+                        <h3>Creative Vision, Crafted Beautifully with Website Design</h3>
                         <p>
                             Designing brands, experiences & digital stories that inspire
                         </p>
@@ -65,9 +65,7 @@
             <div class="section">
                 <h2>An overview</h2>
                 <p>
-                    Design teams can store, organize, and collaborate on large design
-                    files in shared workspaces while maintaining version control and
-                    proper permissions.
+                    Design teams can store, organize, and collaborate on large design files in shared workspaces while maintaining version control and proper permissions. PocketOffice supports website design teams with secure workspaces that simplify creative collaboration and asset management.
                 </p>
             </div>
 
@@ -76,8 +74,7 @@
                 <h2>We are ready</h2>
 
                 <p>
-                    PocketOffice provides Asset Management & Collaboration. Manage
-                    creative assets without chaos.
+                    PocketOffice provides web design services, asset management, and collaboration solutions that help creative teams manage digital assets efficiently and work together without chaos.
                 </p>
                 <div class="features">
                     <div class="feature">
@@ -101,16 +98,14 @@
                         <h4>Device-Friendly Creativity</h4>
                         <h6>Create anywhere inspiration strikes.</h6>
                         <p>
-                            Switch seamlessly between studio systems and personal devices
-                            without disrupting creative workflows.
+                            Switch seamlessly between studio systems and personal devices without disrupting creative workflows. Support responsive web design projects with flexible access to creative assets across devices.
                         </p>
                     </div>
                     <div class="feature">
                         <h4>Industry Software Integration</h4>
                         <h6>Works with leading creative platforms.</h6>
                         <p>
-                            Supports integration with Adobe Creative Cloud, Figma, and Canva
-                            while connecting with cloud storage tools for easy file sharing.
+                             PocketOffice supports web design services by integrating with Adobe Creative Cloud, Figma, and Canva while connecting with cloud storage tools for easy file sharing.
                         </p>
                     </div>
                 </div>
@@ -147,9 +142,7 @@
             <div class="services-heading">
                 <h1>Benefits</h1>
                 <p>
-                    Provides innovative design and creative solutions that bring ideas
-                    to life, strengthen brand identity, and deliver visually compelling
-                    experiences that engage audiences and drive meaningful impact.
+                    Provides innovative website design and creative solutions that bring ideas to life, strengthen brand identity, and deliver visually compelling experiences. With web design services and responsive web design capabilities, businesses can create engaging digital experiences that connect with audiences and drive meaningful impact.
                 </p>
             </div>
         </main>

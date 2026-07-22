@@ -1,7 +1,7 @@
  @extends('layouts.backendsettings')
- @section('title', 'Business Consulting Services | Strategy & Growth Experts')
- @section('meta-title', 'Business Consulting Services | Strategy & Growth Experts')
- @section('meta-description', 'Get expert business consulting services from Pocket Office to optimize your cloud desktop strategy and drive growth in modern workspaces.')
+ @section('title', 'AI Consulting & Business Consulting Services | Pocket Office')
+ @section('meta-title', 'AI Consulting & Business Consulting Services | Pocket Office')
+ @section('meta-description', 'Get AI consulting and business consulting services with AI business consulting solutions to improve strategy, streamline operations, drive innovation, and support growth.')
  @section('meta-keywords', 'business consulting, cloud desktop strategy, growth experts, workspace consulting, business strategy')
  @section('meta-image', 'https://pocket-office.ai/assets/img/hero-images/industries/Consulting/Consulting 2.svg')
  @section('canonical', 'https://pocket-office.ai/consulting')
@@ -13,7 +13,7 @@
    "@type": "WebPage",
    "name": "Consulting | Pocket Office",
    "url": "https://pocket-office.ai/consulting",
-   "description": "Get expert business consulting services from Pocket Office to optimize your cloud desktop strategy and drive growth in modern workspaces.",
+   "description": "Get AI consulting and business consulting services with AI business consulting solutions to improve strategy, streamline operations, drive innovation, and support growth.",
    "inLanguage": "en",
    "image": "https://pocket-office.ai/assets/img/hero-images/industries/Consulting/Consulting 2.svg",
    "publisher": {
@@ -54,7 +54,7 @@
                  loading="lazy" />
              <div class="overlay">
                  <div class="overlay-text">
-                     <h3>Strategic consulting excellence</h3>
+                     <h3> AI Consulting & Strategic Business Consulting</h3>
                      <p>Driving growth, efficiency & sustainable transformation</p>
                  </div>
              </div>
@@ -63,9 +63,7 @@
          <div class="section">
              <h2>An overview</h2>
              <p>
-                 PocketOffice enables consulting teams to create client-specific
-                 workspaces, securely share files, and manage access—keeping data
-                 separate across engagements and ensuring confidentiality.
+                 PocketOffice enables AI consulting and consulting teams to create client-specific workspaces, securely share files, and manage access—keeping data separate across engagements while ensuring confidentiality and efficient collaboration.
              </p>
          </div>
 
@@ -74,8 +72,7 @@
              <h2>We are ready</h2>
 
              <p>
-                 PocketOffice provides Client collaboration flow Work securely across
-                 clients and projects.
+                 PocketOffice provides secure client collaboration workflows that support business consulting services, helping teams work efficiently and securely across clients and projects.
              </p>
              <div class="features">
                  <div class="feature">
@@ -108,9 +105,7 @@
                      <h4>Industry Software Integration</h4>
                      <h6>Connect with consulting workflow tools.</h6>
                      <p>
-                         Works with platforms like Salesforce, Asana, Trello, and Slack,
-                         helping consulting teams manage projects, clients, and
-                         documentation efficiently.
+                         Connect your AI business consulting workflows with leading platforms such as Salesforce, Asana, Trello, and Slack, helping consulting teams manage projects, clients, and documentation efficiently.
                      </p>
                  </div>
              </div>
@@ -147,9 +142,7 @@
          <div class="services-heading">
              <h1>Benefits</h1>
              <p>
-                 Provides expert, strategic guidance to help organizations solve
-                 complex challenges, optimize performance, and drive sustainable
-                 growth while minimizing risk and maximizing return on investment.
+                 Our AI consulting and business consulting services help organizations solve complex challenges, optimize performance, and drive sustainable growth. Through AI business consulting, businesses can identify opportunities for innovation, streamline operations, minimize risks, and maximize return on investment.
              </p>
          </div>
      </main>

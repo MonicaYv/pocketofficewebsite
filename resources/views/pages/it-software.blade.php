@@ -1,7 +1,7 @@
     @extends('layouts.backendsettings')
-    @section('title', 'IT & Software Development Services | Custom Solutions')
+    @section('title', ' IT Software Solutions & Software Development Services | Pocket Office')
     @section('meta-title', 'IT & Software Development Services | Custom Solutions')
-    @section('meta-description', 'Explore Pocket Office IT and software development services, offering custom solutions and secure cloud workspaces for developers and IT teams.')
+    @section('meta-description', 'Discover IT software solutions and software development services with business software solutions designed to streamline operations, improve efficiency, and support business growth.')
     @section('meta-keywords', 'IT software development, custom solutions, cloud workspaces developers, IT services')
     @section('meta-image', 'https://pocket-office.ai/assets/img/hero-images/industries/IT-Software/Software-1.svg')
     @section('canonical', 'https://pocket-office.ai/it-software')
@@ -13,7 +13,7 @@
       "@type": "WebPage",
       "name": "IT & Software | Pocket Office",
       "url": "https://pocket-office.ai/it-software",
-      "description": "Explore Pocket Office IT and software development services, offering custom solutions and secure cloud workspaces for developers and IT teams.",
+      "description": "Discover IT software solutions and software development services with business software solutions designed to streamline operations, improve efficiency, and support business growth.",
       "inLanguage": "en",
       "image": "https://pocket-office.ai/assets/img/hero-images/industries/IT-Software/Software-1.svg",
       "publisher": {
@@ -54,7 +54,7 @@
                     loading="lazy" />
                 <div class="overlay">
                     <div class="overlay-text">
-                        <h3>Transforming ideas into intelligent systems</h3>
+                        <h3> Transforming Ideas into Intelligent IT Software Solutions</h3>
                         <p>Custom software, cloud strategy & enterprise IT excellence</p>
                     </div>
                 </div>
@@ -63,9 +63,7 @@
             <div class="section">
                 <h2>An overview</h2>
                 <p>
-                    PocketOffice provides developers with a centralized workspace to
-                    access code, documentation, tools, and internal systems seamlessly
-                    across devices.
+                    PocketOffice provides developers with a centralized workspace to access code, documentation, tools, and internal systems seamlessly across devices, supporting efficient IT software solutions and modern development workflows.
                 </p>
             </div>
 
@@ -74,42 +72,35 @@
                 <h2>We are ready</h2>
 
                 <p>
-                    PocketOffice provides Developer Workspace Management Consistent
-                    environments for modern development teams.
+                     PocketOffice provides software development services and developer workspace management solutions that help create consistent environments for modern development teams.
                 </p>
                 <div class="features">
                     <div class="feature">
                         <h4>Centralized Developer Workspace</h4>
                         <h6>Everything developers need, in one place.</h6>
                         <p>
-                            Documentation, internal tools, dashboards, and systems are
-                            accessible from a single cloud desktop, reducing environment
-                            fragmentation.
+                            Business software solutions provide access to documentation, internal tools, dashboards, and systems from a single cloud desktop, reducing environment fragmentation and improving team productivity.
                         </p>
                     </div>
                     <div class="feature">
                         <h4>Device-Independent Workflows</h4>
                         <h6>Work from anywhere without setup.</h6>
                         <p>
-                            Developers can move between laptops, desktops, or remote
-                            environments without reconfiguring tools or losing context.
+                            Software development services can support flexible development workflows, allowing developers to move between laptops, desktops, or remote environments without reconfiguring tools or losing context.
                         </p>
                     </div>
                     <div class="feature">
                         <h4>Organized Technical Assets</h4>
                         <h6>Keep knowledge easy to find.</h6>
                         <p>
-                            Specifications, diagrams, and internal resources stay
-                            structured, searchable, and accessible across teams.
+                             IT software solutions help keep specifications, diagrams, and internal resources structured, searchable, and accessible across development teams.
                         </p>
                     </div>
                     <div class="feature">
                         <h4>Industry Software Integration</h4>
                         <h6>Built for development environments.</h6>
                         <p>
-                            Integrates with tools such as GitHub, GitLab, Jira, and
-                            Bitbucket while supporting collaboration through Slack and
-                            Microsoft Teams.
+                            PocketOffice supports software development services by integrating with tools such as GitHub, GitLab, Jira, and Bitbucket while enabling collaboration through Slack and Microsoft Teams.
                         </p>
                     </div>
                 </div>
@@ -146,10 +137,7 @@
             <div class="services-heading">
                 <h1>Benefits</h1>
                 <p>
-                    Provides innovative IT and software development solutions that
-                    streamline operations, enhance user experiences, and accelerate
-                    digital transformation while ensuring security, scalability, and
-                    long-term reliability.
+                    Provides innovative IT software solutions and software development services that streamline operations, enhance user experiences, and accelerate digital transformation. With flexible business software solutions, organizations can improve collaboration, support scalable workflows, strengthen security, and build reliable technology environments designed for long-term business growth.
                 </p>
             </div>
         </main>
