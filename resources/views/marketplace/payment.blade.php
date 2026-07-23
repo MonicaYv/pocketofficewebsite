@@ -306,7 +306,7 @@
                                              class="help-block text-danger"
                                              style="display: none"
                                              id="username-err">
-                                             Username must contain 1 capital letter, letters and underscore only
+                                             Username must contain letters, numbers, and underscores only
                                          </span>
                                      </div>
                                  </div>

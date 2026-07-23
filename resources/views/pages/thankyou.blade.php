@@ -3,8 +3,42 @@
 @section('title', 'Thank You')
 
 @section('content')
+<style>
+    /* Force white background and matching text colors on navbar ONLY for the Thank You page */
+    .navbar-area,
+    .navbar-area .nav-container {
+        background-color: #ffffff !important;
+        background: #ffffff !important;
+    }
+    
+    /* Make the top sub-nav bar white with a light divider */
+    .top-nav {
+        background-color: #ffffff !important;
+        border-bottom: 1px solid #f1f3f5 !important;
+    }
 
+    /* Ensure text colors are dark and visible on the white background */
+    .top-nav a, 
+    .top-nav span,
+    .navbar-area .nav-container .navbar-collapse .navbar-nav li a {
+        color: #333333 !important;
+    }
+    
+    .top-nav a:hover,
+    .navbar-area .nav-container .navbar-collapse .navbar-nav li a:hover {
+        color: #057a96 !important;
+    }
 
+    /* Maintain custom font family style */
+    .navbar-area .nav-container .navbar-collapse .navbar-nav li a {
+        color: #057A96 !important; /* Keep default blue for main nav items for brand consistency */
+    }
+
+    /* Push the hero section down so the check icon and title are not covered by the white navbar */
+    .ty-hero {
+        padding-top: 160px !important;
+    }
+</style>
 
   <!-- Confetti canvas — drawn by pricing.js IIFE -->
   <canvas id="confettiCanvas"></canvas>

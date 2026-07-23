@@ -498,8 +498,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function validateUsername(username) {
-        // return /^(?=.*[A-Z])[A-Za-z]+$/.test(username); //letter , capital letter
-        return /^(?=.*[A-Z])(?=.*[A-Za-z])[A-Za-z0-9]+$/.test(username); // //letter , capital letter , number
+        return /^[A-Za-z0-9_]+$/.test(username);
     }
 
     function validateContactPerson(name) {
@@ -649,10 +648,9 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("username")?.value.trim() || "";
 
         if (!validateUsername(username)) {
-            // showError("username", "Only letters with atleast 1 capital letter");
             showError(
                 "username",
-                "Username must contain only letters and numbers, with at least one uppercase letter",
+                "Username must contain letters, numbers, and underscores only",
             );
 
             valid = false;
@@ -1092,8 +1090,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // USERNAME
     document.getElementById("username")?.addEventListener("input", function () {
-        // this.value = this.value.replace(/[^A-Za-z]/g, "");
-        this.value = this.value.replace(/[^A-Za-z0-9]/g, "");
+        this.value = this.value.replace(/[^A-Za-z0-9_]/g, "");
 
         if (validateUsername(this.value.trim())) {
             hideError("username");
