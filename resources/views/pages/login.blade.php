@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Pocketoffice</title>
     <!-- favicon -->
-    <link rel="icon" type="image/svg+xml" href="assets/img/logo/fav-icon.svg">
+    <link rel="icon" type="image/svg+xml" href="{{ asset('assets/img/logo/fav-icon.svg') }}?v=2">
 
     @vite([
     'resources/css/responsive.css',

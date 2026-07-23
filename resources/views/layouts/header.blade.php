@@ -28,11 +28,11 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 </noscript>
 
-<link rel="icon" href="/favicon.ico" type="image/x-icon">
-<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-<link rel="icon" href="{{ asset('assets/img/logo/favicon.ico') }}" sizes="any">
-<link rel="icon" type="image/svg+xml" href="{{ asset('assets/img/logo/fav-icon.svg') }}">
-<link rel="apple-touch-icon" href="{{ asset('assets/img/logo/apple-touch-icon.png') }}">
+<link rel="icon" href="{{ asset('favicon.ico') }}?v=2" type="image/x-icon">
+<link rel="shortcut icon" href="{{ asset('favicon.ico') }}?v=2" type="image/x-icon">
+<link rel="icon" href="{{ asset('assets/img/logo/favicon.ico') }}?v=2" sizes="any">
+<link rel="icon" type="image/svg+xml" href="{{ asset('assets/img/logo/fav-icon.svg') }}?v=2">
+<link rel="apple-touch-icon" href="{{ asset('assets/img/logo/apple-touch-icon.png') }}?v=2">
 
 @vite([
     // Main Javascript Entrypoint
