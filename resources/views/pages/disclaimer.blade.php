@@ -46,7 +46,7 @@
    <!-- breadcrumb area End -->
 
    <!--Terms & Conditions Area Start-->
-   <div class="terms-container">
+   <div class="terms-container content-wrapper">
      <!-- Sidebar -->
      <div class="sidebar-section">
        <aside class="sidebar">

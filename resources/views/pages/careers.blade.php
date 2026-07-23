@@ -48,7 +48,7 @@
 <!--Main content-->
 <div>
     <section class="careers-section">
-        <div class="container">
+        <div class="container content-wrapper">
             <div class="row align-items-center">
                 <!-- Left Content -->
                 <div class="col-lg-6 mb-5 mb-lg-0">
@@ -84,7 +84,7 @@
         </div>
     </section>
     <section class="cultures-section">
-        <div class="container">
+        <div class="container content-wrapper">
             <h2 class="cultures-title">Our Culture</h2>
             <p class="cultures-text">
                 Build meaningful work together. We are a team of builders,
@@ -214,7 +214,7 @@
     </section>
 
     <section class="benefits-section">
-        <div class="container">
+        <div class="container content-wrapper">
             <!-- ✅ MAIN SECTION HEADING -->
             <h2 class="benefits-title">Benefits</h2>
 
@@ -280,7 +280,7 @@
     </section>
 
     <section class="roles-section" id="open-positions">
-    <div class="container">
+    <div class="container content-wrapper">
         <h2>Open Positions</h2>
 
         <table class="role-table">

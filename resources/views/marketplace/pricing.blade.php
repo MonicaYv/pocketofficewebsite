@@ -26,28 +26,55 @@
   </style>
 
   <style>
-    .currency-dropdown-wrapper {
-      position: relative;
-      display: inline-block;
-      max-width: 350px;
+    /* Responsive Currency Dropdown overrides */
+    .pricing-header .currency-dropdown-wrapper {
+      position: relative !important;
+      display: inline-block !important;
+      left: auto !important;
+      right: auto !important;
+      top: auto !important;
+      margin-top: 12px;
+      max-width: 100% !important;
+      width: auto !important;
+      vertical-align: middle;
     }
 
     .currency-btn {
-      display: flex;
+      display: inline-flex;
       align-items: center;
-      gap: 8px;
+      justify-content: space-between;
+      gap: 10px;
       border: 1px solid #ddd;
-      padding: 10px 14px;
+      padding: 10px 16px;
       border-radius: 8px;
       background: #fff;
       cursor: pointer;
+      max-width: 100%;
+      box-sizing: border-box;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .currency-btn:hover {
+      border-color: #057A96;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .currency-code {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-weight: 500;
+      font-size: 14px;
+      color: #333;
     }
 
     .currency-menu {
       position: absolute;
-      top: 110%;
-      right: 0;
-      width: 260px;
+      top: 115%;
+      left: 50%;
+      right: auto;
+      transform: translateX(-50%);
+      width: 280px;
       background: #fff;
       border: 1px solid #ddd;
       border-radius: 10px;
@@ -56,9 +83,9 @@
       list-style: none;
       display: none;
       z-index: 9999;
-      max-height: 300px;
+      max-height: 250px;
       overflow-y: auto;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
     }
 
     .currency-menu.open {
@@ -69,6 +96,8 @@
       padding: 10px 14px;
       cursor: pointer;
       transition: 0.2s;
+      font-size: 14px;
+      text-align: left;
     }
 
     .currency-menu li:hover {
@@ -76,7 +105,7 @@
     }
 
     .currency-search-li {
-      padding: 10px;
+      padding: 8px 10px;
       border-bottom: 1px solid #eee;
     }
 
@@ -86,6 +115,7 @@
       border: 1px solid #ddd;
       border-radius: 6px;
       outline: none;
+      font-size: 14px;
     }
 
     .price-wrapper {
@@ -96,7 +126,6 @@
 
     .original-price-wrapper {
       height: 24px;
-      /* adjust if needed */
     }
 
     .original-price {
@@ -113,7 +142,7 @@
   <div
     class="breadcrumb-area pricing-bg"
     style="background-image: url(assets/img/hero-images/Pricing.svg)">
-    <div class="container">
+    <div class="content-wrapper">
       <div class="row">
         <div class="col-lg-12">
           <div class="breadcrumb-inner">
@@ -127,7 +156,7 @@
 
   <!-- pricing area start -->
   <div class="pricing-page-area pd-top-30">
-    <div class="container">
+    <div class="content-wrapper">
 
       <!-- currency  -->
       <div class="row justify-content-center">

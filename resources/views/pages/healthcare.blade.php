@@ -8,7 +8,7 @@
  <!-- breadcrumb area End -->
 
  <!--Logistics & Supply Chain Area Start-->
- <div class="main-container">
+ <div class="main-container content-wrapper">
      <!-- Sidebar -->
      <aside class="sidebar">
          <h2><strong>Industry Solutions</strong></h2>

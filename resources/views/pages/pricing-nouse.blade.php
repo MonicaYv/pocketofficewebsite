@@ -47,7 +47,7 @@
 
   <!-- pricing area start -->
   <div class="pricing-page-area pd-top-30">
-    <div class="container">
+    <div class="content-wrapper">
       <div class="row justify-content-center">
         <div class="col-xl-6">
           <div class="section-title text-center pricing-header">

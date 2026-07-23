@@ -74,7 +74,7 @@
 
      <div class="tab-content use-case-content">
          <div class="features-tab-pane active fade-in" id="file-sharing">
-             <div class="content">
+             <div class="content content-wrapper">
                  <div class="text-section">
                      <h4>File Sharing</h4>
                      <h2 class="use-case-heading">
@@ -157,7 +157,7 @@
              </div>
          </div>
          <div class="features-tab-pane" id="virtual-desktop">
-             <div class="content">
+             <div class="content content-wrapper">
                  <div class="text-section">
                      <h4>Virtual Desktop</h4>
                      <h2 class="use-case-heading">
@@ -239,7 +239,7 @@
              </div>
          </div>
          <div class="features-tab-pane" id="team-workspaces">
-             <div class="content">
+             <div class="content content-wrapper">
                  <div class="text-section">
                      <h4>Team Workspaces</h4>
                      <h2 class="use-case-heading">
@@ -321,7 +321,7 @@
              </div>
          </div>
          <div class="features-tab-pane" id="cloud-storage">
-             <div class="content">
+             <div class="content content-wrapper">
                  <div class="text-section">
                      <h4>Cloud Storage</h4>
                      <h2 class="use-case-heading">

@@ -86,7 +86,7 @@
              <div class="content"></div>
          </div>
          <div class="features-tab-pane active fade-in" id="remote">
-             <div class="content">
+             <div class="content content-wrapper">
                  <div class="text-section">
                      <h4>Remote Teams</h4>
                      <h2 class="teamtype-heading">
@@ -189,7 +189,7 @@
              </div>
          </div>
          <div class="features-tab-pane" id="startups">
-             <div class="content">
+             <div class="content content-wrapper">
                  <div class="text-section">
                      <h4>Startups</h4>
                      <h2 class="teamtype-heading">
@@ -283,7 +283,7 @@
              </div>
          </div>
          <div class="features-tab-pane" id="enterprises">
-             <div class="content">
+             <div class="content content-wrapper">
                  <div class="text-section">
                      <h4>Enterprises</h4>
                      <h2 class="teamtype-heading">
@@ -377,7 +377,7 @@
              </div>
          </div>
          <div class="features-tab-pane" id="freelancers">
-             <div class="content">
+             <div class="content content-wrapper">
                  <div class="text-section">
                      <h4>Freelancers</h4>
                      <h2 class="teamtype-heading">
