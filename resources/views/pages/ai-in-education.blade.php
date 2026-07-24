@@ -77,35 +77,55 @@
                  PocketOffice provides education management software for classroom and remote learning, creating one digital classroom where students and educators can access learning resources, assignments, and collaboration tools.
              </p>
              <div class="features">
-                 <div class="feature">
-                     <h4>Unified Digital Classroom</h4>
-                     <h6>One workspace for students and educators.</h6>
-                     <p>
-                         Artificial intelligence in education can support more connected and efficient digital learning environments, while lesson materials, assignments, and learning tools live in a single cloud desktop for a consistent experience across classrooms, labs, and home devices.
-                     </p>
+                 <div class="feature industry-container">
+                    <div class="feature-icon">
+                        <img src="/assets/img/industry-icons/unified-digital.svg" alt="industry-icon">
+                    </div>
+                    <div>
+                        <h4>Unified Digital Classroom</h4>
+                        <h6>One workspace for students and educators.</h6>
+                        <p>
+                            Artificial intelligence in education can support more connected and efficient digital learning environments, while lesson materials, assignments, and learning tools live in a single cloud desktop for a consistent experience across classrooms, labs, and home devices.
+                        </p>
+                    </div>
                  </div>
-                 <div class="feature">
-                     <h4>Seamless Classroom-to-Home Learning</h4>
-                     <h6>Learning continues beyond school walls.</h6>
-                     <p>
-                         Students can start work in class and continue at home without
-                         re-uploading files or losing progress, ensuring uninterrupted
-                         learning across devices.
-                     </p>
+                 <div class="feature industry-container">
+                    <div class="feature-icon">
+                        <img src="/assets/img/industry-icons/seamless-classroom.svg" alt="industry-icon">
+                    </div>
+                    <div>
+                        <h4>Seamless Classroom-to-Home Learning</h4>
+                        <h6>Learning continues beyond school walls.</h6>
+                        <p>
+                            Students can start work in class and continue at home without
+                            re-uploading files or losing progress, ensuring uninterrupted
+                            learning across devices.
+                        </p>
+                    </div>
                  </div>
-                 <div class="feature">
-                     <h4>Safe Access for Every Role</h4>
-                     <h6>The right content for the right users.</h6>
-                     <p>
-                         Role-based permissions within education management software ensure students, teachers, and administrators only access relevant content, helping institutions maintain structure, safety, and control.
-                     </p>
+                 <div class="feature industry-container">
+                    <div class="feature-icon">
+                        <img src="/assets/img/industry-icons/safe-access.svg" alt="industry-icon">
+                    </div>
+                    <div>
+                        <h4>Safe Access for Every Role</h4>
+                        <h6>The right content for the right users.</h6>
+                        <p>
+                            Role-based permissions within education management software ensure students, teachers, and administrators only access relevant content, helping institutions maintain structure, safety, and control.
+                        </p>
+                    </div>
                  </div>
-                 <div class="feature">
-                     <h4>Industry Software Integration</h4>
-                     <h6>Compatible with modern education platforms.</h6>
-                     <p>
-                         PocketOffice's education management software integrates with tools like Google Classroom, Moodle, Canvas LMS, and Microsoft Teams for Education to simplify course management, assignments, and collaboration.
-                     </p>
+                 <div class="feature industry-container">
+                    <div class="feature-icon">
+                        <img src="/assets/img/industry-icons/industry-software-education.svg" alt="industry-icon">
+                    </div>
+                    <div>
+                        <h4>Industry Software Integration</h4>
+                        <h6>Compatible with modern education platforms.</h6>
+                        <p>
+                            PocketOffice's education management software integrates with tools like Google Classroom, Moodle, Canvas LMS, and Microsoft Teams for Education to simplify course management, assignments, and collaboration.
+                        </p>
+                    </div>
                  </div>
              </div>
          </div>

@@ -76,35 +76,55 @@
                 PocketOffice provides business process outsourcing services and workforce and process collaboration solutions that streamline operations across global teams.
             </p>
             <div class="features">
-                <div class="feature">
-                    <h4>Centralized Operations Hub</h4>
-                    <h6>Gain full visibility into outsourced functions and business process outsourcing services.</h6>
-                    <p>
-                        Monitor KPIs, service levels, compliance metrics, and reporting from a unified dashboard accessible anytime, anywhere.
-                    </p>
+                <div class="feature industry-container">
+                    <div class="feature-icon">
+                        <img src="/assets/img/industry-icons/centralized-operations-hub.svg" alt="industry-icon">
+                    </div>
+                    <div>
+                        <h4>Centralized Operations Hub</h4>
+                        <h6>Gain full visibility into outsourced functions and business process outsourcing services.</h6>
+                        <p>
+                            Monitor KPIs, service levels, compliance metrics, and reporting from a unified dashboard accessible anytime, anywhere.
+                        </p>
+                    </div>
                 </div>
-                <div class="feature">
-                    <h4>Real-Time Performance Tracking</h4>
-                    <h6>Keep teams accountable and responsive.</h6>
-                    <p>
-                        Track tickets, customer interactions, turnaround times, and
-                        productivity metrics instantly to maintain service standards.
-                    </p>
+                <div class="feature industry-container">
+                    <div class="feature-icon">
+                        <img src="/assets/img/industry-icons/real-time.svg" alt="industry-icon">
+                    </div>
+                    <div>
+                        <h4>Real-Time Performance Tracking</h4>
+                        <h6>Keep teams accountable and responsive.</h6>
+                        <p>
+                            Track tickets, customer interactions, turnaround times, and
+                            productivity metrics instantly to maintain service standards.
+                        </p>
+                    </div>
                 </div>
-                <div class="feature">
-                    <h4>Multi-Location Workforce Support</h4>
-                    <h6>Manage distributed teams effortlessly.</h6>
-                    <p>
-                        Coordinate offshore, nearshore, and onshore teams within the
-                        same system to ensure alignment and smooth communication.
-                    </p>
+                <div class="feature industry-container">
+                    <div class="feature-icon">
+                        <img src="/assets/img/industry-icons/multi-location-workforce.svg" alt="industry-icon">
+                    </div>
+                    <div>
+                        <h4>Multi-Location Workforce Support</h4>
+                        <h6>Manage distributed teams effortlessly.</h6>
+                        <p>
+                            Coordinate offshore, nearshore, and onshore teams within the
+                            same system to ensure alignment and smooth communication.
+                        </p>
+                    </div>
                 </div>
-                <div class="feature">
-                    <h4>Industry Software Integration</h4>
-                    <h6>Built for customer service operations.</h6>
-                    <p>
-                        PocketOffice integrates with tools like Zendesk, Freshdesk, and Salesforce Service Cloud to streamline documentation, support workflows, and AI business process automation.
-                    </p>
+                <div class="feature industry-container">
+                    <div class="feature-icon">
+                        <img src="/assets/img/industry-icons/industry-software-integration.svg" alt="industry-icon">
+                    </div>
+                    <div>
+                        <h4>Industry Software Integration</h4>
+                        <h6>Built for customer service operations.</h6>
+                        <p>
+                            PocketOffice integrates with tools like Zendesk, Freshdesk, and Salesforce Service Cloud to streamline documentation, support workflows, and AI business process automation.
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>

@@ -75,33 +75,53 @@
                      PocketOffice provides a digital publishing platform that helps media teams manage content production workflows from draft to publish, keeping projects, files, and collaboration organized in one place.
                  </p>
                  <div class="features">
-                     <div class="feature">
+                     <div class="feature industry-container">
+                        <div class="feature-icon">
+                            <img src="/assets/img/industry-icons/central-content.svg" alt="industry-icon">
+                        </div>
+                        <div>
                          <h4>Central Content Hub</h4>
                          <h6>Keep all your content in one place.</h6>
                          <p>
                              Content management software helps teams manage drafts, digital assets, and approvals within a single workspace, making content production workflows simpler and more efficient.
                          </p>
+                        </div>
                      </div>
-                     <div class="feature">
+                     <div class="feature industry-container">
+                        <div class="feature-icon">
+                            <img src="/assets/img/industry-icons/collaborate-across.svg" alt="industry-icon">
+                        </div>
+                        <div>
                          <h4>Collaborate Across Contributors</h4>
                          <h6>Writers, editors, and designers stay aligned.</h6>
                          <p>
                              With media management software, teams can collaborate seamlessly while reducing version confusion and keeping feedback organized across content projects.
                          </p>
+                        </div>
                      </div>
-                     <div class="feature">
+                     <div class="feature industry-container">
+                        <div class="feature-icon">
+                            <img src="/assets/img/industry-icons/always-latest.svg" alt="industry-icon">
+                        </div>
+                        <div>
                          <h4>Always the Latest Version</h4>
                          <h6>Say goodbye to outdated drafts.</h6>
                          <p>
                              A digital publishing platform with real-time updates helps ensure everyone works on the most current content, reducing errors and improving publishing workflows.
                          </p>
+                        </div>
                      </div>
-                     <div class="feature">
+                     <div class="feature industry-container">
+                        <div class="feature-icon">
+                            <img src="/assets/img/industry-icons/industry-software-media.svg" alt="industry-icon">
+                        </div>
+                        <div>
                          <h4>Industry Software Integration</h4>
                          <h6>Compatible with publishing platforms.</h6>
                          <p>
                                PocketOffice's content management software integrates with systems like WordPress and Drupal while supporting collaborative editorial workflows and efficient digital content management.
                          </p>
+                        </div>
                      </div>
                  </div>
              </div>

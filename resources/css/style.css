@@ -10568,6 +10568,11 @@ input[type=number] {
   font-size: 18px;
 }
 
+.feature-icon img{
+  width: 25px;
+  height: 25px;
+}
+
 .feature-item h4 {
   margin-bottom: 6px;
   font-size: 20px;
@@ -17643,4 +17648,10 @@ body {
   padding: 14px 16px;
   background: rgb(216 238 245 / 7%);
   margin-bottom: 10px;
+}
+
+.industry-container{
+  display: flex;
+  align-items: start;
+  gap: 15px;
 }
