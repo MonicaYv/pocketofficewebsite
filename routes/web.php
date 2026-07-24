@@ -8,6 +8,8 @@ use App\Http\Controllers\UserLicensePlansController;
 use App\Http\Controllers\PortalLoginController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CareerController;
+use App\Http\Controllers\SupportRequestController;
+use App\Http\Controllers\JobApplicationController;
 
 //home 
 Route::get('/', function () {
@@ -17,6 +19,7 @@ Route::get('/', function () {
 //sales enq
 Route::post('/sales-enquiry-submit', [SalesEnquiryController::class, 'store'])
     ->name('sales.enquiry.submit');
+Route::redirect('/sales-enquiry.html', '/contact-us', 302);
 
 //user plans
 Route::get('pricing', [UserLicensePlansController::class, 'index'])->name('marketplace.pricing');
@@ -44,10 +47,17 @@ Route::get('/blog/{slug}', [BlogController::class, 'BlogDetail']);
 
 //career routes
 Route::get('/job-details/{slug}', [CareerController::class, 'jobDetail']);
+Route::post('/job-application-submit', [JobApplicationController::class, 'store'])
+    ->name('job.application.submit');
 
 // Internal API paths
 Route::get('/fetch-jobs', [CareerController::class, 'fetchJobs']);
 Route::get('/fetch-job-detail/{slug}', [CareerController::class, 'fetchJobDetail']);
+Route::redirect('/job-apply.html', '/job-apply', 302);
+Route::redirect('/submit-ticket.html', '/submit-ticket', 302);
+Route::redirect('/ticket-details.html', '/ticket-details', 302);
+Route::post('/support-request-submit', [SupportRequestController::class, 'store'])
+    ->name('support.request.submit');
 //page routes
 Route::get('/{page}', function ($page) {
     if (view()->exists('pages.' . $page)) {

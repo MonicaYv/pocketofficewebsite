@@ -149,7 +149,7 @@
                             leave feedback.</p>
                     </div>
                     <button class="card-btn"
-                        onclick="window.open('https://helpdesk.pocket-office.ai/submit-ticket', '_blank')">
+                        onclick="window.open('{{ url('submit-ticket') }}', '_blank')">
                         Contact support
                     </button>
                 </div>
@@ -482,39 +482,3 @@
         </div>
     </div>
     @endsection
-
-    <script>
-        $("#serviceForm").on("submit", function(e) {
-            e.preventDefault();
-            const recaptchaResponse = grecaptcha.getResponse();
-            if (!recaptchaResponse) {
-                toastr.error("Please complete the reCAPTCHA");
-                return;
-            }
-        });
-
-        document.addEventListener("change", function(e) {
-            if (e.target && e.target.classList.contains("select-all")) {
-                var grid = e.target.closest(".checkbox-grid");
-                if (!grid) return;
-                var checked = e.target.checked;
-                grid.querySelectorAll(".form-check-input:not(.select-all):not(:disabled)").forEach(function(cb) {
-                    cb.checked = checked;
-                    cb.dispatchEvent(new Event("change", {
-                        bubbles: true
-                    }));
-                });
-                return;
-            }
-            if (e.target && e.target.matches(".checkbox-grid .form-check-input") && !e.target.classList.contains("select-all")) {
-                var grid = e.target.closest(".checkbox-grid");
-                if (!grid) return;
-                var items = Array.from(grid.querySelectorAll(".form-check-input:not(.select-all):not(:disabled)"));
-                var allChecked = items.length > 0 && items.every(function(cb) {
-                    return cb.checked;
-                });
-                var selectAll = grid.querySelector(".select-all");
-                if (selectAll) selectAll.checked = allChecked;
-            }
-        });
-    </script>

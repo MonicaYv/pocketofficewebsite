@@ -68,7 +68,8 @@
         <div class="section-heading">General Information</div>
         <div class="horizontal-line"></div>
       </div>
-      <form action="" class="needs-validation" novalidate>
+      <form id="supportRequestForm" class="needs-validation" enctype="multipart/form-data" novalidate>
+        <input type="hidden" id="support-department" name="department" />
         <div class="form-item">
           <label for="customerId" class="emailLabel">Customer Id</label>
           <div class="phone-input">
@@ -128,7 +129,7 @@
         <div class="enquiry-form-group">
           <label for="message">Subject</label>
 
-          <textarea id="message" name="message" placeholder="Type your message here" required></textarea>
+          <textarea id="message" name="message" class="form-control" rows="6" placeholder="Type your message here" required></textarea>
         </div>
 
         <div class="section-heading-container">
@@ -137,8 +138,8 @@
         </div>
 
         <div class="attach-files-group">
-          <input type="file" id="attach-files" name="attach-files" multiple />
-          <p id="file-error" class="custom-deco-error">
+          <input type="file" id="attach-files" name="attachments[]" multiple />
+          <p id="file-error" class="custom-deco-error" style="display:none;">
             Each file must be under 2MB.
           </p>
         </div>
@@ -149,16 +150,13 @@
           </div>
           <div class="g-recaptcha mil-mt-30" data-sitekey="6LftJJ8qAAAAAOGdsVx3yOGqvRXTVc2VUQl8D-tW"></div>
         </div>
+        <div class="buttons">
+          <button type="button" class="previous-btn" onclick="window.location.href='{{ url('submit-ticket') }}'">
+            Previous
+          </button>
+          <button type="submit" class="ticket-submit-btn">Submit</button>
+        </div>
       </form>
-
-
-      <!-- Submit Button -->
-      <div class="buttons">
-        <button type="button" class="previous-btn" onclick="window.location.href='submit-ticket.html'">
-          Previous
-        </button>
-        <button type="submit" class="ticket-submit-btn">Submit</button>
-      </div>
     </div>
   </div>
 
@@ -166,39 +164,23 @@
 
 
   <script>
-    const nameInput = document.getElementById("name");
-    const emailInput = document.getElementById("ticket-email");
-    const nameError = document.getElementById("nameError");
-    const emailError = document.getElementById("emailError");
+    document.addEventListener("DOMContentLoaded", () => {
+      const form = document.getElementById("supportRequestForm");
+      const departmentInput = document.getElementById("support-department");
+      const fileInput = document.getElementById("attach-files");
+      const fileError = document.getElementById("file-error");
+      const selectedDepartment = localStorage.getItem("selectedDepartment") || "";
 
-    // Name validation
-    nameInput.addEventListener("input", () => {
-      const nameValue = nameInput.value;
-      const namePattern = /^[A-Za-z][A-Za-z\s]*$/; // Ensures no numbers/special chars at start
-
-      if (!namePattern.test(nameValue)) {
-        nameError.style.display = "block";
-      } else {
-        nameError.style.display = "none";
+      if (departmentInput) {
+        departmentInput.value = selectedDepartment;
       }
-    });
 
-    emailInput.addEventListener("input", () => {
-      const emailValue = emailInput.value;
-      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-      if (!emailPattern.test(emailValue)) {
-        emailError.style.display = "block";
-      } else {
-        emailError.style.display = "none";
+      if (!selectedDepartment) {
+        toastr.warning("Please choose a department first.");
       }
-    });
 
-    document
-      .getElementById("attach-files")
-      .addEventListener("change", function(event) {
-        const maxFileSize = 2 * 1024 * 1024; // 2MB in bytes
-        const errorElement = document.getElementById("file-error");
+      fileInput.addEventListener("change", function(event) {
+        const maxFileSize = 2 * 1024 * 1024;
         const files = event.target.files;
         let valid = true;
 
@@ -210,58 +192,61 @@
         }
 
         if (!valid) {
-          errorElement.style.display = "block";
-          event.target.value = ""; // Clear the invalid file selection
+          fileError.style.display = "block";
+          event.target.value = "";
         } else {
-          errorElement.style.display = "none";
+          fileError.style.display = "none";
         }
       });
-  </script>
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const submitBtn = document.querySelector(".ticket-submit-btn");
-      if (submitBtn) {
-        submitBtn.addEventListener("click", function(event) {
-          event.preventDefault();
 
-          let formData = new FormData();
+      form.addEventListener("submit", async function(event) {
+        event.preventDefault();
 
-          // Get department from localStorage
-          formData.append("department", localStorage.getItem("selectedDepartment"));
+        if (!departmentInput.value) {
+          toastr.error("Please select a department before submitting.");
+          window.location.href = "{{ url('submit-ticket') }}";
+          return;
+        }
 
-          formData.append("customerId", document.getElementById("customer-id").value);
-          formData.append("name", document.getElementById("name").value);
-          formData.append("phoneNumber", document.getElementById("phoneNumber").value);
-          formData.append("email", document.getElementById("ticket-email").value);
-          formData.append("message", document.getElementById("message").value);
+        const submitBtn = form.querySelector(".ticket-submit-btn");
+        const originalBtnText = submitBtn ? submitBtn.textContent : "Submit";
 
-          let files = document.getElementById("attach-files").files;
-          for (let i = 0; i < files.length; i++) {
-            formData.append("attach-files", files[i]);
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.textContent = "Submitting...";
+        }
+
+        const formData = new FormData(form);
+
+        try {
+          const response = await fetch("{{ route('support.request.submit') }}", {
+            method: "POST",
+            headers: {
+              "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').content,
+              "X-Requested-With": "XMLHttpRequest"
+            },
+            body: formData
+          });
+
+          const data = await response.json().catch(() => ({}));
+
+          if (!response.ok || !data.status) {
+            throw new Error(data.message || "Unable to submit support request.");
           }
 
-          toastr.options = {
-            "closeButton": true,
-            "progressBar": true,
-            "positionClass": "toast-top-right",
-            "timeOut": "4000"
-          };
-
-          fetch("https://mapui1.aibuzz.net/submit_ticket", {
-              method: "POST",
-              body: formData
-            })
-            .then(res => res.json())
-            .then(data => {
-              toastr.success("Ticket Submitted Successfully!");
-              // clear fields...
-            })
-            .catch(err => {
-              toastr.success("Ticket Submitted Successfully!"); // show even on network error
-              // clear fields...
-              console.error("Error:", err);
-            });
-        });
-      }
+          toastr.success(data.message || "Support request submitted successfully");
+          form.reset();
+          departmentInput.value = "";
+          localStorage.removeItem("selectedDepartment");
+          fileError.style.display = "none";
+        } catch (error) {
+          toastr.error(error.message || "Something went wrong. Try again.");
+        } finally {
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalBtnText;
+          }
+        }
+      });
     });
   </script>

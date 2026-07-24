@@ -229,164 +229,203 @@ function removeError(input) {
 }
 
 // Remove error while typing
-$("#serviceForm input, #serviceForm textarea, #serviceForm select").on(
+$(document).on(
     "input change",
+    ".salesEnquiryForm input, .salesEnquiryForm textarea, .salesEnquiryForm select",
     function () {
         removeError($(this));
     },
 );
 
 // Only digits in phone number
-$("#phoneNumber").on("input", function () {
+$(document).on("input", '.salesEnquiryForm [name="phoneNumber"]', function () {
     this.value = this.value.replace(/[^0-9]/g, "").slice(0, 10);
 });
 
 // Only alphabets in names
-$("#companyName, #firstName, #lastName").on("input", function () {
-    this.value = this.value.replace(/[^A-Za-z\s]/g, "");
-});
+$(document).on(
+    "input",
+    '.salesEnquiryForm [name="companyName"], .salesEnquiryForm [name="firstName"], .salesEnquiryForm [name="lastName"]',
+    function () {
+        this.value = this.value.replace(/[^A-Za-z\s]/g, "");
+    },
+);
 
-$("#serviceForm").on("submit", function (e) {
-    e.preventDefault();
+function bindSalesEnquiryForms() {
+    document.querySelectorAll(".salesEnquiryForm").forEach(function (form) {
+        if (form.dataset.salesEnquiryBound === "1") return;
+        form.dataset.salesEnquiryBound = "1";
 
-    let isValid = true;
+        form.addEventListener("submit", function (e) {
+            e.preventDefault();
 
-    // Inputs
-    let companyName = $("#companyName");
-    let firstName = $("#firstName");
-    let lastName = $("#lastName");
-    let phoneNumber = $("#phoneNumber");
-    let email = $("#emailid");
-    let website = $("#website");
-    let companyAddress = $("#companyAddress");
-    let city = $("#city");
-    let industry = $("#industry");
-    let country = $("#country");
+            var $form = $(form);
+            var isValid = true;
 
-    // Remove old errors
-    $(".custom-error").remove();
+            var companyName = $form.find('[name="companyName"]');
+            var firstName = $form.find('[name="firstName"]');
+            var lastName = $form.find('[name="lastName"]');
+            var countryCodes = $form.find('[name="countryCodes"]');
+            var phoneNumber = $form.find('[name="phoneNumber"]');
+            var email = $form.find('[name="email"]');
+            var website = $form.find('[name="website"]');
+            var companyAddress = $form.find('[name="companyAddress"]');
+            var city = $form.find('[name="city"]');
+            var industry = $form.find('[name="industry"]');
+            var country = $form.find('[name="country"]');
 
-    $(
-        "#serviceForm input, #serviceForm textarea, #serviceForm select",
-    ).removeClass("is-invalid");
+            $form.find(".custom-error").remove();
+            $form
+                .find("input, textarea, select")
+                .removeClass("is-invalid");
 
-    // Company Name
-    if (companyName.val().trim() == "") {
-        showError(companyName, "Company name is required");
-        isValid = false;
-    } else if (!validateName(companyName.val().trim())) {
-        showError(companyName, "Only alphabets allowed");
-        isValid = false;
-    }
+            if (companyName.val().trim() === "") {
+                showError(companyName, "Company name is required");
+                isValid = false;
+            } else if (!validateName(companyName.val().trim())) {
+                showError(companyName, "Only alphabets allowed");
+                isValid = false;
+            }
 
-    // First Name
-    if (firstName.val().trim() == "") {
-        showError(firstName, "First name is required");
-        isValid = false;
-    } else if (!validateName(firstName.val().trim())) {
-        showError(firstName, "Only alphabets allowed");
-        isValid = false;
-    }
+            if (firstName.val().trim() === "") {
+                showError(firstName, "First name is required");
+                isValid = false;
+            } else if (!validateName(firstName.val().trim())) {
+                showError(firstName, "Only alphabets allowed");
+                isValid = false;
+            }
 
-    // Last Name
-    if (lastName.val().trim() == "") {
-        showError(lastName, "Last name is required");
-        isValid = false;
-    } else if (!validateName(lastName.val().trim())) {
-        showError(lastName, "Only alphabets allowed");
-        isValid = false;
-    }
+            if (lastName.val().trim() === "") {
+                showError(lastName, "Last name is required");
+                isValid = false;
+            } else if (!validateName(lastName.val().trim())) {
+                showError(lastName, "Only alphabets allowed");
+                isValid = false;
+            }
 
-    // Phone
-    if (phoneNumber.val().trim() == "") {
-        showError(phoneNumber, "Phone number is required");
-        isValid = false;
-    } else if (!validatePhone(phoneNumber.val().trim())) {
-        showError(phoneNumber, "Enter valid 10 digit number");
-        isValid = false;
-    }
+            if (countryCodes.val().trim() === "") {
+                showError(countryCodes, "Country code is required");
+                isValid = false;
+            }
 
-    // Email
-    if (email.val().trim() == "") {
-        showError(email, "Email is required");
-        isValid = false;
-    } else if (!validateEmail(email.val().trim())) {
-        showError(email, "Enter valid email address");
-        isValid = false;
-    }
+            if (phoneNumber.val().trim() === "") {
+                showError(phoneNumber, "Phone number is required");
+                isValid = false;
+            } else if (!validatePhone(phoneNumber.val().trim())) {
+                showError(phoneNumber, "Enter valid 10 digit number");
+                isValid = false;
+            }
 
-    // Website
-    if (website.val().trim() == "") {
-        showError(website, "Website is required");
-        isValid = false;
-    } else if (!validateWebsite(website.val().trim())) {
-        showError(website, "Enter valid website URL");
-        isValid = false;
-    }
+            if (email.val().trim() === "") {
+                showError(email, "Email is required");
+                isValid = false;
+            } else if (!validateEmail(email.val().trim())) {
+                showError(email, "Enter valid email address");
+                isValid = false;
+            }
 
-    // Address
-    if (companyAddress.val().trim() == "") {
-        showError(companyAddress, "Company address is required");
-        isValid = false;
-    }
+            if (website.val().trim() === "") {
+                showError(website, "Website is required");
+                isValid = false;
+            } else if (!validateWebsite(website.val().trim())) {
+                showError(website, "Enter valid website URL");
+                isValid = false;
+            }
 
-    // City
-    if (city.val().trim() == "") {
-        showError(city, "City is required");
-        isValid = false;
-    }
+            if (companyAddress.val().trim() === "") {
+                showError(companyAddress, "Company address is required");
+                isValid = false;
+            }
 
-    // Industry
-    if (industry.val().trim() == "") {
-        showError(industry, "Please select industry");
-        isValid = false;
-    }
+            if (city.val().trim() === "") {
+                showError(city, "City is required");
+                isValid = false;
+            }
 
-    // Country
-    if (country.val().trim() == "") {
-        showError(country, "Please select country");
-        isValid = false;
-    }
+            if (industry.val().trim() === "") {
+                showError(industry, "Please select industry");
+                isValid = false;
+            }
 
-    // Stop submit
-    if (!isValid) {
-        return;
-    }
+            if (country.val().trim() === "") {
+                showError(country, "Please select country");
+                isValid = false;
+            }
 
-    $.ajaxSetup({
-        headers: {
-            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-        },
+            if (!isValid) {
+                return;
+            }
+
+            $.ajaxSetup({
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+                },
+            });
+
+            var formData = new FormData(form);
+            var submitBtn = form.querySelector('button[type="submit"]');
+            var originalBtnText = submitBtn ? submitBtn.textContent : "";
+
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.textContent = "Submitting...";
+            }
+
+            $.ajax({
+                url: enquiryUrl,
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+
+                success: function (res) {
+                    toastr.success(
+                        res.message || "Enquiry submitted successfully",
+                    );
+
+                    form.reset();
+
+                    $form.find(".custom-error").remove();
+                    $form
+                        .find("input, textarea, select")
+                        .removeClass("is-invalid");
+
+                    var overlay = form.closest(
+                        "#sales-enquiry-overlay, .modal-overlay",
+                    );
+                    if (overlay) {
+                        if (overlay.id === "sales-enquiry-overlay") {
+                            if (window.jQuery) {
+                                window.jQuery(overlay).fadeOut(200);
+                            } else {
+                                overlay.style.display = "none";
+                            }
+                        } else {
+                            overlay.classList.remove("active");
+                        }
+                    }
+
+                    if (document.body) {
+                        document.body.style.overflow = "";
+                    }
+                },
+
+                error: function () {
+                    toastr.error("Something went wrong. Please try again.");
+                },
+
+                complete: function () {
+                    if (submitBtn) {
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = originalBtnText;
+                    }
+                },
+            });
+        });
     });
+}
 
-    let formData = new FormData(this);
-
-    $.ajax({
-        url: enquiryUrl,
-        type: "POST",
-        data: formData,
-        processData: false,
-        contentType: false,
-
-        success: function (res) {
-            toastr.success(res.message || "Enquiry submitted successfully");
-
-            $("#serviceForm")[0].reset();
-
-            $(".custom-error").remove();
-
-            $(
-                "#serviceForm input, #serviceForm textarea, #serviceForm select",
-            ).removeClass("is-invalid");
-
-            $("#sales-enquiry-overlay").hide();
-        },
-
-        error: function (err) {
-            toastr.error("Something went wrong. Please try again.");
-        },
-    });
-});
+bindSalesEnquiryForms();
 
 // $('#serviceForm').on('submit', function(e) {
 //     e.preventDefault();

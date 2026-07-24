@@ -52,7 +52,9 @@
     {{-- Page Content --}}
     <main>
         @yield('content')
-        @include('layouts.content-script')
+        @unless(request()->is('contact-us') || request()->is('sales-enquiry'))
+            @include('layouts.content-script')
+        @endunless
     </main>
 
     {{-- Footer --}}
