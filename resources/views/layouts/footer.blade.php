@@ -6,13 +6,13 @@
          <div class="footer-column">
              <h4>Core Features</h4>
              <ul>
-                 <li><a href="{{ url('core-features') }}?tab=cloud">Cloud Desktop Environment</a></li>
-                 <li><a href="{{ url('core-features') }}?tab=file">File Manager & Storage</a></li>
-                 <li><a href="{{ url('core-features') }}?tab=window">Window-based Multitasking</a></li>
-                 <li><a href="{{ url('core-features') }}?tab=launcher">App Launcher</a></li>
-                 <li><a href="{{ url('core-features') }}?tab=drag">Drag & Drop UI</a></li>
+                 <li><a href="{{ url('core-features') }}?tab=cloud">Cloud Desktop</a></li>
+                 <li><a href="{{ url('core-features') }}?tab=file">Files & Storage</a></li>
+                 <li><a href="{{ url('core-features') }}?tab=window">Multiple-Window Support</a></li>
+                 <li><a href="{{ url('core-features') }}?tab=launcher">My Apps</a></li>
+                 <li><a href="{{ url('core-features') }}?tab=drag">One-Click Drag & Drop</a></li>
                  <li><a href="{{ url('core-features') }}?tab=keyboard">Keyboard Shortcuts</a></li>
-                 <li><a href="{{ url('core-features') }}?tab=sync">Multi-device Sync</a></li>
+                 <li><a href="{{ url('core-features') }}?tab=sync">Sync Across Devices</a></li>
              </ul>
          </div>
 
@@ -30,7 +30,7 @@
              <ul>
                  <li><a href="{{ url('security') }}">Role-based Access</a></li>
                  <li><a href="{{ url('security') }}?tab=workspace">Backup & Recovery</a></li>
-                 <li><a href="{{ url('security') }}?tab=permissions">Data Privacy Compliance</a></li>
+                 <li><a href="{{ url('security') }}?tab=permissions">Secure Data Protection</a></li>
              </ul>
          </div>
 

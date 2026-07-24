@@ -12153,6 +12153,11 @@ input:checked+.toggle-slider:before {
   margin-left: 2px;
 }
 
+.lazy-video {
+    border: none !important;
+    outline: none !important;
+    background: transparent;
+}
 /* CTA button */
 .personal-card__btn {
   background-color: #0694B7;
@@ -12163,6 +12168,9 @@ input:checked+.toggle-slider:before {
   padding: 8px 20px;
   border-radius: 6px;
   white-space: nowrap;
+  display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* Billing toggle row: Monthly ●toggle Yearly (Save 10%) */

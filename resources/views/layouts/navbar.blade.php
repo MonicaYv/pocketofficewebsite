@@ -311,38 +311,38 @@
                                     <div class="industry-menu">
                                         <ul class="mega-section-list ">
                                             <li class="mega-section-item">
-                                                <a href="{{ url('bpo') }}" class="mega-item-link">
+                                                <a href="{{ url('business-process-outsourcing') }}" class="mega-item-link">
                                                     <strong class="mega-item-title">BPO Outsourcing</strong>
                                                 </a>
                                             </li>
 
                                             <li class="mega-section-item">
-                                                <a href="{{ url('consulting') }}" class="mega-item-link">
+                                                <a href="{{ url('ai-business-consulting') }}" class="mega-item-link">
                                                     <strong class="mega-item-title">Consulting</strong>
                                                 </a>
                                             </li>
 
                                             <li class="mega-section-item">
-                                                <a href="{{ url('design') }}" class="mega-item-link">
+                                                <a href="{{ url('web-design-services') }}" class="mega-item-link">
                                                     <strong class="mega-item-title">Design & Media
                                                         Studios</strong>
                                                 </a>
                                             </li>
 
                                             <li class="mega-section-item">
-                                                <a href="{{ url('education') }}" class="mega-item-link">
+                                                <a href="{{ url('ai-in-education') }}" class="mega-item-link">
                                                     <strong class="mega-item-title">Education</strong>
                                                 </a>
                                             </li>
 
                                             <li class="mega-section-item">
-                                                <a href="{{ url('finance-accounting') }}" class="mega-item-link">
+                                                <a href="{{ url('accounting-software') }}" class="mega-item-link">
                                                     <strong class="mega-item-title">Finance & Accounting</strong>
                                                 </a>
                                             </li>
 
                                             <li class="mega-section-item">
-                                                <a href="{{ url('healthcare') }}" class="mega-item-link">
+                                                <a href="{{ url('ai-in-healthcare') }}" class="mega-item-link">
                                                     <strong class="mega-item-title">Healthcare</strong>
                                                 </a>
                                             </li>
@@ -351,20 +351,20 @@
                                         <ul class="mega-section-list industry-list">
 
                                             <li class="mega-section-item">
-                                                <a href=" {{ url('it-software') }}" class="mega-item-link">
+                                                <a href="{{ url('it-software-solutions') }}" class="mega-item-link">
                                                     <strong class="mega-item-title">IT & Software
                                                         Development</strong>
                                                 </a>
                                             </li>
 
                                             <li class="mega-section-item">
-                                                <a href="{{ url('legal-services') }}" class="mega-item-link">
+                                                <a href="{{ url('legal-case-management-software') }}" class="mega-item-link">
                                                     <strong class="mega-item-title">Legal Services</strong>
                                                 </a>
                                             </li>
 
                                             <li class="mega-section-item">
-                                                <a href="{{ url('manufacturing') }}" class="mega-item-link">
+                                                <a href="{{ url('manufacturing-management-software') }}" class="mega-item-link">
                                                     <strong class="mega-item-title">Manufacturing</strong>
                                                 </a>
                                             </li>
@@ -377,7 +377,7 @@
                                                 </a>
                                             </li>
                                             <li class="mega-section-item">
-                                                <a href="  {{ url('retail-ecommerce') }}
+                                                <a href="  {{ url('retail-management-software') }}
                                                         " class="mega-item-link">
                                                     <strong class="mega-item-title">Retail & E-commerce</strong>
                                                 </a>
