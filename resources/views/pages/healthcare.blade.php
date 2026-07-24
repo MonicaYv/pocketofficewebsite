@@ -49,33 +49,53 @@
                 PocketOffice provides secure data access and healthcare management software solutions that help healthcare teams access critical information securely while maintaining privacy, compliance, and operational control.
              </p>
              <div class="features">
-                 <div class="feature">
-                     <h4>Centralized Healthcare Files</h4>
-                     <h6>Information where care happens.</h6>
-                     <p>
-                         Healthcare management software helps teams securely access documents across hospitals, clinics, and remote locations without relying on local systems, supporting better collaboration and efficient information management.
-                     </p>
+                 <div class="feature industry-container">
+                    <div class="feature-icon">
+                        <img src="/assets/img/industry-icons/centralized-healthcare.svg" alt="industry-icon">
+                    </div>
+                    <div>
+                        <h4>Centralized Healthcare Files</h4>
+                        <h6>Information where care happens.</h6>
+                        <p>
+                            Healthcare management software helps teams securely access documents across hospitals, clinics, and remote locations without relying on local systems, supporting better collaboration and efficient information management.
+                        </p>
+                    </div>
                  </div>
-                 <div class="feature">
-                     <h4>Remote-Ready Workflows</h4>
-                     <h6>Support modern healthcare delivery.</h6>
-                     <p>
-                         Healthcare workflow automation helps enable distributed teams and telehealth workflows while keeping sensitive patient and organizational data protected.
-                     </p>
+                 <div class="feature industry-container">
+                    <div class="feature-icon">
+                        <img src="/assets/img/industry-icons/remote-ready.svg" alt="industry-icon">
+                    </div>
+                    <div>
+                        <h4>Remote-Ready Workflows</h4>
+                        <h6>Support modern healthcare delivery.</h6>
+                        <p>
+                            Healthcare workflow automation helps enable distributed teams and telehealth workflows while keeping sensitive patient and organizational data protected.
+                        </p>
+                    </div>
                  </div>
-                 <div class="feature">
+                 <div class="feature industry-container">
+                    <div class="feature-icon">
+                        <img src="/assets/img/industry-icons/privacy-first.svg" alt="industry-icon">
+                    </div>
+                    <div>
                      <h4>Privacy-First Access Control</h4>
                      <h6>Protect sensitive information.</h6>
                      <p>
                          Strict role-based permissions help ensure only authorized personnel can view or manage confidential healthcare data, supporting secure AI in healthcare environments and regulatory compliance.
                      </p>
+                    </div>
                  </div>
-                 <div class="feature">
-                     <h4>Industry Software Integration</h4>
-                     <h6>Supports healthcare management systems.</h6>
-                     <p>
-                         PocketOffice integrates with EHR systems, hospital management software, and secure cloud platforms to support healthcare workflow automation, streamline reports, and simplify medical documentation.
-                     </p>
+                 <div class="feature industry-container">
+                    <div class="feature-icon">
+                        <img src="/assets/img/industry-icons/industry-software-integration.svg" alt="industry-icon">
+                    </div>
+                    <div>
+                        <h4>Industry Software Integration</h4>
+                        <h6>Supports healthcare management systems.</h6>
+                        <p>
+                            PocketOffice integrates with EHR systems, hospital management software, and secure cloud platforms to support healthcare workflow automation, streamline reports, and simplify medical documentation.
+                        </p>
+                    </div>
                  </div>
              </div>
          </div>

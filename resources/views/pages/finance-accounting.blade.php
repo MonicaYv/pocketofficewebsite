@@ -75,33 +75,53 @@
                  PocketOffice provides finance and accounting software solutions with secure financial document handling, helping businesses manage sensitive financial information with care while maintaining control and security.
              </p>
              <div class="features">
-                 <div class="feature">
-                     <h4>Central Financial Workspace</h4>
-                     <h6>All financial documents in one place.</h6>
-                     <p>
-                          Business accounting software helps teams organize reports, invoices, and records in a structured cloud workspace that simplifies access, collaboration, and financial document management.
-                     </p>
+                 <div class="feature industry-container">
+                    <div class="feature-icon">
+                        <img src="/assets/img/industry-icons/central-financial.svg" alt="industry-icon">
+                    </div>
+                    <div>
+                        <h4>Central Financial Workspace</h4>
+                        <h6>All financial documents in one place.</h6>
+                        <p>
+                            Business accounting software helps teams organize reports, invoices, and records in a structured cloud workspace that simplifies access, collaboration, and financial document management.
+                        </p>
+                    </div>
                  </div>
-                 <div class="feature">
-                     <h4>Strict Access Control</h4>
-                     <h6>Sensitive data stays protected.</h6>
-                     <p>
-                         Permissions within finance and accounting software ensure financial information is only accessible to authorized users, helping reduce risk and exposure.
-                     </p>
+                 <div class="feature industry-container">
+                    <div class="feature-icon">
+                        <img src="/assets/img/industry-icons/strict-access.svg" alt="industry-icon">
+                    </div>
+                    <div>
+                        <h4>Strict Access Control</h4>
+                        <h6>Sensitive data stays protected.</h6>
+                        <p>
+                            Permissions within finance and accounting software ensure financial information is only accessible to authorized users, helping reduce risk and exposure.
+                        </p>
+                    </div>
                  </div>
-                 <div class="feature">
-                     <h4>Real-Time Collaboration</h4>
-                     <h6>Always work on the latest version.</h6>
-                     <p>
-                         With accounting software, instant updates help prevent errors caused by outdated spreadsheets or duplicated files, allowing finance teams to collaborate more efficiently.
-                     </p>
+                 <div class="feature industry-container">
+                    <div class="feature-icon">
+                        <img src="/assets/img/industry-icons/real-time-finance.svg" alt="industry-icon">
+                    </div>
+                    <div>
+                        <h4>Real-Time Collaboration</h4>
+                        <h6>Always work on the latest version.</h6>
+                        <p>
+                            With accounting software, instant updates help prevent errors caused by outdated spreadsheets or duplicated files, allowing finance teams to collaborate more efficiently.
+                        </p>
+                    </div>
                  </div>
-                 <div class="feature">
-                     <h4>Industry Software Integration</h4>
-                     <h6>Connect with financial management tools.</h6>
-                     <p>
-                         PocketOffice's business accounting software solutions work with platforms like QuickBooks, Zoho Books, Xero, and SAP Financials to streamline financial reporting and document management.
-                     </p>
+                 <div class="feature industry-container">
+                    <div class="feature-icon">
+                        <img src="/assets/img/industry-icons/industry-software-finance.svg" alt="industry-icon">
+                    </div>
+                    <div>
+                        <h4>Industry Software Integration</h4>
+                        <h6>Connect with financial management tools.</h6>
+                        <p>
+                            PocketOffice's business accounting software solutions work with platforms like QuickBooks, Zoho Books, Xero, and SAP Financials to streamline financial reporting and document management.
+                        </p>
+                    </div>
                  </div>
              </div>
          </div>

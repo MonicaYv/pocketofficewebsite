@@ -75,33 +75,53 @@
          PocketOffice provides ecommerce management software for team and inventory collaboration, helping retail businesses coordinate teams seamlessly across multiple locations.
        </p>
        <div class="features">
-         <div class="feature">
+         <div class="feature industry-container">
+          <div class="feature-icon">
+              <img src="/assets/img/industry-icons/central-operations-retail.svg" alt="industry-icon">
+          </div>
+          <div>
            <h4>Central Operations Workspace</h4>
            <h6>Get one clear view of your operations.</h6>
            <p>
              Retail business software helps teams access inventory data, marketing assets, and reports from a unified cloud desktop, making it easier to manage operations and collaborate across teams.
            </p>
+          </div>
          </div>
-         <div class="feature">
+         <div class="feature industry-container">
+          <div class="feature-icon">
+              <img src="/assets/img/industry-icons/real-time-retail.svg" alt="industry-icon">
+          </div>
+          <div>
            <h4>Real-Time Updates</h4>
            <h6>Keep teams aligned.</h6>
            <p>
             Retail management software enables real-time updates to stock levels and promotions, ensuring teams stay informed and can respond quickly to changing business needs.
            </p>
+          </div>
          </div>
-         <div class="feature">
+         <div class="feature industry-container">
+          <div class="feature-icon">
+              <img src="/assets/img/industry-icons/multi-location.svg" alt="industry-icon">
+          </div>
+          <div>
            <h4>Multi-Location Support</h4>
            <h6>Connect teams everywhere.</h6>
            <p>
              Connect teams everywhere. Ecommerce management software helps stores, warehouses, and headquarters work seamlessly from the same system, improving visibility and coordination across locations.
            </p>
+          </div>
          </div>
-         <div class="feature">
+         <div class="feature industry-container">
+          <div class="feature-icon">
+              <img src="/assets/img/industry-icons/industry-software-retail.svg" alt="industry-icon">
+          </div>
+          <div>
            <h4>Industry Software Integration</h4>
            <h6>Supports modern retail platforms.</h6>
            <p>
              PocketOffice's retail business software works with platforms such as Shopify, WooCommerce, and Magento to manage product information, reports, and business documentation efficiently.
            </p>
+          </div>
          </div>
        </div>
      </div>

@@ -51,27 +51,47 @@
                   PocketOffice provides smart manufacturing solutions for operations and documentation access, giving teams centralized access to critical operational documents and information.
              </p>
              <div class="features">
-                 <div class="feature">
+                 <div class="feature industry-container">
+                    <div class="feature-icon">
+                        <img src="/assets/img/industry-icons/central-sop.svg" alt="industry-icon">
+                    </div>
+                    <div>
                      <h4>Central SOP Repository</h4>
                      <h6>One source of operational truth.</h6>
                      <p>Manufacturing management software helps store procedures, manuals, and reports centrally, ensuring teams always reference the correct documentation and maintain consistent operational processes.
                      </p>
+                    </div>
                  </div>
-                 <div class="feature">
+                 <div class="feature industry-container">
+                    <div class="feature-icon">
+                        <img src="/assets/img/industry-icons/access-across.svg" alt="industry-icon">
+                    </div>
+                    <div>
                      <h4>Access Across Locations</h4>
                      <h6>Information where it’s needed.</h6>
                      <p>Smart manufacturing solutions enable teams to securely access operational documents from offices, plants, or remote sites without delays, supporting connected and efficient manufacturing operations.</p>
+                    </div>
                  </div>
-                 <div class="feature">
+                 <div class="feature industry-container">
+                    <div class="feature-icon">
+                        <img src="/assets/img/industry-icons/controlled-visibility.svg" alt="industry-icon">
+                    </div>
+                    <div>
                      <h4>Controlled Visibility</h4>
                      <h6>Only relevant information shown.</h6>
                      <p>Permissions within manufacturing management software help ensure employees see only documents relevant to their roles and responsibilities, improving security and operational control.
                      </p>
+                    </div>
                  </div>
-                 <div class="feature">
+                 <div class="feature industry-container">
+                    <div class="feature-icon">
+                        <img src="/assets/img/industry-icons/industry-software-integration.svg" alt="industry-icon">
+                    </div>
+                    <div>
                      <h4>Industry Software Integration</h4>
                      <h6>Integrates with manufacturing systems.</h6>
                      <p> PocketOffice supports manufacturing workflow automation by working with ERP solutions like SAP, Oracle NetSuite, and Microsoft Dynamics to streamline production documentation and operational workflows.</p>
+                    </div>
                  </div>
              </div>
          </div>

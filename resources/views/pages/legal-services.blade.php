@@ -51,33 +51,53 @@
                  PocketOffice provides legal practice management software with structured case file organization, helping legal teams securely manage access to important legal documents and case information.
              </p>
              <div class="features">
-                 <div class="feature">
+                 <div class="feature industry-container">
+                    <div class="feature-icon">
+                        <img src="/assets/img/industry-icons/case-based.svg" alt="industry-icon">
+                    </div>
+                    <div>
                      <h4>Case-Based Workspaces</h4>
                      <h6>Every case stays organized.</h6>
                      <p>
                          Legal case management software helps legal documents stay grouped by client or case, improving clarity and reducing the risk of misfiled information.
                      </p>
+                    </div>
                  </div>
-                 <div class="feature">
+                 <div class="feature industry-container">
+                    <div class="feature-icon">
+                        <img src="/assets/img/industry-icons/confidential-access.svg" alt="industry-icon">
+                    </div>
+                    <div>
                      <h4>Confidential Access</h4>
                      <h6>Privacy by default.</h6>
                      <p>
                           Legal document management software with strict permissions helps protect privileged documents and maintain client confidentiality while ensuring sensitive information is accessible only to authorized users.
                      </p>
+                    </div>
                  </div>
-                 <div class="feature">
+                 <div class="feature industry-container">
+                    <div class="feature-icon">
+                        <img src="/assets/img/industry-icons/work-anywhere.svg" alt="industry-icon">
+                    </div>
+                    <div>
                      <h4>Work Anywhere Securely</h4>
                      <h6>Access files beyond the office.</h6>
                      <p>
                          Legal practice management software enables legal teams to securely access case files from courts, offices, or remote locations while maintaining secure workflows.
                      </p>
+                    </div>
                  </div>
-                 <div class="feature">
+                 <div class="feature industry-container">
+                    <div class="feature-icon">
+                        <img src="/assets/img/industry-icons/industry-software-integration.svg" alt="industry-icon">
+                    </div>
+                    <div>
                      <h4>Industry Software Integration</h4>
                      <h6>Designed for legal document workflows.</h6>
                      <p>
                          PocketOffice's legal document management software supports tools like Clio, MyCase, SharePoint, and Google Drive to manage case files, contracts, and legal documentation securely.
                      </p>
+                    </div>
                  </div>
              </div>
          </div>

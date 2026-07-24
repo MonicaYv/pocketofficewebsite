@@ -75,33 +75,53 @@
                      PocketOffice provides software development services and developer workspace management solutions that help create consistent environments for modern development teams.
                 </p>
                 <div class="features">
-                    <div class="feature">
-                        <h4>Centralized Developer Workspace</h4>
-                        <h6>Everything developers need, in one place.</h6>
-                        <p>
-                            Business software solutions provide access to documentation, internal tools, dashboards, and systems from a single cloud desktop, reducing environment fragmentation and improving team productivity.
-                        </p>
+                    <div class="feature industry-container">
+                        <div class="feature-icon">
+                            <img src="/assets/img/industry-icons/centralized-developer.svg" alt="industry-icon">
+                        </div>
+                        <div>
+                            <h4>Centralized Developer Workspace</h4>
+                            <h6>Everything developers need, in one place.</h6>
+                            <p>
+                                Business software solutions provide access to documentation, internal tools, dashboards, and systems from a single cloud desktop, reducing environment fragmentation and improving team productivity.
+                            </p>
+                        </div>
                     </div>
-                    <div class="feature">
-                        <h4>Device-Independent Workflows</h4>
-                        <h6>Work from anywhere without setup.</h6>
-                        <p>
-                            Software development services can support flexible development workflows, allowing developers to move between laptops, desktops, or remote environments without reconfiguring tools or losing context.
-                        </p>
+                    <div class="feature industry-container">
+                        <div class="feature-icon">
+                            <img src="/assets/img/industry-icons/device-independent.svg" alt="industry-icon">
+                        </div>
+                        <div>
+                            <h4>Device-Independent Workflows</h4>
+                            <h6>Work from anywhere without setup.</h6>
+                            <p>
+                                Software development services can support flexible development workflows, allowing developers to move between laptops, desktops, or remote environments without reconfiguring tools or losing context.
+                            </p>
+                        </div>
                     </div>
-                    <div class="feature">
-                        <h4>Organized Technical Assets</h4>
-                        <h6>Keep knowledge easy to find.</h6>
-                        <p>
-                             IT software solutions help keep specifications, diagrams, and internal resources structured, searchable, and accessible across development teams.
-                        </p>
+                    <div class="feature industry-container">
+                        <div class="feature-icon">
+                            <img src="/assets/img/industry-icons/organized-technical.svg" alt="industry-icon">
+                        </div>
+                        <div>
+                            <h4>Organized Technical Assets</h4>
+                            <h6>Keep knowledge easy to find.</h6>
+                            <p>
+                                IT software solutions help keep specifications, diagrams, and internal resources structured, searchable, and accessible across development teams.
+                            </p>
+                        </div>
                     </div>
-                    <div class="feature">
-                        <h4>Industry Software Integration</h4>
-                        <h6>Built for development environments.</h6>
-                        <p>
-                            PocketOffice supports software development services by integrating with tools such as GitHub, GitLab, Jira, and Bitbucket while enabling collaboration through Slack and Microsoft Teams.
-                        </p>
+                    <div class="feature industry-container">
+                        <div class="feature-icon">
+                            <img src="/assets/img/industry-icons/industry-software-integration.svg" alt="industry-icon">
+                        </div>
+                        <div>
+                            <h4>Industry Software Integration</h4>
+                            <h6>Built for development environments.</h6>
+                            <p>
+                                PocketOffice supports software development services by integrating with tools such as GitHub, GitLab, Jira, and Bitbucket while enabling collaboration through Slack and Microsoft Teams.
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>

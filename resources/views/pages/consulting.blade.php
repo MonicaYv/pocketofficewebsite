@@ -75,38 +75,58 @@
                  PocketOffice provides secure client collaboration workflows that support business consulting services, helping teams work efficiently and securely across clients and projects.
              </p>
              <div class="features">
-                 <div class="feature">
-                     <h4>Client-Specific Workspaces</h4>
-                     <h6>One workspace per client.</h6>
-                     <p>
-                         Each client engagement gets its own isolated workspace, keeping
-                         documents, data, and discussions clearly separated and
-                         confidential.
-                     </p>
+                 <div class="feature industry-container">
+                    <div class="feature-icon">
+                        <img src="/assets/img/industry-icons/client-specific.svg" alt="industry-icon">
+                    </div>
+                    <div>
+                        <h4>Client-Specific Workspaces</h4>
+                        <h6>One workspace per client.</h6>
+                        <p>
+                            Each client engagement gets its own isolated workspace, keeping
+                            documents, data, and discussions clearly separated and
+                            confidential.
+                        </p>
+                    </div>
                  </div>
-                 <div class="feature">
-                     <h4>Secure File Sharing</h4>
-                     <h6>Share without oversharing.</h6>
-                     <p>
-                         Consultants can share reports and deliverables with granular
-                         permissions and optional expiry, ensuring clients only access
-                         what’s intended.
-                     </p>
+                 <div class="feature industry-container">
+                    <div class="feature-icon">
+                        <img src="/assets/img/industry-icons/secure-file.svg" alt="industry-icon">
+                    </div>
+                    <div>
+                        <h4>Secure File Sharing</h4>
+                        <h6>Share without oversharing.</h6>
+                        <p>
+                            Consultants can share reports and deliverables with granular
+                            permissions and optional expiry, ensuring clients only access
+                            what’s intended.
+                        </p>
+                    </div>
                  </div>
-                 <div class="feature">
-                     <h4>Easy Project Switching</h4>
-                     <h6>Move between clients effortlessly.</h6>
-                     <p>
-                         Switch between client workspaces without logging out or changing
-                         tools, reducing context switching and operational friction.
-                     </p>
+                 <div class="feature industry-container">
+                    <div class="feature-icon">
+                        <img src="/assets/img/industry-icons/easy-project.svg" alt="industry-icon">
+                    </div>
+                    <div>
+                        <h4>Easy Project Switching</h4>
+                        <h6>Move between clients effortlessly.</h6>
+                        <p>
+                            Switch between client workspaces without logging out or changing
+                            tools, reducing context switching and operational friction.
+                        </p>
+                    </div>
                  </div>
-                 <div class="feature">
-                     <h4>Industry Software Integration</h4>
-                     <h6>Connect with consulting workflow tools.</h6>
-                     <p>
-                         Connect your AI business consulting workflows with leading platforms such as Salesforce, Asana, Trello, and Slack, helping consulting teams manage projects, clients, and documentation efficiently.
-                     </p>
+                 <div class="feature industry-container">
+                    <div class="feature-icon">
+                        <img src="/assets/img/industry-icons/industry-software-integration.svg" alt="industry-icon">
+                    </div>
+                    <div>
+                        <h4>Industry Software Integration</h4>
+                        <h6>Connect with consulting workflow tools.</h6>
+                        <p>
+                            Connect your AI business consulting workflows with leading platforms such as Salesforce, Asana, Trello, and Slack, helping consulting teams manage projects, clients, and documentation efficiently.
+                        </p>
+                    </div>
                  </div>
              </div>
          </div>

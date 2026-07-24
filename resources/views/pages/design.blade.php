@@ -77,36 +77,56 @@
                     PocketOffice provides web design services, asset management, and collaboration solutions that help creative teams manage digital assets efficiently and work together without chaos.
                 </p>
                 <div class="features">
-                    <div class="feature">
-                        <h4>Centralized Creative Assets</h4>
-                        <h6>All designs in one workspace.</h6>
-                        <p>
-                            Large design files, media assets, and project folders are
-                            organized in a single cloud desktop, reducing duplication and
-                            confusion.
-                        </p>
+                    <div class="feature industry-container">
+                        <div class="feature-icon">
+                            <img src="/assets/img/industry-icons/centralized-creative.svg" alt="industry-icon">
+                        </div>
+                        <div>
+                            <h4>Centralized Creative Assets</h4>
+                            <h6>All designs in one workspace.</h6>
+                            <p>
+                                Large design files, media assets, and project folders are
+                                organized in a single cloud desktop, reducing duplication and
+                                confusion.
+                            </p>
+                        </div>
                     </div>
-                    <div class="feature">
-                        <h4>Real-Time Collaboration</h4>
-                        <h6>Create together without confusion.</h6>
-                        <p>
-                            Designers, reviewers, and stakeholders can work on the same
-                            assets with clear visibility and fewer version conflicts.
-                        </p>
+                    <div class="feature industry-container">
+                        <div class="feature-icon">
+                            <img src="/assets/img/industry-icons/real-time-design.svg" alt="industry-icon">
+                        </div>
+                        <div>
+                            <h4>Real-Time Collaboration</h4>
+                            <h6>Create together without confusion.</h6>
+                            <p>
+                                Designers, reviewers, and stakeholders can work on the same
+                                assets with clear visibility and fewer version conflicts.
+                            </p>
+                        </div>
                     </div>
-                    <div class="feature">
-                        <h4>Device-Friendly Creativity</h4>
-                        <h6>Create anywhere inspiration strikes.</h6>
-                        <p>
-                            Switch seamlessly between studio systems and personal devices without disrupting creative workflows. Support responsive web design projects with flexible access to creative assets across devices.
-                        </p>
+                    <div class="feature industry-container">
+                        <div class="feature-icon">
+                            <img src="/assets/img/industry-icons/device-friendly.svg" alt="industry-icon">
+                        </div>
+                        <div>
+                            <h4>Device-Friendly Creativity</h4>
+                            <h6>Create anywhere inspiration strikes.</h6>
+                            <p>
+                                Switch seamlessly between studio systems and personal devices without disrupting creative workflows. Support responsive web design projects with flexible access to creative assets across devices.
+                            </p>
+                        </div>
                     </div>
-                    <div class="feature">
-                        <h4>Industry Software Integration</h4>
-                        <h6>Works with leading creative platforms.</h6>
-                        <p>
-                             PocketOffice supports web design services by integrating with Adobe Creative Cloud, Figma, and Canva while connecting with cloud storage tools for easy file sharing.
-                        </p>
+                    <div class="feature industry-container">
+                        <div class="feature-icon">
+                            <img src="/assets/img/industry-icons/industry-software-design.svg" alt="industry-icon">
+                        </div>
+                         <div>
+                            <h4>Industry Software Integration</h4>
+                            <h6>Works with leading creative platforms.</h6>
+                            <p>
+                                PocketOffice supports web design services by integrating with Adobe Creative Cloud, Figma, and Canva while connecting with cloud storage tools for easy file sharing.
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
