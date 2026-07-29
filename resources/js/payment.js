@@ -719,7 +719,17 @@ document.addEventListener("DOMContentLoaded", function () {
     let appliedPromocodeId = null;
     let appliedPromocodeCode = "";
     let appliedDiscountAmount = 0;
-    let appliedPromo = 0;
+    let appliedPromoValue = 0;
+    let appliedPromoType = "";
+
+    function formatPromoLabel(value, type) {
+        const numericValue = Number(value || 0);
+        if (type === "flat") {
+            return currentPlan.symbol + Math.round(numericValue);
+        }
+
+        return Math.round(numericValue) + "%";
+    }
 
     // CALCULATE FINAL TOTAL
     function updateFinalAmounts() {
@@ -740,7 +750,8 @@ document.addEventListener("DOMContentLoaded", function () {
             promoDiscountRow.classList.remove("hidden");
             promoDiscountRow.style.display = "flex";
 
-            promoDiscountAmt.innerText = "-" + Math.round(appliedPromo) + "%";
+            promoDiscountAmt.innerText =
+                "-" + formatPromoLabel(appliedPromoValue, appliedPromoType);
         } else {
             promoDiscountRow.classList.add("hidden");
             promoDiscountRow.style.display = "none";
@@ -786,7 +797,11 @@ document.addEventListener("DOMContentLoaded", function () {
                     appliedPromocodeCode = code;
 
                     appliedDiscountAmount = parseFloat(response.discount || 0);
-                    appliedPromo = parseFloat(response.promodiscount || 0);
+                    appliedPromoValue = parseFloat(
+                        response.discount_value || response.promodiscount || 0,
+                    );
+                    appliedPromoType =
+                        response.discount_type || response.type || "";
 
                     // UPDATE TOTAL
                     updateFinalAmounts();
@@ -804,7 +819,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     appliedPromocodeCode = "";
 
                     appliedDiscountAmount = 0;
-                    appliedPromo = 0;
+                    appliedPromoValue = 0;
+                    appliedPromoType = "";
 
                     updateFinalAmounts();
 
@@ -848,11 +864,18 @@ document.addEventListener("DOMContentLoaded", function () {
         $("#couponMsg").html("Promo code removed").css("color", "red");
     });
 
+    let paymentSubmissionInFlight = false;
+
     //confirm payment
     $(document).on("click", "#confirmPayBtn", function () {
+        if (paymentSubmissionInFlight) {
+            return;
+        }
+
         let btn = $(this);
 
         btn.prop("disabled", true).text("Processing...");
+        paymentSubmissionInFlight = true;
 
         // PLAN DISCOUNT
         // let planDiscount = 0;
@@ -938,6 +961,7 @@ document.addEventListener("DOMContentLoaded", function () {
             $("#payError").show();
 
             btn.prop("disabled", false).text("🔒 Confirm Payment");
+            paymentSubmissionInFlight = false;
 
             return;
         } else {
@@ -1060,11 +1084,14 @@ document.addEventListener("DOMContentLoaded", function () {
             },
 
             error: function (xhr) {
-                toastr.error("Something went wrong");
+                toastr.error(
+                    xhr?.responseJSON?.message || "Something went wrong",
+                );
             },
 
             complete: function () {
                 btn.prop("disabled", false).text("🔒 Confirm Payment");
+                paymentSubmissionInFlight = false;
             },
         });
     });

@@ -431,30 +431,37 @@ class UserLicensePlansController extends Controller
             return response()->json(['status' => false, 'message' => 'Promocode expired']);
         }
 
-        // if ($request->amount < $promocode->min_amount) {
-        //     return response()->json(['status' => false, 'message' => 'Minimum amount not met']);
-        // }
+        if ((float) $request->amount < (float) $promocode->min_amount) {
+            return response()->json(['status' => false, 'message' => 'Minimum amount not met']);
+        }
 
         if ($promocode->usage_limit && $promocode->used_count >= $promocode->usage_limit) {
             return response()->json(['status' => false, 'message' => 'Usage limit reached']);
         }
 
+        $amount = (float) $request->amount;
         $discount = 0;
 
         if ($promocode->discount_type == 'percent') {
-            $discount = ($request->amount * round($promocode->discount_value)) / 100;
+            $discount = ($amount * (float) $promocode->discount_value) / 100;
 
-            // if ($promocode->max_discount) {
-            //     $discount = min($discount, $promocode->max_discount);
-            // }
+            if ($promocode->max_discount && $discount > $promocode->max_discount) {
+                $discount = (float) $promocode->max_discount;
+            }
         } else {
-            $discount = $promocode->discount_value;
+            $discount = (float) $promocode->discount_value;
+        }
+
+        if ($discount > $amount) {
+            $discount = $amount;
         }
 
 
         return response()->json([
             'status' => true,
             'discount' => round($discount, 2),
+            'discount_type' => $promocode->discount_type,
+            'discount_value' => $promocode->discount_value,
             'promodiscount' => $promocode->discount_value,
             'promocode_id' => $promocode->id,
             'type' => $promocode->discount_type,
@@ -465,6 +472,15 @@ class UserLicensePlansController extends Controller
     //save payment-------------------------------------------    
     public function saveUserPayment(Request $request)
     {
+        $paymentLockKey = $this->getPaymentLockKey($request);
+
+        if (!Cache::add($paymentLockKey, 'processing', now()->addMinutes(2))) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Payment is already being processed. Please wait a moment and do not click twice.',
+            ], 429);
+        }
+
         DB::beginTransaction();
 
         try {
@@ -528,12 +544,29 @@ class UserLicensePlansController extends Controller
             ]);
         } catch (\Exception $e) {
             DB::rollBack();
+            Cache::forget($paymentLockKey);
 
             return response()->json([
                 'status' => false,
                 'message' => $e->getMessage()
             ]);
         }
+    }
+
+    private function getPaymentLockKey(Request $request): string
+    {
+        $dedupePayload = [
+            'email' => strtolower(trim((string) $request->input('email'))),
+            'username' => strtolower(trim((string) $request->input('username'))),
+            'plan_id' => (string) $request->input('plan_id'),
+            'plan_type' => (string) $request->input('plan_type'),
+            'quantity' => (string) $request->input('quantity', 1),
+            'total_amount' => (string) $request->input('total_amount'),
+            'subscription_type' => (string) $request->input('subscription_type'),
+            'currencyid' => (string) $request->input('currencyid'),
+        ];
+
+        return 'payment-submit:' . hash('sha256', json_encode($dedupePayload));
     }
 
     private function createClients($request)
