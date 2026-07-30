@@ -149,7 +149,7 @@
                             leave feedback.</p>
                     </div>
                     <button class="card-btn"
-                        onclick="window.open('{{ url('submit-ticket') }}', '_blank')">
+                        onclick="window.open('{{ url('https://helpdesk.pocket-office.ai/submit-ticket') }}', '_blank')">
                         Contact support
                     </button>
                 </div>

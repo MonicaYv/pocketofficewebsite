@@ -191,7 +191,7 @@
                      <div class="usecase-card">
                          <div class="card-video">
                              <video autoplay loop muted playsinline>
-                                 <source src="https://wnhq4j5mc7yjym73.public.blob.vercel-storage.com/pof/solutions-use-case/virtual-desktop/Device%20Independence.mp4" type="video/mp4">
+                                 <source src="https://wnhq4j5mc7yjym73.public.blob.vercel-storage.com/pof/solutions-use-case/virtual-desktop/Solution%20By%20Use%20Case-%20Virtual%20Desktop%20Device%20Independence%20%281%29.mov" type="video/mp4">
                                  Your browser does not support the video tag.
                              </video>
                          </div>
@@ -371,7 +371,7 @@
                      <div class="usecase-card">
                          <div class="card-video">
                              <video autoplay loop muted playsinline>
-                                <source src="https://wnhq4j5mc7yjym73.public.blob.vercel-storage.com/pof/solutions-use-case/cloud-storage/Scalable%20Storage.mp4" type="video/mp4">
+                                <source src="https://wnhq4j5mc7yjym73.public.blob.vercel-storage.com/pof/solutions-use-case/cloud-storage/Solution%20By%20Use%20Case-%20Cloud%20Storage-Scalable%20Storage%20.mov" type="video/mp4">
                                 Your browser does not support the video tag.
                             </video>
                          </div>
