@@ -155,6 +155,14 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("widget-type").innerText = employmentType;
             document.getElementById("widget-experience").innerText = experienceYears;
             document.getElementById("widget-salary").innerText = salaryPackage;
+
+            const applyButton = document.querySelector(".job-apply-btn");
+            if (applyButton) {
+                const applyUrl = new URL("{{ url('job-apply') }}", window.location.origin);
+                applyUrl.searchParams.set("slug", jobSlug);
+                applyUrl.searchParams.set("title", jobTitle);
+                applyButton.href = applyUrl.toString();
+            }
         })
         .catch(err => {
             console.error("Job details loading error:", err);

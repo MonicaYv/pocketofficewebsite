@@ -15,6 +15,9 @@ document.addEventListener("DOMContentLoaded", function () {
         currency_code: urlParams.get("currency_code"),
     };
 
+    const urlPlanType = (urlParams.get("plan_type") || "").toLowerCase();
+    const urlBillingType = (urlParams.get("billing_type") || "").toLowerCase();
+
     if (!selectedPlan) {
         return;
     }
@@ -34,6 +37,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const summarySubtotal = document.getElementById("summarySubtotal");
     const summaryTotal = document.getElementById("summaryTotal");
     const summaryTax = document.getElementById("summaryTax");
+    const summaryOriginalRow = summaryOrgTotal?.closest(".summary-row");
+    const summarySubtotalRow = summarySubtotal?.closest(".summary-row");
 
     const planFeatureList = document.getElementById("planFeatureList");
 
@@ -87,6 +92,10 @@ document.addEventListener("DOMContentLoaded", function () {
         extra_mo_discount: selectedPlan.extra_monthly || 0,
         extra_yr_discount: selectedPlan.extra_yearly || 0,
     };
+
+    if (urlPlanType) {
+        currentPlan.plan_type = urlPlanType;
+    }
 
     const selectedTile = document.querySelector(
         ".selected-plan-option.selected",
@@ -142,7 +151,10 @@ document.addEventListener("DOMContentLoaded", function () {
     let quantity = 1;
 
     const initialBillingType =
-        currentPlan.billing_type || currentPlan.subscription || "monthly";
+        urlBillingType ||
+        currentPlan.billing_type ||
+        currentPlan.subscription ||
+        "monthly";
 
     if (payBillingToggle) {
         payBillingToggle.checked =
@@ -152,7 +164,7 @@ document.addEventListener("DOMContentLoaded", function () {
     planTiles.forEach((tile) => {
         const tileType = tile.dataset.planType;
 
-        if (selectedPlan.plan_type === "single") {
+        if (currentPlan.plan_type === "single") {
             if (tileType !== "single") {
                 tile.style.display = "none";
             } else {
@@ -293,14 +305,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
         modalTotal.innerText = currentPlan.symbol + "" + Math.round(finalTotal);
 
+        if (summaryOriginalRow && summarySubtotalRow) {
+            summaryOriginalRow.parentNode.insertBefore(
+                summarySubtotalRow,
+                summaryOriginalRow.nextSibling,
+            );
+        }
+
         // APPLY PROMOCODE AGAIN AFTER PLAN/QTY CHANGE
         updateFinalAmounts();
 
-        const periodText = document.querySelector(".plan-price small");
-
-        if (periodText) {
+        document.querySelectorAll(".plan-period").forEach((periodText) => {
             periodText.innerText = isYearly ? "/year" : "/month";
-        }
+        });
 
         // let monthlyDiscount = 0;
         // let yearlyDiscount = 0;
@@ -373,12 +390,17 @@ document.addEventListener("DOMContentLoaded", function () {
         const originalTotal = originalPrice * quantityValue;
 
         if ((activeDiscount > 0 || extraDiscount > 0) && originalPrice > 0) {
-            // summaryOrgTotal.innerHTML = `${currentPlan.symbol}${Math.round(originalPrice )}`;
-            summaryOrgTotal.innerHTML = `${currentPlan.symbol}${Math.round(originalTotal)}`;
+            if (summaryOriginalRow) {
+                summaryOriginalRow.style.display = "flex";
+            }
+
+            summaryOrgTotal.innerHTML = `<del class="os-original-price">${currentPlan.symbol}${Math.round(originalTotal)}</del>`;
         } else {
-            // summaryOrgTotal.innerHTML = `${currentPlan.symbol}${Math.round(originalPrice)}`;
-            summaryOrgTotal.innerHTML = `${currentPlan.symbol}${Math.round(originalTotal)}`;
-            // summaryOrgTotal.innerHTML = "";
+            if (summaryOriginalRow) {
+                summaryOriginalRow.style.display = "none";
+            }
+
+            summaryOrgTotal.innerHTML = "";
         }
 
         const discountMessages = [];
@@ -719,7 +741,17 @@ document.addEventListener("DOMContentLoaded", function () {
     let appliedPromocodeId = null;
     let appliedPromocodeCode = "";
     let appliedDiscountAmount = 0;
-    let appliedPromo = 0;
+    let appliedPromoValue = 0;
+    let appliedPromoType = "";
+
+    function formatPromoLabel(value, type) {
+        const numericValue = Number(value || 0);
+        if (type === "flat") {
+            return currentPlan.symbol + Math.round(numericValue);
+        }
+
+        return Math.round(numericValue) + "%";
+    }
 
     // CALCULATE FINAL TOTAL
     function updateFinalAmounts() {
@@ -740,7 +772,8 @@ document.addEventListener("DOMContentLoaded", function () {
             promoDiscountRow.classList.remove("hidden");
             promoDiscountRow.style.display = "flex";
 
-            promoDiscountAmt.innerText = "-" + Math.round(appliedPromo) + "%";
+            promoDiscountAmt.innerText =
+                "-" + formatPromoLabel(appliedPromoValue, appliedPromoType);
         } else {
             promoDiscountRow.classList.add("hidden");
             promoDiscountRow.style.display = "none";
@@ -786,7 +819,11 @@ document.addEventListener("DOMContentLoaded", function () {
                     appliedPromocodeCode = code;
 
                     appliedDiscountAmount = parseFloat(response.discount || 0);
-                    appliedPromo = parseFloat(response.promodiscount || 0);
+                    appliedPromoValue = parseFloat(
+                        response.discount_value || response.promodiscount || 0,
+                    );
+                    appliedPromoType =
+                        response.discount_type || response.type || "";
 
                     // UPDATE TOTAL
                     updateFinalAmounts();
@@ -804,7 +841,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     appliedPromocodeCode = "";
 
                     appliedDiscountAmount = 0;
-                    appliedPromo = 0;
+                    appliedPromoValue = 0;
+                    appliedPromoType = "";
 
                     updateFinalAmounts();
 
@@ -848,11 +886,18 @@ document.addEventListener("DOMContentLoaded", function () {
         $("#couponMsg").html("Promo code removed").css("color", "red");
     });
 
+    let paymentSubmissionInFlight = false;
+
     //confirm payment
     $(document).on("click", "#confirmPayBtn", function () {
+        if (paymentSubmissionInFlight) {
+            return;
+        }
+
         let btn = $(this);
 
         btn.prop("disabled", true).text("Processing...");
+        paymentSubmissionInFlight = true;
 
         // PLAN DISCOUNT
         // let planDiscount = 0;
@@ -938,6 +983,7 @@ document.addEventListener("DOMContentLoaded", function () {
             $("#payError").show();
 
             btn.prop("disabled", false).text("🔒 Confirm Payment");
+            paymentSubmissionInFlight = false;
 
             return;
         } else {
@@ -1060,11 +1106,14 @@ document.addEventListener("DOMContentLoaded", function () {
             },
 
             error: function (xhr) {
-                toastr.error("Something went wrong");
+                toastr.error(
+                    xhr?.responseJSON?.message || "Something went wrong",
+                );
             },
 
             complete: function () {
                 btn.prop("disabled", false).text("🔒 Confirm Payment");
+                paymentSubmissionInFlight = false;
             },
         });
     });

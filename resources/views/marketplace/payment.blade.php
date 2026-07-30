@@ -499,9 +499,8 @@
 
                                      <span class="pay-plan-tile__price plan_price_details hidden"></span>
                                      <span class="pay-plan-tile__price view_plan_price_details">
-                                         {{ $plan->currency_symbol }}{{ $plan->final_monthly_price }}<small>/year</small>
+                                         {{ $plan->currency_symbol }}{{ $plan->active_price }}<small class="plan-period">{{ request('billing_type') === 'yearly' ? '/year' : '/month' }}</small>
                                      </span>
-                                     <small>/year</small>
                                  </div>
                                  @endforeach
                              </div>
@@ -538,8 +537,7 @@
                                      <strong id="summaryPlanName">—</strong>
                                      <span class="plan-box__price">
                                          <span id="summarySymbol"></span><span id="summaryUnitPrice">—</span>
-                                         <small class="text-muted"></small>
-                                         <small>/year</small>
+                                         <small class="plan-period">{{ request('billing_type') === 'yearly' ? '/year' : '/month' }}</small>
                                      </span>
                                  </div>
                                  <ul id="planFeatureList" class="plan-box__features">
@@ -568,7 +566,7 @@
 
                              <div class="os-totals">
                                  <div class="summary-row">
-                                     <span>Total</span>
+                                    <span>Original Price</span>
                                      <span id="summaryOrgTotal">—</span>
                                  </div>
 

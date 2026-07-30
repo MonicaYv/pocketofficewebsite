@@ -31,8 +31,11 @@
             <form
               id="jobApplyForm"
               class="MapUI-form-wrap"
+              method="POST"
               enctype="multipart/form-data">
               <div class="row">
+                <input type="hidden" name="jobSlug" id="jobSlugField" />
+                <input type="hidden" name="jobTitle" id="jobTitleField" />
                 <div class="col-md-6">
                   <div class="single-input-wrap">
                     <input
@@ -121,6 +124,25 @@ document.addEventListener("DOMContentLoaded", () => {
     const fileLabel = document.querySelector(
         'label[for="sb-file-input"]'
     );
+    const jobTitleField = document.getElementById("jobTitleField");
+    const jobSlugField = document.getElementById("jobSlugField");
+    const positionInput = document.querySelector('input[name="position"]');
+    const queryParams = new URLSearchParams(window.location.search);
+    const querySlug = queryParams.get("slug") || "";
+    const queryTitle = queryParams.get("title") || queryParams.get("position") || "";
+
+    if (jobSlugField) {
+        jobSlugField.value = querySlug;
+    }
+
+    if (jobTitleField) {
+        jobTitleField.value = queryTitle;
+    }
+
+    if (positionInput && queryTitle) {
+        positionInput.value = queryTitle;
+        positionInput.parentElement.classList.add('active');
+    }
 
     fileInput.addEventListener("change", function () {
 
@@ -209,41 +231,55 @@ document.addEventListener("DOMContentLoaded", () => {
 
         let formData = new FormData(applyForm);
 
-        fetch("send_job_application.php", {
+        fetch("{{ route('job.application.submit') }}", {
             method: "POST",
+            headers: {
+                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').content,
+                "X-Requested-With": "XMLHttpRequest",
+            },
             body: formData,
         })
-        .then((res) => res.json())
+        .then(async (res) => {
+            const data = await res.json().catch(() => ({}));
+
+            if (!res.ok || !data.status) {
+                throw new Error(data.message || "Unable to submit application.");
+            }
+
+            return data;
+        })
         .then((data) => {
-            if (data.result === "success") {
+            toastr.success(data.message || "Application submitted successfully!");
 
-                toastr.success(data.msg || "Application submitted successfully!");
+            applyForm.reset();
 
-                applyForm.reset();
+            // Remove active class after reset
+            document.querySelectorAll('.single-input-wrap').forEach(el => {
+                el.classList.remove('active');
+            });
 
-                // Remove active class after reset
-                document.querySelectorAll('.single-input-wrap').forEach(el => {
-                    el.classList.remove('active');
-                });
+            if (jobSlugField) {
+                jobSlugField.value = querySlug;
+            }
 
-                const fileInput = document.getElementById("sb-file-input");
+            if (jobTitleField) {
+                jobTitleField.value = queryTitle;
+            }
 
-                if (fileInput) {
-                    fileInput.value = "";
+            const fileInput = document.getElementById("sb-file-input");
 
-                    const label = fileInput.nextElementSibling;
+            if (fileInput) {
+                fileInput.value = "";
 
-                    if (label && label.classList.contains("custom-file-label")) {
-                        label.innerText = "Upload Your Resume";
-                    }
+                const label = fileInput.nextElementSibling;
+
+                if (label && label.classList.contains("custom-file-label")) {
+                    label.innerText = "Upload Your Resume";
                 }
-
-            } else {
-                toastr.error(data.msg || "Unable to submit application.");
             }
         })
-        .catch(() => {
-            toastr.error("Something went wrong. Try again.");
+        .catch((error) => {
+            toastr.error(error.message || "Something went wrong. Try again.");
         })
         .finally(() => {
             if (submitBtn) {
