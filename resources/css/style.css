@@ -5361,6 +5361,9 @@ ul.wp-block-latest-posts.is-grid.alignwide {
   letter-spacing: 0.45px;
   font-weight: 400;
   transition: all 0.3s ease-in;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .btn i {
@@ -14528,7 +14531,7 @@ h5.footer-sub-heading {
 }
 
 .content-wrapper{
-  max-width: 1200px !important;
+  max-width: 1320px !important;
   margin: auto !important;
   padding: 0 40px;
 }

@@ -852,7 +852,7 @@
                     data-plan-id="{{ $singlePlan->id }}"
                     data-plan-discount="{{ $singlePlan->monthly_discount }}"
                     data-default-qty="{{ $singlePlan->default_qty }}"
-                    data-storage-unit="{{ $singlePlan->storage_unit }}">
+                    data-storage-unit="{{ $singlePlan->storage_unit }}" style="padding: 0 32px;!important; height: 36px;!important;">
                     Get Started
                   </button>
                 </td>
@@ -866,7 +866,7 @@
                     data-name="{{ $plan->plans_name }}"
                     data-license="{{ $plan->plans_license }}"
                     data-storage="{{ $plan->plans_users }}"
-                    data-default-qty="{{ $plan->default_qty }}">
+                    data-default-qty="{{ $plan->default_qty }}" style="padding: 0 32px;!important; height: 36px;!important;">
                     Get Started
                   </button>
                 </td>
