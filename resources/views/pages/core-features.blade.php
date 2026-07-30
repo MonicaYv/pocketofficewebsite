@@ -92,7 +92,7 @@ Office')
             <!-- VIEW ALL -->
             <div class="core-features-panel" id="view-all">
                 <h3 class="core-features-view-main-heading">
-                    Cloud Desktop Environment
+                    Cloud Desktop
                 </h3>
                 <div class="core-features-grid">
                     <!-- Card 1 -->
@@ -214,7 +214,7 @@ Office')
                 </div>
 
                 <h3 class="core-features-view-main-heading">
-                    File Manager & Storage
+                    File & Storage
                 </h3>
 
                 <div class="core-features-grid">
@@ -343,7 +343,7 @@ Office')
                 </div>
 
                 <h3 class="core-features-view-main-heading">
-                    Window-based Multitasking
+                    Multiple-Window Support
                 </h3>
                 <div class="core-features-grid">
                     <!-- Card 1 -->
@@ -410,7 +410,7 @@ Office')
                     </div>
                 </div>
 
-                <h3 class="core-features-view-main-heading">App Launcher</h3>
+                <h3 class="core-features-view-main-heading">My Apps</h3>
                 <div class="core-features-grid">
                     <!-- Card 1 -->
                     <div class="core-features-card">
@@ -477,7 +477,7 @@ Office')
                     </div>
                 </div>
 
-                <h3 class="core-features-view-main-heading">Drag & Drop UI</h3>
+                <h3 class="core-features-view-main-heading">One-Click Drag & Drop</h3>
                 <div class="core-features-grid">
                     <!-- Card 1 -->
                     <div class="core-features-card">
@@ -615,7 +615,7 @@ Office')
                     </div>
                 </div>
 
-                <h3 class="core-features-view-main-heading">Multi-device Sync</h3>
+                <h3 class="core-features-view-main-heading">Sync Across Devices</h3>
                 <div class="core-features-grid">
                     <!-- Card 1 -->
                     <div class="core-features-card">

@@ -8831,33 +8831,19 @@ select {
   padding: 20px;
   border-radius: 8px;
   position: sticky;
-  /* top: 80px; */
-  /* max-height: 500px; */
-  /* adjust if needed */
+  top: 140px;
+  max-height: calc(100vh - 160px);
   overflow-y: auto;
   align-self: flex-start;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
 }
 
-/* Scrollbar width */
+/* Hide scrollbar completely */
 .sidebar::-webkit-scrollbar {
-  width: 4px;
-}
-
-/* Scrollbar track */
-.sidebar::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-/* Scrollbar thumb */
-.sidebar::-webkit-scrollbar-thumb {
-  background: #0694B7;
-  border-radius: 10px;
-}
-
-/* Firefox support */
-.sidebar {
-  scrollbar-width: thin;
-  scrollbar-color: #0694B7 transparent;
+  display: none;
+  width: 0;
+  height: 0;
 }
 
 .main {
@@ -8909,28 +8895,14 @@ select {
     position: static;
     /* remove sticky for mobile */
     margin-bottom: 20px;
-    /* max-height: 350px; */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
   }
 
   .sidebar::-webkit-scrollbar {
-    width: 4px;
-  }
-
-  /* Scrollbar track */
-  .sidebar::-webkit-scrollbar-track {
-    background: transparent;
-  }
-
-  /* Scrollbar thumb */
-  .sidebar::-webkit-scrollbar-thumb {
-    background: #0694B7;
-    border-radius: 10px;
-  }
-
-  /* Firefox support */
-  .sidebar {
-    scrollbar-width: thin;
-    scrollbar-color: #0694B7 transparent;
+    display: none; /* Chrome, Safari, Opera */
+    width: 0;
+    height: 0;
   }
 
   .main {
@@ -13222,21 +13194,30 @@ html {
 }
 
 .sidebar-section {
-  height: 85vh;
+  width: 280px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 140px;
+  height: fit-content;
+  max-height: calc(100vh - 160px);
   overflow-y: auto;
+  z-index: 5;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
 }
 
-@media (max-width: 768px) {
-  .sidebar-section {
-    height: auto;
-    overflow-y: visible;
-  }
+.sidebar-section::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+  width: 0;
+  height: 0;
 }
 
 .sidebar-section .sidebar {
+  position: static !important;
   width: 100%;
-  height: 480px;
-  overflow-y: auto;
+  height: auto !important;
+  max-height: none !important;
+  overflow: visible !important;
 }
 
 .terms-container {
@@ -13244,31 +13225,18 @@ html {
   gap: 20px;
   align-items: flex-start;
   padding: 40px !important;
-  height: calc(100vh - 80px);
-  overflow: hidden;
+  height: auto;
 }
-
 
 .content-section {
   flex: 1;
   display: flex;
   flex-direction: column;
   gap: 20px;
-  overflow-y: auto;
   scroll-behavior: smooth;
-  max-height: 100%;
   padding-right: 10px;
   border-bottom: 1px solid rgb(226, 232, 240);
 }
-
-/* Sidebar fixed width */
-.sidebar-section {
-  width: 280px;
-  flex-shrink: 0;
-}
-
-
-
 
 /* =============================================
    RESPONSIVE ADDITIONS — Terms & Conditions
@@ -13301,6 +13269,8 @@ html {
   /* Sidebar spans full width above the content */
   .sidebar-section {
     width: 100%;
+    position: static;
+    max-height: none;
   }
 
   /* Sidebar list scrolls horizontally on small screens */
@@ -13492,6 +13462,8 @@ html {
   padding: 60px 60px 20px;
   /* reduced bottom padding */
   color: #ffffff;
+  position: relative;
+  z-index: 10;
 }
 
 /* Grid Container */
