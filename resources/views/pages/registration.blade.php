@@ -11,10 +11,6 @@
     @vite([
     'resources/css/responsive.css',
     'resources/css/style.css',
-    'resources/css/flaticon.css',
-    'resources/css/themify-icons.css',
-    'resources/css/line-awesome.min.css',
-    'resources/css/font-awesome.min.css',
     'resources/css/slick.css',
     'resources/css/owl.carousel.min.css',
     'resources/css/magnific-popup.css',
@@ -176,7 +172,7 @@
         <div class="row no-gutters">
             <div class="col-md-6">
                 <div class="thumb">
-                    <img src="{{ asset($constants['IMAGEFILEPATH'] . 'others/admin-login.png') }}" alt="img" />
+                    <img src="{{ asset('assets/img/office-final-logo.png') }}" alt="img" />
                 </div>
             </div>
             <div class="col-md-6 desktop-center-item">
@@ -239,7 +235,7 @@
         <div class="row no-gutters">
             <div class="col-md-6">
                 <div class="thumb">
-                    <img src="{{ asset($constants['IMAGEFILEPATH'] . 'client-login.png') }}" alt="img" />
+                    <img src="{{ asset('assets/img/logo/pocket-office-final-logo.png') }}" alt="img" />
                 </div>
             </div>
             <div class="col-md-6 desktop-center-item">
@@ -315,7 +311,7 @@
                 <div class="col-md-3 text-md-end">
                     <div class="nav-right">
                         <a href="checkout.html" class="order-now-btn btn-radius btn-green s-animate-3"><i
-                                class="la la-shopping-cart"></i>Order Now</a>
+                                class="fa-solid fa-cart-shopping"></i>Order Now</a>
                     </div>
                 </div>
             </div>
@@ -329,7 +325,7 @@
             <div class="nav-right-content">
                 <ul>
                     <li class="search">
-                        <i class="ti-search"></i>
+                        <i class="fa-solid fa-magnifying-glass"></i>
                     </li>
                 </ul>
             </div>
@@ -401,7 +397,7 @@
                         <div class="col-md-3 text-md-end">
                             <div class="nav-right">
                                 <a href="checkout.html" class="order-now-btn btn-radius btn-green s-animate-3"><i
-                                        class="la la-shopping-cart"></i>Order Now</a>
+                                        class="fa-solid fa-cart-shopping"></i>Order Now</a>
                             </div>
                         </div>
                     </ul>
@@ -413,7 +409,7 @@
         <div class="nav-right-content">
             <ul>
                 <li class="search">
-                    <i class="ti-search" id="search-btn"></i>
+                    <i class="fa-solid fa-magnifying-glass" id="search-btn"></i>
                 </li>
 
             </ul>
@@ -423,7 +419,7 @@
 <!-- navbar area end -->
 
 <!-- breadcrumb area start -->
-<div class="breadcrumb-area" style="background-image: url(assets/img/page-title-bg.png)">
+<div class="breadcrumb-area" style="background-image: url('{{ asset('assets/img/bg-hero.jpeg') }}')">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -714,7 +710,7 @@
                     <div class="footer-widget widget">
                         <div class="about_us_widget">
                             <a href="index.html" class="footer-logo">
-                                <img src="{{ asset($constants['IMAGEFILEPATH'] . 'logo.png') }}" alt="footer logo">
+                                <img src="{{ asset('assets/img/logo/pocket-office-final-logo.png') }}" alt="footer logo">
                             </a>
                             <p>Our support team receives AI-powered suggestions, making it faster than ever to
                                 handle support requests.</p>
@@ -781,14 +777,14 @@
                         <h4 class="widget-title">Latest News</h4>
                         <div class="about_recent_post">
                             <div class="media">
-                                <img src="{{ asset($constants['IMAGEFILEPATH'] . 'footer-news2.png') }}" alt="post">
+                                <img src="{{ asset('assets/img/blog/widget1.png') }}" alt="post">
                                 <div class="media-body">
                                     <h6><a href="news.html">MapUI Unlocks Advanced Location-Based Features</a></h6>
                                     <span><!-- Date will be inserted here automatically --></span>
                                 </div>
                             </div>
                             <div class="media">
-                                <img src="{{ asset($constants['IMAGEFILEPATH'] . 'footer-news1.png') }}" alt="post">
+                                <img src="{{ asset('assets/img/blog/widget2.png') }}" alt="post">
                                 <div class="media-body">
                                     <h6><a href="news.html">Major Improvements Roll Out for Leading Map API</a></h6>
                                     <span><!-- Date will be inserted here automatically --></span>
@@ -809,26 +805,11 @@
 </footer>
 <!-- footer area end -->
 
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
   @vite([
-    'resources/js/jquery-2.2.4.min.js',
-    'resources/js/bootstrap.min.js',
-    'resources/js/main.js',
-    'resources/js/worldmap-libs.js',
-    'resources/js/jquery.cssslider.min.js',
-    'resources/js/wow.min.js',
-    'resources/js/jquery.magnific-popup.js',
-    'resources/js/popper.min.js',
-    'resources/js/owl.carousel.min.js',
-    'resources/js/slick.js',
-    'resources/js/testimonial-slider.js',
-    'resources/js/waypoints.min.js',
-    'resources/js/jquery.counterup.min.js',
-    'resources/js/imagesloaded.pkgd.min.js',
-    'resources/js/isotope.pkgd.min.js',
-    'resources/js/worldmap-topojson.js',
-    'resources/js/mediaelement.min.js',
-    'resources/js/search-box.js',
-    'resources/js/login.js',
+    'resources/js/login.js'
     ])
 
     

@@ -1,33 +1,33 @@
 const pages = [
-  { name: "Home", url: "index.html" },
-  { name: "About Us", url: "about.html" },
-  { name: "Careers", url: "careers.html" },
-  { name: "FAQ", url: "faq.html" },
-  { name: "Getting Started", url: "documentation.html" },
-  { name: "Pricing", url: "pricing.html" },
-  { name: "News", url: "news.html" },
-  { name: "Contact Us", url: "contact.html" },
-  { name: "Submit a Ticket", url: "submit-ticket.html" },
-  { name: "Sales Enquiry", url: "sales-enquiry.html" },
-  { name: "Disclaimer", url: "disclaimer.html" },
-  { name: "Privacy Policy", url: "privacy.html" },
-  { name: "Terms & Conditions", url: "terms-condition.html" },
-  { name: "Education", url: "education.html" },
-  { name: "Consulting", url: "consulting.html" },
-  { name: "IT & Software Development", url: "it-software.html" },
-  { name: "Design & Media Studios", url: "design.html" },
-  { name: "Healthcare", url: "healthcare.html" },
-  { name: "Finance & Accounting", url: "finance-accounting.html" },
-  { name: "Legal Services", url: "legal-services.html" },
-  { name: "Manufacturing", url: "manufacturing.html" },
-  { name: "Media & Publishing", url: "media-publishing.html" },
-  { name: "Retail & Ecommerce", url: "retail-ecommerce.html" },
-  { name: "BPO & Outsourcing", url: "bpo.html" },
-  { name: "Core Features", url: "core-features.html" },
-  { name: "Collaboration", url: "collaboration.html" },
-  { name: "Security", url: "security.html" },
-  { name: "Integrations", url: "integrations.html" },
-  { name: "Solutions", url: "team-type.html" },
+  { name: "Home", url: "/" },
+  { name: "About Us", url: "/about" },
+  { name: "Careers", url: "/careers" },
+  { name: "FAQ", url: "/faq" },
+  { name: "Getting Started", url: "/documentation" },
+  { name: "Pricing", url: "/pricing" },
+  { name: "News", url: "/news" },
+  { name: "Contact Us", url: "/contact-us" },
+  { name: "Submit a Ticket", url: "/submit-ticket" },
+  { name: "Sales Enquiry", url: "/sales-enquiry" },
+  { name: "Disclaimer", url: "/disclaimer" },
+  { name: "Privacy Policy", url: "/privacy" },
+  { name: "Terms & Conditions", url: "/terms-condition" },
+  { name: "Education", url: "/ai-in-education" },
+  { name: "Consulting", url: "/ai-business-consulting" },
+  { name: "IT & Software Development", url: "/it-software-solutions" },
+  { name: "Design & Media Studios", url: "/web-design-services" },
+  { name: "Healthcare", url: "/ai-in-healthcare" },
+  { name: "Finance & Accounting", url: "/accounting-software" },
+  { name: "Legal Services", url: "/legal-case-management-software" },
+  { name: "Manufacturing", url: "/manufacturing-management-software" },
+  { name: "Media & Publishing", url: "/media-publishing" },
+  { name: "Retail & Ecommerce", url: "/retail-management-software" },
+  { name: "BPO & Outsourcing", url: "/business-process-outsourcing" },
+  { name: "Core Features", url: "/core-features" },
+  { name: "Collaboration", url: "/collaboration" },
+  { name: "Security", url: "/security" },
+  { name: "Integrations", url: "/integrations" },
+  { name: "Solutions", url: "/team-type" },
 ];
 
 // Define extra keywords for each page (you can extend this as needed)
@@ -298,6 +298,7 @@ pages.forEach((page) => {
 // 🔹 Search function
 function smartSearch(query) {
   const resultsContainer = document.getElementById("search-results");
+  if (!resultsContainer) return;
   resultsContainer.innerHTML = "";
 
   if (query.trim() === "") return;
@@ -330,13 +331,13 @@ function smartSearch(query) {
   }
 }
 
-document.getElementById("search-input").addEventListener("input", (e) => {
-  smartSearch(e.target.value.toLowerCase());
-});
+const searchInput = document.getElementById("search-input");
+if (searchInput) {
+  searchInput.addEventListener("input", (e) => {
+    smartSearch(e.target.value.toLowerCase());
+  });
 
-document
-  .getElementById("search-input")
-  .addEventListener("keypress", function (e) {
+  searchInput.addEventListener("keypress", function (e) {
     if (e.key === "Enter") {
       e.preventDefault();
       const query = this.value.trim();
@@ -347,8 +348,9 @@ document
         // Delay redirect slightly so results are visible
         setTimeout(() => {
           window.location.href =
-            "search-result.html?q=" + encodeURIComponent(query);
+            "/search-result?q=" + encodeURIComponent(query);
         }, 500); // 0.5s delay so results render
       }
     }
   });
+}

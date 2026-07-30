@@ -7,6 +7,14 @@ function safeToast(type, msg, title = "") {
     }
 }
 
+function showLoading() {
+    // Auth pages do not need a full loader widget here; keep the flow safe.
+}
+
+function hideLoading() {
+    // Paired no-op to avoid runtime errors if the loader is not mounted.
+}
+
 
 
 $(document).ready(function() {

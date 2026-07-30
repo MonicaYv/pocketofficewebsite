@@ -98,75 +98,101 @@
     }
 
     function closeSalesModal() {
-        var closeBtn = document.getElementById("sales-enquiry-close");
-        if (!closeBtn) return;
-        if (window.jQuery) {
-            window.jQuery(closeBtn).trigger("click");
-        } else {
-            closeBtn.click();
+        var closeBtn =
+            document.getElementById("sales-enquiry-close") ||
+            document.querySelector(".contact-support");
+
+        if (closeBtn) {
+            if (window.jQuery) {
+                window.jQuery(closeBtn).trigger("click");
+            } else {
+                closeBtn.click();
+            }
+            return;
+        }
+
+        var overlay =
+            document.getElementById("sales-enquiry-overlay") ||
+            document.querySelector(".modal-overlay.active") ||
+            document.querySelector(".modal-overlay");
+
+        if (overlay) {
+            overlay.classList.remove("active");
+            overlay.style.display = "none";
+        }
+
+        if (document.body) {
+            document.body.style.overflow = "";
         }
     }
 
-    // function bindSalesEnquiryForms() {
-    //   var endpoint = "send_sales_enquiry.php";
-    //   var forms = document.querySelectorAll(".salesEnquiryForm");
+    function bindSalesEnquiryForms() {
+        var forms = document.querySelectorAll(".salesEnquiryForm");
 
-    //   forms.forEach(function (form) {
-    //     if (form.dataset.salesEnquiryBound === "1") return;
-    //     form.dataset.salesEnquiryBound = "1";
+        forms.forEach(function (form) {
+            if (form.dataset.salesEnquiryBound === "1") return;
+            form.dataset.salesEnquiryBound = "1";
 
-    //     form.addEventListener("submit", function (e) {
-    //       e.preventDefault();
+            form.addEventListener("submit", function (e) {
+                e.preventDefault();
 
-    //       if (window.location.protocol === "file:") {
-    //         showError("Please open this page through Apache URL, not file path.");
-    //         return;
-    //       }
+                if (window.location.protocol === "file:") {
+                    showError("Please open this page through Apache URL, not file path.");
+                    return;
+                }
 
-    //       var formData = new FormData(form);
-    //       var submitBtn = form.querySelector('button[type="submit"]');
-    //       var originalBtnText = submitBtn ? submitBtn.innerHTML : "";
+                var formData = new FormData(form);
+                var submitBtn = form.querySelector('button[type="submit"]');
+                var originalBtnText = submitBtn ? submitBtn.innerHTML : "";
 
-    //       if (submitBtn) {
-    //         submitBtn.disabled = true;
-    //         submitBtn.innerHTML = '<span class="fa fa-spinner fa-spin"></span> Sending...';
-    //       }
+                if (submitBtn) {
+                    submitBtn.disabled = true;
+                    submitBtn.innerHTML =
+                        '<span class="fa fa-spinner fa-spin"></span> Sending...';
+                }
 
-    //       fetch(endpoint, {
-    //         method: "POST",
-    //         body: formData
-    //       })
-    //         .then(function (res) {
-    //           return res.json().then(function (data) {
-    //             if (!res.ok) throw new Error(data.msg || "Unable to send enquiry.");
-    //             return data;
-    //           });
-    //         })
-    //         .then(function (data) {
-    //           if (data.result === "success") {
-    //             showSuccess(data.msg || "Enquiry sent successfully.");
-    //             form.reset();
-    //             closeSalesModal();
-    //           } else {
-    //             showError(data.msg || "Unable to send enquiry.");
-    //           }
-    //         })
-    //         .catch(function (err) {
-    //           showError(err && err.message ? err.message : "Something went wrong. Try again.");
-    //         })
-    //         .finally(function () {
-    //           if (submitBtn) {
-    //             submitBtn.disabled = false;
-    //             submitBtn.innerHTML = originalBtnText;
-    //           }
-    //         });
-    //     });
-    //   });
-    // }
+                $.ajaxSetup({
+                    headers: {
+                        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+                    },
+                });
+
+                $.ajax({
+                    url: enquiryUrl,
+                    type: "POST",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (res) {
+                        if (res && res.status) {
+                            showSuccess(res.message || "Enquiry sent successfully.");
+                            form.reset();
+                            closeSalesModal();
+                            return;
+                        }
+
+                        showError((res && res.message) || "Unable to send enquiry.");
+                    },
+                    error: function (xhr) {
+                        var message =
+                            (xhr.responseJSON && (xhr.responseJSON.message || xhr.responseJSON.msg)) ||
+                            "Something went wrong. Try again.";
+                        showError(message);
+                    },
+                    complete: function () {
+                        if (submitBtn) {
+                            submitBtn.disabled = false;
+                            submitBtn.innerHTML = originalBtnText;
+                        }
+                    },
+                });
+            });
+        });
+    }
 
     function init() {
         initSelectAllBehavior();
-        // bindSalesEnquiryForms();
+        bindSalesEnquiryForms();
     }
 
     if (document.readyState === "loading") {
