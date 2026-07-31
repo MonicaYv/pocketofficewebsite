@@ -16,8 +16,7 @@ class CareerController extends Controller
     public function fetchJobs()
     {
         try {
-            // Replace 'jobs' with 'careers' if that's your custom post type endpoint name
-            $response = Http::timeout(15)->get(
+            $response = Http::retry(3, 750)->timeout(20)->acceptJson()->get(
                 'https://pocketoffice-cms.aibuzz.net/wp-json/wp/v2/careers',
                 [
                     '_embed' => true,
@@ -51,8 +50,7 @@ class CareerController extends Controller
     public function fetchJobDetail($slug)
     {
         try {
-            // Replace 'jobs' with 'careers' if that's your custom post type endpoint name
-            $response = Http::timeout(15)->get(
+            $response = Http::retry(3, 750)->timeout(20)->acceptJson()->get(
                 'https://pocketoffice-cms.aibuzz.net/wp-json/wp/v2/careers',
                 [
                     'slug' => $slug,

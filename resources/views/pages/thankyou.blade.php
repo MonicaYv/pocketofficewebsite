@@ -135,7 +135,3 @@
 
   </div><!-- /ty-page-wrap -->
 @endsection
-
-@push('scripts')
-    @vite('resources/js/pricing.js')
-@endpush

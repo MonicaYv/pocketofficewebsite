@@ -186,6 +186,10 @@ function validateNameInput(inputId, errorId) {
 document.addEventListener("DOMContentLoaded", function () {
     const selectElement = document.getElementById("countryCodes");
 
+    if (!selectElement) {
+        return;
+    }
+
     // Fetch the JSON data
     fetch("/assets/data/country-code.json")
         .then((response) => {
@@ -229,4 +233,3 @@ document.addEventListener("DOMContentLoaded", function () {
         selectedOption.textContent = `${shortForm} (${dialCode})`;
     });
 });
-

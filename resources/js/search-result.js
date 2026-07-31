@@ -6,6 +6,10 @@ function getQueryParam(param) {
 
 function renderSearchResults(query) {
     const resultDiv = document.getElementById("result-div");
+    if (!resultDiv) {
+        return;
+    }
+
     resultDiv.innerHTML = ""; // clear placeholder
 
     if (query.trim() === "") {

@@ -19,6 +19,7 @@ use App\Models\User;
 use App\Models\Company;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use Stevebauman\Location\Facades\Location;
 use Illuminate\Support\Facades\Cache;
@@ -135,7 +136,28 @@ class UserLicensePlansController extends Controller
         $ip = (string) request()->ip();
 
         if ($ip === '' || in_array($ip, ['127.0.0.1', '::1'], true)) {
-            return null;
+            $ip = Cache::remember('marketplace:public-ip', now()->addHours(6), function () {
+                try {
+                    $response = Http::connectTimeout(2)
+                        ->timeout(3)
+                        ->acceptJson()
+                        ->get('https://api.ipify.org', ['format' => 'json']);
+
+                    $publicIp = (string) $response->json('ip', '');
+
+                    return filter_var(
+                        $publicIp,
+                        FILTER_VALIDATE_IP,
+                        FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE
+                    ) ? $publicIp : null;
+                } catch (\Throwable $e) {
+                    return null;
+                }
+            });
+
+            if (!$ip) {
+                return null;
+            }
         }
 
         $cacheKey = 'marketplace:network-currency:' . md5($ip);

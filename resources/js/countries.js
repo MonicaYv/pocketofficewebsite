@@ -1,5 +1,9 @@
 async function loadCountries() {
   const select = document.getElementById("country");
+  if (!select) {
+    return;
+  }
+
   try {
     const response = await fetch("/assets/data/countries.json");
     const countries = await response.json();
