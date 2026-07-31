@@ -5,6 +5,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     newsContainer.innerHTML = "<h3>Loading news...</h3>";
 
+    const FALLBACK_IMG = "https://pocket-office.ai/assets/img/documentation.webp"; 
+
     fetch("https://proxy-news-rust.vercel.app/api/proxy-news?q=Apple")
         .then(response => {
             if (!response.ok) {
@@ -13,8 +15,6 @@ document.addEventListener("DOMContentLoaded", function () {
             return response.json();
         })
         .then(data => {
-
-            console.log("API Response:", data);
 
             newsContainer.innerHTML = "";
 
@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 const title = article.title || "";
                 const description = article.description || "No description available";
-                const image = article.urlToImage || "";
+                const image = article.urlToImage || FALLBACK_IMG;
                 const publishedAt = article.publishedAt
                     ? new Date(article.publishedAt).toDateString()
                     : "";
@@ -38,7 +38,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 newsItem.innerHTML = `
                     <div class="modern-card">
                         <div class="thumb">
-                            ${image ? `<img src="${image}" loading="lazy">` : ""}
+                            <img src="${image}" loading="lazy"
+                                 onerror="this.onerror=null; this.src='${FALLBACK_IMG}';">
                         </div>
                         <div class="single-blog-details">
                             <ul class="post-meta">

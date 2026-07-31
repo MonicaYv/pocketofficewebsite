@@ -11614,10 +11614,6 @@ input[type=number] {
   font-weight: 600;
   color: black;
   font-size: 16px;
-  border-top: 1px solid black;
-  border-bottom: 1px solid black;
-  padding: 10px 0;
-  margin-top: 8px;
 }
 
 .feature-list {
@@ -11729,12 +11725,11 @@ input[type=number] {
   align-items: center;
   justify-content: center;
   /* center horizontally */
-  background: #d6d6d6;
   border-radius: 999px;
   padding: 4px;
   gap: 2px;
   width: fit-content;
-  margin: 0 auto 28px;
+  margin: 0 auto 32px;
   /* center block */
 }
 
@@ -11754,7 +11749,7 @@ input[type=number] {
 }
 
 .billing-pill-btn {
-  border: none;
+  border: 1px solid #c4c4c4;
   outline: none;
   box-shadow: none;
   background: transparent;
@@ -11790,12 +11785,9 @@ input[type=number] {
 }
 
 .billing-pill-btn .save-badge {
-  background: #d1fae5;
   color: #065f46;
   font-size: 11px;
   font-weight: 700;
-  border-radius: 999px;
-  padding: 2px 9px;
   line-height: 1.4;
 }
 

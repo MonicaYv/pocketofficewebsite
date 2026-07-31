@@ -617,46 +617,44 @@
             <div class="partners-marquee-track">
                 <!-- Strip 1 -->
                 <div class="partners-logo-strip">
-                    <img src="/assets/img/acronis-logo.png" alt="Acronis" width="120" height="40" loading="lazy" />
-                    <img src="/assets/img/kaspersky-logo.png" alt="Kaspersky" width="120" height="40" loading="lazy" />
-                    <img src="/assets/img/microsoft-logo.png" alt="Microsoft" width="120" height="40" loading="lazy" />
-                    <img src="/assets/img/dell-logo.png" alt="Dell" width="120" height="40" loading="lazy" />
-                    <img src="/assets/img/amazon-logo.png" alt="Amazon" width="120" height="40" loading="lazy" />
-                    <img src="/assets/img/quick-heal-logo.png" alt="Quick Heal" width="120" height="40" loading="lazy" />
-                    <img src="/assets/img/escan-logo.png" alt="Escan" width="120" height="40" loading="lazy" />
-                    <img src="/assets/img/sonic-wall-logo.png" alt="SonicWall" width="120" height="40" loading="lazy" />
-                    <img src="/assets/img/hp-logo.png" alt="HP" width="120" height="40" loading="lazy" />
-                    <img src="/assets/img/fortinet-logo.png" alt="Fortinet" width="120" height="40" loading="lazy" />
-                    <img src="/assets/img/eset-logo.png" alt="ESET" width="120" height="40" loading="lazy" />
-                    <img src="/assets/img/cisco-logo.png" alt="Cisco" width="120" height="40" />
-                    <img src="/assets/img/alibaba-cloud-logo.png" alt="Alibaba Cloud" width="120" height="40" loading="lazy" />
-                    <img src="/assets/img/sophos-logo.png" alt="Sophos" width="120" height="40" loading="lazy" />
-                    <img src="/assets/img/symantec-logo.png" alt="Symantec" width="120" height="40" loading="lazy" />
-                    <img src="/assets/img/trend-micro-logo.png" alt="Trend Micro" width="120" height="40" loading="lazy" />
-                    <img src="/assets/img/veeam-logo.png" alt="Veeam" width="120" height="40" loading="lazy" />
-                    <img src="/assets/img/watchguard-logo.png" alt="Watchguard" width="120" height="40" loading="lazy" />
+                    <img src="/assets/img/acronis-logo.webp" alt="Acronis" width="120" height="40" loading="lazy" />
+                    <img src="/assets/img/kaspersky-logo.webp" alt="Kaspersky" width="120" height="40" loading="lazy" />
+                    <img src="/assets/img/microsoft-logo.webp" alt="Microsoft" width="120" height="40" loading="lazy" />
+                    <img src="/assets/img/dell-logo.webp" alt="Dell" width="120" height="40" loading="lazy" />
+                    <img src="/assets/img/amazon-logo.webp" alt="Amazon" width="120" height="40" loading="lazy" />
+                    <img src="/assets/img/quick-heal-logo.webp" alt="Quick Heal" width="120" height="40" loading="lazy" />
+                    <img src="/assets/img/escan-logo.webp" alt="Escan" width="120" height="40" loading="lazy" />
+                    <img src="/assets/img/sonic-wall-logo.webp" alt="SonicWall" width="120" height="40" loading="lazy" />
+                    <img src="/assets/img/hp-logo.webp" alt="HP" width="120" height="40" loading="lazy" />
+                    <img src="/assets/img/fortinet-logo.webp" alt="Fortinet" width="120" height="40" loading="lazy" />
+                    <img src="/assets/img/eset-logo.webp" alt="ESET" width="120" height="40" loading="lazy" />
+                    <img src="/assets/img/cisco-logo.webp" alt="Cisco" width="120" height="40" loading="lazy" />
+                    <img src="/assets/img/alibaba-cloud-logo.webp" alt="Alibaba Cloud" width="120" height="40" loading="lazy" />
+                    <img src="/assets/img/sophos-logo.webp" alt="Sophos" width="120" height="40" loading="lazy" />
+                    <img src="/assets/img/symantec-logo.webp" alt="Symantec" width="120" height="40" loading="lazy" />
+                    <img src="/assets/img/veeam-logo.webp" alt="Veeam" width="120" height="40" loading="lazy" />
+                    <img src="/assets/img/watchguard-logo.webp" alt="Watchguard" width="120" height="40" loading="lazy" />
                 </div>
 
                 <!-- Duplicate strip for seamless loop -->
                 <div class="partners-logo-strip">
-                    <img src="/assets/img/acronis-logo.png" alt="Acronis" width="120" height="40" loading="lazy" />
-                    <img src="/assets/img/kaspersky-logo.png" alt="Kaspersky" width="120" height="40" loading="lazy" />
-                    <img src="/assets/img/microsoft-logo.png" alt="Microsoft" width="120" height="40" loading="lazy" />
-                    <img src="/assets/img/dell-logo.png" alt="Dell" width="120" height="40" loading="lazy" />
-                    <img src="/assets/img/amazon-logo.png" alt="Amazon" width="120" height="40" loading="lazy" />
-                    <img src="/assets/img/quick-heal-logo.png" alt="Quick Heal" width="120" height="40" loading="lazy" />
-                    <img src="/assets/img/escan-logo.png" alt="Escan" width="120" height="40" loading="lazy" />
-                    <img src="/assets/img/sonic-wall-logo.png" alt="SonicWall" width="120" height="40" loading="lazy" />
-                    <img src="/assets/img/hp-logo.png" alt="HP" width="120" height="40" loading="lazy" />
-                    <img src="/assets/img/fortinet-logo.png" alt="Fortinet" width="120" height="40" loading="lazy" />
-                    <img src="/assets/img/eset-logo.png" alt="ESET" width="120" height="40" loading="lazy" />
-                    <img src="/assets/img/cisco-logo.png" alt="Cisco" width="120" height="40" loading="lazy" />
-                    <img src="/assets/img/alibaba-cloud-logo.png" alt="Alibaba Cloud" width="120" height="40" loading="lazy" />
-                    <img src="/assets/img/sophos-logo.png" alt="Sophos" width="120" height="40" loading="lazy" />
-                    <img src="/assets/img/symantec-logo.png" alt="Symantec" width="120" height="40" loading="lazy" />
-                    <img src="/assets/img/trend-micro-logo.png" alt="Trend Micro" width="120" height="40" loading="lazy" />
-                    <img src="/assets/img/veeam-logo.png" alt="Veeam" width="120" height="40" loading="lazy" />
-                    <img src="/assets/img/watchguard-logo.png" alt="Watchguard" width="120" height="40" loading="lazy" />
+                    <img src="/assets/img/acronis-logo.webp" alt="Acronis" width="120" height="40" loading="lazy" />
+                    <img src="/assets/img/kaspersky-logo.webp" alt="Kaspersky" width="120" height="40" loading="lazy" />
+                    <img src="/assets/img/microsoft-logo.webp" alt="Microsoft" width="120" height="40" loading="lazy" />
+                    <img src="/assets/img/dell-logo.webp" alt="Dell" width="120" height="40" loading="lazy" />
+                    <img src="/assets/img/amazon-logo.webp" alt="Amazon" width="120" height="40" loading="lazy" />
+                    <img src="/assets/img/quick-heal-logo.webp" alt="Quick Heal" width="120" height="40" loading="lazy" />
+                    <img src="/assets/img/escan-logo.webp" alt="Escan" width="120" height="40" loading="lazy" />
+                    <img src="/assets/img/sonic-wall-logo.webp" alt="SonicWall" width="120" height="40" loading="lazy" />
+                    <img src="/assets/img/hp-logo.webp" alt="HP" width="120" height="40" loading="lazy" />
+                    <img src="/assets/img/fortinet-logo.webp" alt="Fortinet" width="120" height="40" loading="lazy" />
+                    <img src="/assets/img/eset-logo.webp" alt="ESET" width="120" height="40" loading="lazy" />
+                    <img src="/assets/img/cisco-logo.webp" alt="Cisco" width="120" height="40" loading="lazy" />
+                    <img src="/assets/img/alibaba-cloud-logo.webp" alt="Alibaba Cloud" width="120" height="40" loading="lazy" />
+                    <img src="/assets/img/sophos-logo.webp" alt="Sophos" width="120" height="40" loading="lazy" />
+                    <img src="/assets/img/symantec-logo.webp" alt="Symantec" width="120" height="40" loading="lazy" />
+                    <img src="/assets/img/veeam-logo.webp" alt="Veeam" width="120" height="40" loading="lazy" />
+                    <img src="/assets/img/watchguard-logo.webp" alt="Watchguard" width="120" height="40" loading="lazy" />
                 </div>
             </div>
         </div>

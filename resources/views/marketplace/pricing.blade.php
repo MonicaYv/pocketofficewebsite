@@ -137,6 +137,7 @@
       opacity: 0.8;
     }
   </style>
+  
   @section('content')
   <!-- breadcrumb area start -->
   <div
@@ -490,7 +491,7 @@
               Annually
               @if($additional_disc_year > 0)
               <span class="ul-save-badge save-badge">
-                Save Extra {{$additional_disc_year}}%
+                 ({{$additional_disc_year}}% Discount)
               </span>
               @else
               @endif
@@ -504,17 +505,12 @@
             <div class="monthly-plans" data-is-team="1">
               <div class="card bg-light border-secondary h-100 ul-cards">
                 <div class="card-body d-flex flex-column p-4">
-                  <h2 class="fw-semibold mb-3" data-plan-name="{{ $plan->plans_name }}">{{ $plan->plans_name }}</h2>
-                  <h6 class="display-4 fw-bold mb-2 price">
-                    <div class="price-wrapper">
-                      <span class="personal-card-symbol-ul"></span><span class="total-price-ul"
-                        data-original-price="{{ $plan->plans_amount }}"
-                        data-monthly="{{ $plan->plans_amount }}"
-                        data-yearly="{{ $plan->plans_amount }}"></span>
-                    </div>
-                    <span class="user-text">{{ $plan->plans_subscription_type }}</span>
-                  </h6>
-
+                  <div>
+                    <h2 class="fw-semibold mb-3" data-plan-name="{{ $plan->plans_name }}">{{ $plan->plans_name }}</h2>
+                    <p class=" pricing-subheading text-black">
+                      {{ $plan->plans_content }}
+                    </p>
+                  </div>
                   <!-- original price  --> 
                   <div class="original-price-wrapper">
                     <div class="flex original-price original-price-team">
@@ -545,10 +541,16 @@
                   <span class="incr-license-count-data hidden">{{ $plan->plans_license }}</span>
                   <span class="incr-poolstorage-count-data hidden">{{ $plan->plans_users }}</span>
 
-                  <p class="mb-4 pricing-subheading text-black">
-                    {{ $plan->plans_content }}
-                  </p>
-
+                 
+                 <h6 class="display-4 fw-bold mb-2 price">
+                    <div class="price-wrapper">
+                      <span class="personal-card-symbol-ul"></span><span class="total-price-ul"
+                        data-original-price="{{ $plan->plans_amount }}"
+                        data-monthly="{{ $plan->plans_amount }}"
+                        data-yearly="{{ $plan->plans_amount }}"></span>
+                    </div>
+                    <span class="user-text">{{ $plan->plans_subscription_type }}</span>
+                  </h6>
                   <ul class="list-unstyled mb-4 flex-grow-1 feature-list">
                     <li class="mb-3 d-flex align-items-start">
                       <span class="fw-semibold feature-list-subheading">
