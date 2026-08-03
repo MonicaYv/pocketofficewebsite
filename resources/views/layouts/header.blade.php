@@ -3,64 +3,39 @@
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="preconnect" href="https://unpkg.com" crossorigin>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css"
-    integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"
-    media="print" onload="this.media='all'" />
+@php
+    $deferredCss = [
+        'https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css' => null,
+        'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css' => null,
+        'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined' => null,
+        'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css' => null,
+        Vite::asset('resources/css/bootstrap.min.css') => null,
+        Vite::asset('resources/css/themify-icons.css') => null,
+        Vite::asset('resources/css/line-awesome.min.css') => null,
+        Vite::asset('resources/css/flaticon.css') => null,
+        Vite::asset('resources/css/style.css') => null,
+        Vite::asset('resources/css/responsive.css') => null,
+    ];
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-    media="print" onload="this.media='all'" />
+    if (request()->is('contact-us')) {
+        $deferredCss['https://unpkg.com/leaflet@1.9.4/dist/leaflet.css'] = null;
+    }
 
-@if(request()->is('contact-us'))
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    media="print" onload="this.media='all'" />
-@endif
+    if (request()->is('contact-us') || request()->is('sales-enquiry') || request()->is('ticket-details')) {
+        $deferredCss[Vite::asset('resources/css/enquiry.css')] = null;
+    }
+@endphp
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
-    media="print" onload="this.media='all'" />
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
-    media="print" onload="this.media='all'" />
-
-<noscript>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    @if(request()->is('contact-us'))
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-    @endif
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-</noscript>
+@foreach(array_keys($deferredCss) as $cssHref)
+    <link rel="preload" as="style" href="{{ $cssHref }}" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="{{ $cssHref }}"></noscript>
+@endforeach
 
 <link rel="icon" href="{{ asset('favicon.ico') }}?v=2" type="image/x-icon">
 <link rel="shortcut icon" href="{{ asset('favicon.ico') }}?v=2" type="image/x-icon">
 <link rel="icon" href="{{ asset('assets/img/logo/favicon.ico') }}?v=2" sizes="any">
 <link rel="icon" type="image/svg+xml" href="{{ asset('assets/img/logo/fav-icon.svg') }}?v=2">
 <link rel="apple-touch-icon" href="{{ asset('assets/img/logo/apple-touch-icon.png') }}?v=2">
-
-@vite([
-    // Main Javascript Entrypoint
-    'resources/js/app.js',
-
-    // Core Layout Styles
-    'resources/css/bootstrap.min.css',
-    // REMOVED: 'resources/css/font-awesome.min.css', <--- This was causing the 404 error
-    'resources/css/themify-icons.css',
-    'resources/css/line-awesome.min.css',
-    'resources/css/flaticon.css',
-    
-    // Component Plugins
-    'resources/css/magnific-popup.css',
-    'resources/css/owl.carousel.min.css',
-    'resources/css/nice-select.css',
-    'resources/css/animate.css',
-    'resources/css/animated-slider.css',
-    
-    // Custom App Layer Stylesheets
-    'resources/css/style.css',
-    'resources/css/enquiry.css',
-    'resources/css/responsive.css'
-])
 
 <style>
     .hidden { display: none !important; }

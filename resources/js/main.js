@@ -144,11 +144,13 @@
     /*-------------------------
             magnific popup activation
         -------------------------*/
-    $(".video-play-btn,.video-popup,.small-vide-play-btn").magnificPopup({
-      type: "video",
-      removalDelay: 260,
-      mainClass: "mfp-zoom-in",
-    });
+    if ($.fn.magnificPopup) {
+      $(".video-play-btn,.video-popup,.small-vide-play-btn").magnificPopup({
+        type: "video",
+        removalDelay: 260,
+        mainClass: "mfp-zoom-in",
+      });
+    }
 
     /*------------------
             back to top
@@ -723,7 +725,7 @@
             Image Gallery Popup
     ------------------------------------------------------------- */
   function MapUI_image_popup(selector) {
-    if ($(selector).length) {
+    if ($.fn.magnificPopup && $(selector).length) {
       $(selector).magnificPopup({
         delegate: "a",
         type: "image",
