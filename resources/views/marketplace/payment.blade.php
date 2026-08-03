@@ -546,40 +546,38 @@
                              </div>
                          </div>
 
-                         <!-- Totals -->
-                         <div class="sm-qty-box">
-                             <div class="summary-row">
-                                 <span>subtotal</span>
-                                 <span id="summarySubtotal">—</span>
-                             </div>
+                          <!-- Totals -->
+                          <div class="sm-qty-box">
+                              <div class="summary-row">
+                                  <span>Original Price</span>
+                                  <span id="summaryOrgTotal">—</span>
+                              </div>
 
-
-                             <div class="summary-row hidden" id="discountRow">
-                                 <span></span>
-                                 <span id="discountAmt" class="os-discount-amt">—</span>
-                             </div>
+                              <div class="summary-row hidden" id="discountRow">
+                                  <span></span>
+                                  <span id="discountAmt" class="os-discount-amt">—</span>
+                              </div>
 
                              <div class="summary-row hidden" id="extradiscountRow">
                                  <span></span>
                                  <span id="extradiscountAmt">—</span>
                              </div>
 
-                             <div class="os-totals">
-                                 <div class="summary-row">
-                                    <span>Original Price</span>
-                                     <span id="summaryOrgTotal">—</span>
-                                 </div>
+                              <div class="os-totals">
+                                  <div class="summary-row hidden" id="promoDiscountRow">
+                                      <span>Promo Code</span>
+                                      <span id="promoDiscountAmt" class="os-discount-amt">—</span>
+                                  </div>
 
+                                  <div class="summary-row">
+                                      <span>subtotal</span>
+                                      <span id="summarySubtotal">—</span>
+                                  </div>
 
-                                 <div class="summary-row hidden" id="promoDiscountRow">
-                                     <span>Promo Code</span>
-                                     <span id="promoDiscountAmt" class="os-discount-amt">—</span>
-                                 </div>
-
-                                 <div class="summary-row hidden">
-                                     <span>Estimated tax</span>
-                                     <span id="summaryTax">0</span>
-                                 </div>
+                                  <div class="summary-row hidden">
+                                      <span>Estimated tax</span>
+                                      <span id="summaryTax">0</span>
+                                  </div>
 
                                  <div class="os-total-divider"></div>
 
