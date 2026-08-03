@@ -274,7 +274,7 @@
 
 <div id="read-progress"></div>
 <div class="bd-hero" id="bd-hero" style="position: relative; overflow: hidden;">
-  <img class="bd-hero-img" id="bd-hero-img" src="" alt="" loading="lazy" />
+  <img class="bd-hero-img" id="bd-hero-img" src="" alt="Blog Post Image" loading="lazy" />
   <div class="bd-hero-gradient"></div>
   <div class="bd-hero-content">
     <span class="bd-category-pill">

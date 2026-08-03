@@ -41,7 +41,7 @@
             srcset="assets/img/hero_section_mob.webp 1080w, 
         assets/img/Hero-Section.webp 2500w"
             sizes="(max-width: 768px) 100vw, 1200px"
-            alt="Digital productivity interface with modern workspace layout"
+            alt="Pocket Office cloud desktop workspace interface"
             width="2500"
             height="1117"
             loading="eager"
