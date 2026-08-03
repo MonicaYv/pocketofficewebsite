@@ -11632,7 +11632,8 @@ input[type=number] {
   font-weight: 400;
   color: black;
   font-size: 16px;
-
+margin-top: 10px;
+    margin-left: -6px;
 }
 
 .price {
@@ -11674,6 +11675,23 @@ input[type=number] {
   font-weight: 500;
   height: 35px;
   border-radius: 6px;
+}
+.total-amt-sty{
+  background: #d1fae5;
+  padding: 10px 20px;
+  border-radius: 8px;
+}
+.total-amt-sty p{
+    margin: 0!important;
+}
+
+.fa-check-green {
+  color: #065f46;
+    background: #d1fae5;
+    font-size: 12px;
+    padding: 4px 4px;
+    margin-right: 5px;
+    border-radius: 50px;
 }
 
 @media (max-width:640px) {
@@ -13230,15 +13248,15 @@ html {
   flex-direction: column;
   gap: 20px;
   scroll-behavior: smooth;
+  scroll-padding-top: 120px;
   padding-right: 10px;
   border-bottom: 1px solid rgb(226, 232, 240);
 }
 
-/* =============================================
-   RESPONSIVE ADDITIONS — Terms & Conditions
-   Add these rules AFTER your existing CSS block
-   ============================================= */
-
+.card,
+.card section {
+  scroll-margin-top: 120px;
+}
 /* Tablet: 768px – 1024px */
 @media (max-width: 1024px) {
   .terms-container {

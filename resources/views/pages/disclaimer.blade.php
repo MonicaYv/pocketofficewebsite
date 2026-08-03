@@ -343,47 +343,33 @@
      </div>
    </div>
    <script>
-     const currentPage = window.location.pathname.split("/").pop();
-     document.querySelectorAll(".sidebar a").forEach((link) => {
-       if (link.getAttribute("href") === currentPage) {
-         link.classList.add("active");
-       }
-     });
+    (function () {
+      const navLinks = document.querySelectorAll(".sidebar a");
 
-     const navLinks = document.querySelectorAll(".sidebar a"); // sidebar links
-     const sections = document.querySelectorAll(".content-section > section"); // your sections
-     const contentSection = document.querySelector(".content-section"); // scrollable container
+      if (navLinks.length > 0) {
+        navLinks[0].classList.add("active");
+      }
 
-     // Highlight first link (Introduction) by default on page load
-     window.addEventListener("DOMContentLoaded", () => {
-       if (navLinks.length > 0) {
-         navLinks.forEach((l) => l.classList.remove("active")); // just in case
-         navLinks[0].classList.add("active"); // first link
-       }
-     });
+      navLinks.forEach((link) => {
+        link.addEventListener("click", function (e) {
+          e.preventDefault();
+          e.stopImmediatePropagation();
 
-     navLinks.forEach((link) => {
-       link.addEventListener("click", (e) => {
-         e.preventDefault(); // prevent default anchor jump
+          navLinks.forEach((l) => l.classList.remove("active"));
+          this.classList.add("active");
 
-         // Remove 'active' from all links
-         navLinks.forEach((l) => l.classList.remove("active"));
+          const targetId = this.getAttribute("href").substring(1);
+          const targetSection = document.getElementById(targetId);
+          if (!targetSection) return;
 
-         // Add 'active' to the clicked link
-         link.classList.add("active");
+          const offset =
+            targetSection.getBoundingClientRect().top + window.pageYOffset - 110;
 
-         // Scroll to the target section
-         const targetId = link.getAttribute("href").substring(1); // remove #
-         const targetSection = document.getElementById(targetId);
-
-         // Scroll smoothly inside the container
-         contentSection.scrollTo({
-           top: targetSection.offsetTop - contentSection.offsetTop,
-           behavior: "smooth",
-         });
-       });
-     });
-   </script>
+          window.scrollTo({ top: offset, behavior: "smooth" });
+        });
+      });
+    })();
+  </script>
    @endsection
 
    

@@ -548,10 +548,10 @@
                   </h6>
                   <ul class="list-unstyled mb-4 flex-grow-1 feature-list">
                     <li class="mb-3 d-flex align-items-start">
-                      <span>Licence Count :&nbsp;</span>
-                      <span class="base-licence-count">
+                      <span style="font-weight: 600;">Licence Count :&nbsp;</span>
+                      <!-- <span class="base-licence-count">
                         {{ $plan->plans_license }}
-                      </span>
+                      </span> -->
                     </li>
                     <li class="mb-3 d-flex align-items-start">
                       <div class="quantity-box ul-quantity-container">
@@ -576,32 +576,57 @@
                         {{ $plan->plans_headings }}
                       </span>
                     </li> -->
-                    <li class="mb-3 d-flex align-items-start">
+                    <li class="mb-3 d-flex align-items-start justify-content-between">
                       <span>Base User/ Month :&nbsp;</span>
-                      <span class="base-price">{{ $plan->plans_amount }}</span>
-                      <span class="view-currency" style="gap:3px"></span>
+                      <div>
+                        <span class="view-currency" style="gap:3px"></span>
+                        <span class="base-price">{{ $plan->plans_amount }}</span>
+                      </div>
                     </li>
-                    <li class="mb-3 d-flex align-items-start">
+                    <li class="mb-3 d-flex align-items-start justify-content-between">
                       <span>Users :&nbsp;</span>
                       <span class="total-licence-count view-total-license-count"></span>
                     </li>
-                    
+                    <hr style="width: 100%;  border: 1px dashed #ccc; margin: 10px 0;">
+                    <li class="mb-3 d-flex align-items-start justify-content-between">
+                      <span>Base Total &nbsp;</span>
+                      <div>
+                         <span class="view-currency" style="gap:3px"></span>
+                      <span class="total-amount view-total-amount-count"></span>
+                      </div>
+                    </li>
                     <!-- <li class="mb-3 d-flex align-items-start">
                       <span>Per User Storage :&nbsp;</span>
                       <span class="base-storage">{{ $plan->plans_users }}</span>&nbsp;{{ $plan->storage_unit }}
                     </li> -->
                     
                     
-                    <li class="mb-3 d-flex align-items-start">
+                    <!-- <li class="mb-3 d-flex align-items-start">
                       <span>Total Pool Storage :&nbsp;</span>
                       <span class="total-pool-storage view-total-poolstorage-count"></span> &nbsp;
                       <span class="view-storage-unit">{{ $plan->storage_unit }}</span>
+                    </li> -->
+                    <li discount-apply="{{ $plan->is_team_discount_apply }}" class="mb-3 d-flex align-items-start justify-content-between" style="color: #065f46; font-weight: 600; display: none;">
+                      <span>Discount :&nbsp;</span>
+                      <div>
+                        <span class="view-currency" style="gap:3px"></span>
+                        <span class="total-discount view-total-discount-count"></span>
+                      </div>
                     </li>
-                    <li class="mb-3 d-flex align-items-start">
-                      <span>Total Amount :&nbsp;</span>
-                      <span class="view-currency" style="gap:3px"></span><span class="total-amount view-total-amount-count"></span>
+
+                    <li class="mb-3 total-amt-sty">
+                      <p >Total (Per Month)</p>
+                      <div style="font-weight: 600; font-size: 1.4rem;">
+                         <span class="view-currency" style="gap:3px"></span>
+                         <span class="total-amount view-total-amount-count" >999</span>
+                      </div>
+                      <hr style="width: 100%;  border: 1px dashed #ccc; margin: 10px 0;">
+                      <p><i class="fa-solid fa-ticket"></i> You save <span class="total-savings view-total-savings-count">$</span></p>
                     </li>
-                    
+                    <li><i class="fa-solid fa-check fa-check-green"></i>Cloud Desktop Workspace</li>
+                    <li><i class="fa-solid fa-check fa-check-green"></i>Secure File Storage</li>
+                    <li><i class="fa-solid fa-check fa-check-green"></i>Productivity Essentials</li>
+                    <li><i class="fa-solid fa-check fa-check-green"></i>Email Support</li>
                   </ul>
 
                   <!-- discount  -->
