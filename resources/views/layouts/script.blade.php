@@ -90,4 +90,6 @@
     }
 @endphp
 
-@vite($viteInputs)
+@foreach ($viteInputs as $viteInput)
+<script type="module" src="{{ Vite::asset($viteInput) }}"></script>
+@endforeach
