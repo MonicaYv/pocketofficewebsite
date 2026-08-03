@@ -123,11 +123,6 @@
       align-items: center;
       gap: 2px;
     }
-
-    .original-price-wrapper {
-      height: 24px;
-    }
-
     .original-price {
       margin-top: 1px;
       font-size: 16px;
@@ -506,7 +501,7 @@
               <div class="card bg-light border-secondary h-100 ul-cards">
                 <div class="card-body d-flex flex-column p-4">
                   <div>
-                    <h2 class="fw-semibold mb-3" data-plan-name="{{ $plan->plans_name }}">{{ $plan->plans_name }}</h2>
+                    <h2 class="fw-semibold" data-plan-name="{{ $plan->plans_name }}">{{ $plan->plans_name }}</h2>
                     <p class=" pricing-subheading text-black">
                       {{ $plan->plans_content }}
                     </p>
@@ -553,19 +548,10 @@
                   </h6>
                   <ul class="list-unstyled mb-4 flex-grow-1 feature-list">
                     <li class="mb-3 d-flex align-items-start">
-                      <span class="fw-semibold feature-list-subheading">
-                        {{ $plan->plans_headings }}
-                      </span>
-                    </li>
-                    <li class="mb-3 d-flex align-items-start">
                       <span>Licence Count :&nbsp;</span>
                       <span class="base-licence-count">
                         {{ $plan->plans_license }}
                       </span>
-                    </li>
-                    <li class="mb-3 d-flex align-items-start">
-                      <span>Per User Storage :&nbsp;</span>
-                      <span class="base-storage">{{ $plan->plans_users }}</span>&nbsp;{{ $plan->storage_unit }}
                     </li>
                     <li class="mb-3 d-flex align-items-start">
                       <div class="quantity-box ul-quantity-container">
@@ -577,10 +563,35 @@
                         <button class="qty-btn  ul-increment">+</button>
                       </div>
                     </li>
+                    @if($plan->plans_name == "Basic")
+                      <li>Note:Minimum of 2 licenses must be selected</li>
+                    @endif
+                     <li class="mb-3 d-flex align-items-start">
+                      <span class="fw-semibold feature-list-subheading">
+                        Price Summary
+                      </span>
+                    </li>
+                    <!-- <li class="mb-3 d-flex align-items-start">
+                      <span class="fw-semibold feature-list-subheading">
+                        {{ $plan->plans_headings }}
+                      </span>
+                    </li> -->
                     <li class="mb-3 d-flex align-items-start">
-                      <span>Total Licence Count :&nbsp;</span>
+                      <span>Base User/ Month :&nbsp;</span>
+                      <span class="base-price">{{ $plan->plans_amount }}</span>
+                      <span class="view-currency" style="gap:3px"></span>
+                    </li>
+                    <li class="mb-3 d-flex align-items-start">
+                      <span>Users :&nbsp;</span>
                       <span class="total-licence-count view-total-license-count"></span>
                     </li>
+                    
+                    <!-- <li class="mb-3 d-flex align-items-start">
+                      <span>Per User Storage :&nbsp;</span>
+                      <span class="base-storage">{{ $plan->plans_users }}</span>&nbsp;{{ $plan->storage_unit }}
+                    </li> -->
+                    
+                    
                     <li class="mb-3 d-flex align-items-start">
                       <span>Total Pool Storage :&nbsp;</span>
                       <span class="total-pool-storage view-total-poolstorage-count"></span> &nbsp;
@@ -590,9 +601,7 @@
                       <span>Total Amount :&nbsp;</span>
                       <span class="view-currency" style="gap:3px"></span><span class="total-amount view-total-amount-count"></span>
                     </li>
-                    @if($plan->plans_name == "Basic")
-                      <li>Minimum of 2 licenses must be selected</li>
-                    @endif 
+                    
                   </ul>
 
                   <!-- discount  -->
