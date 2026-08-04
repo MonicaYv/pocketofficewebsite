@@ -11,7 +11,11 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        //
+        // The live application runs behind a reverse proxy/CDN. Trust its
+        // forwarded headers so request()->ip() resolves the visitor, not the
+        // proxy server. Restrict TRUSTED_PROXIES in production when the
+        // provider publishes a stable proxy IP/CIDR list.
+        $middleware->trustProxies(at: env('TRUSTED_PROXIES', '*'));
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

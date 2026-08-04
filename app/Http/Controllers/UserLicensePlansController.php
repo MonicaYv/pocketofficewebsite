@@ -27,10 +27,19 @@ use App\Helpers\CardEncryption;
 
 class UserLicensePlansController extends Controller
 {
+    private const CURRENCY_DETECTION_VERSION = 2;
+
     public function index(Request $request)
     {
-        // Auto detect currency first time
-        if (!session()->has('market_ul_country_id')) {
+        // Auto-detect on the first visit and once after detection logic changes.
+        // A currency explicitly selected by the visitor always wins.
+        $shouldDetectCurrency = !session('market_currency_manually_selected', false)
+            && (
+                !session()->has('market_ul_country_id')
+                || session('market_currency_detection_version') !== self::CURRENCY_DETECTION_VERSION
+            );
+
+        if ($shouldDetectCurrency) {
 
             $currencyRow = $this->detectMarketPlaceCurrencyFromNetwork();
 
@@ -127,6 +136,7 @@ class UserLicensePlansController extends Controller
             'currency' => $currencyRow->currency_code ?? config('constants.CURRENCY', 'USD'),
             'market_ul_country_id' => $currencyRow->id ?? null,
             'market_currency' => $currencyRow->currency_symbol ?? $currencyRow->currency_code ?? config('constants.CURRENCY', 'USD'),
+            'market_currency_detection_version' => self::CURRENCY_DETECTION_VERSION,
         ]);
     }
 
@@ -151,6 +161,10 @@ class UserLicensePlansController extends Controller
                         FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE
                     ) ? $publicIp : null;
                 } catch (\Throwable $e) {
+                    Log::warning('Unable to resolve the public IP for local currency detection.', [
+                        'error' => $e->getMessage(),
+                    ]);
+
                     return null;
                 }
             });
@@ -170,6 +184,18 @@ class UserLicensePlansController extends Controller
                 }
 
                 $countryName = trim((string) ($location->countryName ?? $location->country_name ?? ''));
+                $currencyCode = strtoupper(trim((string) ($location->currencyCode ?? $location->currency_code ?? '')));
+
+                if ($currencyCode !== '') {
+                    $currency = DB::table('currency_rates')
+                        ->whereRaw('UPPER(currency_code) = ?', [$currencyCode])
+                        ->first();
+
+                    if ($currency) {
+                        return $currency;
+                    }
+                }
+
                 if ($countryName === '') {
                     return null;
                 }
@@ -186,6 +212,11 @@ class UserLicensePlansController extends Controller
                     ->where('country_name', 'LIKE', '%' . $countryName . '%')
                     ->first();
             } catch (\Throwable $e) {
+                Log::warning('Marketplace currency auto-detection failed.', [
+                    'ip_hash' => hash('sha256', $ip),
+                    'error' => $e->getMessage(),
+                ]);
+
                 return null;
             }
         });
@@ -213,7 +244,11 @@ class UserLicensePlansController extends Controller
 
         // save in session
         session([
-            'currency' => $currencyData->currency_code
+            'currency' => $currencyData->currency_code,
+            'market_ul_country_id' => $currencyData->id,
+            'market_currency' => $currencyData->currency_symbol ?? $currencyData->currency_code,
+            'market_currency_manually_selected' => true,
+            'market_currency_detection_version' => self::CURRENCY_DETECTION_VERSION,
         ]);
 
         return response()->json([
