@@ -305,13 +305,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         modalTotal.innerText = currentPlan.symbol + "" + Math.round(finalTotal);
 
-        if (summaryOriginalRow && summarySubtotalRow) {
-            summaryOriginalRow.parentNode.insertBefore(
-                summarySubtotalRow,
-                summaryOriginalRow.nextSibling,
-            );
-        }
-
         // APPLY PROMOCODE AGAIN AFTER PLAN/QTY CHANGE
         updateFinalAmounts();
 
