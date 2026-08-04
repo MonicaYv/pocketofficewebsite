@@ -15,15 +15,14 @@
         Vite::asset('resources/css/flaticon.css') => null,
         Vite::asset('resources/css/style.css') => null,
         Vite::asset('resources/css/responsive.css') => null,
+        Vite::asset('resources/css/enquiry.css') => null,
     ];
 
     if (request()->is('contact-us')) {
         $deferredCss['https://unpkg.com/leaflet@1.9.4/dist/leaflet.css'] = null;
     }
 
-    if (request()->is('contact-us') || request()->is('sales-enquiry') || request()->is('ticket-details')) {
-        $deferredCss[Vite::asset('resources/css/enquiry.css')] = null;
-    }
+   
 @endphp
 
 @foreach(array_keys($deferredCss) as $cssHref)
