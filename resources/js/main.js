@@ -1160,23 +1160,23 @@ $(document).ready(function () {
     });
 });
 
-// Disable right-click context menu on the entire document
-// document.addEventListener("contextmenu", function(e) {
-//     e.preventDefault();
-// });
-// // Disable copy action on the entire document
-// document.addEventListener("copy", function(e) {
-//     e.preventDefault();
-// });
+//Disable right-click context menu on the entire document
+document.addEventListener("contextmenu", function(e) {
+    e.preventDefault();
+});
+// Disable copy action on the entire document
+document.addEventListener("copy", function(e) {
+    e.preventDefault();
+});
 
-// // Disable certain key combinations (like F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U)
-// document.addEventListener("keydown", function(e) {
-//     if (
-//         e.key === "F12" ||
-//         (e.ctrlKey && e.shiftKey && e.key === "I") ||
-//         (e.ctrlKey && e.shiftKey && e.key === "J") ||
-//         (e.ctrlKey && e.key === "U")
-//     ) {
-//         e.preventDefault();
-//     }
-// });
+// Disable certain key combinations (like F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U)
+document.addEventListener("keydown", function(e) {
+    if (
+        e.key === "F12" ||
+        (e.ctrlKey && e.shiftKey && e.key === "I") ||
+        (e.ctrlKey && e.shiftKey && e.key === "J") ||
+        (e.ctrlKey && e.key === "U")
+    ) {
+        e.preventDefault();
+    }
+});
