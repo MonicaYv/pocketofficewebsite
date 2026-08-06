@@ -14,6 +14,9 @@
         'resources/js/main.js',
         'resources/js/search-box.js',
         'resources/js/search-data.js',
+        'resources/js/countries.js',
+        'resources/js/enquiry.js',
+        'resources/js/sales-enquiry-form.js'
     ];
 
     $isHome = request()->path() === '/' || request()->is('/');

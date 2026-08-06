@@ -3,32 +3,22 @@
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="preconnect" href="https://unpkg.com" crossorigin>
 
-@php
-    $deferredCss = [
-        'https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css' => null,
-        'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css' => null,
-        'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined' => null,
-        'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css' => null,
-        Vite::asset('resources/css/bootstrap.min.css') => null,
-        Vite::asset('resources/css/themify-icons.css') => null,
-        Vite::asset('resources/css/line-awesome.min.css') => null,
-        Vite::asset('resources/css/flaticon.css') => null,
-        Vite::asset('resources/css/style.css') => null,
-        Vite::asset('resources/css/responsive.css') => null,
-        Vite::asset('resources/css/enquiry.css') => null,
-    ];
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
-    if (request()->is('contact-us')) {
-        $deferredCss['https://unpkg.com/leaflet@1.9.4/dist/leaflet.css'] = null;
-    }
+<link rel="stylesheet" href="{{ Vite::asset('resources/css/bootstrap.min.css') }}">
+<link rel="stylesheet" href="{{ Vite::asset('resources/css/themify-icons.css') }}">
+<link rel="stylesheet" href="{{ Vite::asset('resources/css/line-awesome.min.css') }}">
+<link rel="stylesheet" href="{{ Vite::asset('resources/css/flaticon.css') }}">
+<link rel="stylesheet" href="{{ Vite::asset('resources/css/style.css') }}">
+<link rel="stylesheet" href="{{ Vite::asset('resources/css/responsive.css') }}">
+<link rel="stylesheet" href="{{ Vite::asset('resources/css/enquiry.css') }}">
 
-   
-@endphp
-
-@foreach(array_keys($deferredCss) as $cssHref)
-    <link rel="preload" as="style" href="{{ $cssHref }}" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="{{ $cssHref }}"></noscript>
-@endforeach
+@if(request()->is('contact-us'))
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+@endif
 
 <link rel="icon" href="{{ asset('favicon.ico') }}?v=2" type="image/x-icon">
 <link rel="shortcut icon" href="{{ asset('favicon.ico') }}?v=2" type="image/x-icon">
@@ -40,5 +30,9 @@
     .hidden { display: none !important; }
     .custom-error { font-size: 12px; color: red; margin-top: 4px; }
     .is-invalid { border: 1px solid red !important; }
-    select.is-invalid, input.is-invalid, textarea.is-invalid { border: 1px solid red !important; }
+    select.is-invalid,
+    input.is-invalid,
+    textarea.is-invalid {
+        border: 1px solid red !important;
+    }
 </style>
