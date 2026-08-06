@@ -19,6 +19,9 @@ class AppServiceProvider extends ServiceProvider
      */
   public function boot()
 {
+    Vite::useScriptTagAttributes([
+        'crossorigin' => 'anonymous',
+    ]);
     $countries = Country::orderBy('name')->get();
 
     View::share('countries', $countries);
