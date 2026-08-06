@@ -6,19 +6,10 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+@vite(["resources/css/bootstrap.min.css", "resources/css/themify-icons.css", "resources/css/line-awesome.min.css", "resources/css/flaticon.css", "resources/css/style.css", "resources/css/responsive.css", "resources/css/enquiry.css" ])
 
-<link rel="stylesheet" href="{{ Vite::asset('resources/css/bootstrap.min.css') }}">
-<link rel="stylesheet" href="{{ Vite::asset('resources/css/themify-icons.css') }}">
-<link rel="stylesheet" href="{{ Vite::asset('resources/css/line-awesome.min.css') }}">
-<link rel="stylesheet" href="{{ Vite::asset('resources/css/flaticon.css') }}">
-<link rel="stylesheet" href="{{ Vite::asset('resources/css/style.css') }}">
-<link rel="stylesheet" href="{{ Vite::asset('resources/css/responsive.css') }}">
-<link rel="stylesheet" href="{{ Vite::asset('resources/css/enquiry.css') }}">
-
-@if(request()->is('contact-us'))
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-@endif
 
 <link rel="icon" href="{{ asset('favicon.ico') }}?v=2" type="image/x-icon">
 <link rel="shortcut icon" href="{{ asset('favicon.ico') }}?v=2" type="image/x-icon">

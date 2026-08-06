@@ -920,3 +920,6 @@
   </div>
   <!-- pricing area End -->
   @endsection
+  @section('scripts')
+  @vite(['resources/js/pricing.js'])
+  @endsection

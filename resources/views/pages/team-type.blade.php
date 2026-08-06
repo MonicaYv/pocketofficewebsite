@@ -481,3 +481,6 @@
      </div>
  </div>
  @endsection
+ @section('scripts')
+ @vite(['resources/js/products.js'])
+ @endsection

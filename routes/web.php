@@ -54,8 +54,7 @@ Route::post('/job-application-submit', [JobApplicationController::class, 'store'
 Route::get('/fetch-jobs', [CareerController::class, 'fetchJobs']);
 Route::get('/fetch-job-detail/{slug}', [CareerController::class, 'fetchJobDetail']);
 Route::redirect('/job-apply.html', '/job-apply', 302);
-Route::redirect('/submit-ticket.html', '/submit-ticket', 302);
-Route::redirect('/ticket-details.html', '/ticket-details', 302);
+
 Route::post('/support-request-submit', [SupportRequestController::class, 'store'])
     ->name('support.request.submit');
 //page routes

@@ -1,99 +1,127 @@
- /* ===============================
-   CORE FEATURES TABS FUNCTIONALITY
-================================= */
- 
- 
- const tabs = document.querySelectorAll('.core-features-tab');
-        const panels = document.querySelectorAll('.core-features-panel');
-
-        tabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-
-                tabs.forEach(t => t.classList.remove('active'));
-                tab.classList.add('active');
-
-                const target = tab.getAttribute('data-tab');
-
-                panels.forEach(panel => {
-                    panel.classList.remove('active');
-                    if (panel.id === target) {
-                        panel.classList.add('active');
-                    }
-                });
-            });
-        });
-
-
-        /* ===============================
-   COLLABORATION TABS FUNCTIONALITY
-================================= */
 
 /* ===============================
-   COLLABORATION TABS FUNCTIONALITY
-================================= */
+     TEAM TYPE
+  =============================== */
+$(".features-tabs .nav-link").click(function (e) {
+  e.preventDefault();
 
-const collaborationTabs = document.querySelectorAll('.collaboration-tab');
-const collaborationPanels = document.querySelectorAll('.collaboration-panel');
+  var tabId = ($(this).data("tab") || "").toString().trim();
 
-collaborationTabs.forEach(tab => {
-    tab.addEventListener('click', () => {
+  // If there's no matching pane, do nothing.
+  if (!tabId || $("#" + tabId + ".features-tab-pane").length === 0) return;
 
-        // Remove active from all tabs
-        collaborationTabs.forEach(t => t.classList.remove('active'));
+  $(".features-tabs .nav-link").removeClass("active");
+  $(".features-tab-pane").removeClass("active fade-in");
 
-        // Add active to clicked tab
-        tab.classList.add('active');
+  $(this).addClass("active");
+  $("#" + tabId).addClass("active fade-in");
 
-        const target = tab.getAttribute('data-tab');
-
-        // Hide all panels
-        collaborationPanels.forEach(panel => {
-            panel.classList.remove('active');
-
-            if (panel.getAttribute('data-panel') === target) {
-                panel.classList.add('active');
-            }
-        });
-
-    });
+  window.history.pushState(null, null, "?tab=" + tabId);
 });
 
+/* ===============================
+     CORE FEATURES
+  =============================== */
+$(".core-features-tab").click(function () {
+  var tabId = $(this).data("tab");
 
+  $(".core-features-tab").removeClass("active");
+  $(".core-features-panel").removeClass("active");
 
+  $(this).addClass("active");
+  $("#" + tabId).addClass("active");
 
-const IntegrationTabs = document.querySelectorAll(".integration-tab");
-    const IntegrationPanel = document.querySelectorAll(".integration-panel");
+  window.history.pushState(null, null, "?tab=" + tabId);
+});
 
-    IntegrationTabs.forEach(function (tab) {
+/* ===============================
+     COLLABORATION SECTION ONLY
+  =============================== */
+$(".collaboration-tabs-wrapper .collaboration-tab").click(function () {
+  var tabId = $(this).data("tab");
+  var section = $(this).closest(".collaboration-section");
 
-        tab.addEventListener("click", function () {
+  section.find(".collaboration-tab").removeClass("active");
+  section.find(".collaboration-panel").removeClass("active");
 
-            // Remove active from all tabs
-            IntegrationTabs.forEach(function (t) {
-                t.classList.remove("active");
-            });
+  $(this).addClass("active");
+  section
+    .find('.collaboration-panel[data-panel="' + tabId + '"]')
+    .addClass("active");
 
-            // Add active to clicked tab
-            tab.classList.add("active");
+  window.history.pushState(null, null, "?tab=" + tabId);
+});
 
-            const target = tab.getAttribute("data-tab");
+/* ===============================
+     SECURITY SECTION ONLY
+  =============================== */
+$(".security-tabs-wrapper .collaboration-tab").click(function () {
+  var tabId = $(this).data("tab");
+  var section = $(this).closest(".security-section");
 
-            // Hide all panels
-            IntegrationPanel.forEach(function (panel) {
-                panel.classList.remove("active");
-            });
+  section.find(".collaboration-tab").removeClass("active");
+  section.find(".collaboration-panel").removeClass("active");
 
-            // Show correct panel
-            const activePanel = document.getElementById(target);
-            if (activePanel) {
-                activePanel.classList.add("active");
-            }
+  $(this).addClass("active");
+  section
+    .find('.collaboration-panel[data-panel="' + tabId + '"]')
+    .addClass("active");
 
-        });
+  window.history.pushState(null, null, "?tab=" + tabId);
+});
 
-    });
+/* ===============================
+     LOAD FROM URL (?tab=)
+  =============================== */
+const urlParams = new URLSearchParams(window.location.search);
+const tab = urlParams.get("tab");
 
+if (tab) {
+  if ($("#" + tab + ".features-tab-pane").length) {
+    $('.features-tabs .nav-link[data-tab="' + tab + '"]').click();
+  }
 
+  if ($("#" + tab + ".core-features-panel").length) {
+    $('.core-features-tab[data-tab="' + tab + '"]').click();
+  }
 
+  if (
+    $(".collaboration-section .collaboration-panel[data-panel='" + tab + "']")
+      .length
+  ) {
+    $(
+      ".collaboration-section .collaboration-tab[data-tab='" + tab + "']",
+    ).click();
+  }
 
+  if (
+    $(".security-section .collaboration-panel[data-panel='" + tab + "']").length
+  ) {
+    $(".security-section .collaboration-tab[data-tab='" + tab + "']").click();
+  }
+}
 
+$(".integration-tab").click(function () {
+  var tabId = $(this).data("tab");
+
+  // remove active
+  $(".integration-tab").removeClass("active");
+  $(".integration-panel").removeClass("active");
+
+  // activate clicked
+  $(this).addClass("active");
+  $("#" + tabId).addClass("active");
+
+  // update URL
+  window.history.pushState(null, null, "?tab=" + tabId);
+});
+
+/* ===============================
+     LOAD FROM URL (?tab=)
+  =============================== */
+const urlParamsIntegration = new URLSearchParams(window.location.search);
+const tabIntegration = urlParams.get("tab");
+
+if (tabIntegration && $("#" + tabIntegration + ".integration-panel").length) {
+  $('.integration-tab[data-tab="' + tabIntegration + '"]').click();
+}

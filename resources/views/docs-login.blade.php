@@ -11,7 +11,7 @@
     <link rel="icon" href="{{ asset('assets/img/logo/favicon.ico') }}?v=2" sizes="any">
     <link rel="icon" type="image/svg+xml" href="{{ asset('assets/img/logo/fav-icon.svg') }}?v=2">
     <link rel="apple-touch-icon" href="{{ asset('assets/img/logo/apple-touch-icon.png') }}?v=2">
-    @vite(["resources/css/customer-login.css"]);
+    @vite(["resources/css/customer-login.css"])
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
@@ -19,18 +19,20 @@
 
 <body>
     @php
-        $selectedTab = old('selected_tab', 'user');
+        $selectedTab = old('selected_tab', 'user')
     @endphp
     <div class="card">
         <div class="left">
             <img class="left-img" src="/assets/img/Illustration.png" alt="login-img">
         </div>
         <div class="right">
-            <div class="logo">
-                <a href="/index">
-                    <img class="logo-img" src="/assets/img/logo/pocket-office-final-logo.png" alt="Logo" width="110" height="50">
-                </a>
-                 
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div class="logo">
+                    <a href="/index">
+                        <img class="logo-img" src="/assets/img/logo/pocket-office-final-logo.png" alt="Logo" width="200" height="auto">
+                    </a>                  
+                </div>
+                <a href="/index" class="back-home" style="text-decoration: none; font-weight: 600; color: #057A96;"> Home</a>
             </div>
             
             <div class="login-section">
@@ -49,13 +51,13 @@
 
                     <div class="field">
                         <label>Login</label>
-                        <input type="email" name="email" value="{{ old('email') }}" placeholder="Enter Email address" autocomplete="username" required />
+                        <input type="email" name="email" value="{{ old('email') }}" placeholder="Username" autocomplete="username" required />
                     </div>
 
                     <div class="field">
                         <label>Password</label>
                         <div class="pwd-wrap">
-                            <input type="password" id="pwd" name="password" placeholder="Enter password" autocomplete="current-password" required />
+                            <input type="password" id="pwd" name="password" placeholder="Password" autocomplete="current-password" required />
                             <button class="eye-btn" type="button" onclick="togglePwd(this)" aria-label="Show/hide password">
                                 <i class="fa-solid fa-eye"></i>
                             </button>
@@ -70,10 +72,7 @@
 
                 </div>
 
-                <button class="btn-google" type="button" onclick="window.location.href='/index'">
-                    <i class="fa-solid fa-arrow-left"></i>
-                    Back to Home
-                </button>
+                
             </div>
             
         </div>

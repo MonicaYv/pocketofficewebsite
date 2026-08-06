@@ -562,7 +562,8 @@
         </div>
     </div>
 </div>
-
+@endsection
+@section('scripts')
 <script>
 document.addEventListener("DOMContentLoaded", function () {
     const container = document.getElementById("blog-containers");
@@ -663,5 +664,4 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 });
 </script>
-
 @endsection

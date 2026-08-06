@@ -319,7 +319,9 @@
      </section>
    </div>
  </div>
- <script>
+@endsection
+@section('scripts')
+<script>
       (function () {
         const navLinks = document.querySelectorAll(".sidebar a");
 
@@ -346,6 +348,5 @@
           });
         });
       })();
-</script>
-
+</script> 
 @endsection
