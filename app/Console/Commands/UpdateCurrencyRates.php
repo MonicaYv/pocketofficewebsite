@@ -95,6 +95,9 @@ class UpdateCurrencyRates extends Command
                 'last_synced_at' => now()
             ]);
 
+// Fixed currency codes that are NOT overwritten by the Forex API.
+            $fixedCurrencies = config('constants.FIXED_CURRENCIES', []);
+
             foreach ($rates as $currencyCode => $newRate) {
 
                 $currency = CurrencyRate::where(
@@ -103,6 +106,11 @@ class UpdateCurrencyRates extends Command
                 )->first();
 
                 if (!$currency) {
+                    continue;
+                }
+
+                // Skip fixed currencies - keep their manually set rates.
+                if (array_key_exists($currencyCode, $fixedCurrencies)) {
                     continue;
                 }
 

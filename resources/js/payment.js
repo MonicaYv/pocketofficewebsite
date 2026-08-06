@@ -344,6 +344,17 @@ document.addEventListener("DOMContentLoaded", function () {
             yearlyDiscountBadge.style.display = "none";
         }
 
+// Discount Amounts (based on original total)
+        const origTotal = originalPrice * quantityValue;
+
+        const activeDiscountAmount = Math.round(
+            (origTotal * activeDiscount) / 100,
+        );
+
+        const extraDiscountAmount = Math.round(
+            (origTotal * extraDiscount) / 100,
+        );
+
         if (activeDiscount > 0) {
             discountRow.classList.remove("hidden");
             discountRow.style.display = "flex";
@@ -351,7 +362,8 @@ document.addEventListener("DOMContentLoaded", function () {
             discountRow.querySelector("span:first-child").innerText =
                 `Discount Applied`;
 
-            discountAmt.innerText = discountValue + "%";
+            discountAmt.innerText =
+                `(${activeDiscount}%) ${currentPlan.symbol}${activeDiscountAmount}`;
         } else {
             discountRow.classList.add("hidden");
             discountRow.style.display = "none";
@@ -364,7 +376,8 @@ document.addEventListener("DOMContentLoaded", function () {
             extradiscountRow.querySelector("span:first-child").innerText =
                 "Extra Discount Applied";
 
-            extradiscountAmt.innerText = extraDiscount + "%";
+            extradiscountAmt.innerText =
+                `(${extraDiscount}%) ${currentPlan.symbol}${extraDiscountAmount}`;
         } else {
             extradiscountRow.classList.add("hidden");
             extradiscountRow.style.display = "none";
@@ -737,7 +750,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let appliedPromoValue = 0;
     let appliedPromoType = "";
 
-    function formatPromoLabel(value, type) {
+function formatPromoLabel(value, type) {
         const numericValue = Number(value || 0);
         if (type === "flat") {
             return currentPlan.symbol + Math.round(numericValue);
@@ -765,8 +778,16 @@ document.addEventListener("DOMContentLoaded", function () {
             promoDiscountRow.classList.remove("hidden");
             promoDiscountRow.style.display = "flex";
 
-            promoDiscountAmt.innerText =
-                "-" + formatPromoLabel(appliedPromoValue, appliedPromoType);
+            // Show percent in brackets + amount, or amount only for flat
+            if (appliedPromoType === "flat") {
+                promoDiscountAmt.innerText =
+                    "-" + currentPlan.symbol + Math.round(appliedDiscountAmount);
+            } else {
+                promoDiscountAmt.innerText =
+                    `(${Math.round(appliedPromoValue)}%) ` +
+                    currentPlan.symbol +
+                    Math.round(appliedDiscountAmount);
+            }
         } else {
             promoDiscountRow.classList.add("hidden");
             promoDiscountRow.style.display = "none";

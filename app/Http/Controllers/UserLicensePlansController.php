@@ -300,15 +300,19 @@ class UserLicensePlansController extends Controller
                 $plan->original_monthly_price = $monthly;
                 $plan->original_yearly_price  = $yearly;
 
+$monthlyTotalDisc = ($plan->single_user_monthly_discount ?? 0)
+                    + ($plan->single_user_monthly_extra_disc ?? 0);
+
+                $yearlyTotalDisc = ($plan->single_user_yearly_discount ?? 0)
+                    + ($plan->single_user_yearly_extra_disc ?? 0);
+
                 $plan->final_monthly_price =
                     $monthly
-                    * (1 - ($plan->single_user_monthly_discount ?? 0) / 100)
-                    * (1 - ($plan->single_user_monthly_extra_disc ?? 0) / 100);
+                    * (1 - $monthlyTotalDisc / 100);
 
                 $plan->final_yearly_price =
                     $yearly
-                    * (1 - ($plan->single_user_yearly_discount ?? 0) / 100)
-                    * (1 - ($plan->single_user_yearly_extra_disc ?? 0) / 100);
+                    * (1 - $yearlyTotalDisc / 100);
 
                 $plan->active_price = ($billing_type === 'yearly')
                     ? round($plan->final_yearly_price)
@@ -366,19 +370,20 @@ class UserLicensePlansController extends Controller
                 $plan->monthly_extra_disc = $monthlyExtraDiscount;
                 $plan->yearly_extra_disc = $yearlyExtraDiscount;
 
+// =========================
+                // CALCULATE FINAL PRICES (ADDITIVE)
                 // =========================
-                // CALCULATE FINAL PRICES
-                // =========================
+
+                $monthlyTotalDisc = $monthlyDiscount + $monthlyExtraDiscount;
+                $yearlyTotalDisc = $yearlyDiscount + $yearlyExtraDiscount;
 
                 $plan->final_monthly_price =
                     $monthly
-                    * (1 - $monthlyDiscount / 100)
-                    * (1 - $monthlyExtraDiscount / 100);
+                    * (1 - $monthlyTotalDisc / 100);
 
                 $plan->final_yearly_price =
                     $yearly
-                    * (1 - $yearlyDiscount / 100)
-                    * (1 - $yearlyExtraDiscount / 100);
+                    * (1 - $yearlyTotalDisc / 100);
 
                 // =========================
                 // ACTIVE PRICE

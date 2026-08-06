@@ -606,16 +606,17 @@
                       <span class="total-pool-storage view-total-poolstorage-count"></span> &nbsp;
                       <span class="view-storage-unit">{{ $plan->storage_unit }}</span>
                     </li> -->
-                    <li discount-apply="{{ $plan->is_team_discount_apply }}" class="mb-3 d-flex align-items-start justify-content-between" style="color: #065f46; font-weight: 600; display: none;">
+<li discount-apply="{{ $plan->is_team_discount_apply }}" class="mb-3 d-flex align-items-start justify-content-between" style="color: #065f46; font-weight: 600; display: none;">
                       <span>Discount :&nbsp;</span>
                       <div>
+                        <span class="discount-percent-badge"></span>
                         <span class="view-currency" style="gap:3px"></span>
                         <span class="total-discount view-total-discount-count"></span>
                       </div>
                     </li>
 
-                    <li class="mb-3 total-amt-sty">
-                      <p >Total (Per Month)</p>
+<li class="mb-3 total-amt-sty">
+                      <p class="total-period-label">Total (Per Month)</p>
                       <div style="font-weight: 600; font-size: 1.4rem;">
                          <span class="view-currency" style="gap:3px"></span>
                          <span class="total-amount view-total-amount-count" >999</span>
@@ -623,10 +624,38 @@
                       <hr style="width: 100%;  border: 1px dashed #ccc; margin: 10px 0;">
                       <p><i class="fa-solid fa-ticket"></i> You save <span class="total-savings view-total-savings-count">$</span></p>
                     </li>
-                    <li><i class="fa-solid fa-check fa-check-green"></i>Cloud Desktop Workspace</li>
-                    <li><i class="fa-solid fa-check fa-check-green"></i>Secure File Storage</li>
-                    <li><i class="fa-solid fa-check fa-check-green"></i>Productivity Essentials</li>
-                    <li><i class="fa-solid fa-check fa-check-green"></i>Email Support</li>
+@php
+                    $planFeatures = [
+                    'Basic' => [
+                    'Cloud Desktop Workspace',
+                    'Secure File Storage',
+                    'Productivity Essentials',
+                    'Email Support'
+                    ],
+                    'Standard' => [
+                    'Everything in Basic',
+                    'Advanced Collaboration Tools',
+                    'Team Workspace Management',
+                    'Priority Email Support'
+                    ],
+                    'Advanced' => [
+                    'Everything in Standard',
+                    'Advanced Administration Controls',
+                    'Enhanced Security & Compliance',
+                    'Priority Technical Support'
+                    ],
+                    'Premium' => [
+                    'Everything in Advanced',
+                    'Enterprise Security & Governance',
+                    'Dedicated Account Management',
+                    'Premium 24x7 Enterprise Support'
+                    ],
+                    ];
+                    $currentFeatures = $planFeatures[$plan->plans_name] ?? $planFeatures['Basic'];
+                    @endphp
+                    @foreach($currentFeatures as $feature)
+                    <li><i class="fa-solid fa-check fa-check-green"></i>{{ $feature }}</li>
+                    @endforeach
                   </ul>
 
                   <!-- discount  -->

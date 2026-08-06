@@ -81,34 +81,37 @@ function updateTeamPlans(
             }
         }
 
+// =========================
+        // TOTAL PRICE CALCULATION (ADDITIVE)
         // =========================
-        // TOTAL PRICE CALCULATION
-        // =========================
-        let total =
+        let baseTotal =
             billingType === "yearly"
                 ? convertedAmount * 12 * userCount
                 : convertedAmount * userCount;
 
         // Apply discount only for TEAM
-        let afterFirstDiscount =
-            isTeam === 1 ? total - (total * discount) / 100 : total;
+        // totalDiscount = plan discount + annual billing discount (yearly only)
+        let planDiscount = isTeam === 1 ? discount : 0;
+        let annualDiscount =
+            isTeam === 1 && billingType === "yearly" ? extraDiscount : 0;
 
-        let finalTotal =
-            isTeam === 1
-                ? afterFirstDiscount -
-                  (afterFirstDiscount * extraDiscount) / 100
-                : afterFirstDiscount;
+        let totalDiscount = planDiscount + annualDiscount;
+
+        let discountAmount = (baseTotal * totalDiscount) / 100;
+
+        let finalTotal = baseTotal - discountAmount;
 
         finalTotal = Math.round(finalTotal);
+        discountAmount = Math.round(discountAmount);
 
         // =========================
         // ORIGINAL PRICE (TEAM)
         // =========================
-        const originalPriceRow = planBox.querySelector(".original-price-team");
+const originalPriceRow = planBox.querySelector(".original-price-team");
 
         if (originalPriceRow) {
             // Show only if any discount is applied
-            if (discount > 0 || extraDiscount > 0) {
+            if (totalDiscount > 0) {
                 originalPriceRow.style.display = "flex";
 
                 originalPriceRow.querySelector(
@@ -117,7 +120,7 @@ function updateTeamPlans(
 
                 originalPriceRow.querySelector(
                     ".ul-original-price-team",
-                ).textContent = Math.round(total);
+                ).textContent = Math.round(baseTotal);
 
                 originalPriceRow.querySelector(
                     ".ul-personal-card-period-team",
@@ -140,21 +143,84 @@ function updateTeamPlans(
             viewCurrency.textContent = currencySymbol;
         }
 
-        let totalAmountView = planBox.querySelector(".view-total-amount-count");
-        if (totalAmountView) {
-            totalAmountView.textContent = finalTotal * quantity;
+        // Base Total (per licence block, before discount)
+        let baseTotalView = planBox.querySelector(".view-total-amount-count");
+        if (baseTotalView) {
+            baseTotalView.textContent = Math.round(baseTotal * quantity);
         }
 
-        // =========================
+        // Total Amount (per licence block, after discount)
+        let baseTotalRow = planBox.querySelector(".base-price");
+        if (baseTotalRow) {
+            baseTotalRow.textContent = convertedAmount;
+        }
+
+        // Discount row (Base Total - show/hide)
+        let discountRow = planBox.querySelector("li[discount-apply]");
+        if (discountRow) {
+            if (totalDiscount > 0) {
+                discountRow.style.display = "flex";
+            } else {
+                discountRow.style.display = "none";
+            }
+        }
+
+// Discount Amount Display
+        let totalDiscountView = planBox.querySelector(
+            ".view-total-discount-count",
+        );
+        if (totalDiscountView) {
+            totalDiscountView.textContent = Math.round(
+                discountAmount * quantity,
+            );
+        }
+
+        // Discount % Badge (e.g. "(5% off)")
+        let discountPercentBadge = planBox.querySelector(
+            ".discount-percent-badge",
+        );
+        if (discountPercentBadge) {
+            if (totalDiscount > 0) {
+                discountPercentBadge.textContent = `(${totalDiscount}% off)`;
+            } else {
+                discountPercentBadge.textContent = "";
+            }
+        }
+
+        // Total (Per Month / Per Year) label
+        let totalPeriodLabel = planBox.querySelector(".total-period-label");
+        if (totalPeriodLabel) {
+            totalPeriodLabel.textContent =
+                billingType === "yearly"
+                    ? "Total (Per Year)"
+                    : "Total (Per Month)";
+        }
+
+        // Final Total Amount Display
+        let totalAmountDisplay = planBox.querySelector(
+            ".total-amt-sty .view-total-amount-count",
+        );
+        if (totalAmountDisplay) {
+            totalAmountDisplay.textContent = Math.round(finalTotal * quantity);
+        }
+
+        // You Save Display
+        let totalSavingsView = planBox.querySelector(
+            ".view-total-savings-count",
+        );
+        if (totalSavingsView) {
+            totalSavingsView.textContent = Math.round(
+                discountAmount * quantity,
+            );
+        }
+
+// =========================
         // LICENSE COUNT
         // =========================
 
-        let baseLicenceCount =
-            parseInt(
-                planBox
-                    .querySelector(".base-licence-count")
-                    ?.textContent.trim(),
-            ) || 0;
+        // Use the plan user count (from .user-count-ul) instead of
+        // the commented-out .base-licence-count element (which reads 0).
+        let baseLicenceCount = userCount;
 
         let totalLicenceCount = baseLicenceCount * quantity;
 
@@ -208,16 +274,24 @@ function updateTeamPlans(
                     ? parseFloat(discountBadge.dataset.yearlyExtra) || 0
                     : parseFloat(discountBadge.dataset.monthlyExtra) || 0;
 
-            let message = "";
+let message = "";
             const planName =
             planBox.querySelector("[data-plan-name]")?.dataset.planName || "Plan";
 
-            if (discountApply && extraApply) {
-                message = `🎉 ${discount}% off ${planName} user discount + ${extraDiscount}% off special offer for annual billing — You save total ${discount + extraDiscount}% on annual payment`;
-            } else if (discountApply) {
-                message = `🎉 ${discount}% off ${planName} user discount — You save total ${discount}% on monthly payment`;
-            } else if (extraApply) {
-                message = `🎉 ${extraDiscount}% off special offer for annual billing — You save total ${extraDiscount}% on annual payment`;
+            if (billingType === "yearly") {
+                if (discountApply && extraApply) {
+                    message = `🎉 ${discount}% off ${planName} team discount + 10% Annual billing discount — Total Savings ${discount + extraDiscount}%`;
+                } else if (discountApply) {
+                    message = `🎉 ${discount}% off ${planName} team discount — Total Savings ${discount}%`;
+                } else if (extraApply) {
+                    message = `🎉 10% off Annual billing discount — Total Savings ${extraDiscount}%`;
+                }
+            } else {
+                if (discountApply) {
+                    message = `🎉 ${discount}% off ${planName} team discount — Total Savings ${discount}%`;
+                } else {
+                    message = "";
+                }
             }
 
             if (message) {
@@ -263,14 +337,13 @@ function updateSingleUserPlans(amount, symbol, billingType = "monthly") {
         let extraDiscount =
             billingType === "yearly" ? extraYearly : extraMonthly;
 
-        // Base Amount
+// Base Amount
         let total = billingType === "yearly" ? amount * 12 : amount;
 
-        // Main Discount
-        total = total - (total * discount) / 100;
+        // ADDITIVE DISCOUNT
+        let totalDiscount = discount + extraDiscount;
 
-        // Extra Discount
-        total = total - (total * extraDiscount) / 100;
+        total = total - (total * totalDiscount) / 100;
 
         // Final Round
         total = Math.round(total);
@@ -307,13 +380,14 @@ function updateSingleUserPlans(amount, symbol, billingType = "monthly") {
         let extraDiscount =
             billingType === "yearly" ? extraYearly : extraMonthly;
 
-        let originalPrice = billingType === "yearly" ? amount * 12 : amount;
+let originalPrice = billingType === "yearly" ? amount * 12 : amount;
 
         // CURRENT_ORIGINAL_AMOUNT = Math.round(originalPrice);
 
-        let finalPrice = originalPrice;
-        finalPrice -= (finalPrice * discount) / 100;
-        finalPrice -= (finalPrice * extraDiscount) / 100;
+        // ADDITIVE DISCOUNT
+        let totalDiscount = discount + extraDiscount;
+
+        let finalPrice = originalPrice - (originalPrice * totalDiscount) / 100;
 
         el.text(Math.round(finalPrice));
 
@@ -321,7 +395,7 @@ function updateSingleUserPlans(amount, symbol, billingType = "monthly") {
             .closest(".personal-card")
             .find(".original-price-single");
 
-        if (discount > 0 || extraDiscount > 0) {
+        if (totalDiscount > 0) {
             originalPriceRow.show();
             originalPriceRow
                 .find(".ul-original-price")
@@ -366,13 +440,15 @@ function updateTablePricing(amount, symbol) {
                 ? parseFloat(amountEl.attr("data-yearly-discount")) || 0
                 : parseFloat(amountEl.attr("data-monthly-discount")) || 0;
 
-        let extraDiscount =
+let extraDiscount =
             billingType === "yearly"
                 ? parseFloat(amountEl.attr("data-extra-yearly")) || 0
                 : parseFloat(amountEl.attr("data-extra-monthly")) || 0;
 
-        total = total - (total * discount) / 100;
-        total = total - (total * extraDiscount) / 100;
+        // ADDITIVE DISCOUNT
+        let totalDiscount = discount + extraDiscount;
+
+        total = total - (total * totalDiscount) / 100;
 
         amountEl.text(Math.round(total));
 
@@ -416,7 +492,7 @@ function updateTablePricing(amount, symbol) {
         let discount = 0;
         let extraDiscount = 0;
 
-        // Apply Discount ONLY if
+// Apply Discount ONLY if
         if (isTeamDiscount === 1) {
             discount =
                 billingType === "yearly"
@@ -429,9 +505,11 @@ function updateTablePricing(amount, symbol) {
                     : parseFloat(amountEl.attr("data-extra-monthly")) || 0;
         }
 
+        // ADDITIVE DISCOUNT
+        let totalDiscount = discount + extraDiscount;
+
         // Apply Discounts
-        total = total - (total * discount) / 100;
-        total = total - (total * extraDiscount) / 100;
+        total = total - (total * totalDiscount) / 100;
 
         amountEl.text(Math.round(total));
 
@@ -684,29 +762,70 @@ $(document).ready(function () {
 
         planBox.find(".view-storage-unit").text(storageUnit);
 
-        // =========================
+// =========================
         // Total Amount
         // =========================
-        let totalAmount = baseAmount * totalLicenceCount;
+        let baseTotalAmount = baseAmount * totalLicenceCount;
 
         // Yearly
         if (TEAM_BILLING === "yearly") {
-            totalAmount = totalAmount * 12;
+            baseTotalAmount = baseTotalAmount * 12;
         }
 
-        // Main Discount
-        totalAmount = totalAmount - (totalAmount * discount) / 100;
+        // ADDITIVE DISCOUNT
+        // totalDiscount = plan discount + annual billing discount (yearly only)
+        let planDiscount = discount;
+        let annualDiscount = TEAM_BILLING === "yearly" ? extraDiscount : 0;
 
-        // Extra Discount
-        totalAmount = totalAmount - (totalAmount * extraDiscount) / 100;
+        let totalDiscountPct = planDiscount + annualDiscount;
+
+        let discountAmount = (baseTotalAmount * totalDiscountPct) / 100;
+
+        let finalTotal = baseTotalAmount - discountAmount;
 
         // Round
-        totalAmount = Math.round(totalAmount);
+        let baseTotalRounded = Math.round(baseTotalAmount);
+        let finalTotalRounded = Math.round(finalTotal);
+        discountAmount = Math.round(discountAmount);
 
-        // Update Amount
-        // planBox.find(".total-price-ul").text(totalAmount);
+        // Base Total (before discount) - first .view-total-amount-count
+        planBox.find(".view-total-amount-count").first()
+            .text(baseTotalRounded);
 
-        planBox.find(".view-total-amount-count").text(totalAmount);
+        // Total (Per Month / Per Year) after discount - inside .total-amt-sty
+        planBox.find(".total-amt-sty .view-total-amount-count")
+            .text(finalTotalRounded);
+
+        // Discount Display
+        if (totalDiscountPct > 0) {
+            planBox.find("li[discount-apply]").css("display", "flex");
+        } else {
+            planBox.find("li[discount-apply]").css("display", "none");
+        }
+        planBox
+            .find(".view-total-discount-count")
+            .text(discountAmount);
+
+        // Discount % badge
+        let pctBadge = planBox.find(".discount-percent-badge");
+        if (pctBadge.length) {
+            pctBadge.text(
+                totalDiscountPct > 0 ? `(${totalDiscountPct}% off)` : "",
+            );
+        }
+
+        // You Save
+        planBox.find(".view-total-savings-count").text(discountAmount);
+
+        // Total period label
+        let periodLabel = planBox.find(".total-period-label");
+        if (periodLabel.length) {
+            periodLabel.text(
+                TEAM_BILLING === "yearly"
+                    ? "Total (Per Year)"
+                    : "Total (Per Month)",
+            );
+        }
     }
 
     // =========================
