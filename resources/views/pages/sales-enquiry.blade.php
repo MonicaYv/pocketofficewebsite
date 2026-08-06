@@ -80,7 +80,7 @@
                       </div>
                       <div class="form-item">
                           <label for="country">Country</label>
-                          <select id="country" name="country" required>
+                          <select id="country" name="country" required style="padding: 6px 40px 6px 16px; border-radius: .25rem;">
                               <option value="">Loading countries...</option>
                           </select>
                           <div class="invalid-feedback"></div>

@@ -405,7 +405,8 @@
      </div>
  </div>
  @endsection
-
+@section('scripts')
+@vite(['resources/js/products.js']) 
  <script>
      const cards = document.querySelectorAll(".usecase-card");
 
@@ -425,3 +426,4 @@
 
      cards.forEach((card) => observer.observe(card));
  </script>
+ @endsection

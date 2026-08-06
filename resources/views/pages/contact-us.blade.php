@@ -732,4 +732,10 @@
                     href="mailto:support@linear.app">support@linear.app</a></p>
         </div>
     </div>
+    
     @endsection
+    @section('scripts')
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    @vite(['resources/js/contact-us.js'])
+    @endsection
+

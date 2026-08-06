@@ -4,6 +4,7 @@ namespace App\Providers;
 use App\Models\Country;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Vite;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -19,6 +20,10 @@ class AppServiceProvider extends ServiceProvider
      */
   public function boot()
 {
+    Vite::useScriptTagAttributes([
+        'crossorigin' => 'anonymous',
+    ]);
+    
     $countries = Country::orderBy('name')->get();
 
     View::share('countries', $countries);

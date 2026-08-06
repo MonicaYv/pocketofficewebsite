@@ -60,7 +60,6 @@
     <!-- End Meta Pixel Code -->
     
 </head>
-</head>
 
 <body>
     <noscript>
@@ -87,13 +86,8 @@ src="https://www.facebook.com/tr?id=467144275341276&ev=PageView&noscript=1"/>
 
     {{-- Footer --}}
     @include('layouts.footer')
-    
-    {{-- Scripts --}}
-    @include('layouts.script')
-
-    {{-- Routes Scripts --}}
-    @include('layouts.routes-script')
-
 </body>
-
+{{-- Scripts --}}
+    @include('layouts.script')
+@yield('scripts')
 </html>

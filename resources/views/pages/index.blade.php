@@ -660,4 +660,8 @@
         </div>
     </div>
 </section>
+
+@endsection
+@section('scripts')
+@vite(['resources/js/home.js'])
 @endsection

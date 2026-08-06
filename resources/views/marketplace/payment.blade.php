@@ -800,3 +800,6 @@
          </div>
      </div>
      @endsection
+     @section('scripts')
+     @vite(['resources/js/payment.js'])
+     @endsection

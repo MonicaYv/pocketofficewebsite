@@ -13483,7 +13483,7 @@ html {
   /* reduced bottom padding */
   color: #ffffff;
   position: relative;
-  z-index: 10;
+  /* z-index: 10; */
 }
 
 /* Grid Container */
@@ -13496,6 +13496,8 @@ html {
   margin: 0 auto 40px;
   /* space before bottom section */
 }
+
+
 
 /* Column Titles */
 .footer-column h4 {

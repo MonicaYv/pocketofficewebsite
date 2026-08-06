@@ -368,3 +368,6 @@
       </div>
   </section>
   @endsection
+  @section('scripts')
+  @vite(['resources/js/products.js'])
+  @endsection
