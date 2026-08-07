@@ -8,6 +8,10 @@ let CURRENT_TEAM_AMOUNT = 0;
 let SINGLE_USER_BILLING = "monthly";
 let TEAM_BILLING = "monthly";
 
+function getCurrencyAdjustedPlanAmount(planBox, convertedAmount) {
+    return Math.round(convertedAmount);
+}
+
 // =========================
 // Calculate Team Plan Total
 // =========================
@@ -22,7 +26,11 @@ function updateTeamPlans(
 
     document.querySelectorAll(".monthly-plans").forEach(function (planBox) {
         let quantityInput = planBox.querySelector(".ul-quantity-input");
-        let quantity = parseInt(quantityInput?.value);
+        let quantity =
+            parseInt(quantityInput?.value) ||
+            parseInt(quantityInput?.dataset.defaultQty) ||
+            1;
+        let unitAmount = getCurrencyAdjustedPlanAmount(planBox, convertedAmount);
 
         // =========================
         // CHECK TEAM FLAG (NEW)
@@ -40,7 +48,7 @@ function updateTeamPlans(
         let priceAmountEl = planBox.querySelector(".price-amount");
 
         if (priceAmountEl) {
-            priceAmountEl.textContent = convertedAmount;
+            priceAmountEl.textContent = unitAmount;
         }
 
         // User Count
@@ -86,8 +94,8 @@ function updateTeamPlans(
         // =========================
         let baseTotal =
             billingType === "yearly"
-                ? convertedAmount * 12 * userCount
-                : convertedAmount * userCount;
+                ? unitAmount * 12 * quantity
+                : unitAmount * quantity;
 
         // Apply discount only for TEAM
         // totalDiscount = plan discount + annual billing discount (yearly only)
@@ -100,9 +108,11 @@ function updateTeamPlans(
         let discountAmount = (baseTotal * totalDiscount) / 100;
 
         let finalTotal = baseTotal - discountAmount;
+        let displayUnitPrice = unitAmount - (unitAmount * totalDiscount) / 100;
 
         finalTotal = Math.round(finalTotal);
         discountAmount = Math.round(discountAmount);
+        displayUnitPrice = Math.round(displayUnitPrice);
 
         // =========================
         // ORIGINAL PRICE (TEAM)
@@ -135,28 +145,29 @@ const originalPriceRow = planBox.querySelector(".original-price-team");
         // =========================
         let totalPriceEl = planBox.querySelector(".total-price-ul");
         if (totalPriceEl) {
-            totalPriceEl.textContent = finalTotal;
+            totalPriceEl.textContent = displayUnitPrice;
         }
 
-        let viewCurrency = planBox.querySelector(".view-currency");
-        if (viewCurrency) {
-            viewCurrency.textContent = currencySymbol;
-        }
+        planBox
+            .querySelectorAll(".view-currency")
+            .forEach((viewCurrency) => {
+                viewCurrency.textContent = currencySymbol;
+            });
 
         // Base Total (per licence block, before discount)
         let baseTotalView = planBox.querySelector(".view-total-amount-count");
         if (baseTotalView) {
-            baseTotalView.textContent = Math.round(baseTotal * quantity);
+            baseTotalView.textContent = Math.round(baseTotal);
         }
 
         // Total Amount (per licence block, after discount)
         let baseTotalRow = planBox.querySelector(".base-price");
         if (baseTotalRow) {
-            baseTotalRow.textContent = convertedAmount;
+            baseTotalRow.textContent = unitAmount;
         }
 
         // Discount row (Base Total - show/hide)
-        let discountRow = planBox.querySelector("li[discount-apply]");
+        let discountRow = planBox.querySelector("[discount-apply]");
         if (discountRow) {
             if (totalDiscount > 0) {
                 discountRow.style.display = "flex";
@@ -166,14 +177,11 @@ const originalPriceRow = planBox.querySelector(".original-price-team");
         }
 
 // Discount Amount Display
-        let totalDiscountView = planBox.querySelector(
-            ".view-total-discount-count",
-        );
-        if (totalDiscountView) {
-            totalDiscountView.textContent = Math.round(
-                discountAmount * quantity,
-            );
-        }
+        planBox
+            .querySelectorAll(".view-total-discount-count")
+            .forEach((totalDiscountView) => {
+                totalDiscountView.textContent = Math.round(discountAmount);
+            });
 
         // Discount % Badge (e.g. "(5% off)")
         let discountPercentBadge = planBox.querySelector(
@@ -192,8 +200,8 @@ const originalPriceRow = planBox.querySelector(".original-price-team");
         if (totalPeriodLabel) {
             totalPeriodLabel.textContent =
                 billingType === "yearly"
-                    ? "Total (Per Year)"
-                    : "Total (Per Month)";
+                    ? "Total Per Year"
+                    : "Total Per Month";
         }
 
         // Final Total Amount Display
@@ -201,7 +209,7 @@ const originalPriceRow = planBox.querySelector(".original-price-team");
             ".total-amt-sty .view-total-amount-count",
         );
         if (totalAmountDisplay) {
-            totalAmountDisplay.textContent = Math.round(finalTotal * quantity);
+            totalAmountDisplay.textContent = Math.round(finalTotal);
         }
 
         // You Save Display
@@ -209,20 +217,14 @@ const originalPriceRow = planBox.querySelector(".original-price-team");
             ".view-total-savings-count",
         );
         if (totalSavingsView) {
-            totalSavingsView.textContent = Math.round(
-                discountAmount * quantity,
-            );
+            totalSavingsView.textContent = Math.round(discountAmount);
         }
 
 // =========================
         // LICENSE COUNT
         // =========================
 
-        // Use the plan user count (from .user-count-ul) instead of
-        // the commented-out .base-licence-count element (which reads 0).
-        let baseLicenceCount = userCount;
-
-        let totalLicenceCount = baseLicenceCount * quantity;
+        let totalLicenceCount = quantity;
 
         let totalLicenceView = planBox.querySelector(
             ".view-total-license-count",
@@ -256,43 +258,10 @@ const originalPriceRow = planBox.querySelector(".original-price-team");
         let discountBadge = planBox.querySelector(".ul-discount");
 
         if (discountBadge) {
-            const discountApply =
-                parseInt(discountBadge.dataset.discountApply) || 0;
-
-            const extraApply =
+            const message =
                 billingType === "yearly"
-                    ? parseInt(discountBadge.dataset.extraYearlyApply) || 0
-                    : parseInt(discountBadge.dataset.extraMonthlyApply) || 0;
-
-            const discount =
-                billingType === "yearly"
-                    ? parseFloat(discountBadge.dataset.yearlyDiscount) || 0
-                    : parseFloat(discountBadge.dataset.monthlyDiscount) || 0;
-
-            const extraDiscount =
-                billingType === "yearly"
-                    ? parseFloat(discountBadge.dataset.yearlyExtra) || 0
-                    : parseFloat(discountBadge.dataset.monthlyExtra) || 0;
-
-let message = "";
-            const planName =
-            planBox.querySelector("[data-plan-name]")?.dataset.planName || "Plan";
-
-            if (billingType === "yearly") {
-                if (discountApply && extraApply) {
-                    message = `🎉 ${discount}% off ${planName} team discount + 10% Annual billing discount — Total Savings ${discount + extraDiscount}%`;
-                } else if (discountApply) {
-                    message = `🎉 ${discount}% off ${planName} team discount — Total Savings ${discount}%`;
-                } else if (extraApply) {
-                    message = `🎉 10% off Annual billing discount — Total Savings ${extraDiscount}%`;
-                }
-            } else {
-                if (discountApply) {
-                    message = `🎉 ${discount}% off ${planName} team discount — Total Savings ${discount}%`;
-                } else {
-                    message = "";
-                }
-            }
+                    ? discountBadge.dataset.yearlyText || ""
+                    : discountBadge.dataset.monthlyText || "";
 
             if (message) {
                 discountBadge.style.display = "";
@@ -305,8 +274,32 @@ let message = "";
         // Period text
         let userText = planBox.querySelector(".user-text");
         if (userText) {
-            userText.textContent =
-                billingType === "yearly" ? "user/year" : "user/month";
+            userText.textContent = billingType === "yearly" ? "year" : "month";
+        }
+
+        planBox
+            .querySelectorAll(".base-user-label")
+            .forEach((el) => {
+                el.textContent =
+                    billingType === "yearly"
+                        ? "Base User / Year"
+                        : "Base User / Month";
+            });
+
+        planBox.classList.toggle("is-yearly", billingType === "yearly");
+
+        const planDiscountPercent = planBox.querySelector(
+            ".plan-discount-percent",
+        );
+        if (planDiscountPercent) {
+            planDiscountPercent.textContent = `${planDiscount}%`;
+        }
+
+        const annualDiscountPercent = planBox.querySelector(
+            ".annual-discount-percent",
+        );
+        if (annualDiscountPercent) {
+            annualDiscountPercent.textContent = `${annualDiscount}%`;
         }
     });
 }
@@ -699,10 +692,10 @@ $(document).ready(function () {
     // =========================
     function updateTeamCardCalculation(planBox, quantity = 1) {
         // Base Values
-        let baseAmount = CURRENT_AMOUNT || 0;
-
-        let userCount =
-            parseInt(planBox.find(".user-count-ul").text().trim()) || 0;
+        let baseAmount = getCurrencyAdjustedPlanAmount(
+            planBox.get(0),
+            CURRENT_AMOUNT || 0,
+        );
 
         let storagePerUser =
             parseInt(planBox.find(".base-storage").text().trim()) || 0;
@@ -736,7 +729,7 @@ $(document).ready(function () {
         }
 
         // Total Licence Count
-        let totalLicenceCount = userCount * quantity;
+        let totalLicenceCount = quantity;
 
         planBox.find(".view-total-license-count").text(totalLicenceCount);
 
@@ -798,9 +791,9 @@ $(document).ready(function () {
 
         // Discount Display
         if (totalDiscountPct > 0) {
-            planBox.find("li[discount-apply]").css("display", "flex");
+            planBox.find("[discount-apply]").css("display", "flex");
         } else {
-            planBox.find("li[discount-apply]").css("display", "none");
+            planBox.find("[discount-apply]").css("display", "none");
         }
         planBox
             .find(".view-total-discount-count")
@@ -822,10 +815,19 @@ $(document).ready(function () {
         if (periodLabel.length) {
             periodLabel.text(
                 TEAM_BILLING === "yearly"
-                    ? "Total (Per Year)"
-                    : "Total (Per Month)",
+                    ? "Total Per Year"
+                    : "Total Per Month",
             );
         }
+
+        planBox.toggleClass("is-yearly", TEAM_BILLING === "yearly");
+        planBox.find(".base-user-label").text(
+            TEAM_BILLING === "yearly"
+                ? "Base User / Year"
+                : "Base User / Month",
+        );
+        planBox.find(".plan-discount-percent").text(`${planDiscount}%`);
+        planBox.find(".annual-discount-percent").text(`${annualDiscount}%`);
     }
 
     // =========================
@@ -907,15 +909,20 @@ $(document).ready(function () {
             },
 
             success: function (response) {
-                //RESET ALL QUANTITY INPUTS
-                $(".ul-quantity-input").val();
-
                 // Update Pricing
                 updateCurrency(response.amount, response.symbol);
 
                 //RECALCULATE TEAM CARDS
                 $(".monthly-plans").each(function () {
-                    updateTeamCardCalculation($(this), 1);
+                    const qty =
+                        parseInt($(this).find(".ul-quantity-input").val()) ||
+                        parseInt(
+                            $(this)
+                                .find(".ul-quantity-input")
+                                .data("default-qty"),
+                        ) ||
+                        1;
+                    updateTeamCardCalculation($(this), qty);
                 });
 
                 // Update Button Text
@@ -979,6 +986,11 @@ function handlePlanSelection(btn, forcedType) {
         $(".table-plan-symbol").first().text().trim();
 
     let amount =
+        container
+            .find(".total-amt-sty .view-total-amount-count")
+            .first()
+            .text()
+            .trim() ||
         container.find(".total-price-ul").first().text().trim() ||
         container.find(".table-plan-amount").first().text().trim() ||
         $(".table-plan-amount").first().text().trim();
@@ -1009,12 +1021,16 @@ function handlePlanSelection(btn, forcedType) {
 
     if (forcedType === "team") {
         // Team plans
-        const users = parseInt(btn.data("license")) || 1;
+        const teamPlanBox = btn.closest(".monthly-plans").get(0);
+        const users = qty;
+        const unitAmount = teamPlanBox
+            ? getCurrencyAdjustedPlanAmount(teamPlanBox, CURRENT_AMOUNT)
+            : CURRENT_AMOUNT;
 
         originalPrice =
             billingType === "yearly"
-                ? CURRENT_AMOUNT * 12 * users
-                : CURRENT_AMOUNT * users;
+                ? unitAmount * 12 * users
+                : unitAmount * users;
     } else {
         // Single user plans
         originalPrice =

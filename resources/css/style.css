@@ -11652,7 +11652,7 @@ margin-top: 10px;
 .pricing-cards {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
+  gap: 18px;
 }
 
 .quantity-box {
@@ -11915,6 +11915,309 @@ input:checked+.toggle-slider:before {
 .pricing-buttons .btn {
   flex: 1;
   white-space: nowrap;
+}
+
+.po-pricing-card {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #d9dee5 !important;
+  border-radius: 8px;
+  background: #ffffff !important;
+  box-shadow: 0 14px 34px rgba(15, 23, 42, 0.08);
+}
+
+.po-pricing-card--popular {
+  border-color: #0694B7 !important;
+  box-shadow: 0 18px 42px rgba(6, 148, 183, 0.16);
+  border: 2px solid #0694b7 !important;
+}
+
+.po-popular-ribbon {
+  position: absolute;
+    top: -18px;
+    left: -1px;
+    right: 0;
+    width: 100%;
+    background: #0694B7;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    line-height: 1;
+    text-align: center;
+    padding: 8px 0;
+    z-index: 2;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+}
+
+.po-pricing-card__body {
+  padding: 26px 22px 22px !important;
+  min-height: 100%;
+}
+
+.po-pricing-card__header {
+  min-height: 158px;
+}
+
+.po-plan-icon {
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background: rgba(6, 148, 183, 0.1);
+  color: #0694B7;
+  margin-bottom: 18px;
+}
+
+.po-plan-icon svg {
+  width: 25px;
+  height: 25px;
+}
+
+.po-plan-name {
+  margin: 0 0 8px;
+  color: #111827;
+  font-size: 24px;
+  font-weight: 800;
+  line-height: 1.15;
+}
+
+.po-plan-description {
+  min-height: 44px;
+  margin: 0;
+  color: #5f6874 !important;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.po-price-block {
+  margin: 6px 0 22px;
+}
+
+.po-price-line {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  column-gap: 3px;
+  row-gap: 4px;
+  color: #111827;
+}
+
+.po-price-line .personal-card-symbol-ul,
+.po-price-line .total-price-ul {
+  font-size: 34px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.po-price-unit {
+  margin-left: 4px;
+  color: #59616d;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.po-price-unit .user-text {
+  margin: 0;
+  color: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+.po-license-block {
+  margin-bottom: 22px;
+}
+
+.po-license-label {
+  margin-bottom: 8px;
+  color: #111827;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.po-license-block .quantity-box {
+  display: grid;
+  grid-template-columns: 42px minmax(70px, 1fr) 42px;
+  gap: 8px;
+  width: 100%;
+}
+
+.po-license-block .qty-btn,
+.po-license-block .qty-input {
+  width: 100%;
+  height: 42px;
+  border: 1px solid #cfd6df;
+  border-radius: 8px;
+  background: #ffffff !important;
+  color: #111827;
+}
+
+.po-license-block .qty-btn {
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.po-license-block .qty-input {
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.po-minimum-note {
+  margin: 8px 0 0;
+  color: #6b7280;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+.po-summary {
+  margin-bottom: 20px;
+  color: #111827;
+  font-size: 13px;
+}
+
+.po-summary-title {
+  margin: 0 0 12px;
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.po-summary-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+  line-height: 1.3;
+}
+
+.po-summary-row > span:first-child {
+  color: #5f6874;
+  font-weight: 600;
+}
+
+.po-summary-row div,
+.po-summary-row strong {
+  color: #111827;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.po-summary-row--discount {
+  color: #065f46;
+}
+
+.po-summary-row--discount > span:first-child,
+.po-summary-row--discount div,
+.po-summary-row--discount strong {
+  color: #065f46;
+}
+
+.po-summary hr,
+.total-amt-sty hr {
+  width: 100%;
+  border: 0;
+  border-top: 1px dashed #cbd5e1;
+  margin: 12px 0;
+}
+
+.annual-plan-discount-row,
+.annual-billing-discount-row,
+.annual-total-discount-row {
+  display: none;
+}
+
+.monthly-plans.is-yearly .monthly-discount-row {
+  display: none !important;
+}
+
+.monthly-plans.is-yearly .annual-plan-discount-row,
+.monthly-plans.is-yearly .annual-billing-discount-row,
+.monthly-plans.is-yearly .annual-total-discount-row {
+  display: flex;
+}
+
+.total-amt-sty {
+  display: block;
+  margin-top: 14px;
+  border: 1px solid #a7f3d0;
+  background: #d1fae5;
+  padding: 14px 16px;
+  border-radius: 8px;
+}
+
+.total-amt-sty .total-period-label {
+  color: #065f46;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.po-total-amount {
+  margin-top: 4px;
+  color: #064e3b;
+  font-size: 24px;
+  font-weight: 900;
+  line-height: 1.1;
+}
+
+.po-save-line {
+  color: #065f46;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.po-feature-list {
+  margin: 0 0 20px;
+  color: #1f2937;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.po-feature-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 12px;
+  line-height: 1.35;
+}
+
+.po-feature-list .fa-check-green {
+  flex: 0 0 auto;
+  margin: 0;
+}
+
+.po-pricing-card .ul-discount {
+  min-height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 0 18px;
+  border: 1px solid #a7f3d0;
+  border-radius: 8px;
+  background: #d1fae5;
+  color: #065f46;
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1.35;
+  padding: 8px 10px;
+}
+
+.po-pricing-card .pricing-buttons {
+  margin-top: auto;
+}
+
+.po-pricing-card .pricing-buttons .btn {
+  width: 100%;
+  min-height: 46px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 800;
 }
 
 .pricing-table {
@@ -13335,6 +13638,7 @@ html {
   margin-bottom: 20px;
   display: flex;
   flex-direction: column;
+  overflow: visible;
 }
 
 .card-header {
@@ -14550,7 +14854,7 @@ h5.footer-sub-heading {
 }
 
 .content-wrapper{
-  max-width: 1320px !important;
+  max-width: 1400px !important;
   margin: auto !important;
   padding: 0 40px;
 }

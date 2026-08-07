@@ -461,7 +461,14 @@ $monthlyTotalDisc = ($plan->single_user_monthly_discount ?? 0)
     {
         try {
 
-            $planLists = UsersLicensePlan::where('pof_plan_status', 1)->where('is_team_allowed', 1)->get();
+            $teamPlanOrder = ['Basic', 'Standard', 'Advanced', 'Premium'];
+
+            $planLists = UsersLicensePlan::where('pof_plan_status', 1)
+                ->where('is_team_allowed', 1)
+                ->where('plans_subscription_type', 'month')
+                ->whereIn('plans_name', $teamPlanOrder)
+                ->orderByRaw("CASE plans_name WHEN 'Basic' THEN 1 WHEN 'Standard' THEN 2 WHEN 'Advanced' THEN 3 WHEN 'Premium' THEN 4 ELSE 5 END")
+                ->get();
             $planListsSingle = UsersLicensePlan::where('pof_plan_status', 1)->where('is_single_user', 1)->get();
 
 
