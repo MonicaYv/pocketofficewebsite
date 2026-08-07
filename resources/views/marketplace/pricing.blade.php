@@ -155,7 +155,6 @@
 
               <!-- currency  -->
               <div class="row justify-content-center">
-
                   <div class="col-xl-6 d-flex">
                       <div class="section-title text-center pricing-header">
                           <p>
@@ -236,7 +235,6 @@
 
                           </div>
                   </div>
-
               </div>
 
               <div class="container">
