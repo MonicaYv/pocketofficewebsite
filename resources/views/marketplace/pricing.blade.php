@@ -497,21 +497,44 @@
           <div class="pricing-cards">
             @if (!empty($userLicenseData['getPlanList']['planLists']))
             @foreach ($userLicenseData['getPlanList']['planLists'] as $plan)
+            @php
+              $planName = $plan->plans_name;
+              $features = json_decode($plan->features ?? '[]', true);
+              $features = is_array($features) ? $features : [];
+              $promotionText = json_decode($plan->promotion_text ?? '[]', true);
+              $promotionText = is_array($promotionText) ? $promotionText : [];
+              $minimumLicenses = $plan->minimum_licenses ?? match ($planName) {
+                'Basic' => 2,
+                'Standard' => 10,
+                'Advanced' => 50,
+                'Premium' => 100,
+                default => (int) ($plan->default_qty ?? $plan->plans_license ?? 1),
+              };
+              $defaultLicenses = max((int) ($plan->default_qty ?? $minimumLicenses), (int) $minimumLicenses);
+              $isPopular = $planName === 'Advanced';
+            @endphp
             <div class="monthly-plans" data-is-team="1">
-              <div class="card bg-light border-secondary h-100 ul-cards">
-                <div class="card-body d-flex flex-column p-4">
-                  <div>
-                    <h2 class="fw-semibold" data-plan-name="{{ $plan->plans_name }}">{{ $plan->plans_name }}</h2>
-                    <p class=" pricing-subheading text-black">
+              <div class="card h-100 ul-cards po-pricing-card {{ $isPopular ? 'po-pricing-card--popular' : '' }}">
+                @if($isPopular)
+                <div class="po-popular-ribbon">MOST POPULAR</div>
+                @endif
+                <div class="card-body d-flex flex-column po-pricing-card__body">
+                  <div class="po-pricing-card__header">
+                    <div class="po-plan-icon" aria-hidden="true">
+                      @if($planName === 'Basic')
+                      <svg viewBox="0 0 24 24" fill="none"><path d="M20 21a8 8 0 0 0-16 0" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M12 13a5 5 0 1 0 0-10 5 5 0 0 0 0 10Z" stroke="currentColor" stroke-width="1.8"/></svg>
+                      @elseif($planName === 'Standard')
+                      <svg viewBox="0 0 24 24" fill="none"><path d="M3 3v18h18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="m7 15 4-4 3 3 5-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                      @elseif($planName === 'Advanced')
+                      <svg viewBox="0 0 24 24" fill="none"><path d="m3 8 5 4 4-7 4 7 5-4-2 11H5L3 8Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M5 19h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+                      @else
+                      <svg viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="m9 12 2 2 4-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                      @endif
+                    </div>
+                    <h2 class="po-plan-name" data-plan-name="{{ $planName }}">{{ $planName }}</h2>
+                    <p class="pricing-subheading po-plan-description">
                       {{ $plan->plans_content }}
                     </p>
-                  </div>
-                  <!-- original price  --> 
-                  <div class="original-price-wrapper">
-                    <div class="flex original-price original-price-team">
-                      <span class="personal-card-symbol-ul-team"></span> &nbsp; <span class="ul-original-price-team"></span>
-                      <span class="ul-personal-card-period-team"></span>
-                    </div>
                   </div>
 
                   <span class="user-count-ul hidden">{{ $plan->plans_license }}</span>
@@ -520,6 +543,7 @@
                     data-yearly="{{ $plan->is_team_discount_apply == 1 ? ($plan->yearly_discount ?? 0) : 0 }}">
                   </span>
                   <span class="price-amount hidden"
+                    data-base-amount="{{ $plan->plans_amount }}"
                     data-monthly="{{ $plan->plans_amount }}"
                     data-yearly="{{ $plan->plans_amount }}"></span>
                   <span class="extra-discount-ul hidden"
@@ -537,123 +561,89 @@
                   <span class="incr-poolstorage-count-data hidden">{{ $plan->plans_users }}</span>
 
                  
-                 <h6 class="display-4 fw-bold mb-2 price">
-                    <div class="price-wrapper">
+                 <div class="po-price-block">
+                    <div class="po-price-line">
                       <span class="personal-card-symbol-ul"></span><span class="total-price-ul"
                         data-original-price="{{ $plan->plans_amount }}"
                         data-monthly="{{ $plan->plans_amount }}"
                         data-yearly="{{ $plan->plans_amount }}"></span>
+                      <span class="po-price-unit">/ user / <span class="user-text">month</span></span>
                     </div>
-                    <span class="user-text">{{ $plan->plans_subscription_type }}</span>
-                  </h6>
-                  <ul class="list-unstyled mb-4 flex-grow-1 feature-list">
-                    <li class="mb-3 d-flex align-items-start">
-                      <span style="font-weight: 600;">Licence Count :&nbsp;</span>
-                      <!-- <span class="base-licence-count">
-                        {{ $plan->plans_license }}
-                      </span> -->
-                    </li>
-                    <li class="mb-3 d-flex align-items-start">
-                      <div class="quantity-box ul-quantity-container">
-                        <button class="qty-btn  ul-decrement">−</button>
+                  </div>
+
+                  <div class="po-license-block">
+                    <div class="po-license-label">License Count</div>
+                    <div class="quantity-box ul-quantity-container">
+                        <button class="qty-btn ul-decrement" type="button">−</button>
                         <input type="text" class="qty-input ul-quantity-input"
-                          value="{{ $plan->default_qty }}"
-                          data-default-qty="{{ $plan->default_qty }}"
+                          value="{{ $defaultLicenses }}"
+                          data-default-qty="{{ $minimumLicenses }}"
                           readonly />
-                        <button class="qty-btn  ul-increment">+</button>
-                      </div>
-                    </li>
-                    @if($plan->plans_name == "Basic")
-                      <li>Note:Minimum of 2 licenses must be selected</li>
-                    @endif
-                     <li class="mb-3 d-flex align-items-start">
-                      <span class="fw-semibold feature-list-subheading">
-                        Price Summary
-                      </span>
-                    </li>
-                    <!-- <li class="mb-3 d-flex align-items-start">
-                      <span class="fw-semibold feature-list-subheading">
-                        {{ $plan->plans_headings }}
-                      </span>
-                    </li> -->
-                    <li class="mb-3 d-flex align-items-start justify-content-between">
-                      <span>Base User/ Month :&nbsp;</span>
+                        <button class="qty-btn ul-increment" type="button">+</button>
+                    </div>
+                    <p class="po-minimum-note">Minimum of {{ $minimumLicenses }} licenses must be selected.</p>
+                  </div>
+
+                  <div class="po-summary feature-list">
+                    <h3 class="feature-list-subheading po-summary-title">Price Summary</h3>
+                    <div class="po-summary-row">
+                      <span class="base-user-label">Base User / Month</span>
                       <div>
                         <span class="view-currency" style="gap:3px"></span>
                         <span class="base-price">{{ $plan->plans_amount }}</span>
                       </div>
-                    </li>
-                    <li class="mb-3 d-flex align-items-start justify-content-between">
-                      <span>Users :&nbsp;</span>
+                    </div>
+                    <div class="po-summary-row">
+                      <span>Users</span>
                       <span class="total-licence-count view-total-license-count"></span>
-                    </li>
-                    <hr style="width: 100%;  border: 1px dashed #ccc; margin: 10px 0;">
-                    <li class="mb-3 d-flex align-items-start justify-content-between">
-                      <span>Base Total &nbsp;</span>
+                    </div>
+                    <hr>
+                    <div class="po-summary-row">
+                      <span>Base Total</span>
                       <div>
                          <span class="view-currency" style="gap:3px"></span>
                       <span class="total-amount view-total-amount-count"></span>
                       </div>
-                    </li>
-                    <!-- <li class="mb-3 d-flex align-items-start">
-                      <span>Per User Storage :&nbsp;</span>
-                      <span class="base-storage">{{ $plan->plans_users }}</span>&nbsp;{{ $plan->storage_unit }}
-                    </li> -->
-                    
-                    
-                    <!-- <li class="mb-3 d-flex align-items-start">
-                      <span>Total Pool Storage :&nbsp;</span>
-                      <span class="total-pool-storage view-total-poolstorage-count"></span> &nbsp;
-                      <span class="view-storage-unit">{{ $plan->storage_unit }}</span>
-                    </li> -->
-<li discount-apply="{{ $plan->is_team_discount_apply }}" class="mb-3 d-flex align-items-start justify-content-between" style="color: #065f46; font-weight: 600; display: none;">
-                      <span>Discount :&nbsp;</span>
+                    </div>
+                    <div discount-apply="{{ $plan->is_team_discount_apply }}" class="po-summary-row po-summary-row--discount monthly-discount-row">
+                      <span>Discount %</span>
                       <div>
                         <span class="discount-percent-badge"></span>
                         <span class="view-currency" style="gap:3px"></span>
                         <span class="total-discount view-total-discount-count"></span>
                       </div>
-                    </li>
-
-<li class="mb-3 total-amt-sty">
-                      <p class="total-period-label">Total (Per Month)</p>
-                      <div style="font-weight: 600; font-size: 1.4rem;">
-                         <span class="view-currency" style="gap:3px"></span>
-                         <span class="total-amount view-total-amount-count" >999</span>
+                    </div>
+                    <div class="po-summary-row po-summary-row--discount annual-plan-discount-row">
+                      <span>Plan Discount</span>
+                      <strong><span class="plan-discount-percent"></span></strong>
+                    </div>
+                    <div class="po-summary-row po-summary-row--discount annual-billing-discount-row">
+                      <span>Annual Billing Discount</span>
+                      <strong><span class="annual-discount-percent"></span></strong>
+                    </div>
+                    <div class="po-summary-row po-summary-row--discount annual-total-discount-row">
+                      <span>Total Discount</span>
+                      <div>
+                        <span class="discount-percent-badge"></span>
+                        <span class="view-currency" style="gap:3px"></span>
+                        <span class="total-discount view-total-discount-count"></span>
                       </div>
-                      <hr style="width: 100%;  border: 1px dashed #ccc; margin: 10px 0;">
-                      <p><i class="fa-solid fa-ticket"></i> You save <span class="total-savings view-total-savings-count">$</span></p>
-                    </li>
-@php
-                    $planFeatures = [
-                    'Basic' => [
-                    'Cloud Desktop Workspace',
-                    'Secure File Storage',
-                    'Productivity Essentials',
-                    'Email Support'
-                    ],
-                    'Standard' => [
-                    'Everything in Basic',
-                    'Advanced Collaboration Tools',
-                    'Team Workspace Management',
-                    'Priority Email Support'
-                    ],
-                    'Advanced' => [
-                    'Everything in Standard',
-                    'Advanced Administration Controls',
-                    'Enhanced Security & Compliance',
-                    'Priority Technical Support'
-                    ],
-                    'Premium' => [
-                    'Everything in Advanced',
-                    'Enterprise Security & Governance',
-                    'Dedicated Account Management',
-                    'Premium 24x7 Enterprise Support'
-                    ],
-                    ];
-                    $currentFeatures = $planFeatures[$plan->plans_name] ?? $planFeatures['Basic'];
-                    @endphp
-                    @foreach($currentFeatures as $feature)
+                    </div>
+                    <div class="total-amt-sty">
+                      <div>
+                        <p class="total-period-label">Total Per Month</p>
+                        <div class="po-total-amount">
+                           <span class="view-currency" style="gap:3px"></span>
+                           <span class="total-amount view-total-amount-count">999</span>
+                        </div>
+                      </div>
+                      <hr>
+                      <p class="po-save-line">You Save <span class="view-currency"></span><span class="total-savings view-total-savings-count">0</span></p>
+                    </div>
+                  </div>
+
+                  <ul class="list-unstyled po-feature-list flex-grow-1">
+                    @foreach($features as $feature)
                     <li><i class="fa-solid fa-check fa-check-green"></i>{{ $feature }}</li>
                     @endforeach
                   </ul>
@@ -666,7 +656,9 @@
                     data-monthly-discount="{{ $plan->monthly_discount ?? 0 }}"
                     data-yearly-discount="{{ $plan->yearly_discount ?? 0 }}"
                     data-monthly-extra="{{ $plan->monthly_extra_disc ?? 0 }}"
-                    data-yearly-extra="{{ $plan->yearly_extra_disc ?? 0 }}">
+                    data-yearly-extra="{{ $plan->yearly_extra_disc ?? 0 }}"
+                    data-monthly-text="{{ $promotionText['monthly'] ?? '' }}"
+                    data-yearly-text="{{ $promotionText['yearly'] ?? '' }}">
                   </div>
 
                   
