@@ -16,7 +16,7 @@
                 <div class="col-md-3 text-md-end">
                     <div class="nav-right">
                         <a href="{{ route('marketplace.pricing') }}" class="order-now-btn btn-radius btn-green s-animate-3"><i class="fa-solid fa-cart-shopping"></i> Order now</a>
-                        <a href="hhttps://customerlogin.pocket-office.ai/" target="_blank" rel="noopener noreferrer"
+                        <a href="https://customerlogin.pocket-office.ai/" target="_blank" rel="noopener noreferrer"
                             class="order-now-btn btn-radius btn-green s-animate-3">Customer Login</a>
                             {{-- <a href="https://pocketoffice.sizaf.com/login" target="_blank" rel="noopener noreferrer"
                             class="order-now-btn btn-radius btn-green s-animate-3">Customer Login</a> --}}
