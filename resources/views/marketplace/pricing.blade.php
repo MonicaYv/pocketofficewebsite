@@ -583,7 +583,7 @@
                                                   <div class="po-summary-row">
                                                       <span class="base-user-label">Base User / Month</span>
                                                       <div>
-                                                          <span class="view-currency" style="gap:3px"></span>
+                                                          <span class="view-currency" style="gap:3px">-</span>
                                                           <span class="base-price">{{ $plan->plans_amount }}</span>
                                                       </div>
                                                   </div>
@@ -622,7 +622,7 @@
                                                       <span>Total Discount</span>
                                                       <div>
                                                           <span class="discount-percent-badge"></span>
-                                                          <span class="view-currency" style="gap:3px"></span>
+                                                          <span class="view-currency" style="gap:3px">-</span>
                                                           <span class="total-discount view-total-discount-count"></span>
                                                       </div>
                                                   </div>
@@ -630,7 +630,7 @@
                                                       <div>
                                                           <p class="total-period-label">Total Per Month</p>
                                                           <div class="po-total-amount">
-                                                              <span class="view-currency" style="gap:3px"></span>
+                                                              <span class="view-currency" style="gap:3px">-</span>
                                                               <span class="total-amount view-total-amount-count">999</span>
                                                           </div>
                                                       </div>
@@ -638,7 +638,7 @@
                                                       <div
                                                           class="po-save-line d-flex align-items-center justify-content-between">
                                                           <div><i class="fa-solid fa-tag"></i> You Save</div>
-                                                          <div><span class="view-currency"></span><span
+                                                          <div><span class="view-currency">-</span><span
                                                                   class="total-savings view-total-savings-count">0</span>
                                                           </div>
                                                       </div>

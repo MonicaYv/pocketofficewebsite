@@ -264,10 +264,10 @@ const originalPriceRow = planBox.querySelector(".original-price-team");
                     : discountBadge.dataset.monthlyText || "";
 
             if (message) {
-                discountBadge.style.display = "";
+                discountBadge.style.visibility = "";
                 discountBadge.innerHTML = message;
             } else {
-                discountBadge.style.display = "none";
+                discountBadge.style.visibility = "hidden";
             }
         }
 
