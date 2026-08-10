@@ -662,8 +662,10 @@
                                                               class="fa-solid fa-check fa-check-green"></i>{{ $feature }}
                                                       </li>
                                                   @endforeach
+                                                  @if($planName === 'Basic')
                                                   <p class="po-minimum-note">Minimum of {{ $minimumLicenses }} licenses
                                                       must be selected.</p>
+                                                      @endif
                                               </ul>
 
 
