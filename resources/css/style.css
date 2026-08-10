@@ -11925,7 +11925,9 @@ input:checked+.toggle-slider:before {
   background: #ffffff !important;
   box-shadow: 0 14px 34px rgba(15, 23, 42, 0.08);
 }
-
+.pricing-cards .monthly-plans:nth-of-type(1) .total-amt-sty {
+    margin-top: 37px;
+}
 .po-pricing-card--popular {
   border-color: #0694B7 !important;
   box-shadow: 0 18px 42px rgba(6, 148, 183, 0.16);
@@ -11957,19 +11959,19 @@ input:checked+.toggle-slider:before {
 }
 
 .po-pricing-card__header {
-  min-height: 158px;
+  gap: 0.9rem;
 }
 
 .po-plan-icon {
-  width: 44px;
-  height: 44px;
+  width: 48px;
+  height: 48px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 8px;
+  border-radius: 28px;
   background: rgba(6, 148, 183, 0.1);
   color: #0694B7;
-  margin-bottom: 18px;
+  padding: 10px;
 }
 
 .po-plan-icon svg {
