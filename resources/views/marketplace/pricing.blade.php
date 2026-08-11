@@ -798,7 +798,7 @@
                                   @foreach ($userLicenseData['getPlanList']['planListsSingle'] as $singlePlan)
                                       <th data-plan-col="personal" class="ul-pricing-tbl-single"
                                           style="min-width:130px;">
-                                          Personal ({{ $singlePlan->plans_name }})<br>
+                                          (Personal)<br>{{ $singlePlan->plans_name }}<br>
                                           <span class="table-plan-price">
                                               <span class="table-plan-symbol">{{ $currencySymbol }}</span>
 
@@ -821,7 +821,7 @@
                                       <th class="ul-pricing-tbl-team"
                                           data-team-discount="{{ $plan->is_team_discount_apply }}"
                                           style="min-width:130px;">
-                                          {{ $plan->plans_name }}<br>
+                                          (Team)<br>{{ $plan->plans_name }}<br>
                                           <span class="table-plan-price">
                                               <span class="table-plan-symbol">{{ $currencySymbol }}</span>
                                               <span class="table-plan-amount"
