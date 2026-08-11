@@ -12,6 +12,23 @@ function getCurrencyAdjustedPlanAmount(planBox, convertedAmount) {
     return Math.round(convertedAmount);
 }
 
+function alignPricingHeaders() {
+    if (window.innerWidth > 640) {
+        let descriptions = document.querySelectorAll(".po-plan-description");
+        descriptions.forEach(el => el.style.minHeight = "auto");
+        let maxHeight = 0;
+        descriptions.forEach(el => {
+            let h = el.offsetHeight;
+            if (h > maxHeight) {
+                maxHeight = h;
+            }
+        });
+        descriptions.forEach(el => el.style.minHeight = maxHeight + "px");
+    } else {
+        document.querySelectorAll(".po-plan-description").forEach(el => el.style.minHeight = "auto");
+    }
+}
+
 // =========================
 // Calculate Team Plan Total
 // =========================
@@ -170,9 +187,9 @@ const originalPriceRow = planBox.querySelector(".original-price-team");
         let discountRow = planBox.querySelector("[discount-apply]");
         if (discountRow) {
             if (totalDiscount > 0) {
-                discountRow.style.display = "flex";
+                discountRow.style.visibility = "visible";
             } else {
-                discountRow.style.display = "none";
+                discountRow.style.visibility = "hidden";
             }
         }
 
@@ -264,9 +281,11 @@ const originalPriceRow = planBox.querySelector(".original-price-team");
                     : discountBadge.dataset.monthlyText || "";
 
             if (message) {
-                discountBadge.style.visibility = "";
+                discountBadge.style.display = "flex";
+                discountBadge.style.visibility = "visible";
                 discountBadge.innerHTML = message;
             } else {
+                discountBadge.style.display = "flex";
                 discountBadge.style.visibility = "hidden";
             }
         }
@@ -302,6 +321,8 @@ const originalPriceRow = planBox.querySelector(".original-price-team");
             annualDiscountPercent.textContent = `${annualDiscount}%`;
         }
     });
+
+    alignPricingHeaders();
 }
 
 // =========================
@@ -564,7 +585,9 @@ window.onload = function () {
         let symbol = selectedCurrency.data("symbol");
 
         updateCurrency(amount, symbol);
-    }, 10);
+
+        alignPricingHeaders();
+    }, 100);
 };
 
 // =========================
@@ -584,6 +607,9 @@ $(document).ready(function () {
         selectedCurrency.data("amount"),
         selectedCurrency.data("symbol"),
     );
+
+    alignPricingHeaders();
+    $(window).on("resize", alignPricingHeaders);
 
     // =========================
     // Team Toggle
@@ -791,9 +817,9 @@ $(document).ready(function () {
 
         // Discount Display
         if (totalDiscountPct > 0) {
-            planBox.find("[discount-apply]").css("display", "flex");
+            planBox.find("[discount-apply]").css("visibility", "visible");
         } else {
-            planBox.find("[discount-apply]").css("display", "none");
+            planBox.find("[discount-apply]").css("visibility", "hidden");
         }
         planBox
             .find(".view-total-discount-count")
@@ -828,6 +854,8 @@ $(document).ready(function () {
         );
         planBox.find(".plan-discount-percent").text(`${planDiscount}%`);
         planBox.find(".annual-discount-percent").text(`${annualDiscount}%`);
+
+        alignPricingHeaders();
     }
 
     // =========================

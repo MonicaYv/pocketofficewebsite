@@ -12,6 +12,12 @@
           width: 100%;
           box-sizing: border-box;
           border-radius: 6px;
+          min-height: 42px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-bottom: 18px;
+          border: 1px solid #a7f3d0;
       }
 
       .currency-select {
@@ -27,16 +33,48 @@
 
   <style>
       /* Responsive Currency Dropdown overrides */
-      .pricing-header .currency-dropdown-wrapper {
+      /* Responsive Currency Dropdown overrides */
+      .currency-header-container {
+          position: relative !important;
+          z-index: 4 !important;
+      }
+
+      .pricing-title-row .currency-dropdown-wrapper {
           position: relative !important;
           display: inline-block !important;
           left: auto !important;
           right: auto !important;
           top: auto !important;
-          margin-top: 12px;
+          margin-top: 12px !important;
           max-width: 100% !important;
           width: auto !important;
           vertical-align: middle;
+      }
+
+      @media (min-width: 992px) {
+          .currency-header-container {
+              display: flex !important;
+              align-items: center;
+              justify-content: center;
+          }
+
+          .pricing-header {
+              margin-bottom: 0 !important;
+              flex-grow: 1;
+              text-align: center;
+          }
+
+          .pricing-title-row {
+              position: absolute !important;
+              right: 15px !important;
+              top: 50% !important;
+              transform: translateY(-50%) !important;
+              margin-top: 0 !important;
+          }
+
+          .pricing-title-row .currency-dropdown-wrapper {
+              margin-top: 0 !important;
+          }
       }
 
       .currency-btn {
@@ -66,6 +104,8 @@
           font-weight: 400;
           font-size: 14px;
           color: #5b6880;
+          flex: 1;
+          min-width: 0;
       }
 
       .currency-menu {
@@ -75,6 +115,7 @@
           right: auto;
           transform: translateX(-50%);
           width: 280px;
+          max-width: calc(100vw - 32px);
           background: #fff;
           border: 1px solid #ddd;
           border-radius: 10px;
@@ -154,8 +195,8 @@
           <div class="content-wrapper">
 
               <!-- currency  -->
-              <div class="row justify-content-center">
-                  <div class="col-xl-6 d-flex">
+              <div class="row justify-content-center text-center">
+                  <div class="col-xl-12 currency-header-container">
                       <div class="section-title text-center pricing-header">
                           <p>
                               Choose the plan that fits how your team works today — and tomorrow.
@@ -246,7 +287,12 @@
                                       <div class="card-body personal-card__body">
                                           <div class="personal-card__left">
                                               <div class="personal-card__title-row">
-                                                  <i class="fa fa-user-circle personal-card__icon" aria-hidden="true"></i>
+                                                  <div class="po-plan-icon" aria-hidden="true">
+                                                        <svg viewBox="0 0 24 24" fill="none">
+                                                              <path d="M20 21a8 8 0 0 0-16 0" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>
+                                                              <path d="M12 13a5 5 0 1 0 0-10 5 5 0 0 0 0 10Z" stroke="currentColor" stroke-width="1.8"></path>
+                                                          </svg>
+                                                    </div>
                                                   <span class="personal-card__name">Personal</span>
                                                   ({{ $plan->plans_name }})
                                                   <span class="personal-card__subtitle">Best for individual users</span>
@@ -575,7 +621,13 @@
                                                           data-default-qty="{{ $minimumLicenses }}" readonly />
                                                       <button class="qty-btn ul-increment" type="button">+</button>
                                                   </div>
-
+                                                   @if($planName === 'Basic')
+                                                   <p class="po-minimum-note">Note: Minimum of {{ $minimumLicenses }} licenses
+                                                       must be selected.</p>
+                                                   @else
+                                                   <p class="po-minimum-note" style="visibility: hidden; pointer-events: none; user-select: none;">Note: Minimum of 2 licenses
+                                                       must be selected.</p>
+                                                   @endif
                                               </div>
 
                                               <div class="po-summary feature-list">
@@ -662,10 +714,6 @@
                                                               class="fa-solid fa-check fa-check-green"></i>{{ $feature }}
                                                       </li>
                                                   @endforeach
-                                                  @if($planName === 'Basic')
-                                                  <p class="po-minimum-note">Minimum of {{ $minimumLicenses }} licenses
-                                                      must be selected.</p>
-                                                      @endif
                                               </ul>
 
 
@@ -793,7 +841,7 @@
                           </thead>
                           <tbody>
                               <tr>
-                                  <td>Members</td>
+                                  <td class="table-td">Members</td>
                                   @foreach ($userLicenseData['getPlanList']['planListsSingle'] as $singlePlan)
                                       <td class="ul-pricing-tbl-single" data-plan-col="personal">
                                           {{ $singlePlan->plans_license }} </td>
@@ -805,7 +853,7 @@
                               </tr>
 
                               <tr>
-                                  <td>Per User Storage</td>
+                                  <td class="table-td">Per User Storage</td>
                                   @foreach ($userLicenseData['getPlanList']['planListsSingle'] as $singlePlan)
                                       <td class="ul-pricing-tbl-single" data-plan-col="personal">
                                           {{ $singlePlan->plans_users }} {{ $singlePlan->storage_unit }}</td>
@@ -817,7 +865,7 @@
                               </tr>
 
                               <tr>
-                                  <td>Total Pool Storage</td>
+                                  <td class="table-td">Total Pool Storage</td>
                                   @foreach ($userLicenseData['getPlanList']['planListsSingle'] as $singlePlan)
                                       <td class="ul-pricing-tbl-single" data-plan-col="personal">
                                           {{ $singlePlan->pool_storage }} </td>
@@ -829,7 +877,7 @@
                               </tr>
 
                               <tr>
-                                  <td>Teams</td>
+                                  <td class="table-td">Teams</td>
                                   <td class="ul-pricing-tbl-single" data-plan-col="personal">1 Workspace</td>
                                   <td>1 Workspace</td>
                                   <td>Multi-Workspace</td>
@@ -838,7 +886,7 @@
                               </tr>
 
                               <tr>
-                                  <td>Data Security</td>
+                                  <td class="table-td">Data Security</td>
                                   <td class="ul-pricing-tbl-single" data-plan-col="personal"><i
                                           class="bi bi-check-circle-fill check"></i></td>
                                   <td><i class="bi bi-check-circle-fill check"></i></td>
@@ -848,7 +896,7 @@
                               </tr>
                               <!-- Core Features Title Row (Fixed - No colspan) -->
                               <tr>
-                                  <td>Managed IT</td>
+                                  <td class="table-td">Managed IT</td>
                                   <td class="ul-pricing-tbl-single" data-plan-col="personal"><i
                                           class="bi bi-check-circle-fill check"></i></td>
                                   <td><i class="bi bi-check-circle-fill check"></i></td>
@@ -858,7 +906,7 @@
                               </tr>
 
                               <tr>
-                                  <td>Apps & Software</td>
+                                  <td class="table-td">Apps & Software</td>
                                   <td class="ul-pricing-tbl-single" data-plan-col="personal"><i
                                           class="bi bi-check-circle-fill check"></i></td>
                                   <td><i class="bi bi-check-circle-fill check"></i></td>
@@ -868,7 +916,7 @@
                               </tr>
 
                               <tr>
-                                  <td>Device Access Control</td>
+                                  <td class="table-td">Device Access Control</td>
                                   <td class="ul-pricing-tbl-single" data-plan-col="personal"><i
                                           class="bi bi-x-circle-fill cross"></i></td>
                                   <td><i class="bi bi-x-circle-fill check"></i></td>
@@ -877,7 +925,7 @@
                                   <td>Enterprise</td>
                               </tr>
                               <tr>
-                                  <td>Automatic Backup</td>
+                                  <td class="table-td">Automatic Backup</td>
                                   <td class="ul-pricing-tbl-single" data-plan-col="personal"><i
                                           class="bi bi-check-circle-fill check"></i></td>
                                   <td><i class="bi bi-check-circle-fill check"></i></td>
@@ -887,7 +935,7 @@
                               </tr>
 
                               <tr>
-                                  <td>Extra Storage</td>
+                                  <td class="table-td">Extra Storage</td>
                                   <td class="ul-pricing-tbl-single" data-plan-col="personal"><i
                                           class="bi bi-check-circle-fill check"></i></td>
                                   <td><i class="bi bi-check-circle-fill check"></i></td>
@@ -897,7 +945,7 @@
                               </tr>
 
                               <tr>
-                                  <td>Extra Features</td>
+                                  <td class="table-td">Extra Features</td>
                                   <td class="ul-pricing-tbl-single" data-plan-col="personal"><i
                                           class="bi bi-check-circle-fill check"></i></td>
                                   <td><i class="bi bi-check-circle-fill check"></i></td>
@@ -910,7 +958,7 @@
                               <tr>
                                   <td></td>
                                   @foreach ($userLicenseData['getPlanList']['planListsSingle'] as $singlePlan)
-                                      <td class="ul-pricing-tbl-single" data-plan-col="personal">
+                                      <td class="ul-pricing-tbl-single text-center" data-plan-col="personal">
                                           <button class="btn btn-outline-secondary js-select-plan-compare"
                                               data-plan-type="single" data-name="{{ $singlePlan->plans_name }}"
                                               data-license="{{ $singlePlan->plans_license }}"
@@ -919,21 +967,21 @@
                                               data-plan-discount="{{ $singlePlan->monthly_discount }}"
                                               data-default-qty="{{ $singlePlan->default_qty }}"
                                               data-storage-unit="{{ $singlePlan->storage_unit }}"
-                                              style="padding: 0 32px;!important; height: 36px;!important;">
+                                              style="padding: 0 32px !important; height: 36px !important; display: inline-flex; align-items: center; justify-content: center; margin: 0 auto;">
                                               Get Started
                                           </button>
                                       </td>
                                   @endforeach
 
                                   @foreach ($userLicenseData['getPlanList']['planLists'] as $plan)
-                                      <td>
+                                      <td class="text-center">
                                           <button class="btn btn-outline-secondary team-js-select-plan-compare"
                                               data-plan-type="team" data-plan-id="{{ $plan->id }}"
                                               data-name="{{ $plan->plans_name }}"
                                               data-license="{{ $plan->plans_license }}"
                                               data-storage="{{ $plan->plans_users }}"
                                               data-default-qty="{{ $plan->default_qty }}"
-                                              style="padding: 0 32px;!important; height: 36px;!important;">
+                                              style="padding: 0 32px !important; height: 36px !important; display: inline-flex; align-items: center; justify-content: center; margin: 0 auto;">
                                               Get Started
                                           </button>
                                       </td>
