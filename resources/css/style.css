@@ -11699,8 +11699,8 @@ margin-top: 10px;
 }
 
 .fa-check-green {
-  color: #065f46;
-    background: #d1fae5;
+  color: white;
+    background: #0694b7;
     font-size: 12px;
     padding: 4px 4px;
     margin-right: 5px;
@@ -11949,7 +11949,7 @@ input:checked+.toggle-slider:before {
     background: #0694B7;
     color: #fff;
     font-size: 10px;
-    font-weight: 800;
+    font-weight: 500;
     letter-spacing: 1px;
     line-height: 1;
     text-align: center;
@@ -12137,13 +12137,13 @@ input:checked+.toggle-slider:before {
 }
 
 .po-summary-row--discount {
-  color: #065f46;
+  color: #1ea939;
 }
 
 .po-summary-row--discount > span:first-child,
 .po-summary-row--discount div,
 .po-summary-row--discount strong {
-  color: #065f46;
+  color: #1ea939;
 }
 
 .po-summary hr,
@@ -12173,21 +12173,21 @@ input:checked+.toggle-slider:before {
 .total-amt-sty {
   display: block;
   margin-top: 14px;
-  border: 1px solid #a7f3d0;
-  background: #d1fae5;
+  border: 1px solid #0694b71a;
+  background: #0694b71a;
   padding: 14px 16px;
   border-radius: 8px;
 }
 
 .total-amt-sty .total-period-label {
-  color: #065f46;
+  color: #0694b7;
   font-size: 13px;
   font-weight: 800;
 }
 
 .po-total-amount {
   margin-top: 4px;
-  color: #064e3b;
+  color: #0694b7;
   font-size: 20px;
   font-weight: 900;
   line-height: 1.1;
@@ -12200,9 +12200,13 @@ input:checked+.toggle-slider:before {
 }
 
 .po-save-line {
-  color: #065f46;
+  color: #0694b7;
   font-size: 13px;
   font-weight: 800;
+}
+
+.po-save-line .view-status {
+  color: #1ea939 !important;
 }
 
 .po-feature-list {
@@ -12225,20 +12229,31 @@ input:checked+.toggle-slider:before {
   margin: 0;
 }
 
-.po-pricing-card .ul-discount {
+.po-pricing-card .discount-cards {
   min-height: 42px;
   display: flex;
-  align-items: center;
+  align-items: start;
   justify-content: center;
   margin: 0 0 18px;
-  border: 1px solid #a7f3d0;
+  border: 1px solid #DDEEDF;
   border-radius: 8px;
-  background: #d1fae5;
-  color: #065f46;
+  background: #F0F9F0;
+  color: #1ea939;
   font-size: 12px;
-  font-weight: 800;
+  font-weight: 600;
   line-height: 1.35;
   padding: 8px 10px;
+  gap: 7px;
+}
+
+.discount-cards img {
+  width: 24px;
+  height: 24px;
+}
+
+.personal-annual-strip .party-popover {
+  width: 20px;
+  height: 20px;
 }
 
 .po-pricing-card .pricing-buttons {
@@ -12531,13 +12546,16 @@ input:checked+.toggle-slider:before {
 
 /* ── Annual savings strip (inside personal card, below columns) ── */
 .personal-annual-strip {
-  background: #d1fae5;
-  color: #065f46;
+  background: #f0f9f0;
+  color: #1ea939;
   font-size: 12px;
   font-weight: 600;
-  text-align: center;
+  display: flex;
+  align-items: start;
+  justify-content: center;
+  gap: 7px;
   padding: 6px 24px;
-  border-top: 1px solid #a7f3d0;
+  border-top: 1px solid #DDEEDF;
 }
 
 /* ══════════════════════════════════════════════════════════════

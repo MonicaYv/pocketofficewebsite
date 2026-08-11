@@ -1,25 +1,6 @@
   @extends('layouts.backendsettings')
   @section('title', 'Affordable Cloud Desktop Plans for Teams & Businesses | Pocket Office')
   <style>
-      .ul-discount {
-          background: #d1fae5;
-          color: #065f46;
-          font-size: 12px;
-          font-weight: 600;
-          padding: 6px 12px;
-          margin-top: 10px;
-          text-align: center;
-          width: 100%;
-          box-sizing: border-box;
-          border-radius: 6px;
-          min-height: 42px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          margin-bottom: 18px;
-          border: 1px solid #a7f3d0;
-      }
-
       .currency-select {
           padding: 10px 14px;
           border: 1px solid #ddd;
@@ -429,7 +410,7 @@
 
                                       @if (count($parts))
                                           <div class="personal-annual-strip show-strip-month">
-                                              🎉 {{ implode(' + ', $parts) }} — You save total {{ $totalDiscount }}% on
+                                              <img class="party-popover" src="/assets/img/party-popover.png" alt="popover"> {{ implode(' + ', $parts) }} — You save total {{ $totalDiscount }}% on
                                               monthly payment
                                           </div>
                                       @endif
@@ -446,7 +427,7 @@
                                       @if ($main > 0 || $extra > 0)
                                           <div class="personal-annual-strip show-strip"
                                               style="display: block; display: none;">
-                                              🎉
+                                              <img class="party-popover" src="/assets/img/party-popover.png" alt="popover">
 
                                               @if ($main > 0)
                                                   {{ $main }}% off Individual user discount
@@ -524,7 +505,7 @@
                                       <div
                                           class="card h-100 ul-cards po-pricing-card {{ $isPopular ? 'po-pricing-card--popular' : '' }}">
                                           @if ($isPopular)
-                                              <div class="po-popular-ribbon">MOST POPULAR</div>
+                                              <div class="po-popular-ribbon"><i class="fa-solid fa-star"></i> MOST POPULAR</div>
                                           @endif
                                           <div class="card-body d-flex flex-column po-pricing-card__body">
                                               <div class="po-pricing-card__header d-flex">
@@ -690,13 +671,15 @@
                                                       <div
                                                           class="po-save-line d-flex align-items-center justify-content-between">
                                                           <div><i class="fa-solid fa-tag"></i> You Save</div>
-                                                          <div><span class="view-currency">-</span><span
+                                                          <div class="view-status"><span class="view-currency">-</span><span
                                                                   class="total-savings view-total-savings-count">0</span>
                                                           </div>
                                                       </div>
                                                   </div>
                                               </div>
                                               <!-- discount  -->
+                                             <div class="discount-cards">  
+                                                <img src="assets/img/party-popover.png" alt="popover">
                                               <div class="ul-discount ul-save-badge"
                                                   data-discount-apply="{{ $plan->is_team_discount_apply }}"
                                                   data-extra-monthly-apply="{{ $plan->is_team_extraM_discount_apply }}"
@@ -707,6 +690,7 @@
                                                   data-yearly-extra="{{ $plan->yearly_extra_disc ?? 0 }}"
                                                   data-monthly-text="{{ $promotionText['monthly'] ?? '' }}"
                                                   data-yearly-text="{{ $promotionText['yearly'] ?? '' }}">
+                                              </div>
                                               </div>
                                               <ul class="list-unstyled po-feature-list flex-grow-1">
                                                   @foreach ($features as $feature)
