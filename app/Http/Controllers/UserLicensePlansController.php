@@ -24,6 +24,7 @@ use Illuminate\Support\Str;
 use Stevebauman\Location\Facades\Location;
 use Illuminate\Support\Facades\Cache;
 use App\Helpers\CardEncryption;
+use App\Models\PlanFeature;
 
 class UserLicensePlansController extends Controller
 {
@@ -108,6 +109,10 @@ class UserLicensePlansController extends Controller
             ->where('is_single_user', 1)
             ->where('pof_plan_status', 1)
             ->max('single_user_monthly_discount') ?? 0;
+        
+        $featuresplan = PlanFeature::where('status', 1)
+        ->orderBy('id', 'asc')
+        ->get();
 
         return view(
             'marketplace.pricing',
@@ -121,6 +126,7 @@ class UserLicensePlansController extends Controller
                 'additional_disc_month',
                 'additional_disc_year_single',
                 'additional_disc_month_single',
+                'featuresplan',
             )
         );
     }

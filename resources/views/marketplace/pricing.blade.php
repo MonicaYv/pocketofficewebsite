@@ -868,75 +868,21 @@
                                   <td>Unlimited</td>
                                   <td>Unlimited</td>
                               </tr>
-
+                              @foreach ($featuresplan as $featureitemplan)
                               <tr>
-                                  <td class="table-td">Data Security</td>
-                                  <td class="ul-pricing-tbl-single" data-plan-col="personal"><i
-                                          class="bi bi-check-circle-fill check"></i></td>
-                                  <td><i class="bi bi-check-circle-fill check"></i></td>
-                                  <td><i class="bi bi-check-circle-fill check"></i></td>
-                                  <td><i class="bi bi-check-circle-fill check"></i></td>
+                                  <td class="table-td">{{ $featureitemplan->title }}</td>
+                                  @foreach (['single_user', 'basic', 'standard', 'advance'] as $plan)
+                                        <td>
+                                            @if ($featureitemplan->{$plan})
+                                                <i class="bi bi-check-circle-fill check"></i>
+                                            @else
+                                                <i class="bi bi-x-circle-fill cross"></i>
+                                            @endif
+                                        </td>
+                                    @endforeach
                                   <td>Enterprise</td>
                               </tr>
-                              <!-- Core Features Title Row (Fixed - No colspan) -->
-                              <tr>
-                                  <td class="table-td">Managed IT</td>
-                                  <td class="ul-pricing-tbl-single" data-plan-col="personal"><i
-                                          class="bi bi-check-circle-fill check"></i></td>
-                                  <td><i class="bi bi-check-circle-fill check"></i></td>
-                                  <td><i class="bi bi-check-circle-fill check"></i></td>
-                                  <td><i class="bi bi-check-circle-fill check"></i></td>
-                                  <td>Enterprise</td>
-                              </tr>
-
-                              <tr>
-                                  <td class="table-td">Apps & Software</td>
-                                  <td class="ul-pricing-tbl-single" data-plan-col="personal"><i
-                                          class="bi bi-check-circle-fill check"></i></td>
-                                  <td><i class="bi bi-check-circle-fill check"></i></td>
-                                  <td><i class="bi bi-check-circle-fill check"></i></td>
-                                  <td><i class="bi bi-check-circle-fill check"></i></td>
-                                  <td>Enterprise</td>
-                              </tr>
-
-                              <tr>
-                                  <td class="table-td">Device Access Control</td>
-                                  <td class="ul-pricing-tbl-single" data-plan-col="personal"><i
-                                          class="bi bi-x-circle-fill cross"></i></td>
-                                  <td><i class="bi bi-x-circle-fill check"></i></td>
-                                  <td><i class="bi bi-check-circle-fill check"></i></td>
-                                  <td><i class="bi bi-check-circle-fill check"></i></td>
-                                  <td>Enterprise</td>
-                              </tr>
-                              <tr>
-                                  <td class="table-td">Automatic Backup</td>
-                                  <td class="ul-pricing-tbl-single" data-plan-col="personal"><i
-                                          class="bi bi-check-circle-fill check"></i></td>
-                                  <td><i class="bi bi-check-circle-fill check"></i></td>
-                                  <td><i class="bi bi-check-circle-fill check"></i></td>
-                                  <td><i class="bi bi-check-circle-fill check"></i></td>
-                                  <td>Enterprise</td>
-                              </tr>
-
-                              <tr>
-                                  <td class="table-td">Extra Storage</td>
-                                  <td class="ul-pricing-tbl-single" data-plan-col="personal"><i
-                                          class="bi bi-check-circle-fill check"></i></td>
-                                  <td><i class="bi bi-check-circle-fill check"></i></td>
-                                  <td><i class="bi bi-check-circle-fill check"></i></td>
-                                  <td><i class="bi bi-check-circle-fill check"></i></td>
-                                  <td>Enterprise</td>
-                              </tr>
-
-                              <tr>
-                                  <td class="table-td">Extra Features</td>
-                                  <td class="ul-pricing-tbl-single" data-plan-col="personal"><i
-                                          class="bi bi-check-circle-fill check"></i></td>
-                                  <td><i class="bi bi-check-circle-fill check"></i></td>
-                                  <td><i class="bi bi-check-circle-fill check"></i></td>
-                                  <td><i class="bi bi-check-circle-fill check"></i></td>
-                                  <td>Enterprise</td>
-                              </tr>
+                              @endforeach
 
                               <!-- Buttons Row -->
                               <tr>
@@ -951,7 +897,7 @@
                                               data-plan-discount="{{ $singlePlan->monthly_discount }}"
                                               data-default-qty="{{ $singlePlan->default_qty }}"
                                               data-storage-unit="{{ $singlePlan->storage_unit }}"
-                                              style="padding: 0 32px !important; height: 36px !important; display: inline-flex; align-items: center; justify-content: center; margin: 0 auto;">
+                                              style="width: 100% !important; max-width: 115px !important; height: 36px !important; display: inline-flex; align-items: center; justify-content: center; margin: 0 auto; padding: 0 !important;">
                                               Get Started
                                           </button>
                                       </td>
@@ -965,7 +911,7 @@
                                               data-license="{{ $plan->plans_license }}"
                                               data-storage="{{ $plan->plans_users }}"
                                               data-default-qty="{{ $plan->default_qty }}"
-                                              style="padding: 0 32px !important; height: 36px !important; display: inline-flex; align-items: center; justify-content: center; margin: 0 auto;">
+                                              style="width: 100% !important; max-width: 115px !important; height: 36px !important; display: inline-flex; align-items: center; justify-content: center; margin: 0 auto; padding: 0 !important;">
                                               Get Started
                                           </button>
                                       </td>
