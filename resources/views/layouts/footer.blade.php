@@ -94,7 +94,7 @@
      <!-- Bottom Section -->
      <div class="footer-bottom">
          <div class="social-icons">
-             <a href="https://x.com/pocketofficee" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-x-twitter"></i></a>
+             <a href="https://x.com/pocket__office" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-x-twitter"></i></a>
              <a href="https://www.youtube.com/@GetPocketOffice" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-youtube-square"></i></a>
              <a href="https://www.facebook.com/profile.php?id=61591500014745" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-facebook-square"></i></a>
              <a href="https://www.linkedin.com/company/pocket-officee" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-linkedin"></i></a>
