@@ -361,7 +361,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const discountedUnitPrice =
             originalUnitPrice > 0 && totalDiscountPercent > 0
                 ? originalUnitPrice -
-                  (originalUnitPrice * totalDiscountPercent) / 100
+                (originalUnitPrice * totalDiscountPercent) / 100
                 : basePrice;
         basePrice = Math.round(discountedUnitPrice);
 
@@ -461,8 +461,10 @@ document.addEventListener("DOMContentLoaded", function () {
             discountRow.classList.remove("hidden");
             discountRow.style.display = "flex";
 
-            discountRow.querySelector("span:first-child").innerText =
-                `${billingType === "yearly" ? "Yearly" : "Monthly"} Discount Applied (${activeDiscount}%)`;
+            // discountRow.querySelector("span:first-child").innerText =
+            //     `${billingType === "yearly" ? "Yearly" : "Monthly"} Discount Applied (${activeDiscount}%)`;
+            discountRow.querySelector("span:first-child").innerHTML =
+                `Discount Applied (<span style="color: red;">${activeDiscount}%</span>)`;
 
             discountAmt.innerText =
                 `-${formatCurrencyAmount(currentPlan.symbol, activeDiscountAmount)}`;
@@ -475,8 +477,8 @@ document.addEventListener("DOMContentLoaded", function () {
             extradiscountRow.classList.remove("hidden");
             extradiscountRow.style.display = "flex";
 
-            extradiscountRow.querySelector("span:first-child").innerText =
-                `${billingType === "yearly" ? "Yearly" : "Monthly"} Extra Discount Applied (${extraDiscount}%)`;
+            extradiscountRow.querySelector("span:first-child").innerHTML =
+                `${billingType === "yearly" ? "Yearly" : "Monthly"} Extra Discount Applied ( <span style="color: red;">${extraDiscount}%)`;
 
             extradiscountAmt.innerText =
                 `-${formatCurrencyAmount(currentPlan.symbol, extraDiscountAmount)}`;
@@ -575,13 +577,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const selectedFeatures = Array.isArray(currentPlan.features)
             ? currentPlan.features
-                  .map((feature) =>
-                      String(feature || "")
-                          .replace(/^[\s✓✔]+/u, "")
-                          .replace(/\s+/g, " ")
-                          .trim(),
-                  )
-                  .filter(Boolean)
+                .map((feature) =>
+                    String(feature || "")
+                        .replace(/^[\s✓✔]+/u, "")
+                        .replace(/\s+/g, " ")
+                        .trim(),
+                )
+                .filter(Boolean)
             : [];
 
         if (selectedFeatures.length > 0) {
@@ -931,14 +933,25 @@ document.addEventListener("DOMContentLoaded", function () {
             promoDiscountRow.classList.remove("hidden");
             promoDiscountRow.style.display = "flex";
 
-            // Show percent in brackets + amount, or amount only for flat
+            const promoLabel = promoDiscountRow.querySelector("span:first-child");
             if (appliedPromoType === "flat") {
+                promoLabel.innerText = "Promo Code";
+
                 promoDiscountAmt.innerText =
-                    "-" + formatCurrencyAmount(currentPlan.symbol, appliedDiscountAmount);
-            } else {
+                    "-" + formatCurrencyAmount(
+                        currentPlan.symbol,
+                        appliedDiscountAmount
+                    );
+            }
+            else {
+                promoLabel.innerHTML =
+                    `Promo Code (<span style="color: red;">${Math.round(appliedPromoValue)}%</span>)`;
+
                 promoDiscountAmt.innerText =
-                    `(${Math.round(appliedPromoValue)}%) -` +
-                    formatCurrencyAmount(currentPlan.symbol, appliedDiscountAmount);
+                    "-" + formatCurrencyAmount(
+                        currentPlan.symbol,
+                        appliedDiscountAmount
+                    );
             }
         } else {
             promoDiscountRow.classList.add("hidden");
@@ -949,7 +962,8 @@ document.addEventListener("DOMContentLoaded", function () {
         summaryTotal.innerText =
             formatCurrencyAmount(currentPlan.symbol, finalTotal);
 
-        modalTotal.innerText = formatCurrencyAmount(currentPlan.symbol, finalTotal);
+        modalTotal.innerText =
+            formatCurrencyAmount(currentPlan.symbol, finalTotal);
     }
 
     // APPLY PROMOCODE
@@ -1029,28 +1043,38 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // REMOVE PROMOCODE
-    $(document).on("click", "#removeCouponBtn", function () {
-        appliedPromocodeId = null;
+    $(document).on("click", "#removeCouponBtn", function (e) {
+    e.preventDefault();
 
-        appliedPromocodeCode = "";
+    // RESET PROMO DATA
+    appliedPromocodeId = null;
+    appliedPromocodeCode = "";
 
-        appliedDiscountAmount = 0;
-        appliedPromo = 0;
+    appliedDiscountAmount = 0;
+    appliedPromoValue = 0;
+    appliedPromoType = "";
 
-        // CLEAR INPUT
-        $("#couponInput").val("");
+    // CLEAR COUPON INPUT
+    $("#couponInput").val("");
 
-        // HIDE REMOVE BUTTON
-        $("#removeCouponBtn").hide();
+    // HIDE REMOVE BUTTON
+    $("#removeCouponBtn").hide();
 
-        // CLEAR MESSAGE
-        $("#couponMsg").html("");
+    // HIDE PROMO DISCOUNT ROW
+    $("#promoDiscountRow").addClass("hidden");
+    $("#promoDiscountRow").css("display", "none");
 
-        // RECALCULATE TOTAL
-        updateFinalAmounts();
+    // CLEAR MESSAGE
+    $("#couponMsg").html("");
 
-        $("#couponMsg").html("Promo code removed").css("color", "red");
-    });
+    // RECALCULATE TOTAL
+    updateFinalAmounts();
+
+    // SUCCESS MESSAGE
+    $("#couponMsg")
+        .html("Promo code removed")
+        .css("color", "red");
+});
 
     let paymentSubmissionInFlight = false;
 
