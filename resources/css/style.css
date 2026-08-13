@@ -11962,6 +11962,8 @@ input:checked+.toggle-slider:before {
 .po-pricing-card__body {
   padding: 26px 22px 22px !important;
   min-height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .po-pricing-card__header {
@@ -12146,6 +12148,32 @@ input:checked+.toggle-slider:before {
   color: #1ea939;
 }
 
+.billing-months-row {
+  display: none;
+}
+
+.billing-yearly-calculation {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  min-width: 0;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.billing-yearly-calculation span {
+  color: #5f6874;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.billing-yearly-calculation strong {
+  color: #111827;
+  font-size: 13px;
+  font-weight: 800;
+}
+
 .po-summary hr,
 .total-amt-sty hr {
   width: 100%;
@@ -12200,6 +12228,7 @@ input:checked+.toggle-slider:before {
 }
 
 .po-save-line {
+  min-height: 18px;
   color: #0694b7;
   font-size: 13px;
   font-weight: 800;
@@ -12210,7 +12239,9 @@ input:checked+.toggle-slider:before {
 }
 
 .po-feature-list {
-  margin: 0 0 20px;
+  flex: 0 0 auto !important;
+  margin: auto 0 20px;
+  min-height: 132px;
   color: #1f2937;
   font-size: 13px;
   font-weight: 600;
@@ -12246,6 +12277,10 @@ input:checked+.toggle-slider:before {
   gap: 7px;
 }
 
+.po-pricing-card .ul-discount {
+  display: block !important;
+}
+
 .discount-cards img {
   width: 24px;
   height: 24px;
@@ -12257,7 +12292,7 @@ input:checked+.toggle-slider:before {
 }
 
 .po-pricing-card .pricing-buttons {
-  margin-top: auto;
+  margin-top: 0;
 }
 
 .po-pricing-card .pricing-buttons .btn {
@@ -17915,8 +17950,9 @@ body {
 
 /* Savings notice */
 .os-savings-notice {
-    background: #eef7fa;
-    color: #057a96;
+    background: #F0F9F0;
+    color: #1ea939;
+    border: 1px solid #DDEEDF;
     border-radius: 8px;
     font-size: 12px;
     font-weight: 600;

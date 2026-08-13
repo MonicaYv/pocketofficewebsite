@@ -8,6 +8,24 @@ let CURRENT_TEAM_AMOUNT = 0;
 let SINGLE_USER_BILLING = "monthly";
 let TEAM_BILLING = "monthly";
 
+function formatIndianNumber(value) {
+    const number = Math.round(Number(value) || 0);
+    return number.toLocaleString("en-IN");
+}
+
+function formatOfferMessage(message, totalDiscount) {
+    const cleanMessage = (message || "").trim();
+
+    if (!cleanMessage && totalDiscount <= 0) {
+        return "";
+    }
+
+    const fallbackMessage =
+        cleanMessage || `🎉 ${totalDiscount}% Team Discount Total Savings ${totalDiscount}%`;
+
+    return fallbackMessage.replace(/\s+(Total Savings\s+\d+(?:\.\d+)?%)/i, "<br>$1");
+}
+
 function getCurrencyAdjustedPlanAmount(planBox, convertedAmount) {
     return Math.round(convertedAmount);
 }
@@ -65,7 +83,7 @@ function updateTeamPlans(
         let priceAmountEl = planBox.querySelector(".price-amount");
 
         if (priceAmountEl) {
-            priceAmountEl.textContent = unitAmount;
+            priceAmountEl.textContent = formatIndianNumber(unitAmount);
         }
 
         // User Count
@@ -147,11 +165,11 @@ const originalPriceRow = planBox.querySelector(".original-price-team");
 
                 originalPriceRow.querySelector(
                     ".ul-original-price-team",
-                ).textContent = Math.round(baseTotal);
+                ).textContent = formatIndianNumber(baseTotal);
 
                 originalPriceRow.querySelector(
                     ".ul-personal-card-period-team",
-                ).textContent = billingType === "yearly" ? "/year" : "/month";
+                ).textContent = "/month";
             } else {
                 originalPriceRow.style.display = "none";
             }
@@ -162,7 +180,7 @@ const originalPriceRow = planBox.querySelector(".original-price-team");
         // =========================
         let totalPriceEl = planBox.querySelector(".total-price-ul");
         if (totalPriceEl) {
-            totalPriceEl.textContent = displayUnitPrice;
+            totalPriceEl.textContent = formatIndianNumber(displayUnitPrice);
         }
 
         planBox
@@ -174,13 +192,13 @@ const originalPriceRow = planBox.querySelector(".original-price-team");
         // Base Total (per licence block, before discount)
         let baseTotalView = planBox.querySelector(".view-total-amount-count");
         if (baseTotalView) {
-            baseTotalView.textContent = Math.round(baseTotal);
+            baseTotalView.textContent = formatIndianNumber(baseTotal);
         }
 
         // Total Amount (per licence block, after discount)
         let baseTotalRow = planBox.querySelector(".base-price");
         if (baseTotalRow) {
-            baseTotalRow.textContent = unitAmount;
+            baseTotalRow.textContent = formatIndianNumber(unitAmount);
         }
 
         // Discount row (Base Total - show/hide)
@@ -197,7 +215,7 @@ const originalPriceRow = planBox.querySelector(".original-price-team");
         planBox
             .querySelectorAll(".view-total-discount-count")
             .forEach((totalDiscountView) => {
-                totalDiscountView.textContent = Math.round(discountAmount);
+                totalDiscountView.textContent = formatIndianNumber(discountAmount);
             });
 
         // Discount % Badge (e.g. "(5% off)")
@@ -217,8 +235,8 @@ const originalPriceRow = planBox.querySelector(".original-price-team");
         if (totalPeriodLabel) {
             totalPeriodLabel.textContent =
                 billingType === "yearly"
-                    ? "Total Per Year"
-                    : "Total Per Month";
+                    ? "(Total Per Year)"
+                    : "(Total Per Month)";
         }
 
         // Final Total Amount Display
@@ -226,7 +244,7 @@ const originalPriceRow = planBox.querySelector(".original-price-team");
             ".total-amt-sty .view-total-amount-count",
         );
         if (totalAmountDisplay) {
-            totalAmountDisplay.textContent = Math.round(finalTotal);
+            totalAmountDisplay.textContent = formatIndianNumber(finalTotal);
         }
 
         // You Save Display
@@ -234,7 +252,12 @@ const originalPriceRow = planBox.querySelector(".original-price-team");
             ".view-total-savings-count",
         );
         if (totalSavingsView) {
-            totalSavingsView.textContent = Math.round(discountAmount);
+            totalSavingsView.textContent = formatIndianNumber(discountAmount);
+
+            const savingsRow = totalSavingsView.closest(".po-save-line");
+            if (savingsRow) {
+                savingsRow.style.visibility = "visible";
+            }
         }
 
 // =========================
@@ -279,30 +302,63 @@ const originalPriceRow = planBox.querySelector(".original-price-team");
                 billingType === "yearly"
                     ? discountBadge.dataset.yearlyText || ""
                     : discountBadge.dataset.monthlyText || "";
+            const discountCard = discountBadge.closest(".discount-cards");
+            const formattedMessage = formatOfferMessage(message, totalDiscount);
 
-            if (message) {
+            if (formattedMessage) {
+                if (discountCard) {
+                    discountCard.style.setProperty(
+                        "display",
+                        "flex",
+                        "important",
+                    );
+                }
+
                 discountBadge.style.display = "flex";
                 discountBadge.style.visibility = "visible";
-                discountBadge.innerHTML = message;
+                discountBadge.innerHTML = formattedMessage;
             } else {
-                discountBadge.style.display = "flex";
+                if (discountCard) {
+                    discountCard.style.setProperty(
+                        "display",
+                        "flex",
+                        "important",
+                    );
+                    discountCard.style.visibility = "hidden";
+                }
+
+                discountBadge.style.display = "none";
                 discountBadge.style.visibility = "hidden";
+                discountBadge.innerHTML = "";
+            }
+
+            if (formattedMessage && discountCard) {
+                discountCard.style.visibility = "visible";
             }
         }
 
         // Period text
         let userText = planBox.querySelector(".user-text");
         if (userText) {
-            userText.textContent = billingType === "yearly" ? "year" : "month";
+            userText.textContent = "month";
         }
 
         planBox
             .querySelectorAll(".base-user-label")
             .forEach((el) => {
-                el.textContent =
-                    billingType === "yearly"
-                        ? "Base User / Year"
-                        : "Base User / Month";
+                el.textContent = "Base User / Month";
+            });
+
+        planBox
+            .querySelectorAll(".billing-months-row")
+            .forEach((el) => {
+                el.style.display = billingType === "yearly" ? "flex" : "none";
+            });
+
+        planBox
+            .querySelectorAll(".billing-yearly-calculation")
+            .forEach((el) => {
+                el.innerHTML = `<span>(${formatIndianNumber(unitAmount)} * 12 * ${quantity} users)</span><strong>${currencySymbol}${formatIndianNumber(baseTotal)}</strong>`;
             });
 
         planBox.classList.toggle("is-yearly", billingType === "yearly");
@@ -319,6 +375,13 @@ const originalPriceRow = planBox.querySelector(".original-price-team");
         );
         if (annualDiscountPercent) {
             annualDiscountPercent.textContent = `${annualDiscount}%`;
+        }
+
+        const annualTotalDiscountPercent = planBox.querySelector(
+            ".annual-total-discount-percent",
+        );
+        if (annualTotalDiscountPercent) {
+            annualTotalDiscountPercent.textContent = `${totalDiscount}%`;
         }
     });
 
@@ -363,7 +426,7 @@ function updateSingleUserPlans(amount, symbol, billingType = "monthly") {
         total = Math.round(total);
 
         // Update Amount
-        el.text(total);
+        el.text(formatIndianNumber(total));
     });
 
     // $(".ul-original-price").each(function () {
@@ -403,7 +466,7 @@ let originalPrice = billingType === "yearly" ? amount * 12 : amount;
 
         let finalPrice = originalPrice - (originalPrice * totalDiscount) / 100;
 
-        el.text(Math.round(finalPrice));
+        el.text(formatIndianNumber(finalPrice));
 
         const originalPriceRow = el
             .closest(".personal-card")
@@ -413,7 +476,7 @@ let originalPrice = billingType === "yearly" ? amount * 12 : amount;
             originalPriceRow.show();
             originalPriceRow
                 .find(".ul-original-price")
-                .text(Math.round(originalPrice));
+                .text(formatIndianNumber(originalPrice));
         } else {
             originalPriceRow.hide();
         }
@@ -464,7 +527,7 @@ let extraDiscount =
 
         total = total - (total * totalDiscount) / 100;
 
-        amountEl.text(Math.round(total));
+        amountEl.text(formatIndianNumber(total));
 
         th.find(".table-plan-period").text(
             billingType === "yearly" ? "user/year" : "user/month",
@@ -525,7 +588,7 @@ let extraDiscount =
         // Apply Discounts
         total = total - (total * totalDiscount) / 100;
 
-        amountEl.text(Math.round(total));
+        amountEl.text(formatIndianNumber(total));
 
         th.find(".table-plan-period").text(
             billingType === "yearly" ? "user/year" : "user/month",
@@ -809,11 +872,11 @@ $(document).ready(function () {
 
         // Base Total (before discount) - first .view-total-amount-count
         planBox.find(".view-total-amount-count").first()
-            .text(baseTotalRounded);
+            .text(formatIndianNumber(baseTotalRounded));
 
         // Total (Per Month / Per Year) after discount - inside .total-amt-sty
         planBox.find(".total-amt-sty .view-total-amount-count")
-            .text(finalTotalRounded);
+            .text(formatIndianNumber(finalTotalRounded));
 
         // Discount Display
         if (totalDiscountPct > 0) {
@@ -823,7 +886,7 @@ $(document).ready(function () {
         }
         planBox
             .find(".view-total-discount-count")
-            .text(discountAmount);
+            .text(formatIndianNumber(discountAmount));
 
         // Discount % badge
         let pctBadge = planBox.find(".discount-percent-badge");
@@ -834,26 +897,38 @@ $(document).ready(function () {
         }
 
         // You Save
-        planBox.find(".view-total-savings-count").text(discountAmount);
+        planBox.find(".view-total-savings-count").text(formatIndianNumber(discountAmount));
+        planBox
+            .find(".po-save-line")
+            .each(function () {
+                this.style.visibility = "visible";
+            });
 
         // Total period label
         let periodLabel = planBox.find(".total-period-label");
         if (periodLabel.length) {
             periodLabel.text(
                 TEAM_BILLING === "yearly"
-                    ? "Total Per Year"
-                    : "Total Per Month",
+                    ? "(Total Per Year)"
+                    : "(Total Per Month)",
             );
         }
 
         planBox.toggleClass("is-yearly", TEAM_BILLING === "yearly");
         planBox.find(".base-user-label").text(
-            TEAM_BILLING === "yearly"
-                ? "Base User / Year"
-                : "Base User / Month",
+            "Base User / Month",
         );
+        planBox
+            .find(".billing-months-row")
+            .css("display", TEAM_BILLING === "yearly" ? "flex" : "none");
+        planBox
+            .find(".billing-yearly-calculation")
+            .html(
+                `<span>(${formatIndianNumber(baseAmount)} * 12 * ${totalLicenceCount} users)</span><strong>${CURRENT_SYMBOL}${formatIndianNumber(baseTotalAmount)}</strong>`,
+            );
         planBox.find(".plan-discount-percent").text(`${planDiscount}%`);
         planBox.find(".annual-discount-percent").text(`${annualDiscount}%`);
+        planBox.find(".annual-total-discount-percent").text(`${totalDiscountPct}%`);
 
         alignPricingHeaders();
     }
@@ -1077,6 +1152,7 @@ function handlePlanSelection(btn, forcedType) {
         // license: qty,
         license: btn.data("license"),
         quantity: qty,
+        default_qty: parseInt(btn.data("default-qty")) || qty || 1,
         storage: parseInt(btn.data("storage")) || 10,
         storage_unit: btn.data("storage-unit") || "GB",
 

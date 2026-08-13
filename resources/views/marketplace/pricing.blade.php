@@ -624,6 +624,10 @@
                                                       <span>Users</span>
                                                       <span class="total-licence-count view-total-license-count"></span>
                                                   </div>
+                                                  <div class="po-summary-row billing-months-row">
+                                                      <span>Yearly</span>
+                                                      <span class="billing-yearly-calculation"></span>
+                                                  </div>
                                                   <hr>
                                                   <div class="po-summary-row">
                                                       <span>Base Total</span>
@@ -636,7 +640,7 @@
                                                       class="po-summary-row po-summary-row--discount monthly-discount-row">
                                                       <span>Discount <span class="discount-percent-badge"></span></span>
                                                       <div>
-                                                          <span class="view-currency" style="gap:3px"></span>
+                                                          <span>-</span><span class="view-currency" style="gap:3px"></span>
                                                           <span class="total-discount view-total-discount-count"></span>
                                                       </div>
                                                   </div>
@@ -653,15 +657,11 @@
                                                   <div
                                                       class="po-summary-row po-summary-row--discount annual-total-discount-row">
                                                       <span>Total Discount</span>
-                                                      <div>
-                                                          <span class="discount-percent-badge"></span>
-                                                          <span class="view-currency" style="gap:3px">-</span>
-                                                          <span class="total-discount view-total-discount-count"></span>
-                                                      </div>
+                                                      <strong><span class="annual-total-discount-percent"></span></strong>
                                                   </div>
                                                   <div class="total-amt-sty">
                                                       <div>
-                                                          <p class="total-period-label">Total Per Month</p>
+                                                          <p class="total-period-label">(Total Per Month)</p>
                                                           <div class="po-total-amount">
                                                               <span class="view-currency" style="gap:3px">-</span>
                                                               <span class="total-amount view-total-amount-count">999</span>
@@ -679,7 +679,6 @@
                                               </div>
                                               <!-- discount  -->
                                              <div class="discount-cards">  
-                                                <img src="assets/img/party-popover.png" alt="popover">
                                               <div class="ul-discount ul-save-badge"
                                                   data-discount-apply="{{ $plan->is_team_discount_apply }}"
                                                   data-extra-monthly-apply="{{ $plan->is_team_extraM_discount_apply }}"
@@ -756,7 +755,9 @@
                                                       data-plan-type="team" data-plan-id="{{ $plan->id }}"
                                                       data-name="{{ $plan->plans_name }}"
                                                       data-license="{{ $plan->plans_license }}"
-                                                      data-storage="{{ $plan->plans_users }}">
+                                                      data-storage="{{ $plan->plans_users }}"
+                                                      data-default-qty="{{ $minimumLicenses }}"
+                                                      data-storage-unit="{{ $plan->storage_unit }}">
                                                       Get Started
                                                   </button>
                                               </div>
@@ -905,12 +906,23 @@
 
                                   @foreach ($userLicenseData['getPlanList']['planLists'] as $plan)
                                       <td class="text-center">
+                                          @php
+                                              $minimumLicenses = $plan->minimum_licenses ??
+                                                  match ($plan->plans_name) {
+                                                      'Basic' => 2,
+                                                      'Standard' => 10,
+                                                      'Advanced' => 50,
+                                                      'Premium' => 100,
+                                                      default => (int) ($plan->default_qty ?? ($plan->plans_license ?? 1)),
+                                                  };
+                                          @endphp
                                           <button class="btn btn-outline-secondary team-js-select-plan-compare"
                                               data-plan-type="team" data-plan-id="{{ $plan->id }}"
                                               data-name="{{ $plan->plans_name }}"
                                               data-license="{{ $plan->plans_license }}"
                                               data-storage="{{ $plan->plans_users }}"
-                                              data-default-qty="{{ $plan->default_qty }}"
+                                              data-default-qty="{{ $minimumLicenses }}"
+                                              data-storage-unit="{{ $plan->storage_unit }}"
                                               style="width: 100% !important; max-width: 115px !important; height: 36px !important; display: inline-flex; align-items: center; justify-content: center; margin: 0 auto; padding: 0 !important;">
                                               Get Started
                                           </button>
