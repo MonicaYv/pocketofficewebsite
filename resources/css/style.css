@@ -12278,10 +12278,14 @@ input:checked+.toggle-slider:before {
 }
 
 .po-pricing-card .ul-discount {
-  display: block !important;
+  display: inline-flex !important;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 6px;
 }
 
 .discount-cards img {
+  flex: 0 0 auto;
   width: 24px;
   height: 24px;
 }

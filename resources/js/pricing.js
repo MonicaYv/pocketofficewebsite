@@ -26,6 +26,14 @@ function formatOfferMessage(message, totalDiscount) {
     return fallbackMessage.replace(/\s+(Total Savings\s+\d+(?:\.\d+)?%)/i, "<br>$1");
 }
 
+function formatDiscountStrip(message) {
+    if (!message) {
+        return "";
+    }
+
+    return `<img class="party-popover" src="/assets/img/party-popover.png" alt="popover"><span>${message}</span>`;
+}
+
 function getCurrencyAdjustedPlanAmount(planBox, convertedAmount) {
     return Math.round(convertedAmount);
 }
@@ -316,7 +324,7 @@ const originalPriceRow = planBox.querySelector(".original-price-team");
 
                 discountBadge.style.display = "flex";
                 discountBadge.style.visibility = "visible";
-                discountBadge.innerHTML = formattedMessage;
+                discountBadge.innerHTML = formatDiscountStrip(formattedMessage);
             } else {
                 if (discountCard) {
                     discountCard.style.setProperty(
