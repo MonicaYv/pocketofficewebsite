@@ -306,11 +306,14 @@ class UserLicensePlansController extends Controller
                 $plan->original_monthly_price = $monthly;
                 $plan->original_yearly_price  = $yearly;
 
-$monthlyTotalDisc = ($plan->single_user_monthly_discount ?? 0)
+                $monthlyTotalDisc = ($plan->single_user_monthly_discount ?? 0)
                     + ($plan->single_user_monthly_extra_disc ?? 0);
 
+                $singleYearlyDiscount = $plan->single_user_yearly_discount ?? 0;
+                $singleYearlyBillingDiscount = $singleYearlyDiscount;
+
                 $yearlyTotalDisc = ($plan->single_user_yearly_discount ?? 0)
-                    + ($plan->single_user_yearly_extra_disc ?? 0);
+                    + $singleYearlyBillingDiscount;
 
                 $plan->final_monthly_price =
                     $monthly
@@ -868,7 +871,7 @@ $monthlyTotalDisc = ($plan->single_user_monthly_discount ?? 0)
                 : ($plan->single_user_monthly_discount ?? 0);
 
             $extraDiscount = $isYearly
-                ? ($plan->single_user_yearly_extra_disc ?? 0)
+                ? ($plan->single_user_yearly_discount ?? 0)
                 : ($plan->single_user_monthly_extra_disc ?? 0);
         } else {
 

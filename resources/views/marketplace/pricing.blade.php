@@ -332,16 +332,16 @@
                                                   <div class="personal-card__price-row">
                                                       <span class="extra-discount-ul hidden"
                                                           data-monthly="{{ $plan->single_user_monthly_extra_disc ?? 0 }}"
-                                                          data-yearly="{{ $plan->single_user_yearly_extra_disc ?? 0 }}">
+                                                          data-yearly="{{ $additional_disc_year_single ?? 0 }}">
                                                       </span>
                                                       <span class="personal-card__symbol personal-card-symbol-ul"></span>
                                                       <span class="personal-card__amount ul-personal-card-amount"
                                                           data-monthly-discount="{{ $plan->single_user_monthly_discount ?? 0 }}"
                                                           data-yearly-discount="{{ $plan->single_user_yearly_discount ?? 0 }}"
                                                           data-extra-monthly-constant="{{ $additional_disc_month ?? 0 }}"
-                                                          data-extra-yearly-constant="{{ $additional_disc_year ?? 0 }}"
+                                                          data-extra-yearly-constant="{{ $additional_disc_year_single ?? 0 }}"
                                                           data-extra-monthly="{{ $plan->single_user_monthly_extra_disc ?? 0 }}"
-                                                          data-extra-yearly="{{ $plan->single_user_yearly_extra_disc ?? 0 }}">
+                                                          data-extra-yearly="{{ $additional_disc_year_single ?? 0 }}">
                                                       </span>
                                                       <span class="personal-card__period ul-personal-card-period"
                                                           id="personalPeriodLabel">/{{ $plan->plans_subscription_type }}</span>
@@ -419,8 +419,8 @@
 
 
                                       @php
-                                          $main = $additional_disc_year_single ?? 0;
-                                          $extra = $plan->single_user_yearly_extra_disc ?? 0;
+                                          $main = $plan->single_user_yearly_discount ?? 0;
+                                          $extra = $additional_disc_year_single ?? 0;
                                           $totalDiscount = $main + $extra;
                                       @endphp
 
@@ -791,7 +791,7 @@
                                                   data-monthly-discount="{{ $singlePlan->single_user_monthly_discount ?? 0 }}"
                                                   data-yearly-discount="{{ $singlePlan->single_user_yearly_discount ?? 0 }}"
                                                   data-extra-monthly="{{ $singlePlan->single_user_monthly_extra_disc ?? 0 }}"
-                                                  data-extra-yearly="{{ $singlePlan->single_user_yearly_extra_disc ?? 0 }}">
+                                                  data-extra-yearly="{{ $additional_disc_year_single ?? 0 }}">
                                               </span>
 
                                               <small class="table-plan-period">

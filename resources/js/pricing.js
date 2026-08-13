@@ -412,7 +412,10 @@ function updateSingleUserPlans(amount, symbol, billingType = "monthly") {
 
         let extraMonthly = parseFloat(el.attr("data-extra-monthly")) || 0;
 
-        let extraYearly = parseFloat(el.attr("data-extra-yearly")) || 0;
+        let extraYearly =
+            parseFloat(el.attr("data-extra-yearly-constant")) ||
+            parseFloat(el.attr("data-extra-yearly")) ||
+            0;
 
         // Current Discount
         let discount =
@@ -457,7 +460,10 @@ function updateSingleUserPlans(amount, symbol, billingType = "monthly") {
         let yearlyDiscount = parseFloat(el.attr("data-yearly-discount")) || 0;
 
         let extraMonthly = parseFloat(el.attr("data-extra-monthly")) || 0;
-        let extraYearly = parseFloat(el.attr("data-extra-yearly")) || 0;
+        let extraYearly =
+            parseFloat(el.attr("data-extra-yearly-constant")) ||
+            parseFloat(el.attr("data-extra-yearly")) ||
+            0;
 
         let discount =
             billingType === "yearly" ? yearlyDiscount : monthlyDiscount;
@@ -1156,6 +1162,10 @@ function handlePlanSelection(btn, forcedType) {
 
         plan_id: btn.data("plan-id"),
         name: btn.data("name"),
+        display_name:
+            forcedType === "single"
+                ? `Personal (${btn.data("name")})`
+                : btn.data("name"),
 
         // license: qty,
         license: btn.data("license"),
@@ -1188,11 +1198,24 @@ function handlePlanSelection(btn, forcedType) {
             0,
 
         extra_yearly:
+            parseFloat(singleAmountEl.data("extra-yearly-constant")) ||
             parseFloat(singleAmountEl.data("extra-yearly")) ||
             parseFloat(extraDiscountEl.data("yearly")) ||
             parseFloat(tableAmountEl.data("extra-yearly")) ||
             0,
-       
+        features:
+            forcedType === "single"
+                ? container
+                      .find(".personal-card__features li")
+                      .map(function () {
+                          return $(this)
+                              .text()
+                              .replace(/\s+/g, " ")
+                              .replace(/^[✓✔\u2713\u2714]+\s*/, "")
+                              .trim();
+                      })
+                      .get()
+                : [],
     };
 
     // console.log("FINAL PLAN:", planData);

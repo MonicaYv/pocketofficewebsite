@@ -439,7 +439,7 @@
                                                  <small class="text-muted">(Create username for login)</small>
                                              </label>
                                              <!-- Existing User Checkbox -->
-                                             <div class="form-check mb-3">
+                                             <div class="form-check existing-user-check-wrap mb-3">
                                                  <input class="form-check-input" type="checkbox" id="existingUserCheck">
 
                                                  <label class="form-check-label" for="existingUserCheck">
@@ -615,11 +615,11 @@
                                              data-singleuser-monthly-discount="{{ $plan->single_user_monthly_discount ?? 0 }}"
                                              data-singleuser-yearly-discount="{{ $plan->single_user_yearly_discount ?? 0 }}"
                                              data-extra-monthly-discount="{{ $plan->additional_disc_month ?? 0 }}"
-                                             data-extra-yearly-discount="{{ $plan->additional_disc_year ?? 0 }}"
+                                             data-extra-yearly-discount="{{ $selectedPlanType === 'single' ? $plan->single_user_yearly_discount ?? 0 : $plan->yearly_extra_disc ?? 0 }}"
                                              data-extra-mo-discount="{{ $plan->monthly_extra_disc ?? 0 }}"
                                              data-extra-yr-discount="{{ $plan->yearly_extra_disc ?? 0 }}"
                                              data-singleuser-extra-mo-discount="{{ $plan->single_user_monthly_extra_disc ?? 0 }}"
-                                             data-singleuser-extra-yr-discount="{{ $plan->single_user_yearly_extra_disc ?? 0 }}"
+                                             data-singleuser-extra-yr-discount="{{ $plan->single_user_yearly_discount ?? 0 }}"
                                              data-def-qty="{{ $defaultLicenses }}"
                                              data-symbol="{{ $plan->currency_symbol ?? '' }}">
 
@@ -890,57 +890,23 @@
 
 
          <!-- Existing User Modal -->
-         <div id="existingUserModal"
-             style="
-            display:none;
-            position:fixed;
-            top:0;
-            left:0;
-            width:100%;
-            height:100%;
-            background:rgba(0,0,0,0.5);
-            z-index:99999;
-        ">
+         <div id="existingUserModal" class="existing-user-modal" aria-hidden="true">
+             <div class="existing-user-dialog" role="dialog" aria-modal="true" aria-labelledby="existingUserTitle">
+                 <button class="existing-user-close" type="button" data-close-modal aria-label="Close">&times;</button>
 
-             <div
-                 style="
-            background:#fff;
-            width:400px;
-            max-width:90%;
-            margin:120px auto;
-            padding:20px;
-            border-radius:10px;
-            position:relative;
-        ">
-
-                 <h4>Existing User</h4>
+                 <h4 id="existingUserTitle">Continue From Marketplace</h4>
 
                  <p>
-                     You can purchase from marketplace inside the system.
+                     Existing customers can add or renew subscriptions from the marketplace inside their Pocket Office account.
                  </p>
 
-                 <div style="text-align:right;">
-
-                     <button class="hidden" type="button" data-close-modal
-                         style="
-                    padding:8px 15px;
-                    border:none;
-                    background:#ccc;
-                    margin-right:10px;
-                    border-radius:5px;
-                ">
-                         Close
+                 <div class="existing-user-actions">
+                     <button class="existing-user-btn existing-user-btn--secondary" type="button" data-close-modal>
+                         Cancel
                      </button>
 
-                     <button type="button" id="redirectPricingBtn"
-                         style="
-                    padding:8px 15px;
-                    border:none;
-                    background:#057A96;
-                    color:#fff;
-                    border-radius:5px;
-                ">
-                         OK
+                     <button class="existing-user-btn existing-user-btn--primary" type="button" id="redirectPricingBtn">
+                         Continue
                      </button>
                  </div>
              </div>

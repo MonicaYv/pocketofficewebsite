@@ -38,6 +38,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     const summaryPlanName = document.getElementById("summaryPlanName");
+    const summaryTitle = document.querySelector(".os-title");
+    const summarySubtitle = document.querySelector(".os-subtitle");
     const summarySymbol = document.getElementById("summarySymbol");
     const summaryUnitPrice = document.getElementById("summaryUnitPrice");
     const summaryOrgTotal = document.getElementById("summaryOrgTotal");
@@ -52,6 +54,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const summaryPlanIcon = document.getElementById("summaryPlanIcon");
 
     const payBillingToggle = document.getElementById("payBillingToggle");
+    const payBillingControls = document.getElementById("payBillingControls");
 
     const payBillingMonthLabel = document.getElementById(
         "payBillingMonthLabel",
@@ -88,6 +91,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const promoDiscountAmt = document.getElementById("promoDiscountAmt");
 
     const planTiles = document.querySelectorAll(".selected-plan-option");
+    const planSelector = document.querySelector(".pay-plan-selector");
 
     const companyForm = document.querySelector(".pay-company-form");
 
@@ -184,7 +188,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     : parseFloat(tile.dataset.extraMoDiscount) || 0,
             extra_yr_discount:
                 tile.dataset.planType === "single"
-                    ? parseFloat(tile.dataset.singleuserExtraYrDiscount) || 0
+                    ? parseFloat(tile.dataset.extraYearlyDiscount) || 0
                     : parseFloat(tile.dataset.extraYrDiscount) || 0,
         };
 
@@ -237,6 +241,13 @@ document.addEventListener("DOMContentLoaded", function () {
     if (payBillingToggle) {
         payBillingToggle.checked =
             initialBillingType.toLowerCase() === "yearly";
+    }
+
+    const isSinglePurchase = currentPlan.plan_type === "single";
+
+    if (isSinglePurchase) {
+        payBillingControls?.classList.remove("hidden");
+        planSelector?.classList.add("hidden");
     }
 
     planTiles.forEach((tile) => {
@@ -313,7 +324,7 @@ document.addEventListener("DOMContentLoaded", function () {
             currentPlan.quantity = 1;
         }
 
-        let subtotalAmount = basePrice * quantityValue;
+        const originalUnitPrice = parseFloat(originalPrice) || basePrice;
 
         // let activeDiscount = 0;
 
@@ -346,9 +357,33 @@ document.addEventListener("DOMContentLoaded", function () {
                 : parseFloat(currentPlan.extra_mo_discount || 0);
         }
 
-        const finalTotal = subtotalAmount;
+        const totalDiscountPercent = activeDiscount + extraDiscount;
+        const discountedUnitPrice =
+            originalUnitPrice > 0 && totalDiscountPercent > 0
+                ? originalUnitPrice -
+                  (originalUnitPrice * totalDiscountPercent) / 100
+                : basePrice;
+        basePrice = Math.round(discountedUnitPrice);
 
-        summaryPlanName.innerText = currentPlan.name || "—";
+        let subtotalAmount = basePrice * quantityValue;
+        const finalTotal = Math.round(subtotalAmount);
+
+        const displayPlanName =
+            currentPlan.display_name ||
+            (currentPlan.plan_type === "single"
+                ? `Personal (${currentPlan.name || "Basic"})`
+                : currentPlan.name || "—");
+
+        summaryPlanName.innerText = displayPlanName;
+
+        if (summaryTitle) {
+            summaryTitle.innerText = displayPlanName;
+        }
+
+        if (summarySubtitle) {
+            summarySubtitle.innerText =
+                "Review your selected plan before proceeding.";
+        }
 
         if (summaryPlanIcon) {
             summaryPlanIcon.innerHTML = getPlanIconSvg(currentPlan.name || "");
@@ -358,8 +393,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
         summaryUnitPrice.innerText = formatIndianNumber(basePrice);
 
-        summaryOrgTotal.innerText =
-            formatCurrencyAmount(currentPlan.symbol, basePrice);
+        summaryOrgTotal.innerText = formatCurrencyAmount(
+            currentPlan.symbol,
+            originalUnitPrice * quantityValue,
+        );
 
         currentPayableSubtotal = Math.round(subtotalAmount);
 
@@ -393,9 +430,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // }
 
         let monthlyDiscount = parseFloat(currentPlan.monthly_discount || 0);
-        let yearlyDiscount =
-            parseFloat(currentPlan.extra_yr_discount || 0) ||
-            parseFloat(currentPlan.yearly_discount || 0);
+        let yearlyDiscount = parseFloat(currentPlan.extra_yr_discount || 0);
 
         if (monthlyDiscount > 0) {
             monthlyDiscountBadge.style.display = "inline-block";
@@ -412,7 +447,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         // Discount Amounts (based on original total)
-        const origTotal = originalPrice * quantityValue;
+        const origTotal = originalUnitPrice * quantityValue;
 
         const activeDiscountAmount = Math.round(
             (origTotal * activeDiscount) / 100,
@@ -460,14 +495,17 @@ document.addEventListener("DOMContentLoaded", function () {
         // }
 
         // const originalTotal = originalPrice * (currentPlan.default_qty || 1);
-        const originalTotal = originalPrice * quantityValue;
+        const originalTotal = originalUnitPrice * quantityValue;
 
-        if ((activeDiscount > 0 || extraDiscount > 0) && originalPrice > 0) {
+        if ((activeDiscount > 0 || extraDiscount > 0) && originalUnitPrice > 0) {
             if (summaryOriginalRow) {
                 summaryOriginalRow.style.display = "flex";
             }
 
-            summaryOrgTotal.innerHTML = `<del class="os-original-price">${formatCurrencyAmount(currentPlan.symbol, originalTotal)}</del>`;
+            summaryOrgTotal.innerText = formatCurrencyAmount(
+                currentPlan.symbol,
+                originalTotal,
+            );
         } else {
             if (summaryOriginalRow) {
                 summaryOriginalRow.style.display = "none";
@@ -535,16 +573,33 @@ document.addEventListener("DOMContentLoaded", function () {
             quantity = 1;
         }
 
-        const displayedLicense =
-            currentPlan.plan_type === "team"
-                ? quantityValue
-                : parseInt(currentPlan.license || 1);
-        let totalStorage = parseInt(currentPlan.storage || 0) * quantityValue;
-        planFeatureList.innerHTML = `
-        <li>${displayedLicense} User License</li>
-        <li>${currentPlan.storage} ${currentPlan.storage_unit} Per User</li>
-        <li>Total Storage : ${totalStorage} ${currentPlan.storage_unit}</li>
-        `;
+        const selectedFeatures = Array.isArray(currentPlan.features)
+            ? currentPlan.features
+                  .map((feature) =>
+                      String(feature || "")
+                          .replace(/^[\s✓✔]+/u, "")
+                          .replace(/\s+/g, " ")
+                          .trim(),
+                  )
+                  .filter(Boolean)
+            : [];
+
+        if (selectedFeatures.length > 0) {
+            planFeatureList.innerHTML = selectedFeatures
+                .map((feature) => `<li>${feature}</li>`)
+                .join("");
+        } else {
+            const displayedLicense =
+                currentPlan.plan_type === "team"
+                    ? quantityValue
+                    : parseInt(currentPlan.license || 1);
+            let totalStorage = parseInt(currentPlan.storage || 0) * quantityValue;
+            planFeatureList.innerHTML = `
+            <li>${displayedLicense} User License</li>
+            <li>${currentPlan.storage} ${currentPlan.storage_unit} Per User</li>
+            <li>Total Storage : ${totalStorage} ${currentPlan.storage_unit}</li>
+            `;
+        }
 
         planTiles.forEach((tile) => {
             tile.classList.remove("selected");
@@ -1576,12 +1631,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (existingUserCheck) {
         existingUserCheck.addEventListener("change", function () {
+            const existingUserModal = document.getElementById("existingUserModal");
             if (this.checked) {
-                document.getElementById("existingUserModal").style.display =
-                    "block";
+                existingUserModal?.classList.add("is-open");
+                existingUserModal?.setAttribute("aria-hidden", "false");
             } else {
-                document.getElementById("existingUserModal").style.display =
-                    "none";
+                existingUserModal?.classList.remove("is-open");
+                existingUserModal?.setAttribute("aria-hidden", "true");
             }
         });
     }
@@ -1595,7 +1651,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     document.querySelectorAll("[data-close-modal]").forEach(function (btn) {
         btn.addEventListener("click", function () {
-            document.getElementById("existingUserModal").style.display = "none";
+            const existingUserModal = document.getElementById("existingUserModal");
+            existingUserModal?.classList.remove("is-open");
+            existingUserModal?.setAttribute("aria-hidden", "true");
 
             document.getElementById("existingUserCheck").checked = false;
         });
