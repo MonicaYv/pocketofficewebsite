@@ -258,7 +258,7 @@
 
                         <div class="benefit">
                             <div class="benefit-header">
-                                <i class="fa fa-money"></i>
+                                <i class="fa-solid fa-money-check-dollar"></i>
                                 <span>Compensation & Security :</span>
                             </div>
                             <span>Competitive salary, performance-based growth, long-term
