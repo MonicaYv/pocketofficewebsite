@@ -26,17 +26,20 @@
             <img class="left-img" src="/assets/img/Illustration.png" alt="login-img">
         </div>
         <div class="right">
-            <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div class="docs-pre-header" style="font-size: 11px; font-weight: 800; color: #64748b; letter-spacing: 1.5px; margin-bottom: 20px; text-transform: uppercase;">
+                <span style="color: #0694b7; margin-right: 4px;">●</span> PocketOffice Documentation
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
                 <div class="logo">
                     <a href="/index">
-                        <img class="logo-img" src="/assets/img/logo/pocket-office-final-logo.png" alt="Logo" width="200" height="auto">
+                        <img class="logo-img" src="/assets/img/logo/pocket-office-tm-final-logo.png" alt="Logo" width="150" height="auto">
                     </a>                  
                 </div>
                 <a href="/index" class="back-home" style="text-decoration: none; font-weight: 600; color: #057A96;"> Home</a>
             </div>
             
             <div class="login-section">
-               <h1 class="heading">Nice to see you again</h1>
+               <h1 class="heading">Welcome Back to PocketOffice Learning Hub</h1>
                 <form method="POST" action="{{ route('docs.login.submit') }}" id="docs-login-form">
                     @csrf
                     <input type="hidden" name="selected_tab" id="selected_tab" value="{{ $selectedTab }}">

@@ -36,8 +36,8 @@ Route::post('/save-payment', [CompanyController::class, 'savePayment'])->name('s
 Route::get('/thank-you', [CompanyController::class, 'paymentSuccess'])->name('paymentSuccess');
 
 //portal login
-Route::get('/docs-login', [PortalLoginController::class, 'showLogin'])->name('docs.login');
-Route::post('/docs-login', [PortalLoginController::class, 'login'])->name('docs.login.submit');
+Route::get('/documentation/login', [PortalLoginController::class, 'showLogin'])->name('docs.login');
+Route::post('/documentation/login', [PortalLoginController::class, 'login'])->name('docs.login.submit');
 
 //blog routes
 Route::get('/fetch-blogs', [BlogController::class, 'fetchBlogs']);

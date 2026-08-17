@@ -1,4 +1,7 @@
 (function () {
+    // ==========================================
+    // TOASTR DYNAMIC LOADING
+    // ==========================================
     function ensureToastrLoaded() {
         if (window.toastr) return Promise.resolve();
 
@@ -39,7 +42,7 @@
         });
     }
 
-    function showError(message) {
+    function showToastrError(message) {
         ensureToastrLoaded()
             .then(function () {
                 toastr.error(message);
@@ -49,7 +52,7 @@
             });
     }
 
-    function showSuccess(message) {
+    function showToastrSuccess(message) {
         ensureToastrLoaded()
             .then(function () {
                 toastr.success(message);
@@ -59,73 +62,338 @@
             });
     }
 
-    function initSelectAllBehavior() {
-        document.addEventListener("change", function (e) {
-            if (e.target && e.target.classList.contains("select-all")) {
-                var grid = e.target.closest(".checkbox-grid");
-                if (!grid) return;
-                var checked = e.target.checked;
-                grid.querySelectorAll(
-                    ".form-check-input:not(.select-all):not(:disabled)",
-                ).forEach(function (cb) {
-                    cb.checked = checked;
-                    cb.dispatchEvent(new Event("change", { bubbles: true }));
-                });
-                return;
-            }
+    // ==========================================
+    // VALIDATION HELPERS
+    // ==========================================
+    function validateName(name) {
+        return /^[A-Za-z\s]+$/.test(name);
+    }
 
-            if (
-                e.target &&
-                e.target.matches(".checkbox-grid .form-check-input") &&
-                !e.target.classList.contains("select-all")
-            ) {
-                var grid = e.target.closest(".checkbox-grid");
-                if (!grid) return;
-                var items = Array.from(
-                    grid.querySelectorAll(
-                        ".form-check-input:not(.select-all):not(:disabled)",
-                    ),
-                );
-                var allChecked =
-                    items.length > 0 &&
-                    items.every(function (cb) {
-                        return cb.checked;
+    // Allow country code formats (starts with + or digits) in select validation, digits for standard phone
+    function validatePhone(phone) {
+        return /^[0-9]{10}$/.test(phone);
+    }
+
+    function validateEmail(email) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
+    function validateWebsite(url) {
+        const pattern =
+            /^(https?:\/\/)?([\w\-]+\.)+[\w\-]{2,}(\/[\w\-._~:/?#[\]@!$&'()*+,;=]*)?$/i;
+        return pattern.test(url);
+    }
+
+    // ==========================================
+    // DOM ERROR RENDERING (Bootstrap invalid-feedback version)
+    // ==========================================
+    function showInputError(input, message) {
+        input.addClass("is-invalid");
+        // Dynamically update the native .invalid-feedback block next to it
+        var feedback = input.closest(".form-item").find(".invalid-feedback");
+        if (feedback.length) {
+            feedback.text(message).show();
+        }
+    }
+
+    function removeInputError(input) {
+        input.removeClass("is-invalid");
+        var feedback = input.closest(".form-item").find(".invalid-feedback");
+        if (feedback.length) {
+            feedback.hide();
+        }
+    }
+
+    // ==========================================
+    // CUSTOM SELECT DROPDOWNS IMPLEMENTATION
+    // ==========================================
+    function setupCustomDropdown(selectId) {
+        var select = document.getElementById(selectId);
+        if (!select) return;
+
+        // Prevent multiple wraps
+        if (select.dataset.customDropdownInitialized === "1") return;
+        select.dataset.customDropdownInitialized = "1";
+
+        // Hide select element
+        select.style.setProperty("display", "none", "important");
+
+        // Create dropdown container wrapper
+        var container = document.createElement("div");
+        container.className = "custom-dropdown-container";
+        container.setAttribute("data-select-id", selectId);
+
+        // Create trigger button
+        var trigger = document.createElement("div");
+        trigger.className = "custom-dropdown-trigger";
+
+        var triggerText = document.createElement("span");
+        triggerText.className = "custom-dropdown-trigger-text";
+        trigger.appendChild(triggerText);
+
+        var arrow = document.createElement("i");
+        arrow.className = "fa fa-chevron-down custom-dropdown-arrow";
+        trigger.appendChild(arrow);
+
+        container.appendChild(trigger);
+
+        // Create dropdown options menu overlay
+        var menu = document.createElement("div");
+        menu.className = "custom-dropdown-menu";
+        container.appendChild(menu);
+
+        // Insert container right after the select input
+        select.parentNode.insertBefore(container, select.nextSibling);
+
+        // Populate options function
+        function populateOptions() {
+            menu.innerHTML = "";
+            var selectedText = "";
+            var hasSelected = false;
+
+            Array.from(select.options).forEach(function (opt) {
+                var item = document.createElement("div");
+                item.className = "custom-dropdown-option";
+                item.textContent = opt.textContent;
+                item.dataset.value = opt.value;
+
+                if (opt.selected) {
+                    item.classList.add("is-selected");
+                    selectedText = opt.textContent;
+                    hasSelected = true;
+                }
+
+                item.addEventListener("click", function (e) {
+                    e.stopPropagation();
+                    select.value = opt.value;
+                    
+                    // Trigger change events
+                    select.dispatchEvent(new Event("change", { bubbles: true }));
+                    select.dispatchEvent(new Event("input", { bubbles: true }));
+                    
+                    // Toggle selections
+                    container.querySelectorAll(".custom-dropdown-option").forEach(function (el) {
+                        el.classList.remove("is-selected");
                     });
-                var selectAll = grid.querySelector(".select-all");
-                if (selectAll) selectAll.checked = allChecked;
+                    item.classList.add("is-selected");
+                    
+                    container.classList.remove("is-open");
+                });
+
+                menu.appendChild(item);
+            });
+
+            // Update trigger text
+            if (hasSelected && selectedText !== "") {
+                triggerText.textContent = selectedText;
+            } else {
+                // Fallback to placeholder value
+                var placeholderOpt = Array.from(select.options).find(o => o.value === "");
+                triggerText.textContent = placeholderOpt ? placeholderOpt.textContent : "Select option";
+            }
+        }
+
+        // Toggle open click
+        trigger.addEventListener("click", function (e) {
+            e.stopPropagation();
+            
+            // Close all other open custom dropdowns first
+            document.querySelectorAll(".custom-dropdown-container").forEach(function (el) {
+                if (el !== container) {
+                    el.classList.remove("is-open");
+                }
+            });
+            
+            container.classList.toggle("is-open");
+        });
+
+        // Initial populate
+        populateOptions();
+
+        // Listen for standard changes on the native select (e.g. from code or resets)
+        select.addEventListener("change", function () {
+            var val = select.value;
+            var selectedText = "";
+            var hasSelected = false;
+
+            container.querySelectorAll(".custom-dropdown-option").forEach(function (el) {
+                if (el.dataset.value === val) {
+                    el.classList.add("is-selected");
+                    selectedText = el.textContent;
+                    hasSelected = true;
+                } else {
+                    el.classList.remove("is-selected");
+                }
+            });
+
+            if (hasSelected && selectedText !== "") {
+                triggerText.textContent = selectedText;
+            } else {
+                var placeholderOpt = Array.from(select.options).find(o => o.value === "");
+                triggerText.textContent = placeholderOpt ? placeholderOpt.textContent : "Select option";
             }
         });
+
+        // MutationObserver to sync dynamically loaded items
+        var observer = new MutationObserver(function () {
+            populateOptions();
+        });
+        observer.observe(select, { childList: true, characterData: true, subtree: true });
     }
 
-    function closeSalesModal() {
-        var closeBtn =
-            document.getElementById("sales-enquiry-close") ||
-            document.querySelector(".contact-support");
+    // ==========================================
+    // STEP CONTROLLER & VALIDATOR
+    // ==========================================
+    function validateStepForForm($form, stepNum) {
+        var isValid = true;
+        
+        $form.find(`.enquiry-step[data-step="${stepNum}"]`).find("input, textarea, select").removeClass("is-invalid");
 
-        if (closeBtn) {
-            if (window.jQuery) {
-                window.jQuery(closeBtn).trigger("click");
-            } else {
-                closeBtn.click();
+        if (stepNum === 1) {
+            var companyName = $form.find('[name="companyName"]');
+            var website = $form.find('[name="website"]');
+            var industry = $form.find('[name="industry"]');
+            var companyAddress = $form.find('[name="companyAddress"]');
+            var city = $form.find('[name="city"]');
+            var country = $form.find('[name="country"]');
+
+            if (companyName.val().trim() === "") {
+                showInputError(companyName, "Company name is required");
+                isValid = false;
+            } else if (!validateName(companyName.val().trim())) {
+                showInputError(companyName, "Only alphabets allowed");
+                isValid = false;
             }
-            return;
+
+            if (industry.val().trim() === "") {
+                showInputError(industry, "Please select industry");
+                isValid = false;
+            }
+
+            if (website.val().trim() !== "" && !validateWebsite(website.val().trim())) {
+                showInputError(website, "Enter valid website URL");
+                isValid = false;
+            }
+
+            if (companyAddress.val().trim() === "") {
+                showInputError(companyAddress, "Company address is required");
+                isValid = false;
+            }
+
+            if (country.val().trim() === "") {
+                showInputError(country, "Please select country");
+                isValid = false;
+            }
+
+            if (city.val().trim() === "") {
+                showInputError(city, "City is required");
+                isValid = false;
+            }
+        } else if (stepNum === 2) {
+            var firstName = $form.find('[name="firstName"]');
+            var lastName = $form.find('[name="lastName"]');
+            var countryCodes = $form.find('[name="countryCodes"]');
+            var phoneNumber = $form.find('[name="phoneNumber"]');
+            var email = $form.find('[name="email"]');
+
+            if (firstName.val().trim() === "") {
+                showInputError(firstName, "First name is required");
+                isValid = false;
+            } else if (!validateName(firstName.val().trim())) {
+                showInputError(firstName, "Only alphabets allowed");
+                isValid = false;
+            }
+
+            if (lastName.val().trim() === "") {
+                showInputError(lastName, "Last name is required");
+                isValid = false;
+            } else if (!validateName(lastName.val().trim())) {
+                showInputError(lastName, "Only alphabets allowed");
+                isValid = false;
+            }
+
+            if (countryCodes.val().trim() === "") {
+                showInputError(countryCodes, "Country code is required");
+                isValid = false;
+            }
+
+            if (phoneNumber.val().trim() === "") {
+                showInputError(phoneNumber, "Phone number is required");
+                isValid = false;
+            } else if (!validatePhone(phoneNumber.val().trim())) {
+                showInputError(phoneNumber, "Enter valid 10 digit number");
+                isValid = false;
+            }
+
+            if (email.val().trim() === "") {
+                showInputError(email, "Email is required");
+                isValid = false;
+            } else if (!validateEmail(email.val().trim())) {
+                showInputError(email, "Enter valid email address");
+                isValid = false;
+            }
+        } else if (stepNum === 3) {
+            var message = $form.find('[name="message"]');
+            if (message.val().trim() === "") {
+                showInputError(message, "Message is required");
+                isValid = false;
+            }
+        }
+        return isValid;
+    }
+
+    function goToFormStep($form, stepNum) {
+        if (stepNum < 1 || stepNum > 3) return;
+
+        // Hide active step, show new step
+        $form.find(".enquiry-step").removeClass("active").hide();
+        $form.find(`.enquiry-step[data-step="${stepNum}"]`).addClass("active").fadeIn(200);
+
+        // Update active step number text in footer
+        $form.find(".active-step-num").text(stepNum);
+
+        // Toggle footer navigation button visibilities
+        if (stepNum === 1) {
+            $form.find(".prev-step-btn").hide();
+            $form.find(".next-step-btn").show();
+            $form.find(".submit-step-btn").hide();
+        } else if (stepNum === 2) {
+            $form.find(".prev-step-btn").show();
+            $form.find(".next-step-btn").show();
+            $form.find(".submit-step-btn").hide();
+        } else if (stepNum === 3) {
+            $form.find(".prev-step-btn").show();
+            $form.find(".next-step-btn").hide();
+            $form.find(".submit-step-btn").show();
         }
 
-        var overlay =
-            document.getElementById("sales-enquiry-overlay") ||
-            document.querySelector(".modal-overlay.active") ||
-            document.querySelector(".modal-overlay");
-
-        if (overlay) {
-            overlay.classList.remove("active");
-            overlay.style.display = "none";
+        // Update steps indicator styling
+        var $modal = $form.closest("#sales-enquiry-modal");
+        if (!$modal.length) {
+            $modal = $form.parent().parent(); // fallback lookup
         }
-
-        if (document.body) {
-            document.body.style.overflow = "";
+        if ($modal.length) {
+            $modal.find(".step-indicator").removeClass("active completed");
+            $modal.find(".step-indicator").each(function () {
+                var step = parseInt($(this).data("step"));
+                var numBox = $(this).find(".step-number");
+                if (step === stepNum) {
+                    $(this).addClass("active");
+                    numBox.html(step);
+                } else if (step < stepNum) {
+                    $(this).addClass("completed");
+                    numBox.html('<i class="fa fa-check"></i>');
+                } else {
+                    $(this).removeClass("active completed");
+                    numBox.html(step);
+                }
+            });
         }
     }
 
+    // ==========================================
+    // FORMS BINDING & SUBMISSION
+    // ==========================================
     function bindSalesEnquiryForms() {
         var forms = document.querySelectorAll(".salesEnquiryForm");
 
@@ -137,7 +405,23 @@
                 e.preventDefault();
 
                 if (window.location.protocol === "file:") {
-                    showError("Please open this page through Apache URL, not file path.");
+                    showToastrError("Please open this page through Apache URL, not file path.");
+                    return;
+                }
+
+                var $form = $(form);
+                
+                // Final full step validation before sending
+                if (!validateStepForForm($form, 1)) {
+                    goToFormStep($form, 1);
+                    return;
+                }
+                if (!validateStepForForm($form, 2)) {
+                    goToFormStep($form, 2);
+                    return;
+                }
+                if (!validateStepForForm($form, 3)) {
+                    goToFormStep($form, 3);
                     return;
                 }
 
@@ -147,8 +431,7 @@
 
                 if (submitBtn) {
                     submitBtn.disabled = true;
-                    submitBtn.innerHTML =
-                        '<span class="fa fa-spinner fa-spin"></span> Sending...';
+                    submitBtn.innerHTML = '<span class="fa fa-spinner fa-spin"></span> Submitting...';
                 }
 
                 $.ajaxSetup({
@@ -165,19 +448,35 @@
                     contentType: false,
                     success: function (res) {
                         if (res && res.status) {
-                            showSuccess(res.message || "Enquiry sent successfully.");
+                            showToastrSuccess(res.message || "Enquiry submitted successfully.");
                             form.reset();
-                            closeSalesModal();
+                            $form.find("input, textarea, select").removeClass("is-invalid");
+                            goToFormStep($form, 1);
+                            
+                            // Close modal overlay
+                            var closeBtn = document.getElementById("sales-enquiry-close");
+                            if (closeBtn) {
+                                closeBtn.click();
+                            } else {
+                                var overlay = document.getElementById("sales-enquiry-overlay") || document.querySelector(".modal-overlay");
+                                if (overlay) {
+                                    overlay.style.display = "none";
+                                    overlay.classList.remove("active");
+                                }
+                                if (document.body) {
+                                    document.body.style.overflow = "";
+                                }
+                            }
                             return;
                         }
 
-                        showError((res && res.message) || "Unable to send enquiry.");
+                        showToastrError((res && res.message) || "Unable to send enquiry.");
                     },
                     error: function (xhr) {
                         var message =
                             (xhr.responseJSON && (xhr.responseJSON.message || xhr.responseJSON.msg)) ||
                             "Something went wrong. Try again.";
-                        showError(message);
+                        showToastrError(message);
                     },
                     complete: function () {
                         if (submitBtn) {
@@ -190,9 +489,77 @@
         });
     }
 
+    // ==========================================
+    // INITIALIZATION & GLOBALS
+    // ==========================================
     function init() {
-        initSelectAllBehavior();
         bindSalesEnquiryForms();
+
+        // Convert selectors to custom dropdown overlays
+        setupCustomDropdown("industry");
+        setupCustomDropdown("country");
+        setupCustomDropdown("countryCodes");
+
+        // Close dropdowns when clicking outside
+        document.addEventListener("click", function () {
+            document.querySelectorAll(".custom-dropdown-container").forEach(function (el) {
+                el.classList.remove("is-open");
+            });
+        });
+
+        // Remove error on input change
+        $(document).on(
+            "input change",
+            ".salesEnquiryForm input, .salesEnquiryForm textarea, .salesEnquiryForm select",
+            function () {
+                removeInputError($(this));
+            },
+        );
+
+        // Only digits in phone number
+        $(document).on("input", '.salesEnquiryForm [name="phoneNumber"]', function () {
+            this.value = this.value.replace(/[^0-9]/g, "").slice(0, 10);
+        });
+
+        // Only alphabets in names
+        $(document).on(
+            "input",
+            '.salesEnquiryForm [name="companyName"], .salesEnquiryForm [name="firstName"], .salesEnquiryForm [name="lastName"]',
+            function () {
+                this.value = this.value.replace(/[^A-Za-z\s]/g, "");
+            },
+        );
+
+        // Navigation button click handlers
+        $(document).on("click", ".salesEnquiryForm .next-step-btn", function (e) {
+            e.preventDefault();
+            var $form = $(this).closest(".salesEnquiryForm");
+            var currentStep = parseInt($form.find(".enquiry-step.active").data("step")) || 1;
+            
+            if (validateStepForForm($form, currentStep)) {
+                goToFormStep($form, currentStep + 1);
+            }
+        });
+
+        $(document).on("click", ".salesEnquiryForm .prev-step-btn", function (e) {
+            e.preventDefault();
+            var $form = $(this).closest(".salesEnquiryForm");
+            var currentStep = parseInt($form.find(".enquiry-step.active").data("step")) || 1;
+            
+            goToFormStep($form, currentStep - 1);
+        });
+
+        // Reset steps back to step 1 when opening modal overlay
+        $(document).on("click", "#sales-enquiry-trigger, .sales-enquiry-trigger-class", function () {
+            var $form = $(".salesEnquiryForm");
+            if ($form.length) {
+                $form.each(function () {
+                    this.reset();
+                    $(this).find("input, textarea, select").removeClass("is-invalid");
+                    goToFormStep($(this), 1);
+                });
+            }
+        });
     }
 
     if (document.readyState === "loading") {
@@ -201,277 +568,3 @@
         init();
     }
 })();
-
-//store data
-function validateName(name) {
-    return /^[A-Za-z\s]+$/.test(name);
-}
-
-function validatePhone(phone) {
-    return /^[0-9]{10}$/.test(phone);
-}
-
-function validateEmail(email) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-}
-
-function validateWebsite(url) {
-    const pattern =
-        /^(https?:\/\/)?([\w\-]+\.)+[\w\-]{2,}(\/[\w\-._~:/?#[\]@!$&'()*+,;=]*)?$/i;
-
-    return pattern.test(url);
-}
-
-// Show Error
-function showError(input, message) {
-    input.addClass("is-invalid");
-
-    // remove old error
-    input.closest(".form-item").find(".custom-error").remove();
-
-    // if inside phone-input append after phone-input
-    if (input.closest(".phone-input").length) {
-        input
-            .closest(".phone-input")
-            .after(
-                '<small class="custom-error text-danger d-block mt-1">' +
-                    message +
-                    "</small>",
-            );
-    } else {
-        input.after(
-            '<small class="custom-error text-danger d-block mt-1">' +
-                message +
-                "</small>",
-        );
-    }
-}
-
-// Remove Error
-function removeError(input) {
-    input.removeClass("is-invalid");
-
-    input.closest(".form-item").find(".custom-error").remove();
-}
-
-// Remove error while typing
-$(document).on(
-    "input change",
-    ".salesEnquiryForm input, .salesEnquiryForm textarea, .salesEnquiryForm select",
-    function () {
-        removeError($(this));
-    },
-);
-
-// Only digits in phone number
-$(document).on("input", '.salesEnquiryForm [name="phoneNumber"]', function () {
-    this.value = this.value.replace(/[^0-9]/g, "").slice(0, 10);
-});
-
-// Only alphabets in names
-$(document).on(
-    "input",
-    '.salesEnquiryForm [name="companyName"], .salesEnquiryForm [name="firstName"], .salesEnquiryForm [name="lastName"]',
-    function () {
-        this.value = this.value.replace(/[^A-Za-z\s]/g, "");
-    },
-);
-
-function bindSalesEnquiryForms() {
-    document.querySelectorAll(".salesEnquiryForm").forEach(function (form) {
-        if (form.dataset.salesEnquiryBound === "1") return;
-        form.dataset.salesEnquiryBound = "1";
-
-        form.addEventListener("submit", function (e) {
-            e.preventDefault();
-
-            var $form = $(form);
-            var isValid = true;
-
-            var companyName = $form.find('[name="companyName"]');
-            var firstName = $form.find('[name="firstName"]');
-            var lastName = $form.find('[name="lastName"]');
-            var countryCodes = $form.find('[name="countryCodes"]');
-            var phoneNumber = $form.find('[name="phoneNumber"]');
-            var email = $form.find('[name="email"]');
-            var website = $form.find('[name="website"]');
-            var companyAddress = $form.find('[name="companyAddress"]');
-            var city = $form.find('[name="city"]');
-            var industry = $form.find('[name="industry"]');
-            var country = $form.find('[name="country"]');
-
-            $form.find(".custom-error").remove();
-            $form
-                .find("input, textarea, select")
-                .removeClass("is-invalid");
-
-            if (companyName.val().trim() === "") {
-                showError(companyName, "Company name is required");
-                isValid = false;
-            } else if (!validateName(companyName.val().trim())) {
-                showError(companyName, "Only alphabets allowed");
-                isValid = false;
-            }
-
-            if (firstName.val().trim() === "") {
-                showError(firstName, "First name is required");
-                isValid = false;
-            } else if (!validateName(firstName.val().trim())) {
-                showError(firstName, "Only alphabets allowed");
-                isValid = false;
-            }
-
-            if (lastName.val().trim() === "") {
-                showError(lastName, "Last name is required");
-                isValid = false;
-            } else if (!validateName(lastName.val().trim())) {
-                showError(lastName, "Only alphabets allowed");
-                isValid = false;
-            }
-
-            if (countryCodes.val().trim() === "") {
-                showError(countryCodes, "Country code is required");
-                isValid = false;
-            }
-
-            if (phoneNumber.val().trim() === "") {
-                showError(phoneNumber, "Phone number is required");
-                isValid = false;
-            } else if (!validatePhone(phoneNumber.val().trim())) {
-                showError(phoneNumber, "Enter valid 10 digit number");
-                isValid = false;
-            }
-
-            if (email.val().trim() === "") {
-                showError(email, "Email is required");
-                isValid = false;
-            } else if (!validateEmail(email.val().trim())) {
-                showError(email, "Enter valid email address");
-                isValid = false;
-            }
-
-            if (website.val().trim() === "") {
-                showError(website, "Website is required");
-                isValid = false;
-            } else if (!validateWebsite(website.val().trim())) {
-                showError(website, "Enter valid website URL");
-                isValid = false;
-            }
-
-            if (companyAddress.val().trim() === "") {
-                showError(companyAddress, "Company address is required");
-                isValid = false;
-            }
-
-            if (city.val().trim() === "") {
-                showError(city, "City is required");
-                isValid = false;
-            }
-
-            if (industry.val().trim() === "") {
-                showError(industry, "Please select industry");
-                isValid = false;
-            }
-
-            if (country.val().trim() === "") {
-                showError(country, "Please select country");
-                isValid = false;
-            }
-
-            if (!isValid) {
-                return;
-            }
-
-            $.ajaxSetup({
-                headers: {
-                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-                },
-            });
-
-            var formData = new FormData(form);
-            var submitBtn = form.querySelector('button[type="submit"]');
-            var originalBtnText = submitBtn ? submitBtn.textContent : "";
-
-            if (submitBtn) {
-                submitBtn.disabled = true;
-                submitBtn.textContent = "Submitting...";
-            }
-
-            $.ajax({
-                url: enquiryUrl,
-                type: "POST",
-                data: formData,
-                processData: false,
-                contentType: false,
-
-                success: function (res) {
-                    toastr.success(
-                        res.message || "Enquiry submitted successfully",
-                    );
-
-                    form.reset();
-
-                    $form.find(".custom-error").remove();
-                    $form
-                        .find("input, textarea, select")
-                        .removeClass("is-invalid");
-
-                    var overlay = form.closest(
-                        "#sales-enquiry-overlay, .modal-overlay",
-                    );
-                    if (overlay) {
-                        if (overlay.id === "sales-enquiry-overlay") {
-                            if (window.jQuery) {
-                                window.jQuery(overlay).fadeOut(200);
-                            } else {
-                                overlay.style.display = "none";
-                            }
-                        } else {
-                            overlay.classList.remove("active");
-                        }
-                    }
-
-                    if (document.body) {
-                        document.body.style.overflow = "";
-                    }
-                },
-
-                error: function () {
-                    toastr.error("Something went wrong. Please try again.");
-                },
-
-                complete: function () {
-                    if (submitBtn) {
-                        submitBtn.disabled = false;
-                        submitBtn.textContent = originalBtnText;
-                    }
-                },
-            });
-        });
-    });
-}
-
-bindSalesEnquiryForms();
-
-// $('#serviceForm').on('submit', function(e) {
-//     e.preventDefault();
-//     let formData = new FormData(this);
-
-//     $.ajax({
-//         url: enquiryUrl,
-//         type: "POST",
-//         data: formData,
-//         processData: false,
-//         contentType: false,
-//         success: function(res) {
-//             toastr.success(res.message || "Enquiry submitted successfully");
-//             $('#serviceForm')[0].reset();
-//             $('#sales-enquiry-overlay').hide();
-//         },
-//         error: function(err) {
-//             toastr.error("Something went wrong. Please try again.");
-//         }
-
-//     });
-
-// });

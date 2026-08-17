@@ -1668,7 +1668,7 @@ ul.wp-block-latest-posts.is-grid.alignwide {
   background: #fff;
   box-shadow: 0px 2px 50px #97a1b229;
   border-radius: 8px;
-  padding: 70px 38px;
+  padding: 30px 38px 0px;
 }
 
 .widget-job-details .widget-title {
@@ -14494,7 +14494,6 @@ h5.footer-sub-heading {
 .contact-modal {
   background: #ffffff;
   border-radius: 16px;
-  padding: 28px;
   transform: scale(0.95);
   transition: all 0.25s ease;
   height: 85vh;

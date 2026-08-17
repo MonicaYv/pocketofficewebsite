@@ -15,13 +15,13 @@
                 </div>
                 <div class="col-md-3 text-md-end">
                     <div class="nav-right">
-                        <a href="{{ route('marketplace.pricing') }}" class="order-now-btn btn-radius btn-green s-animate-3"><i class="fa-solid fa-cart-shopping"></i> Order now</a>
+                        <a href="{{ route('marketplace.pricing') }}" class="order-now-btn btn-radius btn-green s-animate-3"><i class="fa-solid fa-cart-shopping"></i> Order</a>
                         <a href="https://customerlogin.pocket-office.ai/" target="_blank" rel="noopener noreferrer"
-                            class="order-now-btn btn-radius btn-green s-animate-3">Customer Login</a>
+                            class="order-now-btn btn-radius btn-green s-animate-3"><i class="fa-solid fa-user"></i> Customer Login</a>
                             {{-- <a href="https://pocketoffice.sizaf.com/login" target="_blank" rel="noopener noreferrer"
-                            class="order-now-btn btn-radius btn-green s-animate-3">Customer Login</a> --}}
+                            class="order-now-btn btn-radius btn-green s-animate-3"><i class="fa-solid fa-user"></i> Customer Login</a> --}}
                         <a href="https://helpdesk.pocket-office.ai/staff/login" target="_blank" rel="noopener noreferrer"
-                            class="order-now-btn btn-radius btn-green s-animate-3">Support Login</a>
+                            class="order-now-btn btn-radius btn-green s-animate-3"><i class="fa-solid fa-headset"></i> Support Login</a>
                     </div>
                 </div>
             </div>
@@ -500,11 +500,11 @@
                     <div class="mobile-buttons">
                         <a
                             href="https://pocketoffice.sizaf.com/login"
-                            class="order-now-btn btn-radius btn-green s-animate-3">Customer Login</a>
+                            class="order-now-btn btn-radius btn-green s-animate-3"><i class="fa-solid fa-user"></i> Customer Login</a>
                         <a
                             href="https://helpdesk.pocket-office.ai/staff/login"
                             target="_blank" rel="noopener noreferrer"
-                            class="order-now-btn btn-radius btn-green s-animate-3">Support Login</a>
+                            class="order-now-btn btn-radius btn-green s-animate-3"><i class="fa-solid fa-headset"></i> Support Login</a>
                     </div>
                 </div>
             </ul>

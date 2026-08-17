@@ -127,7 +127,7 @@
 
              /* Discount remains green */
              .os-toggle__pill.active .os-mini-badge {
-                 color: #006b57 !important;
+                 color: #4aff24 !important;
              }
 
              /* Selected background */
