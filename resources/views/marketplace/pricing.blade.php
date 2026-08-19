@@ -579,6 +579,7 @@
                                                   class="incr-license-count-data hidden">{{ $plan->plans_license }}</span>
                                               <span
                                                   class="incr-poolstorage-count-data hidden">{{ $plan->plans_users }}</span>
+                                              <span class="base-storage hidden">{{ $plan->plans_users }}</span>
 
 
                                               <div class="po-price-block">
@@ -603,6 +604,15 @@
                                                       <button class="qty-btn ul-increment" type="button">+</button>
                                                   </div>
                                                    @if($planName === 'Basic')
+                                                   <p class="po-minimum-note">Note: Minimum of {{ $minimumLicenses }} licenses
+                                                       must be selected.</p>
+                                                    @elseif($planName === 'Standard')
+                                                   <p class="po-minimum-note">Note: Minimum of {{ $minimumLicenses }} licenses
+                                                       must be selected.</p>
+                                                    @elseif($planName === 'Advanced')
+                                                   <p class="po-minimum-note">Note: Minimum of {{ $minimumLicenses }} licenses
+                                                       must be selected.</p>
+                                                    @elseif($planName === 'Premium')
                                                    <p class="po-minimum-note">Note: Minimum of {{ $minimumLicenses }} licenses
                                                        must be selected.</p>
                                                    @else
@@ -803,17 +813,36 @@
 
                                   {{-- Team Plans --}}
                                   @foreach ($userLicenseData['getPlanList']['planLists'] as $plan)
+                                      @php
+                                          // Keep the comparison table aligned with the quantity selected by default
+                                          // on the corresponding team pricing card.
+                                          $comparisonMinimumLicenses =
+                                              $plan->minimum_licenses ??
+                                              match ($plan->plans_name) {
+                                                  'Basic' => 2,
+                                                  'Standard' => 10,
+                                                  'Advanced' => 50,
+                                                  'Premium' => 100,
+                                                  default => (int) ($plan->default_qty ?? ($plan->plans_license ?? 1)),
+                                              };
+                                          $comparisonLicenses = max(
+                                              (int) ($plan->default_qty ?? $comparisonMinimumLicenses),
+                                              (int) $comparisonMinimumLicenses,
+                                          );
+                                          $comparisonPoolStorage = (float) $plan->plans_users * $comparisonLicenses;
+                                      @endphp
                                       <th class="ul-pricing-tbl-team"
                                           data-team-discount="{{ $plan->is_team_discount_apply }}"
+                                          data-plan-name="{{ $plan->plans_name }}"
                                           style="min-width:130px;">
                                           (Team)<br>{{ $plan->plans_name }}<br>
                                           <span class="table-plan-price">
                                               <span class="table-plan-symbol">{{ $currencySymbol }}</span>
                                               <span class="table-plan-amount"
-                                                  data-monthly-discount="{{ $plan->monthly_discount ?? 0 }}"
-                                                  data-yearly-discount="{{ $plan->yearly_discount ?? 0 }}"
-                                                  data-extra-monthly="{{ $plan->monthly_extra_disc ?? 0 }}"
-                                                  data-extra-yearly="{{ $plan->yearly_extra_disc ?? 0 }}">
+                                                  data-monthly-discount="{{ $plan->is_team_discount_apply == 1 ? $plan->monthly_discount ?? 0 : 0 }}"
+                                                  data-yearly-discount="{{ $plan->is_team_discount_apply == 1 ? $plan->yearly_discount ?? 0 : 0 }}"
+                                                  data-extra-monthly="{{ $plan->is_team_extraM_discount_apply == 1 ? $plan->monthly_extra_disc ?? 0 : 0 }}"
+                                                  data-extra-yearly="{{ $plan->is_team_extraY_discount_apply == 1 ? $plan->yearly_extra_disc ?? 0 : 0 }}">
                                               </span>
 
                                               <small class="table-plan-period">
@@ -833,7 +862,22 @@
                                   @endforeach
 
                                   @foreach ($userLicenseData['getPlanList']['planLists'] as $plan)
-                                      <td> {{ $plan->plans_license * $plan->default_qty }} </td>
+                                      @php
+                                          $minimumLicenses =
+                                              $plan->minimum_licenses ??
+                                              match ($plan->plans_name) {
+                                                  'Basic' => 2,
+                                                  'Standard' => 10,
+                                                  'Advanced' => 50,
+                                                  'Premium' => 100,
+                                                  default => (int) ($plan->default_qty ?? ($plan->plans_license ?? 1)),
+                                              };
+                                          $comparisonLicenses = max(
+                                              (int) ($plan->default_qty ?? $minimumLicenses),
+                                              (int) $minimumLicenses,
+                                          );
+                                      @endphp
+                                      <td> {{ $comparisonLicenses }} </td>
                                   @endforeach
                               </tr>
 
@@ -857,7 +901,26 @@
                                   @endforeach
 
                                   @foreach ($userLicenseData['getPlanList']['planLists'] as $plan)
-                                      <td> {{ $plan->pool_storage }} </td>
+                                      @php
+                                          $minimumLicenses =
+                                              $plan->minimum_licenses ??
+                                              match ($plan->plans_name) {
+                                                  'Basic' => 2,
+                                                  'Standard' => 10,
+                                                  'Advanced' => 50,
+                                                  'Premium' => 100,
+                                                  default => (int) ($plan->default_qty ?? ($plan->plans_license ?? 1)),
+                                              };
+                                          $comparisonLicenses = max(
+                                              (int) ($plan->default_qty ?? $minimumLicenses),
+                                              (int) $minimumLicenses,
+                                          );
+                                          $comparisonPoolStorage = (float) $plan->plans_users * $comparisonLicenses;
+                                      @endphp
+                                      <td>
+                                          {{ rtrim(rtrim(number_format($comparisonPoolStorage, 2, '.', ''), '0'), '.') }}
+                                          {{ $plan->storage_unit }}
+                                      </td>
                                   @endforeach
                               </tr>
 

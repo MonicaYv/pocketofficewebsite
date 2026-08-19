@@ -549,52 +549,35 @@ let extraDiscount =
     });
 
     // =========================
-    // TEAM TABLE (🔥 FIXED)
+    // TEAM TABLE
+    // The table is a plan comparison, so show the same discounted *per-user*
+    // price as its card. Do not multiply it by the plan's minimum licences.
     // =========================
     $("#pricingTable thead th.ul-pricing-tbl-team").each(function () {
         let th = $(this);
 
         let amountEl = th.find(".table-plan-amount");
 
-        // Team Discount Flag
-        let isTeamDiscount = parseInt(th.attr("data-team-discount")) || 0;
-
-        // Team Base Amount
+        // Team Base Amount (per user)
         let baseAmount = CURRENT_TEAM_AMOUNT || amount;
-
-        // User Count
-        let users =
-            parseInt(
-                th
-                    .closest("table")
-                    .find("tbody tr:eq(0) td")
-                    .eq(th.index())
-                    .text(),
-            ) || 1;
 
         let billingType = TEAM_BILLING;
 
-        let total =
-            billingType === "yearly"
-                ? baseAmount * 12 * users
-                : baseAmount * users;
+        let total = baseAmount;
 
         // Default No Discount
         let discount = 0;
         let extraDiscount = 0;
 
-// Apply Discount ONLY if
-        if (isTeamDiscount === 1) {
-            discount =
-                billingType === "yearly"
-                    ? parseFloat(amountEl.attr("data-yearly-discount")) || 0
-                    : parseFloat(amountEl.attr("data-monthly-discount")) || 0;
+        discount =
+            billingType === "yearly"
+                ? parseFloat(amountEl.attr("data-yearly-discount")) || 0
+                : parseFloat(amountEl.attr("data-monthly-discount")) || 0;
 
-            extraDiscount =
-                billingType === "yearly"
-                    ? parseFloat(amountEl.attr("data-extra-yearly")) || 0
-                    : parseFloat(amountEl.attr("data-extra-monthly")) || 0;
-        }
+        extraDiscount =
+            billingType === "yearly"
+                ? parseFloat(amountEl.attr("data-extra-yearly")) || 0
+                : parseFloat(amountEl.attr("data-extra-monthly")) || 0;
 
         // ADDITIVE DISCOUNT
         let totalDiscount = discount + extraDiscount;
@@ -604,9 +587,9 @@ let extraDiscount =
 
         amountEl.text(formatIndianNumber(total));
 
-        th.find(".table-plan-period").text(
-            billingType === "yearly" ? "user/year" : "user/month",
-        );
+        // Team cards always advertise a per-user monthly equivalent, including
+        // when annual billing is selected. Keep the comparison table identical.
+        th.find(".table-plan-period").text("user/month");
     });
 }
 
@@ -776,7 +759,7 @@ $(document).ready(function () {
 
             updateTeamCardCalculation(planBox, currentQty);
         } else {
-            toastr.error(`Minimum quantity is ${defaultQty}.`);
+            // toastr.error(`Minimum quantity is ${defaultQty}.`);
         }
 
         // let currentQty = parseInt(qtyInput.val());
