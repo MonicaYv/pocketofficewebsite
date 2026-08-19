@@ -12558,9 +12558,6 @@ input:checked+.toggle-slider:before {
 }
 /* CTA button */
 .personal-card__btn {
-  background-color: #0694B7;
-  border-color: #0694B7;
-  color: #fff;
   font-size: 14px;
   font-weight: 600;
   padding: 8px 20px;

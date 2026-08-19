@@ -379,7 +379,7 @@
                                                   </span>
                                               </div>
 
-                                              <button class="btn btn-primary personal-card__btn js-select-plan"
+                                              <button class="btn btn-outline-secondary personal-card__btn js-select-plan"
                                                   data-plan-type="single" data-name="{{ $plan->plans_name }}"
                                                   data-license="{{ $plan->plans_license }}"
                                                   data-storage="{{ $plan->plans_users }}"
