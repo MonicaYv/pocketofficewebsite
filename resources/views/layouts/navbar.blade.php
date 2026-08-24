@@ -18,7 +18,7 @@
                         <a href="{{ route('marketplace.pricing') }}" class="order-now-btn btn-radius btn-green s-animate-3"><i class="fa-solid fa-cart-shopping"></i> Order</a>
                         <a href="https://customerlogin.pocket-office.ai/" target="_blank" rel="noopener noreferrer"
                             class="order-now-btn btn-radius btn-green s-animate-3"><i class="fa-solid fa-user"></i> Customer Login</a>
-                            {{-- <a href="https://pocketoffice.sizaf.com/login" target="_blank" rel="noopener noreferrer"
+                            {{-- <a href="https://customerlogin.pocket-office.ai/login" target="_blank" rel="noopener noreferrer"
                             class="order-now-btn btn-radius btn-green s-animate-3"><i class="fa-solid fa-user"></i> Customer Login</a> --}}
                         <a href="https://helpdesk.pocket-office.ai/staff/login" target="_blank" rel="noopener noreferrer"
                             class="order-now-btn btn-radius btn-green s-animate-3"><i class="fa-solid fa-headset"></i> Support Login</a>
@@ -499,7 +499,7 @@
                 <div class="col-md-2 text-md-end pb-2">
                     <div class="mobile-buttons">
                         <a
-                            href="https://pocketoffice.sizaf.com/login"
+                            href="https://customerlogin.pocket-office.ai/login"
                             class="order-now-btn btn-radius btn-green s-animate-3"><i class="fa-solid fa-user"></i> Customer Login</a>
                         <a
                             href="https://helpdesk.pocket-office.ai/staff/login"

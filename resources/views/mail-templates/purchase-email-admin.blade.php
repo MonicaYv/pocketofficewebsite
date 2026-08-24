@@ -156,7 +156,7 @@
                     <table border="0" cellpadding="0" cellspacing="0">
                       <tr>
                         <td align="center" style="border-radius: 8px; background-color: #0694B7;">
-                          <a href="https://pocketoffice.sizaf.com" target="_blank" class="cta-btn" style="font-family: 'Nunito', Helvetica, Arial, sans-serif; font-size: 15px; font-weight: 800; color: #ffffff; text-decoration: none; padding: 14px 36px; display: inline-block; border-radius: 8px; background-color: #0694B7;">
+                          <a href="https://customerlogin.pocket-office.ai" target="_blank" class="cta-btn" style="font-family: 'Nunito', Helvetica, Arial, sans-serif; font-size: 15px; font-weight: 800; color: #ffffff; text-decoration: none; padding: 14px 36px; display: inline-block; border-radius: 8px; background-color: #0694B7;">
                             Login to PocketOffice
                           </a>
                         </td>
@@ -180,7 +180,7 @@
                 <tr>
                   <td align="center" style="font-family: 'Nunito', Helvetica, Arial, sans-serif; font-size: 13px; color: #777777; line-height: 1.6; text-align: center;">
                     If the button doesn't work, copy and paste this link into your web browser:<br />
-                    <a href="https://pocketoffice.sizaf.com" target="_blank" style="color: #0694B7; text-decoration: none; font-weight: 700;">https://pocketoffice.sizaf.com</a>
+                    <a href="https://customerlogin.pocket-office.ai" target="_blank" style="color: #0694B7; text-decoration: none; font-weight: 700;">https://customerlogin.pocket-office.ai</a>
                   </td>
                 </tr>
 

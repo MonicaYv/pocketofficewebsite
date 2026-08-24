@@ -138,7 +138,7 @@
               <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:20px;">
                 <tr>
                   <td align="center">
-                    <a href="https://pocketoffice.sizaf.com"
+                    <a href="https://customerlogin.pocket-office.ai"
                        style="display:inline-block;background:#0694B7;color:#ffffff;font-family:Arial,Helvetica,sans-serif;font-size:15px;font-weight:800;padding:14px 36px;border-radius:8px;text-decoration:none;box-shadow:0 4px 16px rgba(6,148,183,0.35);">
                       🔐 Login to PocketOffice
                     </a>
@@ -158,7 +158,7 @@
               <!-- Fallback link -->
               <p style="margin:0;text-align:center;font-size:13px;color:#777;line-height:1.6;font-family:Arial,Helvetica,sans-serif;">
                 If the button doesn't work, copy and paste this link in your browser:<br>
-                <a href="https://pocketoffice.sizaf.com" style="color:#0694B7;text-decoration:none;font-weight:700;">https://pocketoffice.sizaf.com</a>
+                <a href="https://customerlogin.pocket-office.ai" style="color:#0694B7;text-decoration:none;font-weight:700;">https://customerlogin.pocket-office.ai</a>
               </p>
 
             </td>
