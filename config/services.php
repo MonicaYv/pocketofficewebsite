@@ -37,6 +37,7 @@ return [
 
     'officeles_sso' => [
         'users_endpoint' => env('OFFICELES_SSO_USERS_ENDPOINT'),
+        'single_user_endpoint' => env('OFFICELES_SSO_SINGLE_USER_ENDPOINT'),
         'company_endpoint' => env('OFFICELES_SSO_COMPANY_ENDPOINT'),
         'partner_endpoint' => env('OFFICELES_SSO_PARTNER_ENDPOINT'),
         'default_role_id' => env('OFFICELES_SSO_DEFAULT_ROLE_ID', 3),
