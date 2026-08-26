@@ -1414,8 +1414,7 @@ class CompanyController extends Controller
                 'usertype' => 'special_user',
                 'created_at' => now()
             ]);
-            $user = User::find($userId);
-            $ssoSync = $this->officelesSsoService->syncUser($user, 'PASSWORD@123');
+
             DB::table('users_license_card_details')->insert([
                 'user_id' => $userId,
                 'card_holder_name' => $request->card_name,
@@ -1555,12 +1554,13 @@ class CompanyController extends Controller
 
             $ssoSync = [];
             $createdUser = User::find($userId);
+
             if ($createdUser) {
                 $ssoSync['user'] = $this->officelesSsoService->syncUser(
                     $createdUser,
                     'Password@123',
                     3,
-                    'user-license.saveSubscription.user'
+                    'company.saveSubscription.special_user'
                 );
             }
 

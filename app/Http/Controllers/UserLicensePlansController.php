@@ -25,11 +25,18 @@ use Stevebauman\Location\Facades\Location;
 use Illuminate\Support\Facades\Cache;
 use App\Helpers\CardEncryption;
 use App\Models\PlanFeature;
+use App\Services\OfficelesSsoService;
 
 class UserLicensePlansController extends Controller
 {
     private const CURRENCY_DETECTION_VERSION = 2;
 
+    protected OfficelesSsoService $officelesSsoService;
+
+    public function __construct(OfficelesSsoService $officelesSsoService)
+    {
+        $this->officelesSsoService = $officelesSsoService;
+    }
     public function index(Request $request)
     {
         // Auto-detect on the first visit and once after detection logic changes.
@@ -573,6 +580,18 @@ class UserLicensePlansController extends Controller
                 $clientData['client_id'] ?? null
             );
 
+            $ssoSync = [];
+            $createdUser = User::find($userId);
+
+            if ($createdUser) {
+                $ssoSync['user'] = $this->officelesSsoService->syncUser(
+                    $createdUser,
+                    'Password@123',
+                    3,
+                    'company.saveSubscription.special_user'
+                );
+            }
+
             // update company head
             $this->updateCompanyHead($companyId, $userId);
 
@@ -777,6 +796,8 @@ class UserLicensePlansController extends Controller
             'created_at' => now(),
             'updated_at' => now(),
         ]);
+
+        
     }
 
     private function updateClientHead($clientId, $userId)

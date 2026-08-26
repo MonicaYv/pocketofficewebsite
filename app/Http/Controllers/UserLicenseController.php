@@ -1554,12 +1554,13 @@ class UserLicenseController extends Controller
 
             $ssoSync = [];
             $createdUser = User::find($userId);
+
             if ($createdUser) {
                 $ssoSync['user'] = $this->officelesSsoService->syncUser(
                     $createdUser,
                     'Password@123',
                     3,
-                    'user-license.saveSubscription.user'
+                    'company.saveSubscription.special_user'
                 );
             }
 
