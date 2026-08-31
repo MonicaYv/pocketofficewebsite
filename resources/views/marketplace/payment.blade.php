@@ -216,6 +216,7 @@
              @media (max-width: 700px) {
                  .os-toggle {
                      gap: 8px !important;
+                     flex-direction: column !important;
                  }
 
                  .os-toggle__pill {

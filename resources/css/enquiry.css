@@ -805,7 +805,8 @@
 }
 
 /* Multi-step Stepper styles */
-#sales-enquiry-modal {
+#sales-enquiry-modal,
+#contact-enquiry-modal {
     max-width: 620px !important;
     max-height: 90vh;
     height: auto;
@@ -845,7 +846,8 @@
     margin: 0 !important;
 }
 
-#sales-enquiry-close {
+#sales-enquiry-close,
+#contact-enquiry-close {
     position: absolute;
     top: 24px;
     right: 24px;
@@ -865,7 +867,8 @@
     transition: all 0.2s ease;
 }
 
-#sales-enquiry-close:hover {
+#sales-enquiry-close:hover,
+#contact-enquiry-close:hover {
     background: rgba(255, 255, 255, 0.2) !important;
     color: #fff !important;
 }
@@ -953,13 +956,27 @@
     flex: 1;
     overflow-y: auto;
     padding: 15px 40px;
-    scrollbar-width: none; /* Hide scrollbar Firefox */
-    -ms-overflow-style: none;  /* Hide scrollbar IE/Edge */
     overscroll-behavior: contain !important;
+    /* Firefox scrollbar */
+    scrollbar-width: thin;
+    scrollbar-color: #0694b7 transparent;
 }
 
 .steps-body-wrapper::-webkit-scrollbar {
-    display: none; /* Hide scrollbar Chrome/Safari */
+    width: 6px;
+}
+
+.steps-body-wrapper::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.steps-body-wrapper::-webkit-scrollbar-thumb {
+    background: #0694b7;
+    border-radius: 4px;
+}
+
+.steps-body-wrapper::-webkit-scrollbar-thumb:hover {
+    background: #057c98;
 }
 
 .enquiry-step {
@@ -1156,7 +1173,8 @@
 }
 
 /* Modal sizing adjustments */
-#sales-enquiry-modal {
+#sales-enquiry-modal,
+#contact-enquiry-modal {
     max-width: 720px !important;
     height: 640px !important;
     max-height: 90vh !important;
@@ -1271,7 +1289,8 @@
 
 /* Responsiveness overrides */
 @media (max-width: 640px) {
-    #sales-enquiry-modal {
+    #sales-enquiry-modal,
+    #contact-enquiry-modal {
         height: auto !important;
         max-height: 95vh !important;
     }
@@ -1299,7 +1318,8 @@
     .step-label {
         font-size: 10px;
     }
-    #sales-enquiry-close {
+    #sales-enquiry-close,
+    #contact-enquiry-close {
         top: 15px;
         right: 15px;
         width: 32px;
