@@ -256,12 +256,6 @@
                                                 </a>
                                             </li>
 
-                                            <li class="mega-section-item">
-                                                <a href="{{ url('integrations') }}?tab=tianyi-cloud" class="mega-item-link">
-                                                    <strong class="mega-item-title">Tianyi Cloud</strong>
-                                                </a>
-                                            </li>
-
                                         </ul>
                                         <ul class="mega-section-list">
                                             <li class="mega-section-item">
@@ -282,17 +276,6 @@
                                             <li class="mega-section-item">
                                                 <a href="{{ url('integrations') }}?tab=web-dav" class="mega-item-link">
                                                     <strong class="mega-item-title">WebDAV</strong>
-                                                </a>
-                                            </li>
-                                            <li class="mega-section-item">
-                                                <a href="{{ url('integrations') }}?tab=sangfor-eds" class="mega-item-link">
-                                                    <strong class="mega-item-title">Sangfor EDS</strong>
-                                                </a>
-                                            </li>
-                                            
-                                            <li class="mega-section-item">
-                                                <a href="{{ url('integrations') }}?tab=sds" class="mega-item-link">
-                                                    <strong class="mega-item-title">XSKY SDS</strong>
                                                 </a>
                                             </li>
                                         </ul>

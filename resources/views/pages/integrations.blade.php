@@ -176,46 +176,7 @@
                       </div>
                       <i class="fa fa-angle-right integration-arrow"></i>
                   </button>
-
-                  <button class="integration-tab" data-tab="sangfor-eds">
-                      <div class="integration-left">
-                          <img
-                              src="/assets/img/integration-icons/sangfor-eds.svg"
-                              alt="Sangfor EDS logo"
-                              width="20"
-                              height="20"
-                              class="integration-sidebar-icon"
-                              loading="lazy" />
-                          Sangfor EDS
-                      </div>
-                      <i class="fa fa-angle-right integration-arrow"></i>
-                  </button>
-                  <button class="integration-tab" data-tab="sds">
-                      <div class="integration-left">
-                          <img
-                              src="/assets/img/integration-icons/xsky.svg"
-                              alt="Xsky Sds logo"
-                              width="20"
-                              height="20"
-                              class="integration-sidebar-icon"
-                              loading="lazy" />
-                          XSKY SDS
-                      </div>
-                      <i class="fa fa-angle-right integration-arrow"></i>
-                  </button>
-                  <button class="integration-tab" data-tab="tianyi-cloud">
-                      <div class="integration-left">
-                          <img
-                              src="/assets/img/integration-icons/tianyicloud.svg"
-                              alt="Tianyi cloud logo"
-                              width="20"
-                              height="20"
-                              class="integration-sidebar-icon"
-                              loading="lazy" />
-                          Tianyi Cloud
-                      </div>
-                      <i class="fa fa-angle-right integration-arrow"></i>
-                  </button>
+                 
               </aside>
 
               <!-- CONTENT -->

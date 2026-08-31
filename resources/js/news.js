@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const FALLBACK_IMG = "https://pocket-office.ai/assets/img/documentation.webp"; 
 
-    fetch("https://proxy-news-rust.vercel.app/api/proxy-news?q=Apple")
+    fetch("https://proxy-news-rust.vercel.app/api/proxy-news")
         .then(response => {
             if (!response.ok) {
                 throw new Error("Network response was not ok");

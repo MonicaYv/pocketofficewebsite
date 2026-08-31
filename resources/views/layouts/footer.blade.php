@@ -19,7 +19,7 @@
          <!-- Column 2 -->
          <div class="footer-column">
              <h4>Collaboration</h4>
-             <ul>
+             <ul class="mb-4">
                  <li><a href="{{ url('collaboration') }}?tab=realtime">Real-time File Sharing</a></li>
                  <li><a href="{{ url('collaboration') }}?tab=workspace">Shared Workspaces</a></li>
                  <li><a href="{{ url('collaboration') }}?tab=permissions">Team Permissions</a></li>
@@ -95,11 +95,11 @@
      <div class="footer-bottom">
          <div class="social-icons">
              <a href="https://x.com/pocket__office" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-x-twitter"></i></a>
-             <a href="https://www.youtube.com/@GetPocketOffice" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-youtube-square"></i></a>
+             <a href="https://www.youtube.com/@Pocket_Office" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-youtube-square"></i></a>
              <a href="https://www.facebook.com/profile.php?id=61591500014745" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-facebook-square"></i></a>
-             <a href="https://www.linkedin.com/company/pocket-officee" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-linkedin"></i></a>
-             <a href="https://www.instagram.com/getpocketoffice" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-instagram"></i></a>
-            <a href="https://in.pinterest.com/getpocketoffice/" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-pinterest-square"></i></a>
+             <a href="https://www.linkedin.com/company/pocket-office-ai/" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-linkedin"></i></a>
+             <a href="https://www.instagram.com/pocket_office.ai/" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://in.pinterest.com/pocket_office/" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-pinterest-square"></i></a>
             <a href="https://www.reddit.com/user/pocketoffice/" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-reddit-square"></i></a>
             <a href="https://www.quora.com/profile/Pocket-Office-3" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-quora"></i></a>
          </div>

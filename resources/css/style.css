@@ -4141,7 +4141,14 @@ ul.wp-block-latest-posts.is-grid.alignwide {
   letter-spacing: 0.32px;
   color: #5b6880;
 }
-
+.table-responsive{
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  width: 100%;
+  margin-bottom: 1rem;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+  max-height: 500px;
+}
 .table-responsive tr td {
   vertical-align: middle;
   padding: 0.75rem 0;
@@ -11930,7 +11937,16 @@ input:checked+.toggle-slider:before {
   border-radius: 8px;
   background: #ffffff !important;
   box-shadow: 0 14px 34px rgba(15, 23, 42, 0.08);
+   transition: all 300ms ease;
 }
+
+.po-pricing-card:hover {
+   transform: translateY(-0.5rem);
+    box-shadow:
+        0 20px 25px -5px rgb(0 0 0 / 0.1),
+        0 10px 10px -5px rgb(0 0 0 / 0.04); 
+}
+
 /* .pricing-cards .monthly-plans:nth-of-type(1) .total-amt-sty {
     margin-top: 37px;
 } */
@@ -11964,7 +11980,10 @@ input:checked+.toggle-slider:before {
   min-height: 100%;
   display: flex;
   flex-direction: column;
+ 
+
 }
+
 
 .po-pricing-card__header {
   gap: 0.9rem;

@@ -507,7 +507,7 @@
                                           @if ($isPopular)
                                               <div class="po-popular-ribbon"><i class="fa-solid fa-star"></i> MOST POPULAR</div>
                                           @endif
-                                          <div class="card-body d-flex flex-column po-pricing-card__body">
+                                          <div class="d-flex flex-column po-pricing-card__body">
                                               <div class="po-pricing-card__header d-flex">
                                                   <div class="po-plan-icon" aria-hidden="true">
                                                       @if ($planName === 'Basic')
