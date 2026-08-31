@@ -108,137 +108,139 @@
     // CUSTOM SELECT DROPDOWNS IMPLEMENTATION
     // ==========================================
     function setupCustomDropdown(selectId) {
-        var select = document.getElementById(selectId);
-        if (!select) return;
+        var selects = document.querySelectorAll("#" + selectId);
+        selects.forEach(function (select) {
+            if (!select) return;
 
-        // Prevent multiple wraps
-        if (select.dataset.customDropdownInitialized === "1") return;
-        select.dataset.customDropdownInitialized = "1";
+            // Prevent multiple wraps
+            if (select.dataset.customDropdownInitialized === "1") return;
+            select.dataset.customDropdownInitialized = "1";
 
-        // Hide select element
-        select.style.setProperty("display", "none", "important");
+            // Hide select element
+            select.style.setProperty("display", "none", "important");
 
-        // Create dropdown container wrapper
-        var container = document.createElement("div");
-        container.className = "custom-dropdown-container";
-        container.setAttribute("data-select-id", selectId);
+            // Create dropdown container wrapper
+            var container = document.createElement("div");
+            container.className = "custom-dropdown-container";
+            container.setAttribute("data-select-id", select.id || selectId);
 
-        // Create trigger button
-        var trigger = document.createElement("div");
-        trigger.className = "custom-dropdown-trigger";
+            // Create trigger button
+            var trigger = document.createElement("div");
+            trigger.className = "custom-dropdown-trigger";
 
-        var triggerText = document.createElement("span");
-        triggerText.className = "custom-dropdown-trigger-text";
-        trigger.appendChild(triggerText);
+            var triggerText = document.createElement("span");
+            triggerText.className = "custom-dropdown-trigger-text";
+            trigger.appendChild(triggerText);
 
-        var arrow = document.createElement("i");
-        arrow.className = "fa fa-chevron-down custom-dropdown-arrow";
-        trigger.appendChild(arrow);
+            var arrow = document.createElement("i");
+            arrow.className = "fa fa-chevron-down custom-dropdown-arrow";
+            trigger.appendChild(arrow);
 
-        container.appendChild(trigger);
+            container.appendChild(trigger);
 
-        // Create dropdown options menu overlay
-        var menu = document.createElement("div");
-        menu.className = "custom-dropdown-menu";
-        container.appendChild(menu);
+            // Create dropdown options menu overlay
+            var menu = document.createElement("div");
+            menu.className = "custom-dropdown-menu";
+            container.appendChild(menu);
 
-        // Insert container right after the select input
-        select.parentNode.insertBefore(container, select.nextSibling);
+            // Insert container right after the select input
+            select.parentNode.insertBefore(container, select.nextSibling);
 
-        // Populate options function
-        function populateOptions() {
-            menu.innerHTML = "";
-            var selectedText = "";
-            var hasSelected = false;
+            // Populate options function
+            function populateOptions() {
+                menu.innerHTML = "";
+                var selectedText = "";
+                var hasSelected = false;
 
-            Array.from(select.options).forEach(function (opt) {
-                var item = document.createElement("div");
-                item.className = "custom-dropdown-option";
-                item.textContent = opt.textContent;
-                item.dataset.value = opt.value;
+                Array.from(select.options).forEach(function (opt) {
+                    var item = document.createElement("div");
+                    item.className = "custom-dropdown-option";
+                    item.textContent = opt.textContent;
+                    item.dataset.value = opt.value;
 
-                if (opt.selected) {
-                    item.classList.add("is-selected");
-                    selectedText = opt.textContent;
-                    hasSelected = true;
-                }
+                    if (opt.selected) {
+                        item.classList.add("is-selected");
+                        selectedText = opt.textContent;
+                        hasSelected = true;
+                    }
 
-                item.addEventListener("click", function (e) {
-                    e.stopPropagation();
-                    select.value = opt.value;
-                    
-                    // Trigger change events
-                    select.dispatchEvent(new Event("change", { bubbles: true }));
-                    select.dispatchEvent(new Event("input", { bubbles: true }));
-                    
-                    // Toggle selections
-                    container.querySelectorAll(".custom-dropdown-option").forEach(function (el) {
-                        el.classList.remove("is-selected");
+                    item.addEventListener("click", function (e) {
+                        e.stopPropagation();
+                        select.value = opt.value;
+                        
+                        // Trigger change events
+                        select.dispatchEvent(new Event("change", { bubbles: true }));
+                        select.dispatchEvent(new Event("input", { bubbles: true }));
+                        
+                        // Toggle selections
+                        container.querySelectorAll(".custom-dropdown-option").forEach(function (el) {
+                            el.classList.remove("is-selected");
+                        });
+                        item.classList.add("is-selected");
+                        
+                        container.classList.remove("is-open");
                     });
-                    item.classList.add("is-selected");
-                    
-                    container.classList.remove("is-open");
+
+                    menu.appendChild(item);
                 });
 
-                menu.appendChild(item);
-            });
-
-            // Update trigger text
-            if (hasSelected && selectedText !== "") {
-                triggerText.textContent = selectedText;
-            } else {
-                // Fallback to placeholder value
-                var placeholderOpt = Array.from(select.options).find(o => o.value === "");
-                triggerText.textContent = placeholderOpt ? placeholderOpt.textContent : "Select option";
-            }
-        }
-
-        // Toggle open click
-        trigger.addEventListener("click", function (e) {
-            e.stopPropagation();
-            
-            // Close all other open custom dropdowns first
-            document.querySelectorAll(".custom-dropdown-container").forEach(function (el) {
-                if (el !== container) {
-                    el.classList.remove("is-open");
-                }
-            });
-            
-            container.classList.toggle("is-open");
-        });
-
-        // Initial populate
-        populateOptions();
-
-        // Listen for standard changes on the native select (e.g. from code or resets)
-        select.addEventListener("change", function () {
-            var val = select.value;
-            var selectedText = "";
-            var hasSelected = false;
-
-            container.querySelectorAll(".custom-dropdown-option").forEach(function (el) {
-                if (el.dataset.value === val) {
-                    el.classList.add("is-selected");
-                    selectedText = el.textContent;
-                    hasSelected = true;
+                // Update trigger text
+                if (hasSelected && selectedText !== "") {
+                    triggerText.textContent = selectedText;
                 } else {
-                    el.classList.remove("is-selected");
+                    // Fallback to placeholder value
+                    var placeholderOpt = Array.from(select.options).find(o => o.value === "");
+                    triggerText.textContent = placeholderOpt ? placeholderOpt.textContent : "Select option";
+                }
+            }
+
+            // Toggle open click
+            trigger.addEventListener("click", function (e) {
+                e.stopPropagation();
+                
+                // Close all other open custom dropdowns first
+                document.querySelectorAll(".custom-dropdown-container").forEach(function (el) {
+                    if (el !== container) {
+                        el.classList.remove("is-open");
+                    }
+                });
+                
+                container.classList.toggle("is-open");
+            });
+
+            // Initial populate
+            populateOptions();
+
+            // Listen for standard changes on the native select (e.g. from code or resets)
+            select.addEventListener("change", function () {
+                var val = select.value;
+                var selectedText = "";
+                var hasSelected = false;
+
+                container.querySelectorAll(".custom-dropdown-option").forEach(function (el) {
+                    if (el.dataset.value === val) {
+                        el.classList.add("is-selected");
+                        selectedText = el.textContent;
+                        hasSelected = true;
+                    } else {
+                        el.classList.remove("is-selected");
+                    }
+                });
+
+                if (hasSelected && selectedText !== "") {
+                    triggerText.textContent = selectedText;
+                } else {
+                    var placeholderOpt = Array.from(select.options).find(o => o.value === "");
+                    triggerText.textContent = placeholderOpt ? placeholderOpt.textContent : "Select option";
                 }
             });
 
-            if (hasSelected && selectedText !== "") {
-                triggerText.textContent = selectedText;
-            } else {
-                var placeholderOpt = Array.from(select.options).find(o => o.value === "");
-                triggerText.textContent = placeholderOpt ? placeholderOpt.textContent : "Select option";
-            }
+            // MutationObserver to sync dynamically loaded items
+            var observer = new MutationObserver(function () {
+                populateOptions();
+            });
+            observer.observe(select, { childList: true, characterData: true, subtree: true });
         });
-
-        // MutationObserver to sync dynamically loaded items
-        var observer = new MutationObserver(function () {
-            populateOptions();
-        });
-        observer.observe(select, { childList: true, characterData: true, subtree: true });
     }
 
     // ==========================================
@@ -368,7 +370,7 @@
         }
 
         // Update steps indicator styling
-        var $modal = $form.closest("#sales-enquiry-modal");
+        var $modal = $form.closest("#sales-enquiry-modal, #contact-enquiry-modal");
         if (!$modal.length) {
             $modal = $form.parent().parent(); // fallback lookup
         }
@@ -454,11 +456,11 @@
                             goToFormStep($form, 1);
                             
                             // Close modal overlay
-                            var closeBtn = document.getElementById("sales-enquiry-close");
+                            var closeBtn = $form.closest("#sales-enquiry-overlay, #contact-enquiry-overlay, .modal-overlay").find("#sales-enquiry-close, #contact-enquiry-close, .contact-support")[0];
                             if (closeBtn) {
                                 closeBtn.click();
                             } else {
-                                var overlay = document.getElementById("sales-enquiry-overlay") || document.querySelector(".modal-overlay");
+                                var overlay = document.getElementById("sales-enquiry-overlay") || document.getElementById("contact-enquiry-overlay") || document.querySelector(".modal-overlay");
                                 if (overlay) {
                                     overlay.style.display = "none";
                                     overlay.classList.remove("active");

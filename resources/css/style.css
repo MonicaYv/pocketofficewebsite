@@ -10224,7 +10224,7 @@ input[type=number] {
 
 @media (max-width: 768px) {
   .hero-header {
-    padding: 100px 0 60px;
+    padding: 100px 0 0px;
   }
 
   .hero-content h1 {
@@ -16833,7 +16833,8 @@ h5.footer-sub-heading {
   }
 }
 
-#sales-enquiry-overlay {
+#sales-enquiry-overlay,
+#contact-enquiry-overlay {
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.55);
@@ -16858,7 +16859,8 @@ h5.footer-sub-heading {
 }
 
 /* Modal box */
-#sales-enquiry-modal {
+#sales-enquiry-modal,
+#contact-enquiry-modal {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -16888,7 +16890,8 @@ h5.footer-sub-heading {
 }
 
 /* Close button */
-#sales-enquiry-close {
+#sales-enquiry-close,
+#contact-enquiry-close {
   position: absolute;
   top: 14px;
   right: 28px;
@@ -16902,25 +16905,30 @@ h5.footer-sub-heading {
   transition: color 0.15s;
 }
 
-#sales-enquiry-close:hover {
+#sales-enquiry-close:hover,
+#contact-enquiry-close:hover {
   color: #000;
 }
 
 /* Scrollbar styling inside modal */
-#sales-enquiry-modal::-webkit-scrollbar {
+#sales-enquiry-modal::-webkit-scrollbar,
+#contact-enquiry-modal::-webkit-scrollbar {
   width: 6px;
 }
 
-#sales-enquiry-modal::-webkit-scrollbar-track {
+#sales-enquiry-modal::-webkit-scrollbar-track,
+#contact-enquiry-modal::-webkit-scrollbar-track {
   background: #f1f1f1;
 }
 
-#sales-enquiry-modal::-webkit-scrollbar-thumb {
+#sales-enquiry-modal::-webkit-scrollbar-thumb,
+#contact-enquiry-modal::-webkit-scrollbar-thumb {
   background: #0694B7;
   border-radius: 4px;
 }
 
-#sales-enquiry-modal::-webkit-scrollbar-thumb:hover {
+#sales-enquiry-modal::-webkit-scrollbar-thumb:hover,
+#contact-enquiry-modal::-webkit-scrollbar-thumb:hover {
   background: #057c98;
 }
 

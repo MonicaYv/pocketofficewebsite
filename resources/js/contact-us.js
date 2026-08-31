@@ -143,24 +143,25 @@ $(document).ready(function () {
   $(".open-contact-modal").on("click", function (e) {
     e.preventDefault();
     $(".support-modal-overlay").removeClass("active");
-    $(".modal-overlay").addClass("active");
+    $("#contact-enquiry-overlay").fadeIn(200);
     $("body").css("overflow", "hidden");
   });
 
-  $(".modal-overlay").on("click", function () {
-    $(this).removeClass("active");
-    $("body").css("overflow", "");
+  $(document).on("click", "#contact-enquiry-overlay", function (e) {
+    if ($(e.target).is("#contact-enquiry-overlay")) {
+      closeContactPopup();
+    }
   });
 
-  $(".contact-modal").on("click", function (e) {
-    e.stopPropagation();
-  });
-
-  $(".contact-support").on("click", function (e) {
+  $(document).on("click", "#contact-enquiry-close, .contact-support", function (e) {
     e.preventDefault();
-    $(".modal-overlay").removeClass("active");
-    $("body").css("overflow", "");
+    closeContactPopup();
   });
+
+  function closeContactPopup() {
+    $("#contact-enquiry-overlay").fadeOut(200);
+    $("body").css("overflow", "");
+  }
 
   // Support Modal
   $(".open-support-modal").on("click", function (e) {
