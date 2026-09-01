@@ -101,7 +101,7 @@
              <a href="https://www.instagram.com/pocket_office.ai/" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-instagram"></i></a>
             <a href="https://in.pinterest.com/pocket_office/" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-pinterest-square"></i></a>
             <a href="https://www.reddit.com/user/pocketoffice/" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-reddit-square"></i></a>
-            <a href="https://www.quora.com/profile/Pocket-Office-3" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-quora"></i></a>
+            <a href="https://www.quora.com/profile/Pocketoffice" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-quora"></i></a>
          </div>
 
          <div class="copyright-text">

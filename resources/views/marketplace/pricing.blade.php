@@ -597,11 +597,11 @@
                                               <div class="po-license-block">
                                                   <div class="po-license-label">License Count</div>
                                                   <div class="quantity-box ul-quantity-container">
-                                                      <button class="qty-btn ul-decrement" type="button">−</button>
+                                                      <button class="qty-btn ul-decrement" type="button" data-default-licence="{{ $plan->plans_license }}">−</button>
                                                       <input type="text" class="qty-input ul-quantity-input"
                                                           value="{{ $defaultLicenses }}"
                                                           data-default-qty="{{ $minimumLicenses }}" readonly />
-                                                      <button class="qty-btn ul-increment" type="button">+</button>
+                                                      <button class="qty-btn ul-increment" type="button" data-default-licence="{{ $plan->plans_license }}">+</button>
                                                   </div>
                                                    @if($planName === 'Basic')
                                                    <p class="po-minimum-note">Note: Minimum of {{ $minimumLicenses }} licenses

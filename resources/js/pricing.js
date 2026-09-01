@@ -734,8 +734,9 @@ $(document).ready(function () {
         let qtyInput = planBox.find(".ul-quantity-input");
 
         let currentQty = parseInt(qtyInput.val());
+        let defaultLicensescnt = $(this).data("default-licence") || 1;
 
-        currentQty++;
+        currentQty = currentQty + defaultLicensescnt;
 
         qtyInput.val(currentQty);
 
@@ -753,7 +754,8 @@ $(document).ready(function () {
         let defaultQty = parseInt(qtyInput.data("default-qty")) || 1;
 
         if (currentQty > defaultQty) {
-            currentQty--;
+            let defaultLicensescnt = $(this).data("default-licence") || 1;
+            currentQty = currentQty - defaultLicensescnt;
 
             qtyInput.val(currentQty);
 
