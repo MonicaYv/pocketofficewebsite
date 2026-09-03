@@ -1,7 +1,102 @@
+# ==========================================
+# Pocket Office AI - robots.txt
+# SEO & AI Visibility Configuration
+# ==========================================
+
+# Content usage preferences
+# Allow search indexing and AI answer/grounding usage
+# Do not permit AI model training
+
 User-agent: *
+Content-Signal: search=yes,ai-input=yes,ai-train=no,use=reference
 Allow: /
 
-# Private directories
+# ==========================================
+# AI Search & AI Assistant Crawlers
+# ==========================================
+
+# OpenAI Search
+User-agent: OAI-SearchBot
+Allow: /
+
+# OpenAI user-requested access
+User-agent: ChatGPT-User
+Allow: /
+
+# Anthropic search
+User-agent: Claude-SearchBot
+Allow: /
+
+# Anthropic user-requested access
+User-agent: Claude-User
+Allow: /
+
+# Perplexity search
+User-agent: PerplexityBot
+Allow: /
+
+# Perplexity user-requested access
+User-agent: Perplexity-User
+Allow: /
+
+# Apple
+User-agent: Applebot
+Allow: /
+
+# Amazon
+User-agent: Amazonbot
+Allow: /
+
+# DuckDuckGo AI/Search
+User-agent: DuckAssistBot
+Allow: /
+
+# Meta external access
+User-agent: meta-externalagent
+Allow: /
+
+User-agent: meta-externalfetcher
+Allow: /
+
+# ==========================================
+# Standard Search Engines
+# ==========================================
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: bingbot
+Allow: /
+
+# ==========================================
+# AI Training Crawlers - Block
+# ==========================================
+
+# OpenAI training crawler
+User-agent: GPTBot
+Disallow: /
+
+# Google AI model training-related crawler
+User-agent: Google-Extended
+Disallow: /
+
+# Anthropic general crawler
+User-agent: ClaudeBot
+Disallow: /
+
+# Common dataset crawler
+User-agent: CCBot
+Disallow: /
+
+# ByteDance crawler
+User-agent: Bytespider
+Disallow: /
+
+# ==========================================
+# Private / Restricted Directories
+# ==========================================
+
+User-agent: *
 Disallow: /admin/
 Disallow: /login/
 Disallow: /dashboard/
@@ -10,5 +105,8 @@ Disallow: /vendor/
 Disallow: /storage/
 Disallow: /node_modules/
 
+# ==========================================
 # Sitemap
+# ==========================================
+
 Sitemap: https://pocket-office.ai/sitemap.xml
