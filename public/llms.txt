@@ -149,7 +149,7 @@ Pocket Office](https://pocket-office.ai/collaboration?tab=permissions): Discover
 
 ## Faq
 
-[Frequently Asked Questions About Cloud Desktop | Pocket Office](https://pocket-office.ai/faq): Pocket Office is a browser-based cloud desktop workspace that lets teams securely access files, apps and collaboration tools from anywhere.
+[Frequently Asked Questions About Cloud Desktop | Pocket Office](https://pocket-office.ai/faq): Pocket Office is a browser-based cloud desktop workspace that lets teams securely access files, apps and collaboration tools from anywhere, with answers to common questions about pricing, security, setup, and support.
 
 ## Terms condition
 

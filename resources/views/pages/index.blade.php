@@ -10,12 +10,22 @@
 @verbatim
 {
   "@context": "https://schema.org",
-  "@type": "WebPage",
+  "@type": ["WebPage", "SoftwareApplication"],
   "name": "Pocket Office",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Web Browser",
+  "browserRequirements": "Requires modern web browser",
   "url": "https://pocket-office.ai/",
-  "description": "Pocket Office is a secure browser-based cloud desktop workspace that lets teams access files, apps, and collaboration tools from anywhere without installation.",
+  "description": "Pocket Office is an AI-enabled browser-based cloud desktop workspace that gives teams secure access to files, apps, collaboration tools, and productivity software from anywhere.",
   "inLanguage": "en",
   "image": "https://pocket-office.ai/assets/img/Hero-Section.webp",
+  "featureList": [
+    "Browser-based cloud desktop",
+    "Secure file access and sharing",
+    "Collaboration tools",
+    "AI-ready productivity workspace",
+    "No installation required"
+  ],
   "publisher": {
     "@type": "Organization",
     "name": "Pocket Office",
@@ -24,6 +34,12 @@
       "@type": "ImageObject",
       "url": "https://pocket-office.ai/assets/img/logo/pocket-office-tm-final-logo.png"
     }
+  },
+  "offers": {
+    "@type": "Offer",
+    "priceCurrency": "USD",
+    "price": "0",
+    "category": "Cloud desktop software"
   }
 }
 @endverbatim
@@ -624,7 +640,7 @@
                     <img src="/assets/img/amazon-logo.webp" alt="Amazon" width="120" height="40" loading="lazy" />
                     <img src="/assets/img/quick-heal-logo.webp" alt="Quick Heal" width="120" height="40" loading="lazy" />
                     <img src="/assets/img/escan-logo.webp" alt="Escan" width="120" height="40" loading="lazy" />
-                    <img src="/assets/img/sonic-wall-logo.webp" alt="SonicWall" width="120" height="40" loading="lazy" />
+                    <img src="/assets/img/sonic-wall.svg" alt="SonicWall" width="120" height="40" loading="lazy" />
                     <img src="/assets/img/hp-logo.webp" alt="HP" width="120" height="40" loading="lazy" />
                     <img src="/assets/img/fortinet-logo.webp" alt="Fortinet" width="120" height="40" loading="lazy" />
                     <img src="/assets/img/eset-logo.webp" alt="ESET" width="120" height="40" loading="lazy" />
@@ -645,7 +661,7 @@
                     <img src="/assets/img/amazon-logo.webp" alt="Amazon" width="120" height="40" loading="lazy" />
                     <img src="/assets/img/quick-heal-logo.webp" alt="Quick Heal" width="120" height="40" loading="lazy" />
                     <img src="/assets/img/escan-logo.webp" alt="Escan" width="120" height="40" loading="lazy" />
-                    <img src="/assets/img/sonic-wall-logo.webp" alt="SonicWall" width="120" height="40" loading="lazy" />
+                    <img src="/assets/img/sonic-wall.svg" alt="SonicWall" width="120" height="40" loading="lazy" />
                     <img src="/assets/img/hp-logo.webp" alt="HP" width="120" height="40" loading="lazy" />
                     <img src="/assets/img/fortinet-logo.webp" alt="Fortinet" width="120" height="40" loading="lazy" />
                     <img src="/assets/img/eset-logo.webp" alt="ESET" width="120" height="40" loading="lazy" />

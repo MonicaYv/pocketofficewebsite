@@ -1,5 +1,67 @@
   @extends('layouts.backendsettings')
   @section('title', 'Affordable Cloud Desktop Plans for Teams & Businesses | Pocket Office')
+  @section('structured-data')
+      @php
+          $schemaPlanOffers = [];
+
+          $collectPlanFeatures = function ($plan) {
+              $decoded = json_decode((string) ($plan->features ?? '[]'), true);
+              return is_array($decoded) ? array_values($decoded) : [];
+          };
+
+          foreach ($userLicenseData['getPlanList']['planListsSingle'] ?? [] as $plan) {
+              $schemaPlanOffers[] = [
+                  '@type' => 'Offer',
+                  'itemCondition' => 'https://schema.org/NewCondition',
+                  'availability' => 'https://schema.org/InStock',
+                  'priceCurrency' => $selectedCurrency,
+                  'price' => (float) ($plan->plans_amount ?? 0),
+                  'url' => url('pricing'),
+                  'itemOffered' => [
+                      '@type' => 'Product',
+                      'name' => ($plan->plans_name ?? 'Personal Plan') . ' | Pocket Office',
+                      'brand' => ['@type' => 'Brand', 'name' => 'Pocket Office'],
+                      'category' => 'Cloud desktop plan',
+                      'description' => $plan->plans_content ?? 'Secure browser-based cloud desktop plan for individual users.',
+                      'featureList' => $collectPlanFeatures($plan),
+                  ],
+                  'seller' => ['@type' => 'Organization', 'name' => 'Pocket Office'],
+              ];
+          }
+
+          foreach ($userLicenseData['getPlanList']['planLists'] ?? [] as $plan) {
+              $schemaPlanOffers[] = [
+                  '@type' => 'Offer',
+                  'itemCondition' => 'https://schema.org/NewCondition',
+                  'availability' => 'https://schema.org/InStock',
+                  'priceCurrency' => $selectedCurrency,
+                  'price' => (float) ($plan->plans_amount ?? 0),
+                  'url' => url('pricing'),
+                  'itemOffered' => [
+                      '@type' => 'Product',
+                      'name' => ($plan->plans_name ?? 'Team Plan') . ' | Pocket Office',
+                      'brand' => ['@type' => 'Brand', 'name' => 'Pocket Office'],
+                      'category' => 'Cloud desktop plan',
+                      'description' => $plan->plans_content ?? 'Secure browser-based cloud desktop plan for teams and businesses.',
+                      'featureList' => $collectPlanFeatures($plan),
+                  ],
+                  'seller' => ['@type' => 'Organization', 'name' => 'Pocket Office'],
+              ];
+          }
+      @endphp
+      <script type="application/ld+json">
+      {!! json_encode([
+          '@context' => 'https://schema.org',
+          '@type' => 'Product',
+          'name' => 'Pocket Office Cloud Desktop Plans',
+          'brand' => ['@type' => 'Brand', 'name' => 'Pocket Office'],
+          'category' => 'SoftwareApplication',
+          'description' => 'AI-ready cloud desktop plans with secure access, file management, collaboration, and productivity tools for individuals and teams.',
+          'url' => url('pricing'),
+          'offers' => $schemaPlanOffers,
+      ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}
+      </script>
+  @endsection
   <style>
       .currency-select {
           padding: 10px 14px;

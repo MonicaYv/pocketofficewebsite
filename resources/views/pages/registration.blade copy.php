@@ -645,7 +645,7 @@
                     <img src="{{ asset($constants['IMAGEFILEPATH'] . 'amazon-logo.png') }}" alt="Amazon" />
                     <img src="{{ asset($constants['IMAGEFILEPATH'] . 'quick-heal-logo.png') }}" alt="Quick Heal" />
                     <img src="{{ asset($constants['IMAGEFILEPATH'] . 'escan-logo.png') }}" alt="Escan" />
-                    <img src="{{ asset($constants['IMAGEFILEPATH'] . 'sonic-wall-logo.png') }}" alt="SonicWall" />
+                    <img src="{{ asset($constants['IMAGEFILEPATH'] . 'sonic-wall.svg') }}" alt="SonicWall" />
                     <img src="{{ asset($constants['IMAGEFILEPATH'] . 'hp-logo.png') }}" alt="HP" />
                     <img src="{{ asset($constants['IMAGEFILEPATH'] . 'fortinet-logo.png') }}" alt="Fortinet" />
                     <img src="{{ asset($constants['IMAGEFILEPATH'] . 'eset-logo.png') }}" alt="ESET" />
@@ -667,7 +667,7 @@
                     <img src="{{ asset($constants['IMAGEFILEPATH'] . 'amazon-logo.png') }}" alt="Amazon" />
                     <img src="{{ asset($constants['IMAGEFILEPATH'] . 'quick-heal-logo.png') }}" alt="Quick Heal" />
                     <img src="{{ asset($constants['IMAGEFILEPATH'] . 'escan-logo.png') }}" alt="Escan" />
-                    <img src="{{ asset($constants['IMAGEFILEPATH'] . 'sonic-wall-logo.png') }}" alt="SonicWall" />
+                    <img src="{{ asset($constants['IMAGEFILEPATH'] . 'sonic-wall.svg') }}" alt="SonicWall" />
                     <img src="{{ asset($constants['IMAGEFILEPATH'] . 'hp-logo.png') }}" alt="HP" />
                     <img src="{{ asset($constants['IMAGEFILEPATH'] . 'fortinet-logo.png') }}" alt="Fortinet" />
                     <img src="{{ asset($constants['IMAGEFILEPATH'] . 'eset-logo.png') }}" alt="ESET" />

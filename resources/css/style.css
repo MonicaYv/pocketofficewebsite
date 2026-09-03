@@ -18312,3 +18312,14 @@ body {
     width: 100%;
   }
 }
+
+
+.partners-logo-strip img {
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+
+    -webkit-user-drag: none;
+    pointer-events: none;
+}

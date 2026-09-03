@@ -130,7 +130,7 @@
             <img src="/assets/img/amazon-logo.png" alt="Amazon" loading="lazy" />
             <img src="/assets/img/quick-heal-logo.png" alt="Quick Heal" loading="lazy" />
             <img src="/assets/img/escan-logo.png" alt="Escan" loading="lazy" />
-            <img src="/assets/img/sonic-wall-logo.png" alt="SonicWall" loading="lazy" />
+            <img src="/assets/img/sonic-wall.svg" alt="SonicWall" loading="lazy" />
             <img src="/assets/img/hp-logo.png" alt="HP" loading="lazy" />
             <img src="/assets/img/fortinet-logo.png" alt="Fortinet" loading="lazy" />
             <img src="/assets/img/eset-logo.png" alt="ESET" loading="lazy" />
@@ -152,7 +152,7 @@
             <img src="/assets/img/amazon-logo.png" alt="Amazon" loading="lazy" />
             <img src="/assets/img/quick-heal-logo.png" alt="Quick Heal" loading="lazy" />
             <img src="/assets/img/escan-logo.png" alt="Escan" loading="lazy" />
-            <img src="/assets/img/sonic-wall-logo.png" alt="SonicWall" loading="lazy" />
+            <img src="/assets/img/sonic-wall.svg" alt="SonicWall" loading="lazy" />
             <img src="/assets/img/hp-logo.png" alt="HP" loading="lazy" />
             <img src="/assets/img/fortinet-logo.png" alt="Fortinet" loading="lazy" />
             <img src="/assets/img/eset-logo.png" alt="ESET" loading="lazy" />

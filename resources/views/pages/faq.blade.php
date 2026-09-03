@@ -1,5 +1,103 @@
 @extends('layouts.backendsettings')
 @section('title', 'Frequently Asked Questions About Cloud Desktop | Pocket Office')
+@section('meta-title', 'Frequently Asked Questions About Cloud Desktop | Pocket Office')
+@section('meta-description', 'Find answers to common questions about Pocket Office cloud desktop, security, features, support, pricing, and AI-ready productivity for teams and individuals.')
+@section('meta-keywords', 'faq, cloud desktop faq, pocket office questions, virtual desktop support, ai cloud desktop, team workspace support')
+@section('meta-image', 'https://pocket-office.ai/assets/img/Hero-Section.webp')
+@section('canonical', 'https://pocket-office.ai/faq')
+@section('meta-url', 'https://pocket-office.ai/faq')
+@section('structured-data')
+@php
+    $faqSchema = [
+        '@context' => 'https://schema.org',
+        '@type' => ['WebPage', 'FAQPage', 'SoftwareApplication'],
+        'name' => 'Frequently Asked Questions About Cloud Desktop | Pocket Office',
+        'applicationCategory' => 'BusinessApplication',
+        'operatingSystem' => 'Web Browser',
+        'browserRequirements' => 'Requires modern web browser',
+        'url' => 'https://pocket-office.ai/faq',
+        'description' => 'Find answers to common questions about Pocket Office cloud desktop, remote work security, support, AI-ready productivity, and team collaboration.',
+        'inLanguage' => 'en',
+        'image' => 'https://pocket-office.ai/assets/img/Hero-Section.webp',
+        'mainEntity' => [
+            [
+                '@type' => 'Question',
+                'name' => 'What exactly is Pocket Office?',
+                'acceptedAnswer' => [
+                    '@type' => 'Answer',
+                    'text' => 'Think of Pocket Office as your personal computer that lives in the cloud instead of a physical box under your desk. It is a virtual desktop you access through any web browser, giving you a full, familiar desktop experience complete with apps, files, and folders from any device, anywhere.'
+                ]
+            ],
+            [
+                '@type' => 'Question',
+                'name' => 'Why should my company switch to a Cloud Desktop (DaaS)?',
+                'acceptedAnswer' => [
+                    '@type' => 'Answer',
+                    'text' => 'It saves money and simplifies IT. You do not need expensive high-spec hardware for every employee because the heavy lifting happens in the cloud. It also makes remote work seamless, as your team can log in from a home laptop, tablet, or public computer and find everything exactly where they left it.'
+                ]
+            ],
+            [
+                '@type' => 'Question',
+                'name' => 'Is my company data safe in the cloud?',
+                'acceptedAnswer' => [
+                    '@type' => 'Answer',
+                    'text' => 'Security is built into our core. Your data is isolated in a multi-tenant environment, meaning your information is completely separated from other companies. We also use advanced role-based permissions so employees only see the data they are authorized to access.'
+                ]
+            ],
+            [
+                '@type' => 'Question',
+                'name' => 'Can we use our existing office software?',
+                'acceptedAnswer' => [
+                    '@type' => 'Answer',
+                    'text' => 'Yes. Pocket Office is designed to be an integration hub. We support popular tools like ERPNext, Collabora Office and more. If you use custom apps, we provide API integrations to ensure they run smoothly within your virtual desktop.'
+                ]
+            ],
+            [
+                '@type' => 'Question',
+                'name' => 'How fast can I set up my team on Pocket Office?',
+                'acceptedAnswer' => [
+                    '@type' => 'Answer',
+                    'text' => 'Extremely fast. Because it is cloud-native, you can provision or de-provision users in minutes. Whether you are onboarding a new hire or expanding into a new office, your team can be up and running instantly.'
+                ]
+            ],
+            [
+                '@type' => 'Question',
+                'name' => 'How much does Pocket Office cost?',
+                'acceptedAnswer' => [
+                    '@type' => 'Answer',
+                    'text' => 'We offer simple transparent pricing plans for individuals, teams, and businesses. You can choose monthly or annual billing with flexibility to upgrade, downgrade, or cancel when needed.'
+                ]
+            ]
+        ],
+        'publisher' => [
+            '@type' => 'Organization',
+            'name' => 'Pocket Office',
+            'url' => 'https://pocket-office.ai/',
+            'logo' => [
+                '@type' => 'ImageObject',
+                'url' => 'https://pocket-office.ai/assets/img/logo/pocket-office-tm-final-logo.png'
+            ]
+        ],
+        'about' => [
+            [
+                '@type' => 'Thing',
+                'name' => 'Cloud desktop workspace'
+            ],
+            [
+                '@type' => 'Thing',
+                'name' => 'AI-ready productivity software'
+            ],
+            [
+                '@type' => 'Thing',
+                'name' => 'Remote collaboration tools'
+            ]
+        ]
+    ];
+@endphp
+<script type="application/ld+json">
+{!! json_encode($faqSchema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}
+</script>
+@endsection
 @section('content')
 
 <!-- breadcrumb area start -->

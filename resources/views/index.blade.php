@@ -1118,7 +1118,7 @@
                         <img src="public//assets/img/amazon-logo.png" alt="Amazon" />
                         <img src="public//assets/img/quick-heal-logo.png" alt="Quick Heal" />
                         <img src="public//assets/img/escan-logo.png" alt="Escan" />
-                        <img src="public//assets/img/sonic-wall-logo.png" alt="SonicWall" />
+                        <img src="public//assets/img/sonic-wall.svg" alt="SonicWall" />
                         <img src="public//assets/img/hp-logo.png" alt="HP" />
                         <img src="public//assets/img/fortinet-logo.png" alt="Fortinet" />
                         <img src="public//assets/img/eset-logo.png" alt="ESET" />
@@ -1140,7 +1140,7 @@
                         <img src="/assets/img/amazon-logo.png" alt="Amazon" />
                         <img src="/assets/img/quick-heal-logo.png" alt="Quick Heal" />
                         <img src="/assets/img/escan-logo.png" alt="Escan" />
-                        <img src="/assets/img/sonic-wall-logo.png" alt="SonicWall" />
+                        <img src="/assets/img/sonic-wall.svg" alt="SonicWall" />
                         <img src="/assets/img/hp-logo.png" alt="HP" />
                         <img src="/assets/img/fortinet-logo.png" alt="Fortinet" />
                         <img src="/assets/img/eset-logo.png" alt="ESET" />
