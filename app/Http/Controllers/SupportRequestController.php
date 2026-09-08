@@ -15,7 +15,7 @@ class SupportRequestController extends Controller
             'customerId' => ['required', 'string', 'max:100'],
             'name' => ['required', 'string', 'max:255'],
             'countryCodes' => ['required', 'string', 'max:20'],
-            'phoneNumber' => ['required', 'string', 'max:20'],
+            'phoneNumber' => ['required', 'string', 'max:15'],
             'email' => ['required', 'email', 'max:255'],
             'message' => ['required', 'string', 'max:5000'],
             'attachments' => ['nullable', 'array'],

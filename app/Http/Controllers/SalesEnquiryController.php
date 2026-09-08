@@ -16,7 +16,7 @@ class SalesEnquiryController extends Controller
             'industry' => 'required',
             'firstName' => 'required|string|max:100',
             'lastName' => 'required|string|max:100',
-            'phoneNumber' => 'required',
+            'phoneNumber' => 'required|string|max:15',
             'email' => 'required|email',
             'website' => 'nullable|url',
             'companyAddress' => 'required',
