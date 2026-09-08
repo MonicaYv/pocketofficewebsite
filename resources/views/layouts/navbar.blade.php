@@ -65,7 +65,7 @@
             <ul class="navbar-nav default-blue">
                 <li class="mega-menu-item">
                     <a href="#" class="mega-menu-trigger">Products</a>
-                    <div class="mega-menu-dropdown">
+                    <template class="mega-menu-template"><div class="mega-menu-dropdown">
                         <div class="mega-menu-container products-mega-menu">
                             <div class="mega-menu-content">
                                 <!-- Core Features Section -->
@@ -163,11 +163,11 @@
 
                             </div>
                         </div>
-                    </div>
+                    </div></template>
                 </li>
                 <li class="mega-menu-item">
                     <a href="#" class="mega-menu-trigger">Solutions</a>
-                    <div class="mega-menu-dropdown">
+                    <template class="mega-menu-template"><div class="mega-menu-dropdown">
                         <div class="mega-menu-container solutions-mega-menu">
                             <div class="mega-menu-content">
                                 <!-- Core Features Section -->
@@ -283,11 +283,11 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div></template>
                 </li>
                 <li class="mega-menu-item">
                     <a href="#" class="mega-menu-trigger">Industries</a>
-                    <div class="mega-menu-dropdown">
+                    <template class="mega-menu-template"><div class="mega-menu-dropdown">
                         <div class="mega-menu-container">
                             <div class="mega-menu-content">
                                 <!-- Core Features Section -->
@@ -373,7 +373,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div></template>
                 </li>
                 <li>
                     <a href="{{ route('marketplace.pricing') }}">Pricing</a>
@@ -381,7 +381,7 @@
                 </li>
                 <li class="mega-menu-item">
                     <a href="#" class="mega-menu-trigger">Resources</a>
-                    <div class="mega-menu-dropdown">
+                    <template class="mega-menu-template"><div class="mega-menu-dropdown">
                         <div class="mega-menu-container">
                             <div class="mega-menu-content">
                                 <div class="mega-menu-section">
@@ -468,7 +468,7 @@
 
                             </div>
                         </div>
-                    </div>
+                    </div></template>
                 </li>
                 <li class="menu-item-has-children d-lg-none">
                     <a href="#">More</a>

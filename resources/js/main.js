@@ -887,6 +887,15 @@ if (document.getElementById("typewriter")) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll(".mega-menu-item").forEach((item) => {
+    const template = item.querySelector(".mega-menu-template");
+
+    if (template) {
+      item.insertBefore(template.content.cloneNode(true), template);
+      template.remove();
+    }
+  });
+
   if (window.innerWidth < 1024) {
     document.querySelectorAll(".mega-menu-item").forEach((item) => {
       item.addEventListener("click", (e) => {
