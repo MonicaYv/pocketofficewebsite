@@ -675,11 +675,11 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function validatePhone(phone) {
-        return /^[0-9]{10}$/.test(phone);
+        return /^[0-9]{15}$/.test(phone);
     }
 
     function validateCompanyNumber(companyNumber) {
-        return /^[0-9]{10}$/.test(companyNumber);
+        return /^[0-9]{15}$/.test(companyNumber);
     }
 
     function validateUsername(username) {
@@ -717,7 +717,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 document.getElementById("companyNumber")?.value.trim() || "";
 
             if (!validateCompanyNumber(companyNumber)) {
-                showError("companyNumber", "Enter valid 10 digit phone");
+                showError("companyNumber", "Enter valid phone number");
                 valid = false;
             } else {
                 hideError("companyNumber");
@@ -805,7 +805,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const phone = document.getElementById("phone")?.value.trim() || "";
 
         if (!validatePhone(phone)) {
-            showError("phone", "Enter valid 10 digit phone");
+            showError("phone", "Enter valid phone number");
             valid = false;
         } else {
             hideError("phone");
