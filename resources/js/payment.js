@@ -675,11 +675,11 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function validatePhone(phone) {
-        return /^[0-9]{15}$/.test(phone);
+        return /^[0-9]{10,15}$/.test(phone);
     }
 
     function validateCompanyNumber(companyNumber) {
-        return /^[0-9]{15}$/.test(companyNumber);
+        return /^[0-9]{10,15}$/.test(companyNumber);
     }
 
     function validateUsername(username) {
@@ -1311,7 +1311,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // LIVE VALIDATION
     // PHONE
     document.getElementById("phone")?.addEventListener("input", function () {
-        this.value = this.value.replace(/\D/g, "").slice(0, 10);
+        this.value = this.value.replace(/\D/g, "").slice(0, 15);
 
         if (validatePhone(this.value)) {
             hideError("phone");
@@ -1415,7 +1415,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document
         .getElementById("companyNumber")
         ?.addEventListener("input", function () {
-            this.value = this.value.replace(/\D/g, "").slice(0, 10);
+            this.value = this.value.replace(/\D/g, "").slice(0, 15);
 
             if (validatePhone(this.value)) {
                 hideError("companyNumber");
