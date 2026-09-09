@@ -334,12 +334,12 @@
                                          <div class="form-group">
                                              <label>Company Number</label>
                                              <input type="text" class="form-control" id="companyNumber"
-                                                 placeholder="98765XXXXX" maxlength="10" inputmode="numeric"
+                                                 placeholder="98765XXXXX" maxlength="15" inputmode="numeric"
                                                  autocomplete="off" />
                                              <span class=" glyphicon form-control-feedback" id="companyNumber-icon"></span>
                                              <span class="help-block text-danger" style="display: none"
                                                  id="companyNumber-err">
-                                                 Enter valid 10 digit mobile number
+                                                 Enter valid 10-15 digit mobile number
                                              </span>
                                          </div>
                                      </div>
@@ -411,11 +411,11 @@
                                          <div class="form-group has-feedback">
                                              <label>Phone Number <span class="req">*</span></label>
                                              <input type="tel" class="form-control" id="phone"
-                                                 placeholder="98765XXXXX" maxlength="10" inputmode="numeric"
+                                                 placeholder="98765XXXXX" maxlength="15" inputmode="numeric"
                                                  autocomplete="off" />
                                              <span class=" glyphicon form-control-feedback" id="phone-icon"></span>
                                              <span class="help-block text-danger" style="display: none" id="phone-err">
-                                                 Enter valid 10 digit mobile number
+                                                 Enter valid 10-15 digit mobile number
                                              </span>
                                          </div>
                                      </div>
