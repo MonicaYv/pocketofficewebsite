@@ -887,13 +887,18 @@ if (document.getElementById("typewriter")) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  document.querySelectorAll(".mega-menu-item").forEach((item) => {
+  const hydrateMegaMenu = (item) => {
     const template = item.querySelector(".mega-menu-template");
 
     if (template) {
       item.insertBefore(template.content.cloneNode(true), template);
       template.remove();
     }
+  };
+
+  document.querySelectorAll(".mega-menu-item").forEach((item) => {
+    item.addEventListener("pointerenter", () => hydrateMegaMenu(item), { once: true });
+    item.addEventListener("click", () => hydrateMegaMenu(item), { once: true });
   });
 
   if (window.innerWidth < 1024) {
