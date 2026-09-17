@@ -101,9 +101,8 @@
                               <h3>India</h3>
                               <div class="office-detail">
                                   <i class="fa-solid fa-location-dot"></i>
-                                  <span>3102, 1st Floor, Rustomjee Eaze Zone, Sundar Nagar, Malad West - Mumbai
-                                      400064, MH -
-                                      IN</span>
+                                  <span>B-106, Ostwal Point B wing Chsl, Kanakia Road, near Beverly Park,
+                                        Mira Road East, Thane/Mumbai, Maharashtra – 401107</span>
                               </div>
                               <div class="office-detail">
                                   <i class="fa-solid fa-phone"></i>
@@ -149,7 +148,7 @@
                             leave feedback.</p>
                     </div>
                     <button class="card-btn"
-                        onclick="window.open('{{ url('https://helpdesk.pocket-office.ai/submit-ticket') }}', '_blank')">
+                        onclick="window.location.href='{{ url('https://helpdesk.pocket-office.ai/submit-ticket') }}'">
                         Contact support
                     </button>
                 </div>

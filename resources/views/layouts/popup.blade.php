@@ -1,6 +1,6 @@
 <!-- search Popup -->
 <div class="body-overlay" id="body-overlay"></div>
-<div class="search-popup" id="search-popup">
+{{-- <div class="search-popup" id="search-popup">
     <form class="search-form" onsubmit="return false;">
         <div class="form-group">
             <input
@@ -173,4 +173,4 @@
         </div>
     </div>
 </div>
-<!-- //. client Popup End -->
+<!-- //. client Popup End --> --}}

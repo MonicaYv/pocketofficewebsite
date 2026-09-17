@@ -92,7 +92,7 @@
                         </div>
                     </div>
 
-                    <a href="http://127.0.0.1:8000/job-apply?slug=flutter-developer-intern&amp;title=Flutter+Developer+Intern" class="job-apply-btn mt-4">Apply Now</a>
+                    <a href="{{ url('job-apply') }}" class="job-apply-btn mt-4">Apply Now</a>
                 </div>
             </div>
         </div>

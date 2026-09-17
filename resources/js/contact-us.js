@@ -25,9 +25,9 @@ $(document).ready(function () {
       {
         id: "india",
         name: "India",
-        lat: 19.1874,
-        lng: 72.8484,
-        address: "3102, 1st Floor, Rustomjee Eaze Zone, Sundar Nagar, Malad West - Mumbai 400064, MH - IN",
+        lat: 19.298150,
+        lng: 72.871833,
+        address: "B-106, Ostwal Point B wing Chsl, Kanakia Road, near Beverly Park, Mira Road East, Thane/Mumbai, Maharashtra – 401107",
         phone: "+91 9967940928",
         tooltipDirection: "top",
       },
