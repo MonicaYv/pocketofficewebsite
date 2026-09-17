@@ -69,9 +69,9 @@
                         <div class="form-grid mt-3">
                             <div class="form-item">
                                 <label for="website">Website URL</label>
-                                <input type="text" id="website" name="website" placeholder="https://yourcompany.com"
+                                <input type="text" id="website" name="website" placeholder="e.g. yourcompany.com"
                                     class="form-control" />
-                                <div class="invalid-feedback">Please enter a valid website URL.</div>
+                                <div class="invalid-feedback">Please enter a valid domain name (e.g. yourcompany.com).</div>
                             </div>
                             <div class="form-item">
                                 <label for="companyAddress">Company Address <span class="required-asterisk">*</span></label>

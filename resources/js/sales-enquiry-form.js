@@ -79,8 +79,10 @@
     }
 
     function validateWebsite(url) {
+        // Allow only valid domain names (e.g. example.com, sub.domain.org)
+        // Disallow protocols (http/https), paths, query strings, and spaces
         const pattern =
-            /^(https?:\/\/)?([\w\-]+\.)+[\w\-]{2,}(\/[\w\-._~:/?#[\]@!$&'()*+,;=]*)?$/i;
+            /^(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}$/;
         return pattern.test(url);
     }
 
@@ -273,7 +275,7 @@
             }
 
             if (website.val().trim() !== "" && !validateWebsite(website.val().trim())) {
-                showInputError(website, "Enter valid website URL");
+                showInputError(website, "Please enter a valid domain name (e.g. yourcompany.com)");
                 isValid = false;
             }
 
@@ -531,6 +533,17 @@
                 this.value = this.value.replace(/[^A-Za-z\s]/g, "");
             },
         );
+
+        // Allow only domain name in website URL input
+        $(document).on("input", '.salesEnquiryForm [name="website"]', function () {
+            var val = this.value.trim();
+            // Remove protocol if typed or pasted (http:// or https://)
+            val = val.replace(/^https?:\/\//i, "");
+            // Remove any trailing path/query/fragment if pasted
+            val = val.split("/")[0].split("?")[0].split("#")[0];
+            // Allow only valid domain characters: letters, digits, hyphens, and dots
+            this.value = val.replace(/[^a-zA-Z0-9.-]/g, "");
+        });
 
         // Navigation button click handlers
         $(document).on("click", ".salesEnquiryForm .next-step-btn", function (e) {

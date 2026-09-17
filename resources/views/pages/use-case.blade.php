@@ -91,7 +91,7 @@
                  <div class="usecase-grid">
                      <div class="usecase-card">
                          <div class="card-video">
-                             <video autoplay loop muted playsinline>
+                             <video loop muted playsinline preload="metadata">
                                  <source src="https://wnhq4j5mc7yjym73.public.blob.vercel-storage.com/pof/solutions-use-case/file-sharing/Permission-Based%20Sharing.mp4" type="video/mp4">
                                  Your browser does not support the video tag.
                              </video>
@@ -108,7 +108,7 @@
 
                      <div class="usecase-card">
                          <div class="card-video">
-                             <video autoplay loop muted playsinline>
+                             <video loop muted playsinline preload="metadata">
                                  <source src="https://wnhq4j5mc7yjym73.public.blob.vercel-storage.com/pof/solutions-use-case/file-sharing/Time-Controlled%20Access.mp4" type="video/mp4">
                                  Your browser does not support the video tag.
                              </video>
@@ -124,7 +124,7 @@
 
                      <div class="usecase-card">
                          <div class="card-video">
-                             <video autoplay loop muted playsinline>
+                             <video loop muted playsinline preload="metadata">
                                  <source src="https://wnhq4j5mc7yjym73.public.blob.vercel-storage.com/pof/solutions-use-case/file-sharing/Internal%20&%20External%20Use.mp4" type="video/mp4">
                                  Your browser does not support the video tag.
                              </video>
@@ -140,7 +140,7 @@
 
                      <div class="usecase-card">
                          <div class="card-video">
-                             <video autoplay loop muted playsinline>
+                             <video loop muted playsinline preload="metadata">
                                  <source src="https://wnhq4j5mc7yjym73.public.blob.vercel-storage.com/pof/solutions-use-case/file-sharing/Built-In%20Security.mp4" type="video/mp4">
                                  Your browser does not support the video tag.
                              </video>
@@ -174,8 +174,8 @@
                  <div class="usecase-grid">
                      <div class="usecase-card">
                          <div class="card-video">
-                             <video autoplay loop muted playsinline>
-                                 <source src="https://wnhq4j5mc7yjym73.public.blob.vercel-storage.com/pof/solutions-use-case/virtual-desktop/browser-based-desktop.mp4" type="video/mp4">
+                             <video loop muted playsinline preload="none">
+                                 <source data-src="https://wnhq4j5mc7yjym73.public.blob.vercel-storage.com/pof/solutions-use-case/virtual-desktop/browser-based-desktop.mp4" type="video/mp4">
                                  Your browser does not support the video tag.
                              </video>
                          </div>
@@ -190,8 +190,8 @@
 
                      <div class="usecase-card">
                          <div class="card-video">
-                             <video autoplay loop muted playsinline>
-                                 <source src="https://wnhq4j5mc7yjym73.public.blob.vercel-storage.com/pof/solutions-use-case/virtual-desktop/Solution%20By%20Use%20Case-%20Virtual%20Desktop%20Device%20Independence%20%281%29.mov" type="video/mp4">
+                             <video loop muted playsinline preload="none">
+                                 <source data-src="https://wnhq4j5mc7yjym73.public.blob.vercel-storage.com/pof/solutions-use-case/virtual-desktop/Device%20Independence.mp4" type="video/mp4">
                                  Your browser does not support the video tag.
                              </video>
                          </div>
@@ -206,8 +206,8 @@
 
                      <div class="usecase-card">
                          <div class="card-video">
-                             <video autoplay loop muted playsinline>
-                                 <source src="https://wnhq4j5mc7yjym73.public.blob.vercel-storage.com/pof/solutions-use-case/virtual-desktop/Simplified%20IT%20Management.mp4" type="video/mp4">
+                             <video loop muted playsinline preload="none">
+                                 <source data-src="https://wnhq4j5mc7yjym73.public.blob.vercel-storage.com/pof/solutions-use-case/virtual-desktop/Simplified%20IT%20Management.mp4" type="video/mp4">
                                  Your browser does not support the video tag.
                              </video>
                          </div>
@@ -222,8 +222,8 @@
 
                      <div class="usecase-card">
                          <div class="card-video">
-                             <video autoplay loop muted playsinline>
-                                 <source src="https://wnhq4j5mc7yjym73.public.blob.vercel-storage.com/pof/solutions-use-case/virtual-desktop/Secure%20by%20Design.mp4" type="video/mp4">
+                             <video loop muted playsinline preload="none">
+                                 <source data-src="https://wnhq4j5mc7yjym73.public.blob.vercel-storage.com/pof/solutions-use-case/virtual-desktop/Secure%20by%20Design.mp4" type="video/mp4">
                                  Your browser does not support the video tag.
                              </video>
                          </div>
@@ -256,8 +256,8 @@
                  <div class="usecase-grid">
                      <div class="usecase-card">
                          <div class="card-video">
-                             <video autoplay loop muted playsinline>
-                                 <source src="https://wnhq4j5mc7yjym73.public.blob.vercel-storage.com/pof/solutions-use-case/team-worksppace/Centralized%20Collaboration.mp4" type="video/mp4">
+                             <video loop muted playsinline preload="none">
+                                 <source data-src="https://wnhq4j5mc7yjym73.public.blob.vercel-storage.com/pof/solutions-use-case/team-worksppace/Centralized%20Collaboration.mp4" type="video/mp4">
                                  Your browser does not support the video tag.
                              </video>
                          </div>
@@ -272,8 +272,8 @@
 
                      <div class="usecase-card">
                          <div class="card-video">
-                            <video autoplay loop muted playsinline>
-                                 <source src="https://wnhq4j5mc7yjym73.public.blob.vercel-storage.com/pof/solutions-use-case/team-worksppace/Structured%20Workflows.mp4" type="video/mp4">
+                            <video loop muted playsinline preload="none">
+                                 <source data-src="https://wnhq4j5mc7yjym73.public.blob.vercel-storage.com/pof/solutions-use-case/team-worksppace/Structured%20Workflows.mp4" type="video/mp4">
                                  Your browser does not support the video tag.
                              </video>
                          </div>
@@ -288,8 +288,8 @@
 
                      <div class="usecase-card">
                          <div class="card-video">
-                            <video autoplay loop muted playsinline>
-                                 <source src="https://wnhq4j5mc7yjym73.public.blob.vercel-storage.com/pof/solutions-use-case/team-worksppace/Real-Time%20Updates.mp4" type="video/mp4">
+                            <video loop muted playsinline preload="none">
+                                 <source data-src="https://wnhq4j5mc7yjym73.public.blob.vercel-storage.com/pof/solutions-use-case/team-worksppace/Real-Time%20Updates.mp4" type="video/mp4">
                                  Your browser does not support the video tag.
                              </video>
                          </div>
@@ -304,8 +304,8 @@
 
                      <div class="usecase-card">
                          <div class="card-video">
-                            <video autoplay loop muted playsinline>
-                                 <source src="https://wnhq4j5mc7yjym73.public.blob.vercel-storage.com/pof/solutions-use-case/team-worksppace/Controlled%20Access.mp4" type="video/mp4">
+                            <video loop muted playsinline preload="none">
+                                 <source data-src="https://wnhq4j5mc7yjym73.public.blob.vercel-storage.com/pof/solutions-use-case/team-worksppace/Controlled%20Access.mp4" type="video/mp4">
                                  Your browser does not support the video tag.
                              </video>
                          </div>
@@ -338,8 +338,8 @@
                  <div class="usecase-grid">
                      <div class="usecase-card">
                          <div class="card-video">
-                            <video autoplay loop muted playsinline>
-                                <source src="https://wnhq4j5mc7yjym73.public.blob.vercel-storage.com/pof/solutions-use-case/cloud-storage/Centralized%20File%20Management.mp4" type="video/mp4">
+                            <video loop muted playsinline preload="none">
+                                <source data-src="https://wnhq4j5mc7yjym73.public.blob.vercel-storage.com/pof/solutions-use-case/cloud-storage/Centralized%20File%20Management.mp4" type="video/mp4">
                                 Your browser does not support the video tag.
                             </video>
                          </div>
@@ -354,8 +354,8 @@
 
                      <div class="usecase-card">
                          <div class="card-video">
-                             <video autoplay loop muted playsinline>
-                                <source src="https://wnhq4j5mc7yjym73.public.blob.vercel-storage.com/pof/solutions-use-case/cloud-storage/Unified%20Access.mp4" type="video/mp4">
+                             <video loop muted playsinline preload="none">
+                                <source data-src="https://wnhq4j5mc7yjym73.public.blob.vercel-storage.com/pof/solutions-use-case/cloud-storage/Unified%20Access.mp4" type="video/mp4">
                                 Your browser does not support the video tag.
                             </video>
                          </div>
@@ -370,8 +370,8 @@
 
                      <div class="usecase-card">
                          <div class="card-video">
-                             <video autoplay loop muted playsinline>
-                                <source src="https://wnhq4j5mc7yjym73.public.blob.vercel-storage.com/pof/solutions-use-case/cloud-storage/Solution%20By%20Use%20Case-%20Cloud%20Storage-Scalable%20Storage%20.mov" type="video/mp4">
+                             <video loop muted playsinline preload="none">
+                                <source data-src="https://wnhq4j5mc7yjym73.public.blob.vercel-storage.com/pof/solutions-use-case/cloud-storage/Scalable%20Storage.mp4" type="video/mp4">
                                 Your browser does not support the video tag.
                             </video>
                          </div>
@@ -386,8 +386,8 @@
 
                      <div class="usecase-card">
                          <div class="card-video">
-                             <video autoplay loop muted playsinline>
-                                <source src="https://wnhq4j5mc7yjym73.public.blob.vercel-storage.com/pof/solutions-use-case/cloud-storage/Secure%20by%20Default.mp4" type="video/mp4">
+                             <video loop muted playsinline preload="none">
+                                <source data-src="https://wnhq4j5mc7yjym73.public.blob.vercel-storage.com/pof/solutions-use-case/cloud-storage/Secure%20by%20Default.mp4" type="video/mp4">
                                 Your browser does not support the video tag.
                             </video>
                          </div>
@@ -408,22 +408,122 @@
 @section('scripts')
 @vite(['resources/js/products.js']) 
  <script>
-     const cards = document.querySelectorAll(".usecase-card");
+ document.addEventListener('DOMContentLoaded', function () {
+     const allCards = document.querySelectorAll('.usecase-card');
+     const allVideos = document.querySelectorAll('.usecase-card video');
 
-     const observer = new IntersectionObserver(
-         (entries) => {
-             entries.forEach((entry) => {
-                 if (entry.isIntersecting) {
-                     entry.target.classList.add("is-visible");
-                     // Stop observing once animated in
-                     observer.unobserve(entry.target);
+     // Ensure all videos start with correct playback properties
+     allVideos.forEach(video => {
+         video.muted = true;
+         video.playsInline = true;
+         video.loop = true;
+     });
+
+     // Helper: load video source if not loaded yet
+     function loadVideoSource(video) {
+         const source = video.querySelector('source[data-src]');
+         if (source) {
+             source.src = source.getAttribute('data-src');
+             source.removeAttribute('data-src');
+             video.load();
+         }
+     }
+
+     // Helper: play video safely
+     function playSafe(video) {
+         loadVideoSource(video);
+         const p = video.play();
+         if (p !== undefined) {
+             p.catch(() => {});
+         }
+     }
+
+     // Helper: pause video safely
+     function pauseSafe(video) {
+         if (!video.paused) {
+             video.pause();
+         }
+     }
+
+     // IntersectionObserver: play only visible videos in the active tab; pause off-screen ones
+     const videoObserver = new IntersectionObserver((entries) => {
+         entries.forEach((entry) => {
+             const video = entry.target;
+             const pane = video.closest('.features-tab-pane');
+             const isActivePane = pane && pane.classList.contains('active');
+
+             if (entry.isIntersecting && isActivePane) {
+                 playSafe(video);
+             } else {
+                 pauseSafe(video);
+             }
+         });
+     }, {
+         rootMargin: '100px 0px',
+         threshold: 0.1
+     });
+
+     allVideos.forEach(v => videoObserver.observe(v));
+
+     // Card entrance observer on scroll
+     const cardObserver = new IntersectionObserver((entries) => {
+         entries.forEach((entry) => {
+             if (entry.isIntersecting) {
+                 entry.target.classList.add('is-visible');
+                 cardObserver.unobserve(entry.target);
+             }
+         });
+     }, { threshold: 0.1 });
+
+     allCards.forEach(card => cardObserver.observe(card));
+
+     // Handle tab switching
+     function handleTabSwitch(activeTabId) {
+         if (!activeTabId) return;
+
+         // 1. Immediately pause all videos in inactive tabs
+         allVideos.forEach(video => {
+             const pane = video.closest('.features-tab-pane');
+             if (!pane || pane.id !== activeTabId) {
+                 pauseSafe(video);
+             }
+         });
+
+         // 2. Reveal all cards in the newly active tab
+         const activePane = document.getElementById(activeTabId);
+         if (activePane) {
+             activePane.querySelectorAll('.usecase-card').forEach(card => {
+                 card.classList.add('is-visible');
+             });
+
+             // 3. Play only videos that are currently visible in the viewport
+             activePane.querySelectorAll('video').forEach(video => {
+                 const rect = video.getBoundingClientRect();
+                 const inView = (rect.top < window.innerHeight + 100 && rect.bottom > -100);
+                 if (inView) {
+                     playSafe(video);
+                 } else {
+                     pauseSafe(video);
                  }
              });
-         }, {
-             threshold: 0.15, // Trigger when 15% of the card is visible
-         },
-     );
+         }
+     }
 
-     cards.forEach((card) => observer.observe(card));
+     // Hook into tab clicks
+     $('.features-tabs .nav-link').on('click', function () {
+         const tabId = ($(this).data('tab') || '').toString().trim();
+         if (tabId) {
+             setTimeout(() => {
+                 handleTabSwitch(tabId);
+             }, 30);
+         }
+     });
+
+     // Handle initial active tab on page load
+     const initialActiveTab = document.querySelector('.features-tab-pane.active');
+     if (initialActiveTab) {
+         handleTabSwitch(initialActiveTab.id);
+     }
+ });
  </script>
  @endsection

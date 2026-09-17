@@ -97,9 +97,10 @@
          </div>
          <div class="services">
              <div class="service">
-                 <h3>
-                     <i class="fa fa-check-circle-o me-2 text-success"></i> Pocket Office powers modern work
-                 </h3>
+                 <div class="industry-service-div">
+                    <img src="/assets/img/logo/fav-icon.svg" alt="logo">
+                    <h3>Pocket Office powers modern work</h3>
+                </div>
                  <p>
                      At Pocket Office, we deliver secure and scalable Desktop as a Service (DaaS) solutions that
                      enable organizations to access their work environment anytime, anywhere. By centralizing

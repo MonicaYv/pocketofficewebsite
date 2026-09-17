@@ -18,10 +18,12 @@ class SalesEnquiryController extends Controller
             'lastName' => 'required|string|max:100',
             'phoneNumber' => 'required|string|max:15',
             'email' => 'required|email',
-            'website' => 'nullable|url',
+            'website' => ['nullable', 'regex:/^(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}$/'],
             'companyAddress' => 'required',
             'country' => 'required',
             'city' => 'required',
+        ], [
+            'website.regex' => 'Please enter a valid domain name (e.g. yourcompany.com).',
         ]);
 
         SalesEnquiry::create([
