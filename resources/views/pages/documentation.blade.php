@@ -50,6 +50,11 @@
  <div class="terms-container content-wrapper">
    <!-- Sidebar -->
    <div class="sidebar-section">
+    <div class="mb-4">
+            <a href="{{ route('docs.login') }}" class="btn btn-green w-100" id="loginBtn">
+                Login to Training Portal
+            </a>
+      </div>
      <aside class="sidebar" style="height: auto; max-height: 400px; overflow-y: auto;">
        <h2>Table Of Contents</h2>
 
@@ -73,11 +78,7 @@
          <i class="fa fa-users mr-2"></i> Secure & Manage Access
        </a>
      </aside>
-     <div class="mt-4">
-            <a href="{{ route('docs.login') }}" class="btn btn-green w-100" id="loginBtn">
-                Login to Training Portal
-            </a>
-        </div>
+     
    </div>
 
    <div class="content-section">
