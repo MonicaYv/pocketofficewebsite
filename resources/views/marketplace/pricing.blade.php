@@ -4,9 +4,34 @@
       @php
           $schemaPlanOffers = [];
 
+          $schemaMonthlyPrice = function ($plan, bool $isSingleUser) use ($actualAmount) {
+              if ($isSingleUser) {
+                  $discount = (float) ($plan->single_user_monthly_discount ?? 0)
+                      + (float) ($plan->single_user_monthly_extra_disc ?? 0);
+              } else {
+                  $discount = ($plan->is_team_discount_apply ?? 0) == 1
+                      ? (float) ($plan->monthly_discount ?? 0)
+                      : 0;
+                  $discount += ($plan->is_team_extraM_discount_apply ?? 0) == 1
+                      ? (float) ($plan->monthly_extra_disc ?? 0)
+                      : 0;
+              }
+
+              $discount = max(0, min($discount, 100));
+
+              return max(0, round((float) $actualAmount * (1 - ($discount / 100)), 2));
+          };
+
           $collectPlanFeatures = function ($plan) {
               $decoded = json_decode((string) ($plan->features ?? '[]'), true);
-              return is_array($decoded) ? array_values($decoded) : [];
+              if (!is_array($decoded)) {
+                  return [];
+              }
+
+              return array_values(array_filter(array_map(
+                  fn ($feature) => is_scalar($feature) ? trim((string) $feature) : '',
+                  $decoded,
+              )));
           };
 
           foreach ($userLicenseData['getPlanList']['planListsSingle'] ?? [] as $plan) {
@@ -15,7 +40,7 @@
                   'itemCondition' => 'https://schema.org/NewCondition',
                   'availability' => 'https://schema.org/InStock',
                   'priceCurrency' => $selectedCurrency,
-                  'price' => (float) ($plan->plans_amount ?? 0),
+                  'price' => number_format($schemaMonthlyPrice($plan, true), 2, '.', ''),
                   'url' => url('pricing'),
                   'itemOffered' => [
                       '@type' => 'Product',
@@ -26,6 +51,13 @@
                       'featureList' => $collectPlanFeatures($plan),
                   ],
                   'seller' => ['@type' => 'Organization', 'name' => 'Pocket Office'],
+                  'priceSpecification' => [
+                      '@type' => 'UnitPriceSpecification',
+                      'price' => number_format($schemaMonthlyPrice($plan, true), 2, '.', ''),
+                      'priceCurrency' => $selectedCurrency,
+                      'billingDuration' => 'P1M',
+                      'unitText' => 'user per month',
+                  ],
               ];
           }
 
@@ -35,7 +67,7 @@
                   'itemCondition' => 'https://schema.org/NewCondition',
                   'availability' => 'https://schema.org/InStock',
                   'priceCurrency' => $selectedCurrency,
-                  'price' => (float) ($plan->plans_amount ?? 0),
+                  'price' => number_format($schemaMonthlyPrice($plan, false), 2, '.', ''),
                   'url' => url('pricing'),
                   'itemOffered' => [
                       '@type' => 'Product',
@@ -46,21 +78,36 @@
                       'featureList' => $collectPlanFeatures($plan),
                   ],
                   'seller' => ['@type' => 'Organization', 'name' => 'Pocket Office'],
+                  'priceSpecification' => [
+                      '@type' => 'UnitPriceSpecification',
+                      'price' => number_format($schemaMonthlyPrice($plan, false), 2, '.', ''),
+                      'priceCurrency' => $selectedCurrency,
+                      'billingDuration' => 'P1M',
+                      'unitText' => 'user per month',
+                  ],
               ];
           }
+
+          $pricingStructuredData = [
+              '@context' => 'https://schema.org',
+              '@type' => 'Product',
+              'name' => 'Pocket Office Cloud Desktop Plans',
+              'brand' => ['@type' => 'Brand', 'name' => 'Pocket Office'],
+              'category' => 'SoftwareApplication',
+              'description' => 'AI-ready cloud desktop plans with secure access, file management, collaboration, and productivity tools for individuals and teams.',
+              'url' => url('pricing'),
+              'offers' => $schemaPlanOffers,
+          ];
       @endphp
-      <script type="application/ld+json">
-      {!! json_encode([
-          '@context' => 'https://schema.org',
-          '@type' => 'Product',
-          'name' => 'Pocket Office Cloud Desktop Plans',
-          'brand' => ['@type' => 'Brand', 'name' => 'Pocket Office'],
-          'category' => 'SoftwareApplication',
-          'description' => 'AI-ready cloud desktop plans with secure access, file management, collaboration, and productivity tools for individuals and teams.',
-          'url' => url('pricing'),
-          'offers' => $schemaPlanOffers,
-      ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}
-      </script>
+      {!! json_encode(
+          $pricingStructuredData,
+          JSON_UNESCAPED_SLASHES
+              | JSON_UNESCAPED_UNICODE
+              | JSON_HEX_TAG
+              | JSON_HEX_AMP
+              | JSON_INVALID_UTF8_SUBSTITUTE
+              | JSON_THROW_ON_ERROR,
+      ) !!}
   @endsection
   <style>
       .currency-select {

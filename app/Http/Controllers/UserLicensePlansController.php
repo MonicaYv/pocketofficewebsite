@@ -29,7 +29,7 @@ use App\Services\OfficelesSsoService;
 
 class UserLicensePlansController extends Controller
 {
-    private const CURRENCY_DETECTION_VERSION = 2;
+    private const CURRENCY_DETECTION_VERSION = 3;
 
     protected OfficelesSsoService $officelesSsoService;
 
@@ -156,7 +156,7 @@ class UserLicensePlansController extends Controller
     //location based country and currency selection
     private function detectMarketPlaceCurrencyFromNetwork(): ?object
     {
-        $ip = (string) request()->ip();
+        $ip = $this->getMarketplaceClientIp();
 
         if ($ip === '' || in_array($ip, ['127.0.0.1', '::1'], true)) {
             $ip = Cache::remember('marketplace:public-ip', now()->addHours(6), function () {
@@ -187,17 +187,68 @@ class UserLicensePlansController extends Controller
             }
         }
 
-        $cacheKey = 'marketplace:network-currency:' . md5($ip);
+        return $this->resolveCurrencyRowForIp($ip);
+    }
 
-        return Cache::remember($cacheKey, now()->addHours(6), function () use ($ip) {
+    private function getMarketplaceClientIp(): string
+    {
+        $candidates = [
+            request()->header('CF-Connecting-IP'),
+            request()->header('True-Client-IP'),
+        ];
+
+        foreach (explode(',', (string) request()->header('X-Forwarded-For', '')) as $forwardedIp) {
+            $candidates[] = trim($forwardedIp);
+        }
+
+        $candidates[] = request()->ip();
+
+        foreach ($candidates as $candidate) {
+            $candidate = trim((string) $candidate);
+
+            if (filter_var(
+                $candidate,
+                FILTER_VALIDATE_IP,
+                FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE,
+            )) {
+                return $candidate;
+            }
+        }
+
+        return (string) request()->ip();
+    }
+
+    private function resolveCurrencyRowForIp(string $ip): ?object
+    {
+        $cacheKey = 'marketplace:network-currency:v3:' . md5($ip);
+        $cachedCurrency = Cache::get($cacheKey);
+
+        if ($cachedCurrency) {
+            return $cachedCurrency;
+        }
+
+        $currency = (function () use ($ip) {
             try {
                 $location = Location::get($ip);
-                if (!$location) {
-                    return null;
-                }
-
                 $countryName = trim((string) ($location->countryName ?? $location->country_name ?? ''));
                 $currencyCode = strtoupper(trim((string) ($location->currencyCode ?? $location->currency_code ?? '')));
+
+                // The package's default free driver uses an HTTP endpoint that
+                // can be blocked by production hosts. Retry through an HTTPS
+                // provider so VPN exit IPs still resolve to their current country.
+                if ($countryName === '' && $currencyCode === '') {
+                    $response = Http::connectTimeout(2)
+                        ->timeout(4)
+                        ->acceptJson()
+                        ->get("https://ipwho.is/{$ip}", [
+                            'fields' => 'success,country,country_code,currency.code',
+                        ]);
+
+                    if ($response->successful() && $response->json('success') !== false) {
+                        $countryName = trim((string) $response->json('country', ''));
+                        $currencyCode = strtoupper(trim((string) $response->json('currency.code', '')));
+                    }
+                }
 
                 if ($currencyCode !== '') {
                     $currency = DB::table('currency_rates')
@@ -232,7 +283,15 @@ class UserLicensePlansController extends Controller
 
                 return null;
             }
-        });
+        })();
+
+        // Do not cache failed lookups. A transient provider/network failure must
+        // not pin every visitor from that VPN exit IP to the fallback currency.
+        if ($currency) {
+            Cache::put($cacheKey, $currency, now()->addHours(6));
+        }
+
+        return $currency;
     }
 
 
