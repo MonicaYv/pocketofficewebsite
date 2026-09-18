@@ -502,7 +502,7 @@
               <tr>
                 <td>Teams</td>
                 <td>1 Workspace</td>
-                <td>Multi-Workspace</td>
+                <td>Unlimited</td>
                 <td>Unlimited</td>
                 <td>Unlimited</td>
               </tr>

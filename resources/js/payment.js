@@ -38,7 +38,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     const summaryPlanName = document.getElementById("summaryPlanName");
-    const summaryTitle = document.querySelector(".os-title");
     const summarySubtitle = document.querySelector(".os-subtitle");
     const summarySymbol = document.getElementById("summarySymbol");
     const summaryUnitPrice = document.getElementById("summaryUnitPrice");
@@ -159,6 +158,7 @@ document.addEventListener("DOMContentLoaded", function () {
             plan_type: tile.dataset.planType,
             plan_id: tile.dataset.planId,
             name: tile.dataset.name,
+            display_name: tile.dataset.name,
             default_qty: parseInt(tile.dataset.defQty || 1),
             price: tile.dataset.pricemonth || 0,
             priceM: parseFloat(tile.dataset.monthlyPrice) || 0,
@@ -284,9 +284,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         const isYearly = payBillingToggle.checked;
 
-        payQtyControls.style.display = "none";
-        companyForm.classList.add("hidden");
-
         const billingType = isYearly ? "yearly" : "monthly";
 
         let basePrice =
@@ -369,20 +366,22 @@ document.addEventListener("DOMContentLoaded", function () {
         const finalTotal = Math.round(subtotalAmount);
 
         const displayPlanName =
+            currentPlan.name ||
             currentPlan.display_name ||
-            (currentPlan.plan_type === "single"
-                ? `Personal (${currentPlan.name || "Basic"})`
-                : currentPlan.name || "—");
+            (currentPlan.plan_type === "single" ? "Personal" : "Premium");
 
-        summaryPlanName.innerText = displayPlanName;
+        if (summaryPlanName) {
+            summaryPlanName.innerText = displayPlanName;
+        }
 
-        if (summaryTitle) {
-            summaryTitle.innerText = displayPlanName;
+        const continuePlanName = document.getElementById("poContinuePlanName");
+        if (continuePlanName) {
+            continuePlanName.innerText = displayPlanName;
         }
 
         if (summarySubtitle) {
             summarySubtitle.innerText =
-                "Review your selected plan before proceeding.";
+                "Select a plan that fits your team's needs. You can switch plans anytime.";
         }
 
         if (summaryPlanIcon) {
@@ -630,10 +629,11 @@ document.addEventListener("DOMContentLoaded", function () {
             // const tilePrice = tile.querySelector(".plan_price_details");
 
             // if (tilePrice) {
-            //     tilePrice.innerHTML =
-            //         currentPlan.symbol + " " + Math.round(basePrice);
-            // }
         });
+
+        if (typeof window.updateCustomCardUI === "function") {
+            window.updateCustomCardUI();
+        }
     }
 
     //show err or hide err
@@ -1534,7 +1534,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     //quantity increase
     if (payQtyPlus && payQtyInput) {
-        payQtyPlus.addEventListener("click", function () {
+        payQtyPlus.addEventListener("click", function (e) {
+            e.preventDefault();
             quantity = parseInt(payQtyInput.value || getPlanMinimumQuantity());
             quantity++;
 
@@ -1542,11 +1543,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
             renderPlanData();
         });
+        payQtyPlus.addEventListener("mousedown", function (e) {
+            e.preventDefault();
+        });
     }
 
     //quantity decrease
     if (payQtyMinus && payQtyInput) {
-        payQtyMinus.addEventListener("click", function () {
+        payQtyMinus.addEventListener("click", function (e) {
+            e.preventDefault();
             const minQuantity = getPlanMinimumQuantity();
             quantity = parseInt(payQtyInput.value || minQuantity);
 
@@ -1560,6 +1565,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 payQtyInput.value = minQuantity;
             }
         });
+        payQtyMinus.addEventListener("mousedown", function (e) {
+            e.preventDefault();
+        });
     }
 
     //quantity data
@@ -1570,13 +1578,26 @@ document.addEventListener("DOMContentLoaded", function () {
             const minQuantity = getPlanMinimumQuantity();
 
             if (isNaN(value) || value < minQuantity) {
-                value = minQuantity;
+                return;
             }
 
             quantity = value;
 
             this.value = quantity;
 
+            renderPlanData();
+        });
+
+        payQtyInput.addEventListener("change", function () {
+            let value = parseInt(this.value);
+            const minQuantity = getPlanMinimumQuantity();
+
+            if (isNaN(value) || value < minQuantity) {
+                value = minQuantity;
+            }
+
+            quantity = value;
+            this.value = quantity;
             renderPlanData();
         });
     }
@@ -1682,6 +1703,4 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("existingUserCheck").checked = false;
         });
     });
-
-    $(`.payment-tab-${selectedPlan.plan_id}`).trigger("click");
 });

@@ -17749,8 +17749,12 @@ body {
 
 .os-section { margin-bottom: 16px; }
 
-.os-header { margin-bottom: 16px; }
+.os-header {display: block !important; margin-bottom: 16px; }
 .os-title { margin: 0; font-size: 17px; font-weight: 700; color: #1a2b3c; }
+.os-subtitle {
+  font-size: 13px;
+  font-weight: 400;
+}
 
 .os-label { margin: 0 0 8px; font-size: 12.5px; font-weight: 600; color: #5b6b7c; }
 .os-label--inline { margin: 0; }
@@ -18324,3 +18328,709 @@ body {
 .industry-service-div img {
   width: 20px;
 }
+
+ FINAL BILLING PERIOD - SINGLE ROW=========================================================*/ .os-toggle {
+   display: flex !important;
+   flex-direction: row !important;
+   flex-wrap: nowrap !important;
+   align-items: center !important;
+
+   width: 100% !important;
+   max-width: 100% !important;
+
+   gap: 12px !important;
+
+   box-sizing: border-box !important;
+ }
+
+ /* Checkbox hidden */
+ .os-toggle__input {
+   position: absolute !important;
+   width: 1px !important;
+   height: 1px !important;
+   opacity: 0 !important;
+ }
+
+ /* Billing toggle */
+ .os-toggle__track {
+   position: relative !important;
+
+   display: flex !important;
+   flex-direction: row !important;
+   align-items: center !important;
+
+   flex: 1 1 auto !important;
+   min-width: 0 !important;
+   width: auto !important;
+   max-width: none !important;
+
+   height: 48px !important;
+
+   padding: 4px !important;
+   margin: 0 !important;
+
+   box-sizing: border-box !important;
+
+   background: #e5e7eb !important;
+   border-radius: 9px !important;
+
+   overflow: hidden !important;
+ }
+
+ /* Monthly / Yearly */
+ .os-toggle__pill {
+   position: relative !important;
+
+   flex: 1 1 50% !important;
+   min-width: 0 !important;
+   width: 50% !important;
+
+   height: 40px !important;
+
+   display: flex !important;
+   align-items: center !important;
+   justify-content: center !important;
+
+   gap: 4px !important;
+
+   padding: 0 5px !important;
+   margin: 0 !important;
+
+   box-sizing: border-box !important;
+
+   white-space: nowrap !important;
+
+   font-size: 14px !important;
+   font-weight: 600 !important;
+
+   line-height: 1 !important;
+
+   z-index: 3 !important;
+ }
+
+ /* Monthly / Yearly name */
+ .billing-name {
+   display: inline !important;
+
+   color: #64748b !important;
+
+   font-size: 14px !important;
+   font-weight: 600 !important;
+
+   white-space: nowrap !important;
+ }
+
+ /* Discount */
+ .os-mini-badge {
+   display: inline !important;
+
+   margin: 0 !important;
+   padding: 0 !important;
+
+   background: transparent !important;
+   border: 0 !important;
+
+   color: #006b57 !important;
+
+   font-size: 13px !important;
+   font-weight: 700 !important;
+
+   white-space: nowrap !important;
+ }
+
+ /* Selected Monthly / Yearly text */
+ .os-toggle__pill.active .billing-name {
+   color: #ffffff !important;
+ }
+
+ /* Discount remains green */
+ .os-toggle__pill.active .os-mini-badge {
+   color: #4aff24 !important;
+ }
+
+ /* Selected background */
+ .os-toggle__thumb {
+   position: absolute !important;
+
+   top: 4px !important;
+   left: 4px !important;
+
+   width: calc(50% - 4px) !important;
+   height: 40px !important;
+
+   background: #07839b !important;
+   border-radius: 8px !important;
+
+   z-index: 2 !important;
+
+   transform: translateX(0) !important;
+
+   transition: transform 0.25s ease !important;
+
+   pointer-events: none !important;
+ }
+
+ /* Yearly selected */
+ .os-toggle__track.yearly-selected .os-toggle__thumb {
+   transform: translateX(100%) !important;
+ }
+
+ /* =========================================================
+       SAVE CHIP
+       ========================================================= */
+
+ .os-savings-chip {
+   display: inline-flex !important;
+   flex: 0 1 auto !important;
+
+   min-width: 0 !important;
+   max-width: 300px !important;
+
+   height: 48px !important;
+
+   align-items: center !important;
+   justify-content: center !important;
+
+   gap: 6px !important;
+
+   padding: 0 14px !important;
+   margin: 0 !important;
+
+   box-sizing: border-box !important;
+
+   background: #e4f5fb !important;
+   color: #007a9b !important;
+
+   border-radius: 8px !important;
+
+   font-size: 14px !important;
+   font-weight: 600 !important;
+
+   line-height: 1 !important;
+
+   white-space: nowrap !important;
+
+   overflow: hidden !important;
+ }
+
+ /* SVG */
+ .os-savings-chip svg {
+   flex: 0 0 auto !important;
+   width: 13px !important;
+   height: 13px !important;
+ }
+
+ /* =========================================================
+       ORDER SUMMARY WIDTH SAFETY
+       ========================================================= */
+
+ .os-toggle,
+ .os-toggle__track,
+ .os-savings-chip {
+   box-sizing: border-box !important;
+ }
+
+ /* Small screens */
+ @media (max-width: 700px) {
+   .os-toggle {
+     gap: 8px !important;
+     flex-direction: column !important;
+   }
+
+   .os-toggle__pill {
+     font-size: 12px !important;
+   }
+
+   .billing-name {
+     font-size: 12px !important;
+   }
+
+   .os-mini-badge {
+     font-size: 11px !important;
+   }
+
+   .os-savings-chip {
+     font-size: 12px !important;
+     padding: 0 10px !important;
+   }
+ }
+
+ /* =========================================================
+                 CHANGE PLAN SCROLL SECTION
+                 ========================================================= */
+ .pay-plan-selector,
+ .pay-plan-selector.hidden {
+   display: block !important;
+ }
+
+ .pay-plan-scroll-wrapper {
+   display: flex !important;
+   align-items: center !important;
+   gap: 10px !important;
+   width: 100% !important;
+   margin-top: 6px !important;
+ }
+
+ .pay-plan-scroll-btn {
+   width: 32px !important;
+   height: 32px !important;
+   min-width: 32px !important;
+   border-radius: 50% !important;
+   border: 1px solid #e2e8f0 !important;
+   background: #ffffff !important;
+   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06) !important;
+   display: flex !important;
+   align-items: center !important;
+   justify-content: center !important;
+   cursor: pointer !important;
+   color: #64748b !important;
+   padding: 0 !important;
+   transition: all 0.2s ease !important;
+   user-select: none !important;
+   flex-shrink: 0 !important;
+ }
+
+ .pay-plan-scroll-btn:hover {
+   background: #f8fafc !important;
+   color: #0f172a !important;
+   border-color: #cbd5e1 !important;
+ }
+
+ .pay-plan-scroll-btn svg {
+   width: 13px !important;
+   height: 13px !important;
+   stroke: currentColor !important;
+   stroke-width: 2.5 !important;
+   fill: none !important;
+   display: block !important;
+ }
+
+ .pay-plan-scroll-track {
+   display: flex !important;
+   align-items: center !important;
+   gap: 16px !important;
+   overflow-x: auto !important;
+   scroll-behavior: smooth !important;
+   scrollbar-width: none !important;
+   -ms-overflow-style: none !important;
+   flex: 1 1 auto !important;
+   padding: 4px 2px !important;
+ }
+
+ .pay-plan-scroll-track::-webkit-scrollbar {
+   display: none !important;
+ }
+
+ /* Plan Pills */
+ .pay-plan-tile.pay-plan-scroll-pill {
+   display: inline-flex !important;
+   align-items: center !important;
+   justify-content: center !important;
+   flex: 0 0 auto !important;
+   padding: 6px 16px !important;
+   margin: 0 !important;
+   background: transparent !important;
+   border: 1.5px solid transparent !important;
+   border-radius: 8px !important;
+   color: #475569 !important;
+   font-size: 15px !important;
+   font-weight: 700 !important;
+   cursor: pointer !important;
+   box-shadow: none !important;
+   min-height: auto !important;
+   min-width: auto !important;
+   width: auto !important;
+   height: auto !important;
+   line-height: 1.2 !important;
+   transition: all 0.2s ease !important;
+   user-select: none !important;
+   text-align: center !important;
+ }
+
+ .pay-plan-tile.pay-plan-scroll-pill:hover {
+   color: #00a0b8 !important;
+ }
+
+ /* Active/Selected Pill */
+ .pay-plan-tile.pay-plan-scroll-pill.selected {
+   border: 1.5px solid #00a0b8 !important;
+   color: #00a0b8 !important;
+   background: #f4fcfd !important;
+   font-weight: 700 !important;
+ }
+
+ .pay-plan-scroll-pill .pay-plan-tile__name {
+   font-size: inherit !important;
+   font-weight: inherit !important;
+   color: inherit !important;
+   display: inline !important;
+   line-height: inherit !important;
+ }
+
+ /* =========================================================
+                 CHECKOUT CARD STYLES (MATCHING SCREENSHOT)
+                 ========================================================= */
+ .po-checkout-card {
+   background: #ffffff !important;
+   border: 1px solid #eef2f6 !important;
+   border-radius: 14px !important;
+   padding: 22px 20px !important;
+   box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04) !important;
+   margin-top: 14px !important;
+ }
+
+ .po-plan-header {
+   display: flex !important;
+   align-items: flex-start !important;
+   gap: 14px !important;
+   margin-bottom: 8px !important;
+ }
+
+ .po-plan-icon {
+   width: 48px !important;
+   height: 48px !important;
+   display: inline-flex !important;
+   align-items: center !important;
+   justify-content: center !important;
+   border-radius: 50% !important;
+   background: rgba(6, 148, 183, 0.1) !important;
+   color: #0694b7 !important;
+   flex-shrink: 0 !important;
+   padding: 10px !important;
+ }
+
+ .po-plan-icon svg {
+   width: 24px !important;
+   height: 24px !important;
+   display: block !important;
+ }
+
+ .po-plan-header-info {
+   flex: 1 1 auto !important;
+   min-width: 0 !important;
+ }
+
+ .po-plan-name {
+   font-size: 19px !important;
+   font-weight: 700 !important;
+   color: #0f172a !important;
+   margin: 0 0 3px 0 !important;
+   line-height: 1.2 !important;
+ }
+
+ .po-plan-desc {
+   font-size: 13px !important;
+   color: #64748b !important;
+   margin: 0 !important;
+   line-height: 1.4 !important;
+ }
+
+ .po-unit-price-row {
+   display: flex !important;
+   align-items: baseline !important;
+   margin: 14px 0 16px !important;
+ }
+
+ .po-price-val {
+   font-size: 24px !important;
+   font-weight: 800 !important;
+   color: #0f172a !important;
+   line-height: 1 !important;
+   letter-spacing: -0.02em !important;
+ }
+
+ .po-price-period {
+   font-size: 14px !important;
+   font-weight: 500 !important;
+   color: #64748b !important;
+   margin-left: 6px !important;
+ }
+
+ .po-license-section {
+   margin-bottom: 16px !important;
+ }
+
+ .po-section-subheading {
+   font-size: 13.5px !important;
+   font-weight: 600 !important;
+   color: #1e293b !important;
+   margin: 0 0 8px !important;
+   display: block !important;
+ }
+
+ .po-stepper-wrap {
+   display: flex !important;
+   align-items: center !important;
+   width: 100% !important;
+   border: 1px solid #d1d5db !important;
+   border-radius: 8px !important;
+   overflow: hidden !important;
+   height: 42px !important;
+   background: #ffffff !important;
+ }
+
+ .po-stepper-btn {
+   width: 44px !important;
+   height: 100% !important;
+   background: #ffffff !important;
+   border: none !important;
+   font-size: 18px !important;
+   font-weight: 600 !important;
+   color: #374151 !important;
+   cursor: pointer !important;
+   display: flex !important;
+   align-items: center !important;
+   justify-content: center !important;
+   transition: background 0.15s ease !important;
+   user-select: none !important;
+ }
+
+ .po-stepper-btn:hover {
+   background: #f3f4f6 !important;
+ }
+
+ .po-stepper-input {
+   flex: 1 1 auto !important;
+   height: 100% !important;
+   border: none !important;
+   border-left: 1px solid #e5e7eb !important;
+   border-right: 1px solid #e5e7eb !important;
+   text-align: center !important;
+   font-size: 15px !important;
+   font-weight: 700 !important;
+   color: #111827 !important;
+   outline: none !important;
+   background: #ffffff !important;
+   -moz-appearance: textfield !important;
+ }
+
+ .po-stepper-input::-webkit-outer-spin-button,
+ .po-stepper-input::-webkit-inner-spin-button {
+   -webkit-appearance: none !important;
+   margin: 0 !important;
+ }
+
+ .po-license-hint {
+   font-size: 12px !important;
+   color: #64748b !important;
+   margin: 6px 0 0 !important;
+   line-height: 1.35 !important;
+ }
+
+ .po-price-summary {
+   margin-top: 18px !important;
+   margin-bottom: 14px !important;
+ }
+
+ .po-summary-title {
+   font-size: 15px !important;
+   font-weight: 700 !important;
+   color: #0f172a !important;
+   margin: 0 0 12px !important;
+ }
+
+ .po-summary-row {
+   display: flex !important;
+   align-items: center !important;
+   justify-content: space-between !important;
+   padding: 3.5px 0 !important;
+   font-size: 13.5px !important;
+ }
+
+ .po-summary-label {
+   color: #64748b !important;
+   font-weight: 500 !important;
+ }
+
+ .po-summary-val {
+   color: #0f172a !important;
+   font-weight: 600 !important;
+ }
+
+ .po-summary-val.text-success {
+   color: #16a34a !important;
+   font-weight: 700 !important;
+ }
+
+ .po-summary-row--bold .po-summary-label {
+   color: #0f172a !important;
+   font-weight: 700 !important;
+ }
+
+ .po-divider {
+   border-top: 1px dotted #cbd5e1 !important;
+   margin: 10px 0 !important;
+ }
+
+ .po-total-card {
+   background: #f0fbfd !important;
+   border: 1.5px solid #c8eef5 !important;
+   border-radius: 10px !important;
+   padding: 14px 16px !important;
+   margin: 16px 0 14px !important;
+ }
+
+ .po-total-period-label {
+   font-size: 12.5px !important;
+   font-weight: 600 !important;
+   color: #009eb5 !important;
+   margin-bottom: 2px !important;
+ }
+
+ .po-total-amount {
+   font-size: 28px !important;
+   font-weight: 800 !important;
+   color: #009eb5 !important;
+   margin: 2px 0 10px !important;
+   line-height: 1.1 !important;
+   letter-spacing: -0.01em !important;
+ }
+
+ .po-total-dashed-divider {
+   border-top: 1px dashed #bce3eb !important;
+   margin-bottom: 10px !important;
+ }
+
+ .po-total-save-row {
+   display: flex !important;
+   align-items: center !important;
+   justify-content: space-between !important;
+ }
+
+ .po-save-tag {
+   display: flex !important;
+   align-items: center !important;
+   gap: 6px !important;
+   font-size: 13.5px !important;
+   font-weight: 700 !important;
+   color: #009eb5 !important;
+ }
+
+ .po-save-val {
+   font-size: 15px !important;
+   font-weight: 700 !important;
+   color: #16a34a !important;
+ }
+
+ .po-savings-banner {
+   background: #eefbf2 !important;
+   border: 1px solid #d1fae5 !important;
+   border-radius: 8px !important;
+   padding: 12px 14px !important;
+   margin-bottom: 16px !important;
+   display: flex !important;
+   align-items: flex-start !important;
+   gap: 10px !important;
+ }
+
+ .po-party-icon {
+   font-size: 18px !important;
+   line-height: 1.2 !important;
+   flex-shrink: 0 !important;
+ }
+
+ .po-savings-text {
+   font-size: 13px !important;
+   font-weight: 600 !important;
+   color: #166534 !important;
+   line-height: 1.45 !important;
+ }
+
+ .po-promo-section {
+   margin-bottom: 16px !important;
+ }
+
+ .po-promo-input-group {
+   display: flex !important;
+   gap: 8px !important;
+ }
+
+ .po-promo-input {
+   flex: 1 1 auto !important;
+   height: 42px !important;
+   border: 1px solid #d1d5db !important;
+   border-radius: 8px !important;
+   padding: 0 14px !important;
+   font-size: 14px !important;
+   font-weight: 600 !important;
+   color: #1e293b !important;
+   background: #ffffff !important;
+   outline: none !important;
+ }
+
+ .po-promo-btn {
+   height: 42px !important;
+   padding: 0 22px !important;
+   border-radius: 8px !important;
+   background: #00a0b8 !important;
+   color: #ffffff !important;
+   border: none !important;
+   font-size: 14px !important;
+   font-weight: 600 !important;
+   cursor: pointer !important;
+   transition: background 0.15s ease !important;
+ }
+
+ .po-promo-btn:hover {
+   background: #008fa4 !important;
+ }
+
+ .po-promo-success-msg {
+   display: flex !important;
+   align-items: center !important;
+   gap: 6px !important;
+   font-size: 13px !important;
+   font-weight: 600 !important;
+   color: #16a34a !important;
+   margin-top: 8px !important;
+ }
+
+ .po-continue-btn {
+   width: 100% !important;
+   height: 46px !important;
+   border-radius: 8px !important;
+   background: #00a0b8 !important;
+   color: #ffffff !important;
+   border: none !important;
+   font-size: 15px !important;
+   font-weight: 700 !important;
+   cursor: pointer !important;
+   margin-top: 6px !important;
+   transition: background 0.15s ease !important;
+   display: flex !important;
+   align-items: center !important;
+   justify-content: center !important;
+   gap: 8px !important;
+ }
+
+ .po-continue-btn:hover {
+   background: #008fa4 !important;
+ }
+
+ .po-security-note {
+   display: flex !important;
+   align-items: center !important;
+   justify-content: center !important;
+   gap: 6px !important;
+   font-size: 12px !important;
+   color: #64748b !important;
+   margin: 12px 0 0 !important;
+   text-align: center !important;
+ }
+
+ /* Hide old sections safely */
+ .plan-box,
+ .sm-qty-box,
+ .os-totals,
+ .os-footnote,
+ .os-submit-btn,
+ .os-promo-row,
+ .os-coupon-msg,
+ .os-remove-coupon {
+   display: none !important;
+ }
+
+    .pay-plan-tile.selected {
+      border: 2px solid #057a96;
+      background: #f0f9ff;
+    }

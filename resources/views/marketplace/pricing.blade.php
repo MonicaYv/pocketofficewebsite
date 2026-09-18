@@ -1036,8 +1036,8 @@
                               <tr>
                                   <td class="table-td">Teams</td>
                                   <td class="ul-pricing-tbl-single" data-plan-col="personal">1 Workspace</td>
-                                  <td>1 Workspace</td>
-                                  <td>Multi-Workspace</td>
+                                  <td>Unlimited</td>
+                                  <td>Unlimited</td>
                                   <td>Unlimited</td>
                                   <td>Unlimited</td>
                               </tr>

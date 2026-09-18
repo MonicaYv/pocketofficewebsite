@@ -1,242 +1,6 @@
      @extends('layouts.backendsettings')
      @section('title', 'Payment')
      @section('content')
-         <style>
-             .pay-plan-tile.selected {
-                 border: 2px solid #057a96;
-                 background: #f0f9ff;
-             }
-
-             /* =========================================================
-       FINAL BILLING PERIOD - SINGLE ROW
-       ========================================================= */
-
-             .os-toggle {
-                 display: flex !important;
-                 flex-direction: row !important;
-                 flex-wrap: nowrap !important;
-                 align-items: center !important;
-
-                 width: 100% !important;
-                 max-width: 100% !important;
-
-                 gap: 12px !important;
-
-                 box-sizing: border-box !important;
-             }
-
-             /* Checkbox hidden */
-             .os-toggle__input {
-                 position: absolute !important;
-                 width: 1px !important;
-                 height: 1px !important;
-                 opacity: 0 !important;
-             }
-
-             /* Billing toggle */
-             .os-toggle__track {
-                 position: relative !important;
-
-                 display: flex !important;
-                 flex-direction: row !important;
-                 align-items: center !important;
-
-                 flex: 1 1 auto !important;
-                 min-width: 0 !important;
-                 width: auto !important;
-                 max-width: none !important;
-
-                 height: 48px !important;
-
-                 padding: 4px !important;
-                 margin: 0 !important;
-
-                 box-sizing: border-box !important;
-
-                 background: #e5e7eb !important;
-                 border-radius: 9px !important;
-
-                 overflow: hidden !important;
-             }
-
-             /* Monthly / Yearly */
-             .os-toggle__pill {
-                 position: relative !important;
-
-                 flex: 1 1 50% !important;
-                 min-width: 0 !important;
-                 width: 50% !important;
-
-                 height: 40px !important;
-
-                 display: flex !important;
-                 align-items: center !important;
-                 justify-content: center !important;
-
-                 gap: 4px !important;
-
-                 padding: 0 5px !important;
-                 margin: 0 !important;
-
-                 box-sizing: border-box !important;
-
-                 white-space: nowrap !important;
-
-                 font-size: 14px !important;
-                 font-weight: 600 !important;
-
-                 line-height: 1 !important;
-
-                 z-index: 3 !important;
-             }
-
-             /* Monthly / Yearly name */
-             .billing-name {
-                 display: inline !important;
-
-                 color: #64748b !important;
-
-                 font-size: 14px !important;
-                 font-weight: 600 !important;
-
-                 white-space: nowrap !important;
-             }
-
-             /* Discount */
-             .os-mini-badge {
-                 display: inline !important;
-
-                 margin: 0 !important;
-                 padding: 0 !important;
-
-                 background: transparent !important;
-                 border: 0 !important;
-
-                 color: #006b57 !important;
-
-                 font-size: 13px !important;
-                 font-weight: 700 !important;
-
-                 white-space: nowrap !important;
-             }
-
-             /* Selected Monthly / Yearly text */
-             .os-toggle__pill.active .billing-name {
-                 color: #ffffff !important;
-             }
-
-             /* Discount remains green */
-             .os-toggle__pill.active .os-mini-badge {
-                 color: #4aff24 !important;
-             }
-
-             /* Selected background */
-             .os-toggle__thumb {
-                 position: absolute !important;
-
-                 top: 4px !important;
-                 left: 4px !important;
-
-                 width: calc(50% - 4px) !important;
-                 height: 40px !important;
-
-                 background: #07839b !important;
-                 border-radius: 8px !important;
-
-                 z-index: 2 !important;
-
-                 transform: translateX(0) !important;
-
-                 transition: transform 0.25s ease !important;
-
-                 pointer-events: none !important;
-             }
-
-             /* Yearly selected */
-             .os-toggle__track.yearly-selected .os-toggle__thumb {
-                 transform: translateX(100%) !important;
-             }
-
-             /* =========================================================
-       SAVE CHIP
-       ========================================================= */
-
-             .os-savings-chip {
-                 display: inline-flex !important;
-                 flex: 0 1 auto !important;
-
-                 min-width: 0 !important;
-                 max-width: 300px !important;
-
-                 height: 48px !important;
-
-                 align-items: center !important;
-                 justify-content: center !important;
-
-                 gap: 6px !important;
-
-                 padding: 0 14px !important;
-                 margin: 0 !important;
-
-                 box-sizing: border-box !important;
-
-                 background: #e4f5fb !important;
-                 color: #007a9b !important;
-
-                 border-radius: 8px !important;
-
-                 font-size: 14px !important;
-                 font-weight: 600 !important;
-
-                 line-height: 1 !important;
-
-                 white-space: nowrap !important;
-
-                 overflow: hidden !important;
-             }
-
-             /* SVG */
-             .os-savings-chip svg {
-                 flex: 0 0 auto !important;
-                 width: 13px !important;
-                 height: 13px !important;
-             }
-
-             /* =========================================================
-       ORDER SUMMARY WIDTH SAFETY
-       ========================================================= */
-
-             .os-toggle,
-             .os-toggle__track,
-             .os-savings-chip {
-                 box-sizing: border-box !important;
-             }
-
-             /* Small screens */
-             @media (max-width: 700px) {
-                 .os-toggle {
-                     gap: 8px !important;
-                     flex-direction: column !important;
-                 }
-
-                 .os-toggle__pill {
-                     font-size: 12px !important;
-                 }
-
-                 .billing-name {
-                     font-size: 12px !important;
-                 }
-
-                 .os-mini-badge {
-                     font-size: 11px !important;
-                 }
-
-                 .os-savings-chip {
-                     font-size: 12px !important;
-                     padding: 0 10px !important;
-                 }
-             }
-         </style>
          <!-- breadcrumb area start -->
          <div class="breadcrumb-area pricing-bg" style="background-image: url(assets/img/hero-images/Payment.svg)">
              <div class="container">
@@ -520,8 +284,8 @@
 
                              <!-- Header -->
                              <div class="os-header">
-                                 <h4 class="os-title">Order Summary</h4>
-                                 <p class="os-subtitle">Review your selected plan before proceeding.</p>
+                                 <h4 class="os-title">Review & Choose Plan</h4>
+                                 <p class="os-subtitle">Select a plan that fits your team's needs. You can switch plans anytime.</p>
                              </div>
 
                              <!-- Billing Period -->
@@ -532,7 +296,7 @@
                                  @endphp
 
                                  <div class="">
-                                     <p class="os-label os-label--inline">Billing Period</p>
+                                     <!-- <p class="os-label os-label--inline">Billing Period</p> -->
 
                                      <label class="os-toggle" for="payBillingToggle">
 
@@ -556,7 +320,7 @@
 
                                          </span>
 
-                                         <span class="os-savings-chip ten-percent-savings">
+                                         <!-- <span class="os-savings-chip ten-percent-savings">
 
                                              <svg width="13" height="13" viewBox="0 0 24 24" fill="none"
                                                  stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
@@ -568,240 +332,314 @@
 
                                              Save 10% with Yearly Billing
 
-                                         </span>
+                                         </span> -->
 
                                      </label>
                                  </div>
                              </div>
 
-                             <!-- Change Plan -->
-                             <div class="pay-plan-selector os-section">
-                                 <p class="pay-plan-selector__label os-label">Change Plan</p>
+                              <!-- Change Plan -->
+                              @php
+                                  $currencyCode = request('currency_code') ?? 'USD';
+                                  $currencyData = \App\Models\CurrencyRate::where('currency_code', $currencyCode)->first();
+                                  $rate = $currencyData ? round($currencyData->actual_amount) : 15;
+                                  $currSymbol = $currencyData->currency_symbol ?? '$';
+                                  $curBillingType = request('billing_type') ?? ($billing_type ?? 'monthly');
 
-                                 <div class="pay-plan-selector__grid" id="planOptions">
-                                     @foreach ($planLists as $plan)
-                                         @php
-                                             $icons = ['cloud', 'monitor', 'box', 'shield'];
-                                             $iconKey = $icons[$loop->index % count($icons)];
-                                             $minimumLicenses =
-                                                 $plan->minimum_licenses ??
-                                                 match ($plan->plans_name) {
-                                                     'Basic' => 2,
-                                                     'Standard' => 10,
-                                                     'Advanced' => 50,
-                                                     'Premium' => 100,
-                                                     default => (int) ($plan->default_qty ??
-                                                         ($plan->plans_license ?? 1)),
-                                                 };
-                                             $defaultLicenses = max(
-                                                 (int) ($plan->default_qty ?? $minimumLicenses),
-                                                 (int) $minimumLicenses,
-                                             );
-                                         @endphp
-                                         <div class="pay-plan-tile selected-plan-option {{ $loop->first ? 'selected' : '' }} payment-tab-{{ $plan->id }}"
-                                             data-plan-type="{{ $selectedPlanType }}"
-                                             data-apply-discount="{{ $plan->is_team_discount_apply == 1 }}"
-                                             data-team-allowed="{{ $plan->is_team_allowed == 1 }}"
-                                             data-plan-id="{{ $plan->id }}" data-name="{{ $plan->plans_name }}"
-                                             data-subscription="{{ $plan->plans_subscription_type }}"
-                                             data-license="{{ $plan->plans_license }}"
-                                             data-storage="{{ $plan->plans_users }}"
-                                             data-storage-unit="{{ $plan->storage_unit }}"
-                                             data-monthly-price="{{ $plan->final_monthly_price }}"
-                                             data-yearly-price="{{ $plan->final_yearly_price }}"
-                                             data-original-monthly="{{ $plan->original_monthly_price }}"
-                                             data-original-yearly="{{ $plan->original_yearly_price }}"
-                                             data-monthly-discount="{{ $plan->monthly_discount ?? 0 }}"
-                                             data-yearly-discount="{{ $plan->yearly_discount ?? 0 }}"
-                                             data-singleuser-monthly-discount="{{ $plan->single_user_monthly_discount ?? 0 }}"
-                                             data-singleuser-yearly-discount="{{ $plan->single_user_yearly_discount ?? 0 }}"
-                                             data-extra-monthly-discount="{{ $plan->additional_disc_month ?? 0 }}"
-                                             data-extra-yearly-discount="{{ $selectedPlanType === 'single' ? $plan->single_user_yearly_discount ?? 0 : $plan->yearly_extra_disc ?? 0 }}"
-                                             data-extra-mo-discount="{{ $plan->monthly_extra_disc ?? 0 }}"
-                                             data-extra-yr-discount="{{ $plan->yearly_extra_disc ?? 0 }}"
-                                             data-singleuser-extra-mo-discount="{{ $plan->single_user_monthly_extra_disc ?? 0 }}"
-                                             data-singleuser-extra-yr-discount="{{ $plan->single_user_yearly_discount ?? 0 }}"
-                                             data-def-qty="{{ $defaultLicenses }}"
-                                             data-symbol="{{ $plan->currency_symbol ?? '' }}">
+                                  $allDbPlans = \App\Models\UsersLicensePlan::where('pof_plan_status', 1)->get()->keyBy('id');
+                                  $allFivePlans = [];
 
-                                             <span class="pay-plan-tile__check">
-                                                 <svg width="10" height="10" viewBox="0 0 24 24" fill="none"
-                                                     stroke="#fff" stroke-width="3" stroke-linecap="round"
-                                                     stroke-linejoin="round">
-                                                     <polyline points="20 6 9 17 4 12" />
-                                                 </svg>
-                                             </span>
+                                  // 1. Personal (Single User, based on Plan ID 1)
+                                  if (isset($allDbPlans[1])) {
+                                      $raw = $allDbPlans[1];
+                                      $p = clone $raw;
+                                      $base = $rate * 1;
+                                      $monthly = $base;
+                                      $yearly = $base * 12;
 
-                                             <span class="pay-plan-tile__icon">
-                                                 @switch($iconKey)
-                                                     @case('cloud')
-                                                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-                                                             stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                             stroke-linejoin="round">
-                                                             <path d="M17.5 19H9a7 7 0 1 1 6.71-9h.79a4.5 4.5 0 1 1 0 9Z" />
-                                                         </svg>
-                                                     @break
+                                      $p->original_monthly_price = $monthly;
+                                      $p->original_yearly_price = $yearly;
 
-                                                     @case('monitor')
-                                                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-                                                             stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                             stroke-linejoin="round">
-                                                             <rect x="2" y="3" width="20" height="14" rx="2" />
-                                                             <line x1="8" y1="21" x2="16"
-                                                                 y2="21" />
-                                                             <line x1="12" y1="17" x2="12"
-                                                                 y2="21" />
-                                                         </svg>
-                                                     @break
+                                      $monthlyTotalDisc = ($p->single_user_monthly_discount ?? 0) + ($p->single_user_monthly_extra_disc ?? 0);
+                                      $singleYearlyDiscount = $p->single_user_yearly_discount ?? 0;
+                                      $yearlyTotalDisc = ($p->single_user_yearly_discount ?? 0) + $singleYearlyDiscount;
 
-                                                     @case('box')
-                                                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-                                                             stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                             stroke-linejoin="round">
-                                                             <path d="m21 8-9-5-9 5 9 5 9-5Z" />
-                                                             <path d="M3 8v8l9 5 9-5V8" />
-                                                             <path d="M12 13v8" />
-                                                         </svg>
-                                                     @break
+                                      $p->final_monthly_price = $monthly * (1 - $monthlyTotalDisc / 100);
+                                      $p->final_yearly_price = $yearly * (1 - $yearlyTotalDisc / 100);
+                                      $p->active_price = ($curBillingType === 'yearly') ? round($p->final_yearly_price) : round($p->final_monthly_price);
+                                      $p->currency_symbol = $currSymbol;
 
-                                                     @default
-                                                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-                                                             stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                             stroke-linejoin="round">
-                                                             <path
-                                                                 d="M12 2 4 5v6c0 5.25 3.4 9.74 8 11 4.6-1.26 8-5.75 8-11V5l-8-3Z" />
-                                                             <polyline points="9 12 11 14 15 10" />
-                                                         </svg>
-                                                 @endswitch
-                                             </span>
+                                      $p->ui_name = 'Personal';
+                                      $p->ui_plan_type = 'single';
+                                      $p->ui_default_qty = 1;
+                                      $p->ui_license = 1;
+                                      $p->ui_extra_yr_discount = $p->single_user_yearly_discount ?? 0;
+                                      $p->ui_extra_monthly_discount = 0;
+                                      $p->ui_monthly_discount = $p->single_user_monthly_discount ?? 0;
+                                      $p->ui_yearly_discount = $p->single_user_yearly_discount ?? 0;
+                                      $allFivePlans[] = $p;
+                                  }
 
-                                             <span class="pay-plan-tile__name">{{ $plan->plans_name }}</span>
+                                  // 2. Team Plans: Basic (1), Standard (2), Advanced (3), Premium (13)
+                                  $teamSpecs = [
+                                      1 => ['name' => 'Basic', 'def_qty' => 2],
+                                      2 => ['name' => 'Standard', 'def_qty' => 10],
+                                      3 => ['name' => 'Advanced', 'def_qty' => 50],
+                                      13 => ['name' => 'Premium', 'def_qty' => 100],
+                                  ];
 
-                                             <span class="pay-plan-tile__price plan_price_details hidden"></span>
-                                             <span class="pay-plan-tile__price view_plan_price_details">
-                                                 {{ $plan->currency_symbol }}{{ $plan->active_price }}<small
-                                                     class="plan-period">{{ request('billing_type') === 'yearly' ? '/year' : '/month' }}</small>
-                                             </span>
-                                         </div>
-                                     @endforeach
-                                 </div>
-                             </div>
+                                  foreach ($teamSpecs as $id => $spec) {
+                                      if (isset($allDbPlans[$id])) {
+                                          $raw = $allDbPlans[$id];
+                                          $p = clone $raw;
+                                          $base = $rate * ($p->plans_license ?? 1);
+                                          $monthly = $base;
+                                          $yearly = $base * 12;
 
-                             <!-- Users -->
-                             <!-- Users -->
-                             <div id="payQtyControls" class="os-section os-qty-box">
-                                 <div class="os-qty-row">
-                                     <div class="os-qty-info">
-                                         <span class="os-qty-label" id="payQtyLabel">Users</span>
-                                         <span class="os-qty-sublabel">Select the number of user licenses</span>
-                                     </div>
-                                     <div class="os-qty-controls-wrap">
-                                         <div id="payQtyBox" class="os-qty-stepper">
-                                             <button id="payQtyMinus" type="button" class="os-qty-btn">−</button>
-                                             <input type="number" id="payQtyInput" value="1" min="1"
-                                                 class="os-qty-input">
-                                             <button id="payQtyPlus" type="button" class="os-qty-btn">+</button>
-                                         </div>
-                                         <span class="os-qty-price-hint" id="payQtyPriceHint"></span>
-                                     </div>
-                                 </div>
-                             </div>
+                                          $p->original_monthly_price = $monthly;
+                                          $p->original_yearly_price = $yearly;
 
-                             <!-- Plan Detail -->
-                             <div class="plan-box">
-                                 <div class="plan-box__icon" id="summaryPlanIcon">
-                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                         stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                         stroke-linejoin="round">
-                                         <path d="M12 2 4 5v6c0 5.25 3.4 9.74 8 11 4.6-1.26 8-5.75 8-11V5l-8-3Z" />
-                                     </svg>
-                                 </div>
-                                 <div class="plan-box__body">
-                                     <div class="plan-box__top">
-                                         <strong id="summaryPlanName">—</strong>
-                                         <span class="plan-box__price">
-                                             <span id="summarySymbol"></span><span id="summaryUnitPrice">—</span>
-                                             <small
-                                                 class="plan-period">{{ request('billing_type') === 'yearly' ? '/year' : '/month' }}</small>
-                                         </span>
-                                     </div>
-                                     <ul id="planFeatureList" class="plan-box__features">
-                                         <li>Loading…</li>
-                                     </ul>
-                                 </div>
-                             </div>
+                                          $monthlyDiscount = ($p->is_team_discount_apply == 1) ? ($p->monthly_discount ?? 0) : 0;
+                                          $yearlyDiscount = ($p->is_team_discount_apply == 1) ? ($p->yearly_discount ?? 0) : 0;
+                                          $monthlyExtraDiscount = ($p->is_team_extraM_discount_apply == 1) ? ($p->monthly_extra_disc ?? 0) : 0;
+                                          $yearlyExtraDiscount = ($p->is_team_extraY_discount_apply == 1) ? ($p->yearly_extra_disc ?? 0) : 0;
 
-                             <!-- Totals -->
-                             <div class="sm-qty-box">
-                                 <div class="summary-row">
-                                     <span>Original Price</span>
-                                     <span id="summaryOrgTotal">—</span>
-                                 </div>
+                                          $p->monthly_discount = $monthlyDiscount;
+                                          $p->yearly_discount = $yearlyDiscount;
+                                          $p->monthly_extra_disc = $monthlyExtraDiscount;
+                                          $p->yearly_extra_disc = $yearlyExtraDiscount;
 
-                                 <div class="summary-row hidden" id="discountRow">
-                                     <span></span>
-                                     <span id="discountAmt" class="os-discount-amt">—</span>
-                                 </div>
+                                          $monthlyTotalDisc = $monthlyDiscount + $monthlyExtraDiscount;
+                                          $yearlyTotalDisc = $yearlyDiscount + $yearlyExtraDiscount;
 
-                                 <div class="summary-row hidden" id="extradiscountRow">
-                                     <span></span>
-                                     <span id="extradiscountAmt" class="os-discount-amt">—</span>
-                                 </div>
+                                          $p->final_monthly_price = $monthly * (1 - $monthlyTotalDisc / 100);
+                                          $p->final_yearly_price = $yearly * (1 - $yearlyTotalDisc / 100);
+                                          $p->active_price = ($curBillingType === 'yearly') ? round($p->final_yearly_price) : round($p->final_monthly_price);
+                                          $p->currency_symbol = $currSymbol;
 
-                                 <div class="os-totals">
-                                     <div class="summary-row hidden" id="promoDiscountRow">
-                                         <span>Promo Code</span>
-                                         <span id="promoDiscountAmt" class="os-discount-amt">—</span>
-                                     </div>
+                                          $p->ui_name = $spec['name'];
+                                          $p->ui_plan_type = 'team';
+                                          $p->ui_default_qty = $spec['def_qty'];
+                                          $p->ui_license = $p->plans_license ?? 1;
+                                          $p->ui_extra_yr_discount = $p->yearly_extra_disc ?? 0;
+                                          $p->ui_extra_monthly_discount = $p->additional_disc_month ?? 0;
+                                          $p->ui_monthly_discount = $monthlyDiscount;
+                                          $p->ui_yearly_discount = $yearlyDiscount;
+                                          $allFivePlans[] = $p;
+                                      }
+                                  }
+                              @endphp
 
-                                     <div class="summary-row">
-                                         <span id="summarySubtotalLabel">You Save</span>
-                                         <span id="summarySubtotal">—</span>
-                                     </div>
+                              <div class="pay-plan-selector os-section">
+                                  <!-- <p class="pay-plan-selector__label os-label">Change Plan</p> -->
 
-                                     <div class="summary-row hidden">
-                                         <span>Estimated tax</span>
-                                         <span id="summaryTax">0</span>
-                                     </div>
+                                  <div class="pay-plan-scroll-wrapper" id="planOptions">
+                                      <button type="button" class="pay-plan-scroll-btn" id="planScrollLeft" aria-label="Previous plans">
+                                          <svg viewBox="0 0 24 24">
+                                              <polyline points="15 18 9 12 15 6"></polyline>
+                                          </svg>
+                                      </button>
 
-                                     <div class="os-total-divider"></div>
+                                      <div class="pay-plan-scroll-track" id="planScrollTrack">
+                                          @foreach ($allFivePlans as $plan)
+                                              @php
+                                                  $isInitSelected = ($selectedPlanType === 'single')
+                                                      ? ($plan->ui_plan_type === 'single')
+                                                      : ($plan->ui_plan_type === 'team' && $loop->iteration === 2);
+                                              @endphp
+                                              <div class="pay-plan-tile selected-plan-option pay-plan-scroll-pill {{ $isInitSelected ? 'selected' : '' }} payment-tab-{{ $plan->id }} payment-tab-{{ $plan->ui_plan_type }}-{{ $plan->id }}"
+                                                  data-plan-type="{{ $plan->ui_plan_type }}"
+                                                  data-apply-discount="{{ $plan->is_team_discount_apply == 1 }}"
+                                                  data-team-allowed="{{ $plan->is_team_allowed == 1 }}"
+                                                  data-plan-id="{{ $plan->id }}"
+                                                  data-name="{{ $plan->ui_name }}"
+                                                  data-subscription="{{ $plan->plans_subscription_type }}"
+                                                  data-license="{{ $plan->ui_license }}"
+                                                  data-storage="{{ $plan->plans_users }}"
+                                                  data-storage-unit="{{ $plan->storage_unit }}"
+                                                  data-monthly-price="{{ $plan->final_monthly_price }}"
+                                                  data-yearly-price="{{ $plan->final_yearly_price }}"
+                                                  data-pricemonth="{{ $plan->final_monthly_price }}"
+                                                  data-original-monthly="{{ $plan->original_monthly_price }}"
+                                                  data-original-yearly="{{ $plan->original_yearly_price }}"
+                                                  data-monthly-discount="{{ $plan->ui_monthly_discount }}"
+                                                  data-yearly-discount="{{ $plan->ui_yearly_discount }}"
+                                                  data-singleuser-monthly-discount="{{ $plan->single_user_monthly_discount ?? 0 }}"
+                                                  data-singleuser-yearly-discount="{{ $plan->single_user_yearly_discount ?? 0 }}"
+                                                  data-extra-monthly-discount="{{ $plan->ui_extra_monthly_discount }}"
+                                                  data-extra-yearly-discount="{{ $plan->ui_extra_yr_discount }}"
+                                                  data-extra-mo-discount="{{ $plan->monthly_extra_disc ?? 0 }}"
+                                                  data-extra-yr-discount="{{ $plan->yearly_extra_disc ?? 0 }}"
+                                                  data-singleuser-extra-mo-discount="{{ $plan->single_user_monthly_extra_disc ?? 0 }}"
+                                                  data-singleuser-extra-yr-discount="{{ $plan->single_user_yearly_discount ?? 0 }}"
+                                                  data-def-qty="{{ $plan->ui_default_qty }}"
+                                                  data-symbol="{{ $plan->currency_symbol ?? '' }}"
+                                                  data-features="{{ json_encode(json_decode($plan->features) ?? []) }}"
+                                                  data-unit-rate="{{ $rate }}"
+                                                  data-desc="{{ $plan->plans_content ?? '' }}">
 
-                                     <div class="summary-total">
-                                         <span>Final Amount</span>
-                                         <span id="summaryTotal">—</span>
-                                     </div>
-                                 </div>
-                             </div>
+                                                  <span class="pay-plan-tile__name">{{ $plan->ui_name }}</span>
+                                                  <span class="view_plan_price_details hidden" style="display: none !important;"></span>
+                                              </div>
+                                          @endforeach
+                                      </div>
 
-                             <!-- Savings Notice -->
-                             <div id="paySavingsNotice" class="os-savings-notice"></div>
+                                      <button type="button" class="pay-plan-scroll-btn" id="planScrollRight" aria-label="Next plans">
+                                          <svg viewBox="0 0 24 24">
+                                              <polyline points="9 18 15 12 9 6"></polyline>
+                                          </svg>
+                                      </button>
+                                  </div>
+                              </div>
 
-                             <!-- Promo Code -->
-                             <label class="os-label" for="couponInput">Promo code</label>
-                             <div class="os-promo-row">
-                                 <input type="text" class="os-promo-input" id="couponInput" placeholder="1234" />
-                                 <button class="os-promo-btn" type="button" id="applyPromoBtn">Apply</button>
-                             </div>
-                             <div id="couponMsg" class="os-coupon-msg"></div>
+                              <!-- Plan Checkout Card (Exact UI Matching Screenshot) -->
+                              <div class="po-checkout-card">
+                                  <!-- Plan Header -->
+                                  <div class="po-plan-header">
+                                      <div class="po-plan-icon" id="summaryPlanIcon">
+                                          <svg viewBox="0 0 24 24" fill="none">
+                                              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                              <path d="m9 12 2 2 4-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                          </svg>
+                                      </div>
+                                      <div class="po-plan-header-info">
+                                          <h3 class="po-plan-name" id="summaryPlanName">Premium</h3>
+                                          <p class="po-plan-desc" id="summaryPlanDesc">Built for large organizations with advanced control and flexibility.</p>
+                                      </div>
+                                  </div>
 
-                             <button id="removeCouponBtn" class="os-remove-coupon" style="display:none;">
-                                 Remove Promo Code
-                             </button>
+                                  <!-- Unit Price Headline -->
+                                  <div class="po-unit-price-row">
+                                      <span class="po-price-val"><span id="poSymbol">{{ $currSymbol }}</span><span id="poUnitPrice">999</span></span>
+                                      <span class="po-price-period">/ user / month</span>
+                                  </div>
 
-                             <!-- Submit -->
-                             <button class="os-submit-btn" id="sideSubmitBtnForTeam" type="button">
-                                 Save &amp; Verify
-                             </button>
+                                  <!-- License Count -->
+                                  <div class="po-license-section" id="payQtyControls">
+                                      <label class="po-section-subheading" for="payQtyInput">License Count</label>
+                                      <div class="po-stepper-wrap">
+                                          <button type="button" class="po-stepper-btn" id="payQtyMinus">−</button>
+                                          <input type="number" id="payQtyInput" class="po-stepper-input" value="100" min="1" />
+                                          <button type="button" class="po-stepper-btn" id="payQtyPlus">+</button>
+                                      </div>
+                                      <p class="po-license-hint" id="payQtyHint">
+                                          Note: Minimum of <span id="poMinQtyText">100</span> licenses must be selected.
+                                      </p>
+                                  </div>
 
-                             <p class="os-footnote">
-                                 <svg width="11" height="11" viewBox="0 0 24 24" fill="none"
-                                     stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                     stroke-linejoin="round">
-                                     <rect x="3" y="11" width="18" height="10" rx="2" />
-                                     <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-                                 </svg>
-                                 Your payment details are secure and encrypted.
-                             </p>
+                                  <!-- Price Summary -->
+                                  <div class="po-price-summary">
+                                      <h4 class="po-summary-title">Price Summary</h4>
+                                      
+                                      <div class="po-summary-row">
+                                          <span class="po-summary-label">Base User / Month</span>
+                                          <span class="po-summary-val" id="poSumBaseUser">{{ $currSymbol }}999</span>
+                                      </div>
+                                      
+                                      <div class="po-summary-row">
+                                          <span class="po-summary-label">Users</span>
+                                          <span class="po-summary-val" id="poSumUsers">100</span>
+                                      </div>
+
+                                      <div class="po-divider"></div>
+
+                                      <div class="po-summary-row">
+                                          <span class="po-summary-label">Base Total</span>
+                                          <span class="po-summary-val" id="summaryOrgTotal">—</span>
+                                      </div>
+
+                                      <div class="po-summary-row" id="poRowPlanDiscount">
+                                          <span class="po-summary-label">Plan Discount</span>
+                                          <span class="po-summary-val text-success" id="poPlanDiscountVal">15%</span>
+                                      </div>
+
+                                      <div class="po-summary-row" id="poRowAnnualDiscount">
+                                          <span class="po-summary-label">Annual Billing Discount</span>
+                                          <span class="po-summary-val text-success" id="poAnnualDiscountVal">10%</span>
+                                      </div>
+
+                                      <div class="po-summary-row" id="poRowPromoDiscount">
+                                          <span class="po-summary-label">Promo Code Discount</span>
+                                          <span class="po-summary-val text-success" id="poPromoDiscountVal">5%</span>
+                                      </div>
+
+                                      <div class="po-summary-row po-summary-row--bold">
+                                          <span class="po-summary-label font-weight-bold">Total Discount</span>
+                                          <span class="po-summary-val text-success font-weight-bold" id="poTotalDiscountVal">30%</span>
+                                      </div>
+                                  </div>
+
+                                  <!-- Cyan Highlight Box -->
+                                  <div class="po-total-card">
+                                      <div class="po-total-period-label" id="poTotalPeriodLabel">(Total Per Year)</div>
+                                      <div class="po-total-amount" id="summaryTotal">—</div>
+                                      <div class="po-total-dashed-divider"></div>
+                                      <div class="po-total-save-row">
+                                          <div class="po-save-tag">
+                                              <svg width="15" height="15" viewBox="0 0 24 24" fill="#00a0b8" stroke="none">
+                                                  <path d="M21.41 11.58l-9-9C12.05 2.22 11.55 2 11 2H4c-1.1 0-2 .9-2 2v7c0 .55.22 1.05.59 1.42l9 9c.36.36.86.58 1.41.58.55 0 1.05-.22 1.41-.59l7-7c.37-.36.59-.86.59-1.41 0-.55-.23-1.06-.59-1.42zM5.5 7C4.67 7 4 6.33 4 5.5S4.67 4 5.5 4 7 4.67 7 5.5 6.33 7 5.5 7z"/>
+                                              </svg>
+                                              <span id="summarySubtotalLabel">You Save</span>
+                                          </div>
+                                          <div class="po-save-val" id="summarySubtotal">—</div>
+                                      </div>
+                                  </div>
+
+                                  <!-- Celebration / Savings Banner -->
+                                  <div class="po-savings-banner" id="poSavingsBanner">
+                                      <span class="po-party-icon">🎉</span>
+                                      <span class="po-savings-text" id="poSavingsBannerText">
+                                          15% Premium Team Discount + 10% Annual Billing Discount + 5% Promo Code Discount Total Savings 30%
+                                      </span>
+                                  </div>
+
+                                  <!-- Promo Code Section -->
+                                  <div class="po-promo-section">
+                                      <label class="po-section-subheading" for="couponInput">Promo code</label>
+                                      <div class="po-promo-input-group">
+                                          <input type="text" class="po-promo-input" id="couponInput" value="SAVE10" placeholder="SAVE10" />
+                                          <button type="button" class="po-promo-btn" id="applyPromoBtn">Apply</button>
+                                      </div>
+                                      <div class="po-promo-success-msg" id="poPromoSuccessMsg">
+                                          <svg width="14" height="14" viewBox="0 0 24 24" fill="#16a34a">
+                                              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                                          </svg>
+                                          <span>Promo code applied successfully!</span>
+                                      </div>
+                                  </div>
+
+                                  <!-- Continue CTA Button -->
+                                  <button type="button" class="po-continue-btn" id="sideSubmitBtnForTeam">
+                                      <span>Continue with</span> <span id="poContinuePlanName">Premium</span>
+                                  </button>
+
+                                  <!-- Security Note -->
+                                  <p class="po-security-note">
+                                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                          <rect x="3" y="11" width="18" height="10" rx="2"/>
+                                          <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                                      </svg>
+                                      Your payment details are secure and encrypted.
+                                  </p>
+
+                                  <!-- Hidden compatibility elements for payment.js -->
+                                  <div style="display:none !important;" aria-hidden="true">
+                                      <span id="summarySymbol"></span>
+                                      <span id="summaryUnitPrice"></span>
+                                      <span id="summaryTax">0</span>
+                                      <div id="discountRow"></div>
+                                      <div id="discountAmt"></div>
+                                      <div id="extradiscountRow"></div>
+                                      <div id="extradiscountAmt"></div>
+                                      <div id="promoDiscountRow"></div>
+                                      <div id="promoDiscountAmt"></div>
+                                      <div id="paySavingsNotice"></div>
+                                      <ul id="planFeatureList"></ul>
+                                      <div id="couponMsg"></div>
+                                      <button id="removeCouponBtn"></button>
+                                      <span id="payQtyPriceHint"></span>
+                                  </div>
+                              </div>
 
                          </div>
                      </div>
@@ -913,6 +751,419 @@
              </div>
          </div>
      @endsection
-     @section('scripts')
-         @vite(['resources/js/payment.js'])
-     @endsection
+      @section('scripts')
+          @vite(['resources/js/payment.js'])
+          <script>
+              document.addEventListener('DOMContentLoaded', function () {
+                  // Ensure plan selector is visible
+                  const planSelector = document.querySelector('.pay-plan-selector');
+                  if (planSelector) {
+                      planSelector.classList.remove('hidden');
+                      planSelector.style.display = 'block';
+                  }
+
+                  // Ensure all 5 pills remain displayed
+                  document.querySelectorAll('.pay-plan-scroll-pill').forEach(function (pill) {
+                      pill.style.display = 'inline-flex';
+                  });
+
+                  const track = document.getElementById('planScrollTrack');
+                  const btnLeft = document.getElementById('planScrollLeft');
+                  const btnRight = document.getElementById('planScrollRight');
+
+                  if (btnLeft && track) {
+                      btnLeft.addEventListener('click', function (e) {
+                          e.preventDefault();
+                          track.scrollBy({ left: -140, behavior: 'smooth' });
+                      });
+                  }
+
+                  if (btnRight && track) {
+                      btnRight.addEventListener('click', function (e) {
+                          e.preventDefault();
+                          track.scrollBy({ left: 140, behavior: 'smooth' });
+                      });
+                  }
+
+                  function scrollToActivePill() {
+                      const activePill = track ? track.querySelector('.pay-plan-scroll-pill.selected') : null;
+                      if (activePill && track) {
+                          const trackRect = track.getBoundingClientRect();
+                          const pillRect = activePill.getBoundingClientRect();
+                          if (pillRect.left < trackRect.left || pillRect.right > trackRect.right) {
+                              const scrollDiff = (pillRect.left - trackRect.left) - (track.clientWidth / 2) + (activePill.clientWidth / 2);
+                              track.scrollBy({ left: scrollDiff, behavior: 'smooth' });
+                          }
+                      }
+                  }
+
+                  // Exact SVGs from pricing.blade.php
+                  const iconMap = {
+                      'Personal': `<svg viewBox="0 0 24 24" fill="none"><path d="M20 21a8 8 0 0 0-16 0" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M12 13a5 5 0 1 0 0-10 5 5 0 0 0 0 10Z" stroke="currentColor" stroke-width="1.8"/></svg>`,
+                      'Basic': `<svg viewBox="0 0 24 24" fill="none"><path d="M20 21a8 8 0 0 0-16 0" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M12 13a5 5 0 1 0 0-10 5 5 0 0 0 0 10Z" stroke="currentColor" stroke-width="1.8"/></svg>`,
+                      'Standard': `<svg viewBox="0 0 24 24" fill="none"><path d="M3 3v18h18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="m7 15 4-4 3 3 5-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+                      'Advanced': `<svg viewBox="0 0 24 24" fill="none"><path d="m3 8 5 4 4-7 4 7 5-4-2 11H5L3 8Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M5 19h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>`,
+                      'Premium': `<svg viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="m9 12 2 2 4-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`
+                  };
+
+                  const descMap = {
+                      'Personal': 'Best for individual users',
+                      'Basic': 'Essential cloud desktop features for individuals & small teams.',
+                      'Standard': 'Collaborative cloud workspace with scalable storage for growing businesses.',
+                      'Advanced': 'Comprehensive cloud desktop with enhanced security & multi-admin controls.',
+                      'Premium': 'Built for large organizations with advanced control and flexibility.'
+                  };
+
+                  const minQtyMap = {
+                      'Personal': 1,
+                      'Basic': 2,
+                      'Standard': 10,
+                      'Advanced': 50,
+                      'Premium': 100
+                  };
+
+                  const planDiscountMap = {
+                      'Personal': 10,
+                      'Basic': 0,
+                      'Standard': 5,
+                      'Advanced': 10,
+                      'Premium': 15
+                  };
+
+                  function formatIndianNum(num) {
+                      return Math.round(Number(num) || 0).toLocaleString('en-IN');
+                  }
+
+                  let isUpdatingUI = false;
+
+                  function updateCustomCardUI(explicitPlanName) {
+                      if (isUpdatingUI) return;
+                      isUpdatingUI = true;
+
+                      try {
+                          // Ensure all pills remain displayed
+                          document.querySelectorAll('.pay-plan-scroll-pill').forEach(function (pill) {
+                              pill.style.display = 'inline-flex';
+                          });
+
+                          let selectedPill = null;
+                          if (explicitPlanName) {
+                              selectedPill = Array.from(document.querySelectorAll('.pay-plan-scroll-pill')).find(function (p) {
+                                  return p.dataset.name === explicitPlanName;
+                              });
+                          }
+                          if (!selectedPill) {
+                              selectedPill = document.querySelector('.pay-plan-scroll-pill.selected') || 
+                                             document.querySelector('.pay-plan-scroll-pill');
+                          }
+                          if (!selectedPill) {
+                              return;
+                          }
+
+                          const planName = explicitPlanName || selectedPill.dataset.name || 'Premium';
+                          const planType = selectedPill.dataset.planType || 'team';
+                          const symbol = selectedPill.dataset.symbol || '₹';
+                          const unitRate = parseFloat(selectedPill.dataset.unitRate) || 999;
+                          const toggle = document.getElementById('payBillingToggle');
+                          const isYearly = toggle ? toggle.checked : false;
+
+                          const minQty = minQtyMap[planName] || parseInt(selectedPill.dataset.defQty || 1);
+                          const planDesc = selectedPill.dataset.desc || descMap[planName] || 'Select a plan that fits your team\'s needs.';
+                          const planDiscountPercent = (planDiscountMap[planName] !== undefined)
+                              ? planDiscountMap[planName]
+                              : (parseFloat(selectedPill.dataset.monthlyDiscount) || 0);
+
+                          const qtyInput = document.getElementById('payQtyInput');
+                          let qty = minQty;
+
+                          if (planType === 'team') {
+                              qty = parseInt(qtyInput?.value || minQty);
+                              if (isNaN(qty) || qty < minQty) {
+                                  qty = minQty;
+                              }
+                              if (qtyInput && qtyInput.value != qty) {
+                                  qtyInput.min = minQty;
+                                  qtyInput.value = qty;
+                              }
+                              if (payQtyControls && payQtyControls.style.display !== 'block') {
+                                  payQtyControls.style.display = 'block';
+                              }
+                              if (companyForm && companyForm.classList.contains('hidden')) {
+                                  companyForm.classList.remove('hidden');
+                              }
+                          } else {
+                              qty = 1;
+                              if (qtyInput && qtyInput.value != 1) {
+                                  qtyInput.min = 1;
+                                  qtyInput.value = 1;
+                              }
+                              if (payQtyControls && payQtyControls.style.display !== 'none') {
+                                  payQtyControls.style.display = 'none';
+                              }
+                              if (companyForm && !companyForm.classList.contains('hidden')) {
+                                  companyForm.classList.add('hidden');
+                              }
+                          }
+
+                          // Math calculations
+                          const baseUserPrice = unitRate;
+                          const months = isYearly ? 12 : 1;
+                          const baseTotal = baseUserPrice * qty * months;
+
+                          const annualDiscountPercent = isYearly ? 10 : 0;
+                          const promoDiscountPercent = 5; // Static promo code as requested
+                          const totalDiscountPercent = planDiscountPercent + annualDiscountPercent + promoDiscountPercent;
+
+                          const youSave = Math.round(baseTotal * (totalDiscountPercent / 100));
+                          const finalTotal = baseTotal - youSave;
+
+                          // 1. Header
+                          const iconEl = document.getElementById('summaryPlanIcon');
+                          if (iconEl) iconEl.innerHTML = iconMap[planName] || iconMap['Premium'];
+
+                          const nameEl = document.getElementById('summaryPlanName');
+                          if (nameEl) nameEl.innerText = planName;
+
+                          const descEl = document.getElementById('summaryPlanDesc');
+                          if (descEl) descEl.innerText = planDesc;
+
+                          // 2. Unit Price
+                          const symEl = document.getElementById('poSymbol');
+                          if (symEl) symEl.innerText = symbol;
+
+                          const unitPriceEl = document.getElementById('poUnitPrice');
+                          if (unitPriceEl) unitPriceEl.innerText = formatIndianNum(baseUserPrice);
+
+                          // 3. License Section
+                          const minQtyEl = document.getElementById('poMinQtyText');
+                          if (minQtyEl) minQtyEl.innerText = minQty;
+
+                          // 4. Price Summary Rows
+                          const sumBaseUserEl = document.getElementById('poSumBaseUser');
+                          if (sumBaseUserEl) sumBaseUserEl.innerText = symbol + formatIndianNum(baseUserPrice);
+
+                          const sumUsersEl = document.getElementById('poSumUsers');
+                          if (sumUsersEl) sumUsersEl.innerText = qty;
+
+                          const orgTotalEl = document.getElementById('summaryOrgTotal');
+                          if (orgTotalEl) orgTotalEl.innerText = symbol + formatIndianNum(baseTotal);
+
+                          // Plan Discount
+                          const rowPlanDiscount = document.getElementById('poRowPlanDiscount');
+                          const valPlanDiscount = document.getElementById('poPlanDiscountVal');
+                          if (rowPlanDiscount && valPlanDiscount) {
+                              if (planDiscountPercent > 0) {
+                                  rowPlanDiscount.style.display = 'flex';
+                                  valPlanDiscount.innerText = planDiscountPercent + '%';
+                              } else {
+                                  rowPlanDiscount.style.display = 'none';
+                              }
+                          }
+
+                          // Annual Billing Discount (show only when annually tab is active)
+                          const rowAnnualDiscount = document.getElementById('poRowAnnualDiscount');
+                          const valAnnualDiscount = document.getElementById('poAnnualDiscountVal');
+                          if (rowAnnualDiscount && valAnnualDiscount) {
+                              if (isYearly) {
+                                  rowAnnualDiscount.style.display = 'flex';
+                                  valAnnualDiscount.innerText = '10%';
+                              } else {
+                                  rowAnnualDiscount.style.display = 'none';
+                              }
+                          }
+
+                          // Promo Discount (static 5%)
+                          const rowPromoDiscount = document.getElementById('poRowPromoDiscount');
+                          const valPromoDiscount = document.getElementById('poPromoDiscountVal');
+                          if (rowPromoDiscount && valPromoDiscount) {
+                              rowPromoDiscount.style.display = 'flex';
+                              valPromoDiscount.innerText = promoDiscountPercent + '%';
+                          }
+
+                          // Total Discount
+                          const valTotalDiscount = document.getElementById('poTotalDiscountVal');
+                          if (valTotalDiscount) valTotalDiscount.innerText = totalDiscountPercent + '%';
+
+                          // 5. Highlight Total Box (Cyan)
+                          const periodLabelEl = document.getElementById('poTotalPeriodLabel');
+                          if (periodLabelEl) {
+                              periodLabelEl.innerText = isYearly ? '(Total Per Year)' : '(Total Per Month)';
+                          }
+
+                          const totalEl = document.getElementById('summaryTotal');
+                          if (totalEl) totalEl.innerText = symbol + ' ' + formatIndianNum(finalTotal);
+
+                          const subtotalEl = document.getElementById('summarySubtotal');
+                          if (subtotalEl) subtotalEl.innerText = symbol + formatIndianNum(youSave);
+
+                          const modalTotalEl = document.getElementById('modalTotal');
+                          if (modalTotalEl) modalTotalEl.innerText = symbol + ' ' + formatIndianNum(finalTotal);
+
+                          // 6. Celebration Banner
+                          const bannerParts = [];
+                          if (planDiscountPercent > 0) {
+                              const discountTypeLabel = (planName === 'Personal') ? 'Personal Discount' : (planName + ' Team Discount');
+                              bannerParts.push(`${planDiscountPercent}% ${discountTypeLabel}`);
+                          }
+                          if (isYearly && annualDiscountPercent > 0) {
+                              bannerParts.push(`${annualDiscountPercent}% Annual Billing Discount`);
+                          }
+                          if (promoDiscountPercent > 0) {
+                              bannerParts.push(`${promoDiscountPercent}% Promo Code Discount`);
+                          }
+                          const bannerText = bannerParts.length > 0 
+                              ? `${bannerParts.join(' + ')} Total Savings ${totalDiscountPercent}%`
+                              : `Total Savings ${totalDiscountPercent}%`;
+
+                          const bannerTextEl = document.getElementById('poSavingsBannerText');
+                          if (bannerTextEl) bannerTextEl.innerText = bannerText;
+
+                          // 7. CTA Button
+                          const continuePlanNameEl = document.getElementById('poContinuePlanName');
+                          if (continuePlanNameEl) continuePlanNameEl.innerText = planName;
+
+                      } finally {
+                          isUpdatingUI = false;
+                      }
+                  }
+
+                  // Expose globally for seamless synchronization with payment.js
+                  window.updateCustomCardUI = updateCustomCardUI;
+
+                  // Stepper buttons
+                  const payQtyPlus = document.getElementById('payQtyPlus');
+                  const payQtyMinus = document.getElementById('payQtyMinus');
+                  const payQtyInput = document.getElementById('payQtyInput');
+
+                  if (payQtyPlus) {
+                      payQtyPlus.addEventListener('click', function (e) {
+                          e.preventDefault();
+                          updateCustomCardUI();
+                      });
+                      payQtyPlus.addEventListener('mousedown', function (e) {
+                          e.preventDefault();
+                      });
+                  }
+
+                  if (payQtyMinus) {
+                      payQtyMinus.addEventListener('click', function (e) {
+                          e.preventDefault();
+                          updateCustomCardUI();
+                      });
+                      payQtyMinus.addEventListener('mousedown', function (e) {
+                          e.preventDefault();
+                      });
+                  }
+
+                  if (payQtyInput) {
+                      payQtyInput.addEventListener('input', function () {
+                          updateCustomCardUI();
+                      });
+                      payQtyInput.addEventListener('change', function () {
+                          updateCustomCardUI();
+                      });
+                  }
+
+                  // Billing toggle
+                  const toggle = document.getElementById('payBillingToggle');
+                  if (toggle) {
+                      toggle.addEventListener('change', function () {
+                          updateCustomCardUI();
+                      });
+                  }
+
+                  const monthLabel = document.getElementById('payBillingMonthLabel');
+                  const yearLabel = document.getElementById('payBillingYearLabel');
+
+                  if (monthLabel && toggle) {
+                      monthLabel.addEventListener('click', function (e) {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          if (toggle.checked) {
+                              toggle.checked = false;
+                              toggle.dispatchEvent(new Event('change'));
+                          }
+                      });
+                  }
+
+                  if (yearLabel && toggle) {
+                      yearLabel.addEventListener('click', function (e) {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          if (!toggle.checked) {
+                              toggle.checked = true;
+                              toggle.dispatchEvent(new Event('change'));
+                          }
+                      });
+                  }
+
+                  // Promo apply button (static)
+                  const applyPromoBtn = document.getElementById('applyPromoBtn');
+                  if (applyPromoBtn) {
+                      applyPromoBtn.addEventListener('click', function (e) {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          const msg = document.getElementById('poPromoSuccessMsg');
+                          if (msg) msg.style.display = 'flex';
+                          updateCustomCardUI();
+                      });
+                  }
+
+                  // Plan pills click
+                  document.querySelectorAll('.pay-plan-scroll-pill').forEach(function (pill) {
+                      pill.addEventListener('click', function (e) {
+                          e.preventDefault();
+                          document.querySelectorAll('.pay-plan-scroll-pill').forEach(function (p) {
+                              p.classList.remove('selected');
+                          });
+                          this.classList.add('selected');
+
+                          const name = this.dataset.name;
+                          const type = this.dataset.planType;
+                          const minMap = { 'Personal': 1, 'Basic': 2, 'Standard': 10, 'Advanced': 50, 'Premium': 100 };
+                          const minQ = minMap[name] || parseInt(this.dataset.defQty || 1);
+
+                          if (payQtyInput) {
+                              payQtyInput.min = minQ;
+                              payQtyInput.value = minQ;
+                          }
+
+                          try {
+                              const sp = JSON.parse(localStorage.getItem('selectedPlan')) || {};
+                              sp.plan_id = this.dataset.planId;
+                              sp.plan_type = type;
+                              sp.name = name;
+                              delete sp.display_name;
+                              if (this.dataset.features) {
+                                  sp.features = JSON.parse(this.dataset.features);
+                              }
+                              localStorage.setItem('selectedPlan', JSON.stringify(sp));
+                          } catch (e) {}
+
+                          scrollToActivePill();
+                          updateCustomCardUI(name);
+                      });
+                  });
+
+                  // Initial setup - match pill from localStorage if available
+                  try {
+                      const sp = JSON.parse(localStorage.getItem('selectedPlan'));
+                      if (sp && (sp.name || sp.plan_id)) {
+                          const matchingPill = Array.from(document.querySelectorAll('.pay-plan-scroll-pill')).find(function (p) {
+                              return (sp.name && p.dataset.name === sp.name) || 
+                                     (p.dataset.planId == sp.plan_id && p.dataset.planType == sp.plan_type);
+                          });
+                          if (matchingPill) {
+                              document.querySelectorAll('.pay-plan-scroll-pill').forEach(function (p) {
+                                  p.classList.remove('selected');
+                              });
+                              matchingPill.classList.add('selected');
+                          }
+                      }
+                  } catch (e) {}
+
+                  scrollToActivePill();
+                  updateCustomCardUI();
+              });
+          </script>
+      @endsection
