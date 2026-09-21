@@ -113,4 +113,6 @@ return [
         'name' => env('MAIL_FROM_NAME', 'Example'),
     ],
 
+    'job_applications_to' => env('JOB_APPLICATION_EMAIL', 'info@aibuzz.net'),
+
 ];

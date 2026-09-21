@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\JobApplication;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 
 class JobApplicationController extends Controller
 {
@@ -23,7 +25,7 @@ class JobApplicationController extends Controller
 
         $resumePath = $request->file('resume')->store('job-applications/resumes', 'public');
 
-        JobApplication::create([
+        $application = JobApplication::create([
             'first_name' => $validated['firstName'],
             'email' => $validated['email'],
             'phone' => $validated['phone'],
@@ -35,6 +37,28 @@ class JobApplicationController extends Controller
             'resume_path' => $resumePath,
             'status' => 'new',
         ]);
+
+        $resumeAbsolutePath = Storage::disk('public')->path($resumePath);
+        $internalRecipient = config('mail.job_applications_to', 'info@aibuzz.net');
+
+        Mail::send('mail-templates.job-application-admin', [
+            'application' => $application,
+        ], function ($message) use ($application, $internalRecipient, $resumeAbsolutePath) {
+            $message->to($internalRecipient)
+                ->replyTo($application->email, $application->first_name)
+                ->subject('New job application: ' . $application->position)
+                ->attach($resumeAbsolutePath, [
+                    'as' => 'resume-' . $application->id . '.pdf',
+                    'mime' => 'application/pdf',
+                ]);
+        });
+
+        Mail::send('mail-templates.job-application-confirmation', [
+            'application' => $application,
+        ], function ($message) use ($application) {
+            $message->to($application->email, $application->first_name)
+                ->subject('We received your application | Pocket Office');
+        });
 
         return response()->json([
             'status' => true,
