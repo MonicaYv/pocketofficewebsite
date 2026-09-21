@@ -246,8 +246,8 @@
                                             </li>
 
                                             <li class="mega-section-item">
-                                                <a href="{{ url('integrations') }}?tab=alibaba" class="mega-item-link">
-                                                    <strong class="mega-item-title">Alibaba OSS</strong>
+                                                <a href="{{ url('integrations') }}?tab=blackblaze" class="mega-item-link">
+                                                    <strong class="mega-item-title">Blackblaze</strong>
                                                 </a>
                                             </li>
 
@@ -256,17 +256,23 @@
                                                     <strong class="mega-item-title">FTP</strong>
                                                 </a>
                                             </li>
-
-                                        </ul>
-                                        <ul class="mega-section-list">
                                             <li class="mega-section-item">
                                                 <a href="{{ url('integrations') }}?tab=min-io" class="mega-item-link">
                                                     <strong class="mega-item-title">MinIO</strong>
                                                 </a>
                                             </li>
+
+                                        </ul>
+                                        <ul class="mega-section-list">
+                                            <li class="mega-section-item">
+                                                <a href="{{ url('integrations') }}?tab=cloudFare-r2" class="mega-item-link">
+                                                    <strong class="mega-item-title">CloudFare R2</strong>
+                                                </a>
+                                            </li>
+                                            
                                              <li class="mega-section-item">
-                                                <a href="{{ url('integrations') }}?tab=tencent-ios" class="mega-item-link">
-                                                    <strong class="mega-item-title">Tencent COS</strong>
+                                                <a href="{{ url('integrations') }}?tab=storj" class="mega-item-link">
+                                                    <strong class="mega-item-title">Storj</strong>
                                                 </a>
                                             </li>
                                             <li class="mega-section-item">
@@ -276,8 +282,18 @@
                                             </li>
 
                                             <li class="mega-section-item">
-                                                <a href="{{ url('integrations') }}?tab=qiniucloud" class="mega-item-link">
-                                                    <strong class="mega-item-title">Qiniu Cloud</strong>
+                                                <a href="{{ url('integrations') }}?tab=smll-io" class="mega-item-link">
+                                                    <strong class="mega-item-title">Smll.io</strong>
+                                                </a>
+                                            </li>
+                                             <li class="mega-section-item">
+                                                <a href="{{ url('integrations') }}?tab=dropbox" class="mega-item-link">
+                                                    <strong class="mega-item-title">Dropbox</strong>
+                                                </a>
+                                            </li>
+                                            <li class="mega-section-item">
+                                                <a href="{{ url('integrations') }}?tab=edge-network" class="mega-item-link">
+                                                    <strong class="mega-item-title">Edge Network</strong>
                                                 </a>
                                             </li>
                                         </ul>
@@ -462,12 +478,6 @@
                                         </li>
                                     </ul>
                                 </div>
-
-
-
-
-
-
                             </div>
                         </div>
                     </div></template>

@@ -15,6 +15,7 @@
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <link href="https://googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -25,10 +26,8 @@
         <div class="left">
             <img class="left-img" src="/assets/img/Illustration.png" alt="login-img">
         </div>
-        <div class="right">
-            <div class="docs-pre-header" style="font-size: 11px; font-weight: 800; color: #64748b; letter-spacing: 1.5px; margin-bottom: 20px; text-transform: uppercase;">
-                <span style="color: #0694b7; margin-right: 4px;">●</span> PocketOffice Documentation
-            </div>
+        <div class="right" style="font-family: 'Poppins', sans-serif;">
+            
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
                 <div class="logo">
                     <a href="/index">
@@ -37,9 +36,12 @@
                 </div>
                 <a href="/index" class="back-home" style="text-decoration: none; font-weight: 600; color: #057A96;"> Home</a>
             </div>
+            <div class="docs-pre-header" style="font-size: 11px; font-weight: 800; color: #64748b; letter-spacing: 1.5px; margin-bottom: 20px; text-transform: uppercase;">
+                <span style="color: #0694b7; margin-right: 4px;">●</span> PocketOffice Documentation
+            </div>
             
             <div class="login-section">
-               <h1 class="heading">Welcome Back to PocketOffice Learning Hub</h1>
+               <h1 class="heading" style="font-size: 14px; font-weight: 600; color: #64748b; margin-left:0.6rem;">Welcome Back to PocketOffice Learning Hub</h1>
                 <form method="POST" action="{{ route('docs.login.submit') }}" id="docs-login-form">
                     @csrf
                     <input type="hidden" name="selected_tab" id="selected_tab" value="{{ $selectedTab }}">
@@ -71,7 +73,7 @@
                     <button class="btn-signin" type="submit">Sign in</button>
                 </form>
 
-                <div class="underline">
+                {{-- <div class="underline"> --}}
 
                 </div>
 

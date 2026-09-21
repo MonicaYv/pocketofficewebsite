@@ -97,20 +97,20 @@
                       <i class="fa fa-angle-right integration-arrow"></i>
                   </button>
                   
-                  <button class="integration-tab active" data-tab="alibaba">
+                  <button class="integration-tab active" data-tab="blackblaze">
                       <div class="integration-left">
                           <img
-                              src="/assets/img/integration-icons/alibaba.svg"
+                              src="/assets/img/integration-icons/blackblaze.png"
                               alt="alibaba-cloud-logo"
                               width="20"
                               height="20"
                               class="integration-sidebar-icon"
                               loading="lazy" />
-                          Alibaba OSS
+                          Blackblaze
                       </div>
                       <i class="fa fa-angle-right integration-arrow"></i>
                   </button>
-                    <button class="integration-tab" data-tab="ftp">
+                  <button class="integration-tab" data-tab="ftp">
                       <div class="integration-left">
                           <img
                               src="/assets/img/integration-icons/ftp.svg"
@@ -136,17 +136,29 @@
                       </div>
                       <i class="fa fa-angle-right integration-arrow"></i>
                   </button>
-
-                  <button class="integration-tab" data-tab="tencent-ios">
+                  <button class="integration-tab" data-tab="cloudFare-r2">
                       <div class="integration-left">
                           <img
-                              src="/assets/img/integration-icons/tencent.svg"
+                              src="/assets/img/integration-icons/cloudflare.png"
+                              alt="qiniu-cloud-logo"
+                              width="20"
+                              height="20"
+                              class="integration-sidebar-icon"
+                              loading="lazy" />
+                            CloudFare R2
+                      </div>
+                      <i class="fa fa-angle-right integration-arrow"></i>
+                  </button>
+                  <button class="integration-tab" data-tab="storj">
+                      <div class="integration-left">
+                          <img
+                              src="/assets/img/integration-icons/storj.png"
                               alt="tencent-logo"
                               width="20"
                               height="20"
                               class="integration-sidebar-icon"
                               loading="lazy" />
-                          Tencent COS
+                          Storj
                       </div>
                       <i class="fa fa-angle-right integration-arrow"></i>
                   </button>
@@ -163,7 +175,33 @@
                       </div>
                       <i class="fa fa-angle-right integration-arrow"></i>
                   </button>
-                  <button class="integration-tab" data-tab="qiniucloud">
+                  <button class="integration-tab" data-tab="smll-io">
+                      <div class="integration-left">
+                          <img
+                              src="/assets/img/integration-icons/smll.png"
+                              alt="qiniu-cloud-logo"
+                              width="20"
+                              height="20"
+                              class="integration-sidebar-icon"
+                              loading="lazy" />
+                          Smll.io
+                      </div>
+                      <i class="fa fa-angle-right integration-arrow"></i>
+                  </button>
+                  <button class="integration-tab" data-tab="dropbox">
+                      <div class="integration-left">
+                          <img
+                              src="/assets/img/integration-icons/drop-box.png"
+                              alt="qiniu-cloud-logo"
+                              width="20"
+                              height="20"
+                              class="integration-sidebar-icon"
+                              loading="lazy" />
+                            Dropbox
+                      </div>
+                      <i class="fa fa-angle-right integration-arrow"></i>
+                  </button>
+                  <button class="integration-tab" data-tab="edge-network">
                       <div class="integration-left">
                           <img
                               src="/assets/img/integration-icons/qiniucloud.svg"
@@ -172,7 +210,7 @@
                               height="20"
                               class="integration-sidebar-icon"
                               loading="lazy" />
-                          Qiniu Cloud
+                            Edge Network
                       </div>
                       <i class="fa fa-angle-right integration-arrow"></i>
                   </button>
@@ -182,20 +220,20 @@
               <!-- CONTENT -->
               <div class="integration-content">
                   <!-- ALIBABA -->
-                  <div class="integration-panel active" id="alibaba">
+                  <div class="integration-panel active" id="blackblaze">
                       <h2 class="integration-heading">
                           <img
-                              src="/assets/img/integration-icons/alibaba.svg"
+                              src="/assets/img/integration-icons/blackblaze.png"
                               alt="alibaba-cloud-logo"
                               width="40px"
                               height="40px"
                               class="integration-sidebar-icon"
                               loading="lazy" />
-                          Alibaba OSS Integration
+                          Blackblaze
                       </h2>
 
                       <p class="integration-subheading">
-                          Enterprise Cloud Storage, Directly Accessible.
+                          Secure Cloud Storage
                       </p>
 
                       <div class="integration-cards">
@@ -205,13 +243,11 @@
                                   <i class="fa fa-cloud"></i>
                               </div>
                               <h3>
-                                  OSS Bucket Access: Access and manage OSS files directly from
-                                  your desktop.
+                                  Store and access files with enterprise-grade reliability.
                               </h3>
 
                               <p>
-                                  Alibaba OSS buckets connect seamlessly to PocketOffice for
-                                  fast, organized access.
+                                  Backblaze B2 provides secure, durable cloud storage for documents, media, backups, and business data, ensuring fast and reliable access whenever you need it.
                               </p>
                           </div>
 
@@ -220,11 +256,9 @@
                               <div class="integration-icon">
                                   <i class="fa fa-shield"></i>
                               </div>
-                              <h3>Secure Access : Permissions stay intact.</h3>
+                              <h3>Connect your storage directly to PocketOffice.</h3>
                               <p>
-                                  OSS access policies are fully enforced within PocketOffice,
-                                  ensuring secure data access without bypassing enterprise
-                                  security controls.
+                                  Easily link your Backblaze B2 buckets with PocketOffice to manage files, collaborate across teams, and access cloud-stored content without switching platforms.
                               </p>
                           </div>
 
@@ -234,13 +268,10 @@
                                   <i class="fa fa-refresh"></i>
                               </div>
                               <h3>
-                                  Real-Time Synchronization: Stay updated without manual
-                                  syncing.
+                                  Keep files updated across your workspace.
                               </h3>
                               <p>
-                                  File changes within Alibaba OSS are reflected instantly in
-                                  PocketOffice, maintaining accurate and up-to-date file
-                                  states across your workspace.
+                                 Changes made in Backblaze B2 are reflected within PocketOffice, helping teams stay aligned with the latest file versions and reducing manual file management.
                               </p>
                           </div>
 
@@ -250,28 +281,25 @@
                                   <i class="fa fa-database"></i>
                               </div>
                               <h3>
-                                  Scalable Storage Architecture: Built to support enterprise
-                                  growth.
+                                  Grow storage capacity without growing complexity.
                               </h3>
                               <p>
-                                  Leverage Alibaba’s scalable cloud infrastructure to manage
-                                  large datasets, multi-user access, and expanding storage
-                                  requirements efficiently.
+                                  Backblaze B2 offers scalable cloud storage that adapts to your business needs, allowing you to manage increasing volumes of data while maintaining predictable costs.
                               </p>
                           </div>
                       </div>
                   </div>
 
-                  <div class="integration-panel" id="tencent-ios">
+                  <div class="integration-panel" id="storj">
                       <h2 class="integration-heading">
                           <img
-                              src="/assets/img/integration-icons/tencent.svg"
+                              src="/assets/img/integration-icons/storj.png"
                               alt="tencent-logo"
                               width="40px"
                               height="40px"
                               class="integration-sidebar-icon"
                               loading="lazy" />
-                          Tencent COS Integration
+                          Storj Integration
                       </h2>
 
                       <p class="integration-subheading">
@@ -284,11 +312,9 @@
                               <div class="integration-icon">
                                   <i class="fa fa-refresh"></i>
                               </div>
-                              <h3>Real-Time COS Sync: Always up to date.</h3>
+                              <h3>Protect data with decentralized cloud architecture.</h3>
                               <p>
-                                  Changes made through PocketOffice are reflected immediately
-                                  in Tencent COS, ensuring synchronized file states across
-                                  environments.
+                                  Storj encrypts and distributes files across a global network, reducing single points of failure while enhancing privacy and security.
                               </p>
                           </div>
 
@@ -298,13 +324,10 @@
                                   <i class="fa fa-building"></i>
                               </div>
                               <h3>
-                                  Enterprise-Friendly Architecture: Designed for large-scale
-                                  cloud workloads.
+                                  Connect existing applications with minimal changes.
                               </h3>
                               <p>
-                                  Perfect for teams operating within Tencent Cloud ecosystems,
-                                  supporting structured storage, scalability, and performance
-                                  at scale.
+                                  Storj provides S3-compatible object storage, allowing seamless integration with PocketOffice and existing storage workflows.
                               </p>
                           </div>
 
@@ -314,13 +337,10 @@
                                   <i class="fa fa-folder-open"></i>
                               </div>
                               <h3>
-                                  Desktop-Level Object Access: Work with COS like a file
-                                  system.
+                                  Access files quickly from anywhere.
                               </h3>
                               <p>
-                                  Browse, organize, and manage Tencent COS objects through a
-                                  familiar desktop-style interface without switching
-                                  platforms.
+                                 Distributed storage nodes help deliver fast uploads and downloads while maintaining high availability and durability.
                               </p>
                           </div>
 
@@ -330,28 +350,25 @@
                                   <i class="fa fa-shield"></i>
                               </div>
                               <h3>
-                                  Policy-Based Security Enforcement: Maintain cloud-level
-                                  protection.
+                                 Built for reliable business operations.
                               </h3>
                               <p>
-                                  Tencent COS permission rules and identity policies remain
-                                  fully enforced within PocketOffice, ensuring secure and
-                                  compliant access.
+                                  Advanced encryption, redundancy, and distributed architecture ensure data remains accessible even during infrastructure disruptions.
                               </p>
                           </div>
                       </div>
                   </div>
 
-                  <div class="integration-panel" id="qiniucloud">
+                  <div class="integration-panel" id="smll-io">
                       <h2 class="integration-heading">
                           <img
-                              src="/assets/img/integration-icons/qiniucloud.svg"
+                              src="/assets/img/integration-icons/smll.png"
                               alt="qiniu-cloud-logo"
                               width="40px"
                               height="40px"
                               class="integration-sidebar-icon"
                               loading="lazy" />
-                          Qiniu Cloud Integration
+                          Smll.io Integration
                       </h2>
 
                       <p class="integration-subheading">
@@ -364,11 +381,9 @@
                               <div class="integration-icon">
                                   <i class="fa fa-folder-open"></i>
                               </div>
-                              <h3>Desktop-Style Access: Browse objects just like files.</h3>
+                              <h3>Manage files across multiple storage providers.</h3>
                               <p>
-                                  PocketOffice converts Qiniu object storage into a familiar
-                                  file-system view, making cloud objects behave like standard
-                                  files.
+                                  Connect and organize cloud-based content from a single workspace, simplifying file access and administration.
                               </p>
                           </div>
 
@@ -378,12 +393,10 @@
                                   <i class="fa fa-check-circle"></i>
                               </div>
                               <h3>
-                                  No Workflow Changes: Continue working the way you already
-                                  do.
+                                  Access business data whenever you need it.
                               </h3>
                               <p>
-                                  Teams can manage Qiniu storage without retraining,
-                                  maintaining existing workflows and productivity habits.
+                                  Enable teams to retrieve, share, and manage files efficiently without switching between platforms.
                               </p>
                           </div>
 
@@ -393,13 +406,10 @@
                                   <i class="fa fa-exchange"></i>
                               </div>
                               <h3>
-                                  Seamless Object Operations: Upload, move, and organize
-                                  effortlessly.
+                                  Keep teams connected and productive.
                               </h3>
                               <p>
-                                  Perform common file operations such as uploading, renaming,
-                                  and reorganizing objects directly from your desktop
-                                  interface.
+                                  Ensure documents and assets remain synchronized, helping teams collaborate with the latest file versions.
                               </p>
                           </div>
 
@@ -409,12 +419,10 @@
                                   <i class="fa fa-lock"></i>
                               </div>
                               <h3>
-                                  Secure Access Control: Maintain policy-level protection.
+                                  Adapt storage resources as your business grows.
                               </h3>
                               <p>
-                                  Qiniu access permissions and security rules remain fully
-                                  enforced within PocketOffice to ensure compliant data
-                                  handling.
+                                  Support growing workloads and file volumes while maintaining performance and accessibility.
                               </p>
                           </div>
                       </div>
@@ -496,16 +504,16 @@
                       </div>
                   </div>
 
-                  <div class="integration-panel" id="tianyi-cloud">
+                  <div class="integration-panel" id="dropbox">
                       <h2 class="integration-heading">
                           <img
-                              src="/assets/img/integration-icons/tianyicloud.svg"
+                              src="/assets/img/integration-icons/drop-box.png"
                               alt="Tianyi cloud logo"
                               width="40px"
                               height="40px"
                               class="integration-sidebar-icon"
                               loading="lazy" />
-                          Tianyi Cloud Integration
+                          Dropbox Integration
                       </h2>
 
                       <p class="integration-subheading">
@@ -520,13 +528,10 @@
                                   <i class="fa fa-folder-open"></i>
                               </div>
                               <h3>
-                                  Object-to-File Mapping: Cloud storage behaves like local
-                                  files.
+                                  Store, organize, and protect business data.
                               </h3>
                               <p>
-                                  Tianyi Cloud object storage is presented in a structured
-                                  file-system view, allowing intuitive browsing and management
-                                  directly within PocketOffice.
+                                  Keep documents, media, and project files securely stored and accessible from any device.
                               </p>
                           </div>
 
@@ -536,12 +541,10 @@
                                   <i class="fa fa-server"></i>
                               </div>
                               <h3>
-                                  Local Access Without Migration: No data relocation required.
+                                  Work together without file-sharing complexity.
                               </h3>
                               <p>
-                                  Files remain securely stored within Tianyi Cloud
-                                  infrastructure while PocketOffice provides a streamlined
-                                  access interface.
+                                  Share files, folders, and documents across teams while maintaining centralized control and visibility.
                               </p>
                           </div>
 
@@ -550,11 +553,9 @@
                               <div class="integration-icon">
                                   <i class="fa fa-shield"></i>
                               </div>
-                              <h3>Policy-Aware Security: Access rules remain enforced.</h3>
+                              <h3>Keep files updated across devices.</h3>
                               <p>
-                                  Tianyi Cloud permissions and security policies are fully
-                                  preserved, ensuring controlled and compliant access across
-                                  teams.
+                                  Changes are synced automatically, ensuring everyone works with the latest version of every file.
                               </p>
                           </div>
 
@@ -564,27 +565,25 @@
                                   <i class="fa fa-sitemap"></i>
                               </div>
                               <h3>
-                                  Telecom-Grade Reliability: Built for high availability.
+                                  Support growing teams and data needs.
                               </h3>
                               <p>
-                                  Designed to operate within China Telecom’s enterprise
-                                  ecosystem, delivering stable performance and scalable cloud
-                                  operations.
+                                  Expand storage capacity and collaboration capabilities as your organization evolves.
                               </p>
                           </div>
                       </div>
                   </div>
 
-                  <div class="integration-panel" id="sds">
+                  <div class="integration-panel" id="cloudFare-r2">
                       <h2 class="integration-heading">
                           <img
-                              src="/assets/img/integration-icons/xsky.svg"
+                              src="/assets/img/integration-icons/cloudflare.png"
                               alt="Xsky Sds logo"
                               width="40px"
                               height="40px"
                               class="integration-sidebar-icon"
                               loading="lazy" />
-                          XSKY SDS Integration
+                          CloudFare R2 Integration
                       </h2>
 
                       <p class="integration-subheading">
@@ -598,12 +597,10 @@
                                   <i class="fa fa-exchange"></i>
                               </div>
                               <h3>
-                                  Hybrid Cloud Access: Local storage meets cloud usability.
+                                  Store and deliver files without bandwidth charges.
                               </h3>
                               <p>
-                                  PocketOffice connects XSKY SDS on-premises storage systems
-                                  to a browser-based cloud desktop, allowing teams to access
-                                  and work with local data remotely and securely.
+                                  Cloudflare R2 eliminates egress fees, helping businesses store and serve documents, media, backups, and application data without unexpected transfer costs.
                               </p>
                           </div>
 
@@ -613,12 +610,10 @@
                                   <i class="fa fa-database"></i>
                               </div>
                               <h3>
-                                  No Data Migration Required: Your data stays on-premises.
+                                  Connect existing storage workflows with ease.
                               </h3>
                               <p>
-                                  Files remain within the XSKY SDS infrastructure.
-                                  PocketOffice enables access without copying or moving data
-                                  to external cloud platforms.
+                                  R2 supports the S3 API, allowing PocketOffice to integrate seamlessly with existing tools, applications, and storage workflows without major changes.
                               </p>
                           </div>
 
@@ -628,13 +623,10 @@
                                   <i class="fa fa-shield"></i>
                               </div>
                               <h3>
-                                  Enterprise Security Preserved: Control remains within your
-                                  environment.
+                                 Access files faster through Cloudflare's network.
                               </h3>
                               <p>
-                                  Existing security policies, access controls, and compliance
-                                  requirements continue to apply when accessing data through
-                                  PocketOffice.
+                                  Built on Cloudflare's global infrastructure, R2 helps deliver files efficiently while maintaining strong consistency and high durability for business-critical data.
                               </p>
                           </div>
 
@@ -644,19 +636,16 @@
                                   <i class="fa fa-sitemap"></i>
                               </div>
                               <h3>
-                                  Centralized Infrastructure Visibility: Unified management
-                                  across systems.
+                                  Grow your storage capacity as your business expands.
                               </h3>
                               <p>
-                                  Monitor and manage distributed storage resources from a
-                                  single interface, simplifying operations across hybrid and
-                                  on-premises environments.
+                                  R2 provides virtually unlimited object storage, making it ideal for growing teams, large file repositories, backups, media assets, and enterprise applications.
                               </p>
                           </div>
                       </div>
                   </div>
 
-                  <div class="integration-panel" id="sangfor-eds">
+                  <div class="integration-panel" id="edge-network">
                       <h2 class="integration-heading">
                           <img
                               src="/assets/img/integration-icons/sangfor-eds.svg"
@@ -665,7 +654,7 @@
                               height="40px"
                               class="integration-sidebar-icon"
                               loading="lazy" />
-                          Sangfor EDS Integration
+                          Edge Network Integration
                       </h2>
 
                       <p class="integration-subheading">
@@ -679,13 +668,10 @@
                                   <i class="fa fa-folder-open"></i>
                               </div>
                               <h3>
-                                  Unified File Management: Manage enterprise files from one
-                                  workspace.
+                                  Deliver files and applications closer to users.
                               </h3>
                               <p>
-                                  PocketOffice integrates Sangfor EDS into the cloud desktop,
-                                  providing teams with a structured, centralized workspace to
-                                  access and manage enterprise files efficiently.
+                                  Leverage a worldwide edge network to reduce latency and improve application responsiveness for teams and customers.
                               </p>
                           </div>
 
@@ -695,13 +681,10 @@
                                   <i class="fa fa-users"></i>
                               </div>
                               <h3>
-                                  Collaboration Without Chaos: Secure collaboration across
-                                  teams.
+                                  Protect traffic before it reaches your infrastructure.
                               </h3>
                               <p>
-                                  Teams can collaborate on files stored in Sangfor EDS while
-                                  preserving permissions, version control, and complete access
-                                  visibility.
+                                  Built-in security layers help defend against threats while maintaining secure access to business resources.
                               </p>
                           </div>
 
@@ -711,12 +694,10 @@
                                   <i class="fa fa-shield"></i>
                               </div>
                               <h3>
-                                  Policy-Driven Access: Enterprise governance stays intact.
+                                  Optimize traffic routing automatically.
                               </h3>
                               <p>
-                                  PocketOffice enforces existing Sangfor EDS permissions and
-                                  policies, ensuring users can access only what they are
-                                  authorized to see.
+                                  Intelligent routing and edge processing improve loading times and ensure a smoother user experience.
                               </p>
                           </div>
 
@@ -726,13 +707,10 @@
                                   <i class="fa fa-history"></i>
                               </div>
                               <h3>
-                                  Version & Activity Control: Full visibility over file
-                                  changes.
+                                  Support growth without performance bottlenecks.
                               </h3>
                               <p>
-                                  Track file activity, maintain version history, and monitor
-                                  document updates to ensure transparency and accountability
-                                  across enterprise teams.
+                                  Expand globally with an edge platform designed to handle increasing workloads, users, and traffic demands.
                               </p>
                           </div>
                       </div>
