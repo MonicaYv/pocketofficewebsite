@@ -391,46 +391,29 @@
                                                   <ul class="personal-card__features">
                                                       <li>
                                                           <span class="personal-card__check">&#10003;</span>
-                                                          {{ $plan->plans_license }}
-                                                          User License
+                                                         My Files
                                                       </li>
                                                       <li>
                                                           <span class="personal-card__check">&#10003;</span>
-                                                          {{ $plan->plans_users }} {{ $plan->storage_unit }}
-                                                          Storage
+                                                          My Desktop
                                                       </li>
                                                       <li>
                                                           <span class="personal-card__check">&#10003;</span>
-                                                          Personal Cloud Desktop
+                                                          Office Tools
                                                       </li>
                                                   </ul>
 
                                                   <ul class="personal-card__features">
                                                       <li>
                                                           <span class="personal-card__check">&#10003;</span>
-                                                          Data Security
+                                                          My Apps
                                                       </li>
                                                       <li>
                                                           <span class="personal-card__check">&#10003;</span>
-                                                          Managed IT Services
+                                                          File Sharing
                                                       </li>
                                                       <li>
-                                                          <span class="personal-card__check">&#10003;</span> Apps & Software
-                                                      </li>
-                                                  </ul>
-
-                                                  <ul class="personal-card__features">
-                                                      <li>
-                                                          <span class="personal-card__check">&#10003;</span>
-                                                          Automatic Backup
-                                                      </li>
-                                                      <li>
-                                                          <span class="personal-card__check">&#10003;</span>
-                                                          Extra Storage
-                                                      </li>
-                                                      <li>
-                                                          <span class="personal-card__check">&#10003;</span>Additional
-                                                          Features
+                                                          <span class="personal-card__check">&#10003;</span> Account Security
                                                       </li>
                                                   </ul>
                                               </div>
