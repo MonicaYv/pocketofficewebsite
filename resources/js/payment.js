@@ -94,6 +94,30 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const companyForm = document.querySelector(".pay-company-form");
 
+    // Visible elements from the new payment summary UI.
+    const summaryPlanDesc = document.getElementById("summaryPlanDesc");
+    const poSymbol = document.getElementById("poSymbol");
+    const poUnitPrice = document.getElementById("poUnitPrice");
+    const poSumBaseUser = document.getElementById("poSumBaseUser");
+    const poSumUsers = document.getElementById("poSumUsers");
+    const poRowPlanDiscount = document.getElementById("poRowPlanDiscount");
+    const poPlanDiscountVal = document.getElementById("poPlanDiscountVal");
+    const poRowAnnualDiscount = document.getElementById("poRowAnnualDiscount");
+    const poAnnualDiscountVal = document.getElementById("poAnnualDiscountVal");
+    const poRowPromoDiscount = document.getElementById("poRowPromoDiscount");
+    const poPromoDiscountVal = document.getElementById("poPromoDiscountVal");
+    const poTotalDiscountVal = document.getElementById("poTotalDiscountVal");
+    const poTotalPeriodLabel = document.getElementById("poTotalPeriodLabel");
+    const poSavingsBanner = document.getElementById("poSavingsBanner");
+    const poSavingsBannerText = document.getElementById("poSavingsBannerText");
+    const poPromoSuccessMsg = document.getElementById("poPromoSuccessMsg");
+    const payQtyHint = document.getElementById("payQtyHint");
+    const poMinQtyText = document.getElementById("poMinQtyText");
+    const teamPlanIndicator = document.getElementById("teamPlanIndicator");
+    const planScrollTrack = document.getElementById("planScrollTrack");
+    const planScrollLeft = document.getElementById("planScrollLeft");
+    const planScrollRight = document.getElementById("planScrollRight");
+
     let currentPlan = {
         ...selectedPlan,
 
@@ -115,20 +139,16 @@ document.addEventListener("DOMContentLoaded", function () {
         1,
     );
     let currentPayableSubtotal = 0;
-    let currentFinalPayableTotal = 0;
-    let currentUnitPayablePrice = 0;
-    let currentOriginalTotal = 0;
-    let currentPlanSavingsAmount = 0;
-    let currentMainDiscountPercent = 0;
+    let currentBaseTotal = 0;
+    let currentPlanSavings = 0;
+    let currentPlanDiscountPercent = 0;
     let currentExtraDiscountPercent = 0;
+    let currentFinalTotal = 0;
 
     function getPlanIconSvg(planName = "") {
         const normalizedName = planName.toLowerCase();
 
-        if (
-            normalizedName.includes("personal") ||
-            normalizedName.includes("basic")
-        ) {
+        if (normalizedName.includes("basic")) {
             return `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21a8 8 0 0 0-16 0"/><path d="M12 13a5 5 0 1 0 0-10 5 5 0 0 0 0 10Z"/></svg>`;
         }
 
@@ -149,7 +169,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         const defaultQuantity = parseInt(plan.default_qty || 0);
-
         if (defaultQuantity > 0) {
             return Math.max(defaultQuantity, 1);
         }
@@ -157,26 +176,72 @@ document.addEventListener("DOMContentLoaded", function () {
         return Math.max(parseInt(plan.quantity || 0), 1);
     }
 
-    function getPlanQuantityStep(plan = currentPlan) {
+    function getPlanLicenseStep(plan = currentPlan) {
         if (plan.plan_type !== "team") {
             return 1;
         }
-
-        return Math.max(parseInt(plan.license || 1), 1);
+        return Math.max(parseInt(plan.license_step || plan.license || 1), 1);
     }
 
-    function normalizeTeamQuantity(value, plan = currentPlan) {
-        const minQuantity = getPlanMinimumQuantity(plan);
-        const step = getPlanQuantityStep(plan);
+    function getBillingDiscounts(plan = currentPlan, isYearly = false) {
+        const planDiscount = Math.max(
+            0,
+            parseFloat(isYearly ? plan.yearly_discount : plan.monthly_discount) || 0,
+        );
+        const extraDiscount = Math.max(
+            0,
+            parseFloat(isYearly ? plan.extra_yr_discount : plan.extra_mo_discount) || 0,
+        );
 
-        let normalized = Math.max(parseInt(value || minQuantity), minQuantity);
+        return {
+            planDiscount,
+            extraDiscount,
+            totalDiscount: Math.min(100, planDiscount + extraDiscount),
+        };
+    }
 
-        if (step > 1 && normalized > minQuantity) {
-            const offset = normalized - minQuantity;
-            normalized = minQuantity + Math.ceil(offset / step) * step;
+    function updateBillingDiscountBadges() {
+        const monthly = getBillingDiscounts(currentPlan, false).totalDiscount;
+        const yearly = getBillingDiscounts(currentPlan, true).totalDiscount;
+
+        if (monthlyDiscountBadge) {
+            monthlyDiscountBadge.textContent = monthly > 0 ? `Save ${monthly}%` : "";
+            monthlyDiscountBadge.style.display = monthly > 0 ? "inline-flex" : "none";
+        }
+        if (yearlyDiscountBadge) {
+            yearlyDiscountBadge.textContent = yearly > 0 ? `Save ${yearly}%` : "";
+            yearlyDiscountBadge.style.display = yearly > 0 ? "inline-flex" : "none";
+        }
+    }
+
+    function updateTeamPlanIndicator() {
+        if (!teamPlanIndicator || !planSelector) {
+            return;
+        }
+        if (currentPlan.plan_type !== "team") {
+            teamPlanIndicator.hidden = true;
+            return;
         }
 
-        return normalized;
+        const activeTile = Array.from(planTiles).find(
+            (tile) => tile.classList.contains("selected") && tile.dataset.planType === "team",
+        );
+        if (!activeTile) {
+            teamPlanIndicator.hidden = true;
+            return;
+        }
+
+        teamPlanIndicator.hidden = false;
+        requestAnimationFrame(() => {
+            const selectorRect = planSelector.getBoundingClientRect();
+            const tileRect = activeTile.getBoundingClientRect();
+            const center = tileRect.left - selectorRect.left + tileRect.width / 2;
+            planSelector.style.setProperty("--team-indicator-left", `${center}px`);
+        });
+    }
+
+    function scrollPlanIntoView(tile) {
+        tile?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
     }
 
     function syncPlanFromTile(tile, preserveQuantity = false) {
@@ -191,19 +256,26 @@ document.addEventListener("DOMContentLoaded", function () {
             name: tile.dataset.name,
             display_name: tile.dataset.name,
             default_qty: parseInt(tile.dataset.defQty || 1),
-            price: tile.dataset.pricemonth || 0,
+            license_step: parseInt(tile.dataset.licenseStep || tile.dataset.license || 1),
+            unit_rate: parseFloat(tile.dataset.unitRate || 0),
+            price: parseFloat(tile.dataset.pricemonth || 0),
             priceM: parseFloat(tile.dataset.monthlyPrice) || 0,
             priceY: parseFloat(tile.dataset.yearlyPrice) || 0,
             originalPriceM: parseFloat(tile.dataset.originalMonthly) || 0,
             originalPriceY: parseFloat(tile.dataset.originalYearly) || 0,
-            unit_rate:
-                parseFloat(tile.dataset.unitRate) ||
-                parseFloat(currentPlan.unit_rate || currentPlan.base_amount || 0),
-            symbol: tile.dataset.symbol || " ",
+            symbol: tile.dataset.symbol || currentPlan.symbol || "",
             subscription: tile.dataset.subscription || "monthly",
-            license: tile.dataset.license,
+            license: parseInt(tile.dataset.license || 1),
             storage: tile.dataset.storage,
             storage_unit: tile.dataset.storageUnit,
+            description: tile.dataset.desc || "",
+            features: (() => {
+                try {
+                    return JSON.parse(tile.dataset.features || "[]");
+                } catch (e) {
+                    return [];
+                }
+            })(),
             monthly_discount:
                 tile.dataset.planType === "single"
                     ? parseFloat(tile.dataset.singleuserMonthlyDiscount) || 0
@@ -212,33 +284,31 @@ document.addEventListener("DOMContentLoaded", function () {
                 tile.dataset.planType === "single"
                     ? parseFloat(tile.dataset.singleuserYearlyDiscount) || 0
                     : parseFloat(tile.dataset.yearlyDiscount) || 0,
-            extra_monthly_discount:
-                parseFloat(tile.dataset.extraMonthlyDiscount) || 0,
-            extra_yearly_discount:
-                parseFloat(tile.dataset.extraYearlyDiscount) || 0,
+            extra_monthly_discount: parseFloat(tile.dataset.extraMonthlyDiscount) || 0,
+            extra_yearly_discount: parseFloat(tile.dataset.extraYearlyDiscount) || 0,
             extra_mo_discount:
                 tile.dataset.planType === "single"
                     ? parseFloat(tile.dataset.singleuserExtraMoDiscount) || 0
                     : parseFloat(tile.dataset.extraMoDiscount) || 0,
             extra_yr_discount:
                 tile.dataset.planType === "single"
-                    ? 0
+                    ? parseFloat(tile.dataset.singleuserExtraYrDiscount) || 0
                     : parseFloat(tile.dataset.extraYrDiscount) || 0,
         };
 
         const minQuantity = getPlanMinimumQuantity(nextPlan);
-        const nextQuantity = preserveQuantity
-            ? normalizeTeamQuantity(payQtyInput?.value || minQuantity, nextPlan)
+        const nextQuantity = preserveQuantity && nextPlan.plan_type === "team"
+            ? Math.max(parseInt(payQtyInput?.value || minQuantity), minQuantity)
             : minQuantity;
 
         currentPlan = nextPlan;
-        quantity = nextQuantity;
-        currentPlan.quantity = nextQuantity;
+        quantity = nextPlan.plan_type === "team" ? nextQuantity : 1;
+        currentPlan.quantity = quantity;
 
         if (payQtyInput) {
-            payQtyInput.value = nextQuantity;
+            payQtyInput.value = quantity;
             payQtyInput.min = minQuantity;
-            payQtyInput.step = getPlanQuantityStep(nextPlan);
+            payQtyInput.step = getPlanLicenseStep(nextPlan);
         }
     }
 
@@ -249,6 +319,17 @@ document.addEventListener("DOMContentLoaded", function () {
             icon.innerHTML = getPlanIconSvg(tile.dataset.name || "");
         }
     });
+
+    planScrollLeft?.addEventListener("click", function (e) {
+        e.preventDefault();
+        planScrollTrack?.scrollBy({ left: -180, behavior: "smooth" });
+    });
+    planScrollRight?.addEventListener("click", function (e) {
+        e.preventDefault();
+        planScrollTrack?.scrollBy({ left: 180, behavior: "smooth" });
+    });
+    planScrollTrack?.addEventListener("scroll", updateTeamPlanIndicator, { passive: true });
+    window.addEventListener("resize", updateTeamPlanIndicator);
 
     const selectedTile =
         Array.from(planTiles).find(
@@ -278,11 +359,9 @@ document.addEventListener("DOMContentLoaded", function () {
             initialBillingType.toLowerCase() === "yearly";
     }
 
-    // Keep the plan selector available for both Personal and Team purchases.
-    // This allows Personal -> Team and Team -> Personal changes on the payment page.
+    // Keep all plans directly selectable. There is no separate Personal/Team switch.
     payBillingControls?.classList.remove("hidden");
     planSelector?.classList.remove("hidden");
-
     planTiles.forEach((tile) => {
         tile.style.display = "inline-flex";
     });
@@ -300,7 +379,7 @@ document.addEventListener("DOMContentLoaded", function () {
         payBillingYearLabel?.classList.toggle("active", yearly);
     }
 
-    // Refresh selected plan, billing, quantity and summary values.
+    //refresh data
     function renderPlanData() {
         if (!payBillingToggle) {
             return;
@@ -308,410 +387,158 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const isYearly = payBillingToggle.checked;
         const billingType = isYearly ? "yearly" : "monthly";
+        const months = isYearly ? 12 : 1;
         const minQuantity = getPlanMinimumQuantity();
-        const quantityStep = getPlanQuantityStep();
+        const step = getPlanLicenseStep();
 
         let quantityValue = 1;
-
         if (currentPlan.plan_type === "team") {
-            quantityValue = normalizeTeamQuantity(
-                payQtyInput?.value || minQuantity,
-                currentPlan,
-            );
-
-            quantity = quantityValue;
-            currentPlan.quantity = quantityValue;
-
-            if (payQtyInput) {
-                payQtyInput.value = quantityValue;
-                payQtyInput.min = minQuantity;
-                payQtyInput.step = quantityStep;
-            }
-        } else {
-            quantityValue = 1;
-            quantity = 1;
-            currentPlan.quantity = 1;
-
-            if (payQtyInput) {
-                payQtyInput.value = 1;
-                payQtyInput.min = 1;
-                payQtyInput.step = 1;
-            }
+            quantityValue = Math.max(parseInt(payQtyInput?.value || minQuantity), minQuantity);
         }
 
-        // Match pricing.js: currency rate is the per-user monthly base price.
-        const monthlyUnitRate =
-            parseFloat(currentPlan.unit_rate || 0) ||
-            parseFloat(currentPlan.originalPriceM || 0) ||
-            parseFloat(currentPlan.base_amount || 0) ||
-            parseFloat(currentPlan.priceM || currentPlan.price || 0);
+        quantity = currentPlan.plan_type === "team" ? quantityValue : 1;
+        currentPlan.quantity = quantity;
+        currentPlan.billing_type = billingType;
 
-        const originalUnitPrice = isYearly
-            ? monthlyUnitRate * 12
-            : monthlyUnitRate;
+        if (payQtyInput) {
+            payQtyInput.value = quantity;
+            payQtyInput.min = minQuantity;
+            payQtyInput.step = step;
+        }
 
-        const activeDiscount = Math.max(
-            0,
-            isYearly
-                ? parseFloat(currentPlan.yearly_discount || 0)
-                : parseFloat(currentPlan.monthly_discount || 0),
-        );
+        let unitRate = parseFloat(currentPlan.unit_rate || 0);
+        if (!unitRate) {
+            unitRate = parseFloat(currentPlan.originalPriceM || currentPlan.base_amount || 0) || 0;
+        }
 
-        const extraDiscount = Math.max(
-            0,
-            isYearly
-                ? parseFloat(currentPlan.extra_yr_discount || 0)
-                : parseFloat(currentPlan.extra_mo_discount || 0),
-        );
+        const discounts = getBillingDiscounts(currentPlan, isYearly);
+        const activeDiscount = discounts.planDiscount;
+        const extraDiscount = discounts.extraDiscount;
+        const totalDiscountPercent = discounts.totalDiscount;
 
-        const totalDiscountPercent = Math.min(
-            activeDiscount + extraDiscount,
-            100,
-        );
-
-        const discountedUnitPrice =
-            originalUnitPrice * (1 - totalDiscountPercent / 100);
-
-        const originalTotal = originalUnitPrice * quantityValue;
-        const subtotalAmount = discountedUnitPrice * quantityValue;
-
-        const activeDiscountAmount = Math.round(
-            (originalTotal * activeDiscount) / 100,
-        );
-
-        const extraDiscountAmount = Math.round(
-            (originalTotal * extraDiscount) / 100,
-        );
-
-        const planSavingsAmount = Math.min(
-            Math.round(originalTotal),
-            activeDiscountAmount + extraDiscountAmount,
-        );
-
-        currentOriginalTotal = Math.round(originalTotal);
-        currentPayableSubtotal = Math.max(0, Math.round(subtotalAmount));
-        currentUnitPayablePrice = Math.max(0, Math.round(discountedUnitPrice));
-        currentPlanSavingsAmount = planSavingsAmount;
-        currentMainDiscountPercent = activeDiscount;
+        currentPlanDiscountPercent = activeDiscount;
         currentExtraDiscountPercent = extraDiscount;
 
-        currentPlan.billing_type = billingType;
-        currentPlan.quantity = quantityValue;
+        const baseTotal = Math.round(unitRate * quantity * months);
+        const discountAmount = Math.round((baseTotal * activeDiscount) / 100);
+        const extraDiscountAmount = Math.round((baseTotal * extraDiscount) / 100);
+        const totalPlanSavings = Math.min(baseTotal, discountAmount + extraDiscountAmount);
+        const payableSubtotal = Math.max(0, baseTotal - totalPlanSavings);
+        const discountedMonthlyUnit = Math.round(unitRate * (1 - totalDiscountPercent / 100));
+
+        currentBaseTotal = baseTotal;
+        currentPlanSavings = totalPlanSavings;
+        currentPayableSubtotal = payableSubtotal;
 
         const displayPlanName =
-            currentPlan.name ||
-            currentPlan.display_name ||
-            (currentPlan.plan_type === "single" ? "Personal" : "Premium");
+            currentPlan.name || currentPlan.display_name ||
+            (currentPlan.plan_type === "single" ? "Personal" : "Basic");
 
-        if (summaryPlanName) {
-            summaryPlanName.innerText = displayPlanName;
+        if (summaryPlanName) summaryPlanName.innerText = displayPlanName;
+        if (summaryPlanDesc) {
+            summaryPlanDesc.innerText = currentPlan.description ||
+                (currentPlan.plan_type === "single"
+                    ? "Best for individual users"
+                    : "Team plan with shared workspace and scalable licenses.");
         }
 
         const continuePlanName = document.getElementById("poContinuePlanName");
-        if (continuePlanName) {
-            continuePlanName.innerText = displayPlanName;
+        if (continuePlanName) continuePlanName.innerText = displayPlanName;
+        if (summaryPlanIcon) summaryPlanIcon.innerHTML = getPlanIconSvg(displayPlanName);
+
+        if (summarySymbol) summarySymbol.innerText = currentPlan.symbol || "";
+        if (summaryUnitPrice) summaryUnitPrice.innerText = formatIndianNumber(discountedMonthlyUnit);
+        if (poSymbol) poSymbol.innerText = currentPlan.symbol || "";
+        if (poUnitPrice) poUnitPrice.innerText = formatIndianNumber(discountedMonthlyUnit);
+        if (poSumBaseUser) poSumBaseUser.innerText = formatCurrencyAmount(currentPlan.symbol, unitRate);
+        if (poSumUsers) poSumUsers.innerText = quantity;
+        if (summaryOrgTotal) summaryOrgTotal.innerText = formatCurrencyAmount(currentPlan.symbol, baseTotal);
+        if (summaryTax) summaryTax.innerText = formatCurrencyAmount(currentPlan.symbol, 0);
+
+        if (poRowPlanDiscount && poPlanDiscountVal) {
+            poRowPlanDiscount.style.display = activeDiscount > 0 ? "flex" : "none";
+            poPlanDiscountVal.innerText = activeDiscount > 0 ? `${activeDiscount}%` : "—";
         }
-
-        if (summarySubtitle) {
-            summarySubtitle.innerText =
-                currentPlan.plan_type === "single"
-                    ? "Personal plan selected. You can switch to a Team plan anytime."
-                    : "Select a plan that fits your team's needs. You can switch plans anytime.";
+        if (poRowAnnualDiscount && poAnnualDiscountVal) {
+            poRowAnnualDiscount.style.display = extraDiscount > 0 ? "flex" : "none";
+            const extraLabel = poRowAnnualDiscount.querySelector(".po-summary-label");
+            if (extraLabel) {
+                extraLabel.innerText = isYearly ? "Annual Billing Discount" : "Monthly Extra Discount";
+            }
+            poAnnualDiscountVal.innerText = extraDiscount > 0 ? `${extraDiscount}%` : "—";
         }
-
-        if (summaryPlanIcon) {
-            summaryPlanIcon.innerHTML = getPlanIconSvg(displayPlanName);
-        }
-
-        const poSymbol = document.getElementById("poSymbol");
-        const poUnitPrice = document.getElementById("poUnitPrice");
-        const poSumBaseUser = document.getElementById("poSumBaseUser");
-        const poSumUsers = document.getElementById("poSumUsers");
-        const poMinQtyText = document.getElementById("poMinQtyText");
-        const payQtyHint = document.getElementById("payQtyHint");
-        const poTotalPeriodLabel = document.getElementById("poTotalPeriodLabel");
-
-        const monthlyEquivalent = isYearly
-            ? discountedUnitPrice / 12
-            : discountedUnitPrice;
-
-        if (poSymbol) {
-            poSymbol.innerText = currentPlan.symbol || "";
-        }
-
-        if (poUnitPrice) {
-            poUnitPrice.innerText = formatIndianNumber(monthlyEquivalent);
-        }
-
-        if (poSumBaseUser) {
-            poSumBaseUser.innerText = formatCurrencyAmount(
-                currentPlan.symbol,
-                monthlyUnitRate,
-            );
-        }
-
-        if (poSumUsers) {
-            poSumUsers.innerText = quantityValue;
-        }
-
-        if (poMinQtyText) {
-            poMinQtyText.innerText = minQuantity;
-        }
-
-        if (payQtyHint) {
-            payQtyHint.style.display =
-                currentPlan.plan_type === "team" ? "block" : "none";
-        }
-
         if (poTotalPeriodLabel) {
-            poTotalPeriodLabel.innerText = isYearly
-                ? "(Total Per Year)"
-                : "(Total Per Month)";
-        }
-
-        if (summarySymbol) {
-            summarySymbol.innerText = currentPlan.symbol || "";
-        }
-
-        if (summaryUnitPrice) {
-            summaryUnitPrice.innerText = formatIndianNumber(monthlyEquivalent);
-        }
-
-        if (summaryOrgTotal) {
-            summaryOrgTotal.innerText = formatCurrencyAmount(
-                currentPlan.symbol,
-                currentOriginalTotal,
-            );
-        }
-
-        if (summaryTax) {
-            summaryTax.innerText = formatCurrencyAmount(currentPlan.symbol, 0);
-        }
-
-        // Monthly/Yearly badges update from the current selected plan.
-        const monthlyTotalDiscount =
-            Math.max(parseFloat(currentPlan.monthly_discount || 0), 0) +
-            Math.max(parseFloat(currentPlan.extra_mo_discount || 0), 0);
-
-        const yearlyTotalDiscount =
-            Math.max(parseFloat(currentPlan.yearly_discount || 0), 0) +
-            Math.max(parseFloat(currentPlan.extra_yr_discount || 0), 0);
-
-        if (monthlyDiscountBadge) {
-            if (monthlyTotalDiscount > 0) {
-                monthlyDiscountBadge.style.display = "inline-block";
-                monthlyDiscountBadge.textContent =
-                    `(${monthlyTotalDiscount}% Discount)`;
-            } else {
-                monthlyDiscountBadge.style.display = "none";
-                monthlyDiscountBadge.textContent = "";
-            }
-        }
-
-        if (yearlyDiscountBadge) {
-            if (yearlyTotalDiscount > 0) {
-                yearlyDiscountBadge.style.display = "inline-block";
-                yearlyDiscountBadge.textContent =
-                    `(${yearlyTotalDiscount}% Discount)`;
-            } else {
-                yearlyDiscountBadge.style.display = "none";
-                yearlyDiscountBadge.textContent = "";
-            }
+            poTotalPeriodLabel.innerText = isYearly ? "(Total Per Year)" : "(Total Per Month)";
         }
 
         if (discountRow && discountAmt) {
+            discountRow.style.display = activeDiscount > 0 ? "flex" : "none";
             if (activeDiscount > 0) {
-                discountRow.classList.remove("hidden");
-                discountRow.style.display = "flex";
-
                 const label = discountRow.querySelector("span:first-child");
-                if (label) {
-                    label.innerHTML =
-                        `Plan Discount (<span style="color:red;">${activeDiscount}%</span>)`;
-                }
-
-                discountAmt.innerText =
-                    `-${formatCurrencyAmount(
-                        currentPlan.symbol,
-                        activeDiscountAmount,
-                    )}`;
-            } else {
-                discountRow.classList.add("hidden");
-                discountRow.style.display = "none";
+                if (label) label.innerHTML = `Plan Discount (<span style="color:red;">${activeDiscount}%</span>)`;
+                discountAmt.innerText = `-${formatCurrencyAmount(currentPlan.symbol, discountAmount)}`;
             }
         }
-
         if (extradiscountRow && extradiscountAmt) {
+            extradiscountRow.style.display = extraDiscount > 0 ? "flex" : "none";
             if (extraDiscount > 0) {
-                extradiscountRow.classList.remove("hidden");
-                extradiscountRow.style.display = "flex";
-
-                const label =
-                    extradiscountRow.querySelector("span:first-child");
-
-                if (label) {
-                    label.innerHTML =
-                        `${isYearly ? "Annual Billing" : "Monthly Extra"} Discount ` +
-                        `(<span style="color:red;">${extraDiscount}%</span>)`;
-                }
-
-                extradiscountAmt.innerText =
-                    `-${formatCurrencyAmount(
-                        currentPlan.symbol,
-                        extraDiscountAmount,
-                    )}`;
-            } else {
-                extradiscountRow.classList.add("hidden");
-                extradiscountRow.style.display = "none";
+                const label = extradiscountRow.querySelector("span:first-child");
+                if (label) label.innerHTML = `${isYearly ? "Annual Billing" : "Monthly Extra"} Discount (<span style="color:red;">${extraDiscount}%</span>)`;
+                extradiscountAmt.innerText = `-${formatCurrencyAmount(currentPlan.symbol, extraDiscountAmount)}`;
             }
-        }
-
-        const poRowPlanDiscount = document.getElementById("poRowPlanDiscount");
-        const poPlanDiscountVal = document.getElementById("poPlanDiscountVal");
-        const poRowAnnualDiscount =
-            document.getElementById("poRowAnnualDiscount");
-        const poAnnualDiscountVal =
-            document.getElementById("poAnnualDiscountVal");
-
-        if (poRowPlanDiscount && poPlanDiscountVal) {
-            poRowPlanDiscount.style.display =
-                activeDiscount > 0 ? "flex" : "none";
-            poPlanDiscountVal.innerText = `${activeDiscount}%`;
-        }
-
-        if (poRowAnnualDiscount && poAnnualDiscountVal) {
-            poRowAnnualDiscount.style.display =
-                extraDiscount > 0 ? "flex" : "none";
-
-            const label = poRowAnnualDiscount.querySelector(
-                ".po-summary-label",
-            );
-            if (label) {
-                label.innerText = isYearly
-                    ? "Annual Billing Discount"
-                    : "Monthly Extra Discount";
-            }
-
-            poAnnualDiscountVal.innerText = `${extraDiscount}%`;
-        }
-
-        if (summaryOriginalRow) {
-            summaryOriginalRow.style.display =
-                totalDiscountPercent > 0 ? "flex" : "none";
-        }
-
-        if (summarySubtotalLabel) {
-            summarySubtotalLabel.innerText = "You Save";
         }
 
         if (currentPlan.plan_type === "team") {
-            if (payQtyControls) {
-                payQtyControls.style.display = "block";
-            }
+            if (payQtyControls) payQtyControls.style.display = "block";
             companyForm?.classList.remove("hidden");
+            if (payQtyHint) payQtyHint.style.display = "block";
+            if (poMinQtyText) poMinQtyText.innerText = minQuantity;
         } else {
-            if (payQtyControls) {
-                payQtyControls.style.display = "none";
-            }
+            if (payQtyControls) payQtyControls.style.display = "none";
             companyForm?.classList.add("hidden");
+            if (payQtyHint) payQtyHint.style.display = "none";
+            quantity = 1;
+            currentPlan.quantity = 1;
         }
 
         const selectedFeatures = Array.isArray(currentPlan.features)
             ? currentPlan.features
-                  .map((feature) =>
-                      String(feature || "")
-                          .replace(/^[\s✓✔]+/u, "")
-                          .replace(/\s+/g, " ")
-                          .trim(),
-                  )
-                  .filter(Boolean)
+                .map((feature) => String(feature || "").replace(/^[\\s✓✔]+/u, "").replace(/\\s+/g, " ").trim())
+                .filter(Boolean)
             : [];
 
         if (planFeatureList) {
             if (selectedFeatures.length > 0) {
-                planFeatureList.innerHTML = selectedFeatures
-                    .map((feature) => `<li>${feature}</li>`)
-                    .join("");
+                planFeatureList.innerHTML = selectedFeatures.map((feature) => `<li>${feature}</li>`).join("");
             } else {
-                const displayedLicense =
-                    currentPlan.plan_type === "team" ? quantityValue : 1;
-
-                const totalStorage =
-                    parseFloat(currentPlan.storage || 0) * quantityValue;
-
+                const totalStorage = (parseFloat(currentPlan.storage || 0) || 0) * quantity;
                 planFeatureList.innerHTML = `
-                    <li>${displayedLicense} User License</li>
-                    <li>${currentPlan.storage} ${currentPlan.storage_unit} Per User</li>
-                    <li>Total Storage : ${totalStorage} ${currentPlan.storage_unit}</li>
+                    <li>${quantity} User License${quantity === 1 ? "" : "s"}</li>
+                    <li>${currentPlan.storage || 0} ${currentPlan.storage_unit || "GB"} Per User</li>
+                    <li>Total Storage: ${totalStorage} ${currentPlan.storage_unit || "GB"}</li>
                 `;
             }
         }
 
         planTiles.forEach((tile) => {
-            tile.classList.toggle(
-                "selected",
-                tile.dataset.planId == currentPlan.plan_id &&
-                    tile.dataset.planType == currentPlan.plan_type,
-            );
-
-            tile.style.display = "inline-flex";
-
-            const tilePrice = tile.querySelector(".view_plan_price_details");
-            if (tilePrice) {
-                const tileMonthlyRate =
-                    parseFloat(tile.dataset.unitRate || 0) || monthlyUnitRate;
-
-                const tileMainDiscount = isYearly
-                    ? parseFloat(
-                          tile.dataset.planType === "single"
-                              ? tile.dataset.singleuserYearlyDiscount
-                              : tile.dataset.yearlyDiscount,
-                      ) || 0
-                    : parseFloat(
-                          tile.dataset.planType === "single"
-                              ? tile.dataset.singleuserMonthlyDiscount
-                              : tile.dataset.monthlyDiscount,
-                      ) || 0;
-
-                const tileExtraDiscount =
-                    tile.dataset.planType === "single"
-                        ? isYearly
-                            ? 0
-                            : parseFloat(
-                                  tile.dataset.singleuserExtraMoDiscount,
-                              ) || 0
-                        : isYearly
-                          ? parseFloat(tile.dataset.extraYrDiscount) || 0
-                          : parseFloat(tile.dataset.extraMoDiscount) || 0;
-
-                const tileDiscountTotal = Math.min(
-                    tileMainDiscount + tileExtraDiscount,
-                    100,
-                );
-
-                const tileDisplayMonthly =
-                    tileMonthlyRate * (1 - tileDiscountTotal / 100);
-
-                tilePrice.innerHTML =
-                    (tile.dataset.symbol || currentPlan.symbol || "") +
-                    formatIndianNumber(tileDisplayMonthly);
-            }
+            const selected = tile.dataset.planId == currentPlan.plan_id && tile.dataset.planType == currentPlan.plan_type;
+            tile.classList.toggle("selected", selected);
         });
 
-        try {
-            localStorage.setItem(
-                "selectedPlan",
-                JSON.stringify({
-                    ...currentPlan,
-                    quantity: quantityValue,
-                    billing_type: billingType,
-                }),
-            );
-        } catch (error) {
-            // localStorage is optional.
-        }
+        updateBillingDiscountBadges();
+        updateTeamPlanIndicator();
 
-        schedulePromoRefresh();
+        try {
+            localStorage.setItem("selectedPlan", JSON.stringify({
+                ...currentPlan,
+                quantity,
+                billing_type: billingType,
+                extra_monthly: currentPlan.extra_mo_discount || 0,
+                extra_yearly: currentPlan.extra_yr_discount || 0,
+            }));
+        } catch (e) {}
+
+        schedulePromoRevalidation();
     }
 
     //show err or hide err
@@ -984,319 +811,184 @@ document.addEventListener("DOMContentLoaded", function () {
     let appliedDiscountAmount = 0;
     let appliedPromoValue = 0;
     let appliedPromoType = "";
-    let promoRequestSequence = 0;
-    let promoRefreshTimer = null;
+    let promoRevalidateTimer = null;
+    let promoRequestSerial = 0;
 
     function formatPromoLabel(value, type) {
         const numericValue = Number(value || 0);
-
         if (type === "flat") {
             return formatCurrencyAmount(currentPlan.symbol, numericValue);
         }
 
-        return `${Math.round(numericValue)}%`;
+        return Math.round(numericValue) + "%";
     }
 
-    function setPromoSuccessState(isSuccess, message = "") {
-        const successBox = document.getElementById("poPromoSuccessMsg");
-
-        if (successBox) {
-            successBox.style.display = isSuccess ? "flex" : "none";
-        }
-
-        if (message !== "") {
-            $("#couponMsg")
-                .html(message)
-                .css("color", isSuccess ? "green" : "red");
-        }
-    }
-
-    function clearPromoState({ clearInput = false, message = "" } = {}) {
-        appliedPromocodeId = null;
-        appliedPromocodeCode = "";
-        appliedDiscountAmount = 0;
-        appliedPromoValue = 0;
-        appliedPromoType = "";
-
-        if (clearInput) {
-            $("#couponInput").val("");
-        }
-
-        $("#removeCouponBtn").hide();
-        setPromoSuccessState(false, message);
-        updateFinalAmounts();
-    }
-
+    // CALCULATE FINAL TOTAL
     function updateFinalAmounts() {
-        const subtotal = Math.max(
-            0,
-            parseFloat(currentPayableSubtotal || 0),
-        );
-
-        const promoDiscount = Math.min(
-            Math.max(parseFloat(appliedDiscountAmount || 0), 0),
-            subtotal,
-        );
-
-        currentFinalPayableTotal = Math.max(
-            0,
-            Math.round(subtotal - promoDiscount),
-        );
-
-        const totalSavings = Math.min(
-            currentOriginalTotal,
-            currentPlanSavingsAmount + promoDiscount,
-        );
+        const subtotal = Math.max(0, parseFloat(currentPayableSubtotal || 0));
+        const promoAmount = Math.min(subtotal, Math.max(0, parseFloat(appliedDiscountAmount || 0)));
+        const finalTotal = Math.max(0, Math.round(subtotal - promoAmount));
+        currentFinalTotal = finalTotal;
 
         if (promoDiscountRow && promoDiscountAmt) {
-            if (promoDiscount > 0) {
+            if (promoAmount > 0) {
                 promoDiscountRow.classList.remove("hidden");
                 promoDiscountRow.style.display = "flex";
-
-                const promoLabel =
-                    promoDiscountRow.querySelector("span:first-child");
-
+                const promoLabel = promoDiscountRow.querySelector("span:first-child");
                 if (promoLabel) {
-                    promoLabel.innerText =
-                        appliedPromoType === "flat"
-                            ? "Promo Code"
-                            : `Promo Code (${formatPromoLabel(
-                                  appliedPromoValue,
-                                  appliedPromoType,
-                              )})`;
+                    promoLabel.innerText = appliedPromoType === "flat"
+                        ? "Promo Code Discount"
+                        : `Promo Code Discount (${Math.round(appliedPromoValue)}%)`;
                 }
-
-                promoDiscountAmt.innerText =
-                    `-${formatCurrencyAmount(
-                        currentPlan.symbol,
-                        promoDiscount,
-                    )}`;
+                promoDiscountAmt.innerText = "-" + formatCurrencyAmount(currentPlan.symbol, promoAmount);
             } else {
                 promoDiscountRow.classList.add("hidden");
                 promoDiscountRow.style.display = "none";
             }
         }
 
-        const poRowPromoDiscount =
-            document.getElementById("poRowPromoDiscount");
-        const poPromoDiscountVal =
-            document.getElementById("poPromoDiscountVal");
-
         if (poRowPromoDiscount && poPromoDiscountVal) {
-            poRowPromoDiscount.style.display =
-                promoDiscount > 0 ? "flex" : "none";
-
-            poPromoDiscountVal.innerText =
-                promoDiscount > 0
-                    ? formatPromoLabel(
-                          appliedPromoValue,
-                          appliedPromoType,
-                      )
-                    : "";
+            poRowPromoDiscount.style.display = promoAmount > 0 ? "flex" : "none";
+            poPromoDiscountVal.innerText = promoAmount > 0
+                ? (appliedPromoType === "flat"
+                    ? formatCurrencyAmount(currentPlan.symbol, promoAmount)
+                    : `${Math.round(appliedPromoValue)}%`)
+                : "—";
         }
 
-        if (summaryTotal) {
-            summaryTotal.innerText = formatCurrencyAmount(
-                currentPlan.symbol,
-                currentFinalPayableTotal,
-            );
-        }
+        const totalSavings = Math.min(currentBaseTotal, currentPlanSavings + promoAmount);
+        const effectiveDiscountPct = currentBaseTotal > 0
+            ? Math.round((totalSavings / currentBaseTotal) * 100)
+            : 0;
 
-        if (modalTotal) {
-            modalTotal.innerText = formatCurrencyAmount(
-                currentPlan.symbol,
-                currentFinalPayableTotal,
-            );
-        }
-
-        if (summarySubtotal) {
-            summarySubtotal.innerText = formatCurrencyAmount(
-                currentPlan.symbol,
-                totalSavings,
-            );
-        }
-
-        if (summarySubtotalRow) {
-            summarySubtotalRow.style.display =
-                totalSavings > 0 ? "flex" : "none";
-        }
-
-        const poTotalDiscountVal =
-            document.getElementById("poTotalDiscountVal");
-
-        if (poTotalDiscountVal) {
-            const effectiveDiscount =
-                currentOriginalTotal > 0
-                    ? (totalSavings / currentOriginalTotal) * 100
-                    : 0;
-
-            poTotalDiscountVal.innerText =
-                `${Math.round(effectiveDiscount * 100) / 100}%`;
-        }
-
-        const banner = document.getElementById("poSavingsBanner");
-        const bannerText =
-            document.getElementById("poSavingsBannerText");
+        if (summaryTotal) summaryTotal.innerText = formatCurrencyAmount(currentPlan.symbol, finalTotal);
+        if (modalTotal) modalTotal.innerText = formatCurrencyAmount(currentPlan.symbol, finalTotal);
+        if (summarySubtotalLabel) summarySubtotalLabel.innerText = "You Save";
+        if (summarySubtotal) summarySubtotal.innerText = formatCurrencyAmount(currentPlan.symbol, totalSavings);
+        if (summarySubtotalRow) summarySubtotalRow.style.display = totalSavings > 0 ? "flex" : "none";
+        if (poTotalDiscountVal) poTotalDiscountVal.innerText = effectiveDiscountPct > 0 ? `${effectiveDiscountPct}%` : "0%";
 
         const bannerParts = [];
-
-        if (currentMainDiscountPercent > 0) {
-            bannerParts.push(
-                `${currentMainDiscountPercent}% Plan Discount`,
-            );
+        if (currentPlanDiscountPercent > 0) {
+            bannerParts.push(`${currentPlanDiscountPercent}% ${currentPlan.plan_type === "team" ? currentPlan.name + " Team" : "Personal"} Discount`);
         }
-
         if (currentExtraDiscountPercent > 0) {
-            bannerParts.push(
-                `${currentExtraDiscountPercent}% ${
-                    payBillingToggle?.checked
-                        ? "Annual Billing Discount"
-                        : "Monthly Extra Discount"
-                }`,
-            );
+            bannerParts.push(`${currentExtraDiscountPercent}% ${payBillingToggle?.checked ? "Annual Billing" : "Monthly Extra"} Discount`);
+        }
+        if (promoAmount > 0) {
+            bannerParts.push(appliedPromoType === "flat"
+                ? `${formatCurrencyAmount(currentPlan.symbol, promoAmount)} Promo Code Discount`
+                : `${Math.round(appliedPromoValue)}% Promo Code Discount`);
         }
 
-        if (promoDiscount > 0) {
-            bannerParts.push(
-                `${formatPromoLabel(
-                    appliedPromoValue,
-                    appliedPromoType,
-                )} Promo Code Discount`,
-            );
-        }
-
-        if (banner && bannerText) {
+        if (poSavingsBanner && poSavingsBannerText) {
             if (bannerParts.length > 0) {
-                banner.style.display = "flex";
-                bannerText.innerText =
-                    `${bannerParts.join(" + ")} — You save ` +
-                    `${formatCurrencyAmount(
-                        currentPlan.symbol,
-                        totalSavings,
-                    )}`;
+                poSavingsBanner.style.display = "flex";
+                poSavingsBannerText.innerText = `${bannerParts.join(" + ")} · Total Savings ${formatCurrencyAmount(currentPlan.symbol, totalSavings)}`;
             } else {
-                banner.style.display = "none";
-                bannerText.innerText = "";
-            }
-        }
-
-        if (paySavingsNotice) {
-            if (bannerParts.length > 0) {
-                paySavingsNotice.classList.remove("hidden");
-                paySavingsNotice.innerText = `🎉 ${bannerParts.join(" + ")}`;
-            } else {
-                paySavingsNotice.classList.add("hidden");
-                paySavingsNotice.innerText = "";
+                poSavingsBanner.style.display = "none";
+                poSavingsBannerText.innerText = "";
             }
         }
     }
 
-    function requestPromocode(code, { silent = false } = {}) {
-        const normalizedCode = String(code || "").trim();
+    function clearAppliedPromo(message = "") {
+        appliedPromocodeId = null;
+        appliedPromocodeCode = "";
+        appliedDiscountAmount = 0;
+        appliedPromoValue = 0;
+        appliedPromoType = "";
+        $("#removeCouponBtn").hide();
+        if (poPromoSuccessMsg) poPromoSuccessMsg.style.display = "none";
+        if (message) $("#couponMsg").html(message).css("color", "red");
+        updateFinalAmounts();
+    }
 
-        if (normalizedCode === "") {
-            clearPromoState({
-                message: silent ? "" : "Enter promocode",
-            });
+    function validatePromocodeForCurrentSubtotal(code, silent = false) {
+        const cleanCode = String(code || "").trim();
+        if (!cleanCode) {
+            if (!silent) $("#couponMsg").html("Enter promocode").css("color", "red");
             return;
         }
-
-        const requestNumber = ++promoRequestSequence;
-
+        const requestId = ++promoRequestSerial;
         $.ajax({
             url: "/apply-promocode",
             type: "POST",
-            data: {
-                code: normalizedCode,
-                amount: currentPayableSubtotal,
-            },
-            headers: {
-                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-            },
+            data: { code: cleanCode, amount: currentPayableSubtotal },
+            headers: { "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content") },
             success: function (response) {
-                if (requestNumber !== promoRequestSequence) {
-                    return;
-                }
-
+                if (requestId !== promoRequestSerial) return;
                 if (response.status === true) {
                     appliedPromocodeId = response.promocode_id;
-                    appliedPromocodeCode = normalizedCode;
-                    appliedDiscountAmount = parseFloat(
-                        response.discount || 0,
-                    );
-                    appliedPromoValue = parseFloat(
-                        response.discount_value ||
-                            response.promodiscount ||
-                            0,
-                    );
-                    appliedPromoType =
-                        response.discount_type ||
-                        response.type ||
-                        "";
-
+                    appliedPromocodeCode = cleanCode;
+                    appliedDiscountAmount = parseFloat(response.discount || 0);
+                    appliedPromoValue = parseFloat(response.discount_value || response.promodiscount || 0);
+                    appliedPromoType = response.discount_type || response.type || "";
                     $("#removeCouponBtn").show();
-                    setPromoSuccessState(
-                        true,
-                        silent
-                            ? ""
-                            : "✅ Promo code applied successfully",
-                    );
-
+                    if (poPromoSuccessMsg) poPromoSuccessMsg.style.display = "flex";
+                    if (!silent) $("#couponMsg").html("✅ Promo code applied successfully").css("color", "green");
                     updateFinalAmounts();
                 } else {
-                    clearPromoState({
-                        message:
-                            response.message || "Invalid promo code",
-                    });
+                    clearAppliedPromo(response.message || "Invalid promo code");
                 }
             },
             error: function (xhr) {
-                if (requestNumber !== promoRequestSequence) {
-                    return;
-                }
-
-                clearPromoState({
-                    message:
-                        xhr?.responseJSON?.message ||
-                        "Unable to apply promo code",
-                });
+                if (requestId !== promoRequestSerial) return;
+                clearAppliedPromo(xhr?.responseJSON?.message || "Unable to apply promo code");
             },
         });
     }
 
-    function schedulePromoRefresh() {
-        clearTimeout(promoRefreshTimer);
-
+    function schedulePromoRevalidation() {
+        if (promoRevalidateTimer) clearTimeout(promoRevalidateTimer);
         if (!appliedPromocodeCode) {
             updateFinalAmounts();
             return;
         }
-
-        promoRefreshTimer = setTimeout(function () {
-            requestPromocode(appliedPromocodeCode, {
-                silent: true,
-            });
-        }, 100);
+        promoRevalidateTimer = setTimeout(() => {
+            validatePromocodeForCurrentSubtotal(appliedPromocodeCode, true);
+        }, 120);
     }
 
-    $(document).on("click", "#applyPromoBtn", function (e) {
-        e.preventDefault();
-        e.stopPropagation();
-
-        requestPromocode($("#couponInput").val());
+    // APPLY PROMOCODE
+    $(document).on("click", "#applyPromoBtn", function () {
+        validatePromocodeForCurrentSubtotal($("#couponInput").val(), false);
     });
 
+    // REMOVE PROMOCODE
     $(document).on("click", "#removeCouponBtn", function (e) {
-        e.preventDefault();
+    e.preventDefault();
 
-        ++promoRequestSequence;
-        clearTimeout(promoRefreshTimer);
+    // RESET PROMO DATA
+    appliedPromocodeId = null;
+    appliedPromocodeCode = "";
 
-        clearPromoState({
-            clearInput: true,
-            message: "Promo code removed",
-        });
-    });
+    appliedDiscountAmount = 0;
+    appliedPromoValue = 0;
+    appliedPromoType = "";
+
+    // CLEAR COUPON INPUT
+    $("#couponInput").val("");
+
+    // HIDE REMOVE BUTTON
+    $("#removeCouponBtn").hide();
+    if (poPromoSuccessMsg) poPromoSuccessMsg.style.display = "none";
+
+    // HIDE PROMO DISCOUNT ROW
+    $("#promoDiscountRow").addClass("hidden");
+    $("#promoDiscountRow").css("display", "none");
+
+    // CLEAR MESSAGE
+    $("#couponMsg").html("");
+
+    // RECALCULATE TOTAL
+    updateFinalAmounts();
+
+    // SUCCESS MESSAGE
+    $("#couponMsg")
+        .html("Promo code removed")
+        .css("color", "red");
+});
 
     let paymentSubmissionInFlight = false;
 
@@ -1418,12 +1110,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
             extraDiscount: extraDiscount,
 
-            price: currentUnitPayablePrice,
+            price: currentPlan.unit_rate || currentPlan.price,
 
             quantity:
                 currentPlan.plan_type === "team" ? $("#payQtyInput").val() : 1,
 
-            total_amount: currentFinalPayableTotal,
+            total_amount: currentFinalTotal,
 
             // CONTACT
             contactPerson: $("#contactPerson").val(),
@@ -1435,13 +1127,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
             subscription_type: payBillingToggle.checked ? "year" : "month",
 
-            currencyid:
-                selectedCurrency?.currency_code || currentPlan.currencyid,
-            symbol: currentPlan.symbol,
-            base_amount:
-                parseFloat(currentPlan.unit_rate || 0) ||
-                parseFloat(currentPlan.base_amount || 0),
-            country: currentPlan.country || "",
+            currencyid: selectedCurrency?.currency_code,
+            symbol: selectedCurrency?.symbol,
+            base_amount: selectedCurrency?.base_amount,
+            country: selectedCurrency?.country,
 
             storage: currentPlan.storage,
             storage_unit: currentPlan.storage_unit,
@@ -1755,60 +1444,52 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // Quantity increase: use the same licence step as pricing cards.
+    //quantity increase
     if (payQtyPlus && payQtyInput) {
         payQtyPlus.addEventListener("click", function (e) {
             e.preventDefault();
-
             const minQuantity = getPlanMinimumQuantity();
-            const step = getPlanQuantityStep();
-
-            quantity = normalizeTeamQuantity(
-                payQtyInput.value || minQuantity,
-            );
-
+            const step = getPlanLicenseStep();
+            quantity = Math.max(parseInt(payQtyInput.value || minQuantity), minQuantity);
             quantity += step;
+
             payQtyInput.value = quantity;
 
             renderPlanData();
         });
-
         payQtyPlus.addEventListener("mousedown", function (e) {
             e.preventDefault();
         });
     }
 
-    // Quantity decrease: never go below the selected plan minimum.
+    //quantity decrease
     if (payQtyMinus && payQtyInput) {
         payQtyMinus.addEventListener("click", function (e) {
             e.preventDefault();
-
             const minQuantity = getPlanMinimumQuantity();
-            const step = getPlanQuantityStep();
+            quantity = parseInt(payQtyInput.value || minQuantity);
 
-            quantity = normalizeTeamQuantity(
-                payQtyInput.value || minQuantity,
-            );
+            if (quantity > minQuantity) {
+                const step = getPlanLicenseStep();
+                quantity = Math.max(minQuantity, quantity - step);
 
-            quantity = Math.max(minQuantity, quantity - step);
-            payQtyInput.value = quantity;
+                payQtyInput.value = quantity;
 
-            renderPlanData();
+                renderPlanData();
+            } else {
+                payQtyInput.value = minQuantity;
+            }
         });
-
         payQtyMinus.addEventListener("mousedown", function (e) {
             e.preventDefault();
         });
     }
 
+    //quantity data
     if (payQtyInput) {
         payQtyInput.addEventListener("input", function () {
-            if (currentPlan.plan_type !== "team") {
-                this.value = 1;
-                return;
-            }
+            let value = parseInt(this.value);
 
-            const value = parseInt(this.value);
             const minQuantity = getPlanMinimumQuantity();
 
             if (isNaN(value) || value < minQuantity) {
@@ -1816,21 +1497,21 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             quantity = value;
+
+            this.value = quantity;
+
             renderPlanData();
         });
 
         payQtyInput.addEventListener("change", function () {
-            if (currentPlan.plan_type !== "team") {
-                quantity = 1;
-                this.value = 1;
-                renderPlanData();
-                return;
+            let value = parseInt(this.value);
+            const minQuantity = getPlanMinimumQuantity();
+
+            if (isNaN(value) || value < minQuantity) {
+                value = minQuantity;
             }
 
-            quantity = normalizeTeamQuantity(
-                this.value || getPlanMinimumQuantity(),
-            );
-
+            quantity = value;
             this.value = quantity;
             renderPlanData();
         });
@@ -1844,6 +1525,7 @@ document.addEventListener("DOMContentLoaded", function () {
             this.classList.add("selected");
 
             syncPlanFromTile(this);
+            scrollPlanIntoView(this);
 
             renderPlanData();
         });
@@ -1852,6 +1534,7 @@ document.addEventListener("DOMContentLoaded", function () {
     updateToggleUI();
 
     renderPlanData();
+    scrollPlanIntoView(document.querySelector(".selected-plan-option.selected"));
 
     //check box for existing username
     $("#username").on("change keyup", function () {

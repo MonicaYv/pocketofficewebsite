@@ -21,7 +21,7 @@
              <div class="row">
                  <!--LEFT COLUMN — Registration Form -->
                  <div class="col-md-7" id="formCol">
-                     <form id="registrationForm" novalidate>
+                     <form>
                          <!-- company details-->
                          <div class="panel panel-default mb-4 pay-company-form hidden">
                              <div class="panel-heading">
@@ -285,13 +285,14 @@
                              <!-- Header -->
                              <div class="os-header">
                                  <h4 class="os-title">Review & Choose Plan</h4>
-                                 <p class="os-subtitle">Select the Personal or Team plan you want to purchase. You can switch plans here before payment.</p>
+                                 <p class="os-subtitle">Select a plan that fits your team's needs. You can switch plans anytime.</p>
                              </div>
 
                              <!-- Billing Period -->
                              <div id="payBillingControls" class="os-section">
                                  @php
-                                     $selectedPlanType = $selectedPlanType ?? request('plan_type', 'single');
+                                     $singlePlan = collect($planLists)->firstWhere('is_single_user', 1);
+                                     $selectedPlanType = request('plan_type', 'single');
                                  @endphp
 
                                  <div class="">
@@ -339,28 +340,103 @@
 
                               <!-- Change Plan -->
                               @php
-                                  $curBillingType = $billing_type ?? request('billing_type', 'monthly');
-                                  $currSymbol = $currencySymbol ?? ($currencyData->currency_symbol ?? '$');
-                                  $allFivePlans = collect($checkoutPlans ?? []);
-                                  $selectedPlanId = $selectedPlanId ?? request('plan_id');
+                                  $currencyCode = request('currency_code') ?? 'USD';
+                                  $currencyData = \App\Models\CurrencyRate::where('currency_code', $currencyCode)->first();
+                                  $rate = $currencyData ? round($currencyData->actual_amount) : 15;
+                                  $currSymbol = $currencyData->currency_symbol ?? '$';
+                                  $curBillingType = request('billing_type') ?? ($billing_type ?? 'monthly');
+
+                                  $allDbPlans = \App\Models\UsersLicensePlan::where('pof_plan_status', 1)->get()->keyBy('id');
+                                  $allFivePlans = [];
+
+                                  // 1. Personal (Single User, based on Plan ID 1)
+                                  if (isset($allDbPlans[1])) {
+                                      $raw = $allDbPlans[1];
+                                      $p = clone $raw;
+                                      $base = $rate * 1;
+                                      $monthly = $base;
+                                      $yearly = $base * 12;
+
+                                      $p->original_monthly_price = $monthly;
+                                      $p->original_yearly_price = $yearly;
+
+                                      $monthlyPlanDiscount = (float) ($p->single_user_monthly_discount ?? 0);
+                                      $monthlyExtraDiscount = (float) ($p->single_user_monthly_extra_disc ?? 0);
+                                      $yearlyPlanDiscount = (float) ($p->single_user_yearly_discount ?? 0);
+                                      // Keep yearly extra separate. Do not add the yearly plan discount twice.
+                                      $yearlyExtraDiscount = (float) ($p->single_user_yearly_extra_disc ?? 0);
+
+                                      $monthlyTotalDisc = min(100, $monthlyPlanDiscount + $monthlyExtraDiscount);
+                                      $yearlyTotalDisc = min(100, $yearlyPlanDiscount + $yearlyExtraDiscount);
+
+                                      $p->final_monthly_price = $monthly * (1 - $monthlyTotalDisc / 100);
+                                      $p->final_yearly_price = $yearly * (1 - $yearlyTotalDisc / 100);
+                                      $p->active_price = ($curBillingType === 'yearly') ? round($p->final_yearly_price) : round($p->final_monthly_price);
+                                      $p->currency_symbol = $currSymbol;
+
+                                      $p->ui_name = 'Personal';
+                                      $p->ui_plan_type = 'single';
+                                      $p->ui_default_qty = 1;
+                                      $p->ui_license = 1;
+                                      $p->ui_extra_yr_discount = $yearlyExtraDiscount;
+                                      $p->ui_extra_monthly_discount = $monthlyExtraDiscount;
+                                      $p->ui_monthly_discount = $monthlyPlanDiscount;
+                                      $p->ui_yearly_discount = $yearlyPlanDiscount;
+                                      $allFivePlans[] = $p;
+                                  }
+
+                                  // 2. Team Plans: Basic (1), Standard (2), Advanced (3), Premium (13)
+                                  $teamSpecs = [
+                                      1 => ['name' => 'Basic', 'def_qty' => 2],
+                                      2 => ['name' => 'Standard', 'def_qty' => 10],
+                                      3 => ['name' => 'Advanced', 'def_qty' => 50],
+                                      13 => ['name' => 'Premium', 'def_qty' => 100],
+                                  ];
+
+                                  foreach ($teamSpecs as $id => $spec) {
+                                      if (isset($allDbPlans[$id])) {
+                                          $raw = $allDbPlans[$id];
+                                          $p = clone $raw;
+                                          $base = $rate * ($p->plans_license ?? 1);
+                                          $monthly = $base;
+                                          $yearly = $base * 12;
+
+                                          $p->original_monthly_price = $monthly;
+                                          $p->original_yearly_price = $yearly;
+
+                                          $monthlyDiscount = ($p->is_team_discount_apply == 1) ? ($p->monthly_discount ?? 0) : 0;
+                                          $yearlyDiscount = ($p->is_team_discount_apply == 1) ? ($p->yearly_discount ?? 0) : 0;
+                                          $monthlyExtraDiscount = ($p->is_team_extraM_discount_apply == 1) ? ($p->monthly_extra_disc ?? 0) : 0;
+                                          $yearlyExtraDiscount = ($p->is_team_extraY_discount_apply == 1) ? ($p->yearly_extra_disc ?? 0) : 0;
+
+                                          $p->monthly_discount = $monthlyDiscount;
+                                          $p->yearly_discount = $yearlyDiscount;
+                                          $p->monthly_extra_disc = $monthlyExtraDiscount;
+                                          $p->yearly_extra_disc = $yearlyExtraDiscount;
+
+                                          $monthlyTotalDisc = $monthlyDiscount + $monthlyExtraDiscount;
+                                          $yearlyTotalDisc = $yearlyDiscount + $yearlyExtraDiscount;
+
+                                          $p->final_monthly_price = $monthly * (1 - $monthlyTotalDisc / 100);
+                                          $p->final_yearly_price = $yearly * (1 - $yearlyTotalDisc / 100);
+                                          $p->active_price = ($curBillingType === 'yearly') ? round($p->final_yearly_price) : round($p->final_monthly_price);
+                                          $p->currency_symbol = $currSymbol;
+
+                                          $p->ui_name = $spec['name'];
+                                          $p->ui_plan_type = 'team';
+                                          $p->ui_default_qty = $spec['def_qty'];
+                                          $p->ui_license = $p->plans_license ?? 1;
+                                          $p->ui_extra_yr_discount = $p->yearly_extra_disc ?? 0;
+                                          $p->ui_extra_monthly_discount = $monthlyExtraDiscount;
+                                          $p->ui_monthly_discount = $monthlyDiscount;
+                                          $p->ui_yearly_discount = $yearlyDiscount;
+                                          $allFivePlans[] = $p;
+                                      }
+                                  }
                               @endphp
 
                               <div class="pay-plan-selector os-section">
-                                  <div class="pay-plan-type-shortcuts" style="display:flex;gap:8px;align-items:center;margin-bottom:10px;position:relative;">
-                                      <button type="button" id="personalPlanShortcut" class="btn btn-default btn-sm">Personal</button>
-                                      <div style="position:relative;">
-                                          <button type="button" id="teamPlanDropdownBtn" class="btn btn-default btn-sm" aria-expanded="false">
-                                              Team Plans <span aria-hidden="true">▾</span>
-                                          </button>
-                                          <div id="teamPlanDropdownMenu" style="display:none;position:absolute;z-index:20;top:100%;left:0;min-width:170px;background:#fff;border:1px solid #ddd;border-radius:8px;padding:6px;box-shadow:0 8px 24px rgba(0,0,0,.12);">
-                                              @foreach ($allFivePlans->where('ui_plan_type', 'team') as $teamPlanOption)
-                                                  <button type="button" class="team-plan-menu-item" data-team-plan-id="{{ $teamPlanOption->id }}" style="display:block;width:100%;text-align:left;border:0;background:transparent;padding:8px 10px;border-radius:6px;">
-                                                      {{ $teamPlanOption->ui_name }}
-                                                  </button>
-                                              @endforeach
-                                          </div>
-                                      </div>
-                                  </div>
+                                  <!-- <p class="pay-plan-selector__label os-label">Change Plan</p> -->
 
                                   <div class="pay-plan-scroll-wrapper" id="planOptions">
                                       <button type="button" class="pay-plan-scroll-btn" id="planScrollLeft" aria-label="Previous plans">
@@ -372,12 +448,9 @@
                                       <div class="pay-plan-scroll-track" id="planScrollTrack">
                                           @foreach ($allFivePlans as $plan)
                                               @php
-                                                  $isInitSelected = $selectedPlanType === $plan->ui_plan_type
-                                                      && (
-                                                          $selectedPlanId
-                                                              ? (int) $selectedPlanId === (int) $plan->id
-                                                              : ($plan->ui_plan_type === 'single' || $plan->ui_name === 'Basic')
-                                                      );
+                                                  $isInitSelected = ($selectedPlanType === 'single')
+                                                      ? ($plan->ui_plan_type === 'single')
+                                                      : ($plan->ui_plan_type === 'team' && $loop->iteration === 2);
                                               @endphp
                                               <div class="pay-plan-tile selected-plan-option pay-plan-scroll-pill {{ $isInitSelected ? 'selected' : '' }} payment-tab-{{ $plan->id }} payment-tab-{{ $plan->ui_plan_type }}-{{ $plan->id }}"
                                                   data-plan-type="{{ $plan->ui_plan_type }}"
@@ -399,13 +472,13 @@
                                                   data-singleuser-monthly-discount="{{ $plan->single_user_monthly_discount ?? 0 }}"
                                                   data-singleuser-yearly-discount="{{ $plan->single_user_yearly_discount ?? 0 }}"
                                                   data-extra-monthly-discount="{{ $plan->ui_extra_monthly_discount }}"
-                                                  data-extra-yearly-discount="{{ $plan->ui_extra_yearly_discount }}"
+                                                  data-extra-yearly-discount="{{ $plan->ui_extra_yr_discount }}"
                                                   data-extra-mo-discount="{{ $plan->monthly_extra_disc ?? 0 }}"
                                                   data-extra-yr-discount="{{ $plan->yearly_extra_disc ?? 0 }}"
                                                   data-singleuser-extra-mo-discount="{{ $plan->single_user_monthly_extra_disc ?? 0 }}"
-                                                  data-singleuser-extra-yr-discount="0"
+                                                  data-singleuser-extra-yr-discount="{{ $plan->ui_plan_type === 'single' ? ($plan->ui_extra_yr_discount ?? 0) : 0 }}"
                                                   data-def-qty="{{ $plan->ui_default_qty }}"
-                                                  data-license-step="{{ $plan->ui_license }}"
+                                                  data-license-step="{{ max(1, (int) ($plan->ui_license ?? 1)) }}"
                                                   data-symbol="{{ $plan->currency_symbol ?? '' }}"
                                                   data-features="{{ json_encode(json_decode($plan->features) ?? []) }}"
                                                   data-unit-rate="{{ $rate }}"
@@ -422,6 +495,11 @@
                                               <polyline points="9 18 15 12 9 6"></polyline>
                                           </svg>
                                       </button>
+                                  </div>
+
+                                  <div id="teamPlanIndicator" class="pay-team-plan-indicator" hidden aria-live="polite">
+                                      <span class="pay-team-plan-indicator__line" aria-hidden="true"></span>
+                                      <span class="pay-team-plan-indicator__text">Team</span>
                                   </div>
                               </div>
 
@@ -452,7 +530,7 @@
                                       <label class="po-section-subheading" for="payQtyInput">License Count</label>
                                       <div class="po-stepper-wrap">
                                           <button type="button" class="po-stepper-btn" id="payQtyMinus">−</button>
-                                          <input type="number" id="payQtyInput" class="po-stepper-input" value="1" min="1" readonly />
+                                          <input type="number" id="payQtyInput" class="po-stepper-input" value="100" min="1" />
                                           <button type="button" class="po-stepper-btn" id="payQtyPlus">+</button>
                                       </div>
                                       <p class="po-license-hint" id="payQtyHint">
@@ -481,24 +559,24 @@
                                           <span class="po-summary-val" id="summaryOrgTotal">—</span>
                                       </div>
 
-                                      <div class="po-summary-row" id="poRowPlanDiscount" style="display:none;">
+                                      <div class="po-summary-row" id="poRowPlanDiscount">
                                           <span class="po-summary-label">Plan Discount</span>
-                                          <span class="po-summary-val text-success" id="poPlanDiscountVal">15%</span>
+                                          <span class="po-summary-val text-success" id="poPlanDiscountVal">—</span>
                                       </div>
 
-                                      <div class="po-summary-row" id="poRowAnnualDiscount" style="display:none;">
-                                          <span class="po-summary-label" id="poBillingDiscountLabel">Billing Discount</span>
-                                          <span class="po-summary-val text-success" id="poAnnualDiscountVal">10%</span>
+                                      <div class="po-summary-row" id="poRowAnnualDiscount">
+                                          <span class="po-summary-label">Annual Billing Discount</span>
+                                          <span class="po-summary-val text-success" id="poAnnualDiscountVal">—</span>
                                       </div>
 
-                                      <div class="po-summary-row" id="poRowPromoDiscount" style="display:none;">
+                                      <div class="po-summary-row" id="poRowPromoDiscount">
                                           <span class="po-summary-label">Promo Code Discount</span>
-                                          <span class="po-summary-val text-success" id="poPromoDiscountVal">5%</span>
+                                          <span class="po-summary-val text-success" id="poPromoDiscountVal">—</span>
                                       </div>
 
                                       <div class="po-summary-row po-summary-row--bold">
                                           <span class="po-summary-label font-weight-bold">Total Discount</span>
-                                          <span class="po-summary-val text-success font-weight-bold" id="poTotalDiscountVal">0%</span>
+                                          <span class="po-summary-val text-success font-weight-bold" id="poTotalDiscountVal">—</span>
                                       </div>
                                   </div>
 
@@ -519,32 +597,28 @@
                                   </div>
 
                                   <!-- Celebration / Savings Banner -->
-                                  <div class="po-savings-banner" id="poSavingsBanner" style="display:none;">
+                                  <div class="po-savings-banner" id="poSavingsBanner">
                                       <span class="po-party-icon">🎉</span>
-                                      <span class="po-savings-text" id="poSavingsBannerText">
-                                          Your available savings will appear here.
-                                      </span>
+                                      <span class="po-savings-text" id="poSavingsBannerText"></span>
                                   </div>
 
                                   <!-- Promo Code Section -->
                                   <div class="po-promo-section">
                                       <label class="po-section-subheading" for="couponInput">Promo code</label>
                                       <div class="po-promo-input-group">
-                                          <input type="text" class="po-promo-input" id="couponInput" placeholder="Enter promo code" autocomplete="off" />
+                                          <input type="text" class="po-promo-input" id="couponInput" placeholder="Enter promo code" />
                                           <button type="button" class="po-promo-btn" id="applyPromoBtn">Apply</button>
                                       </div>
                                       <div class="po-promo-success-msg" id="poPromoSuccessMsg" style="display:none;">
                                           <svg width="14" height="14" viewBox="0 0 24 24" fill="#16a34a">
                                               <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
                                           </svg>
-                                          <span id="poPromoSuccessText">Promo code applied successfully!</span>
+                                          <span>Promo code applied successfully!</span>
                                       </div>
-                                      <div id="couponMsg" style="font-size:12px;margin-top:6px;"></div>
-                                      <button type="button" id="removeCouponBtn" style="display:none;border:0;background:transparent;color:#c0392b;padding:4px 0;font-size:12px;">Remove promo code</button>
                                   </div>
 
                                   <!-- Continue CTA Button -->
-                                  <button type="button" class="po-continue-btn" id="sideSubmitBtn">
+                                  <button type="button" class="po-continue-btn" id="sideSubmitBtnForTeam">
                                       <span>Continue with</span> <span id="poContinuePlanName">Premium</span>
                                   </button>
 
@@ -570,6 +644,8 @@
                                       <div id="promoDiscountAmt"></div>
                                       <div id="paySavingsNotice"></div>
                                       <ul id="planFeatureList"></ul>
+                                      <div id="couponMsg"></div>
+                                      <button id="removeCouponBtn"></button>
                                       <span id="payQtyPriceHint"></span>
                                   </div>
                               </div>
@@ -586,7 +662,7 @@
              CARD PAYMENT MODAL
              Shown after "Verify and Checkout" click
              ============================================================ -->
-         <div class="pay-modal-overlay hidden" id="paymentModal">
+         <div class="pay-modal-overlay hidden" id="paymentModalForTeam">
              <div class="pay-modal-box">
                  <button class="pay-modal-close" id="closePayModal">&times;</button>
 
@@ -661,6 +737,45 @@
          </div>
 
 
+
+         <style>
+             /* Payment-side plan and billing selectors */
+             .pay-plan-selector { position: relative; padding-bottom: 28px; }
+             .pay-plan-scroll-track { display: flex; gap: 8px; align-items: stretch; }
+             .pay-plan-scroll-pill {
+                 flex: 0 0 auto;
+                 min-width: 82px;
+                 justify-content: center;
+                 cursor: pointer;
+                 user-select: none;
+             }
+             .pay-plan-scroll-pill.selected {
+                 border-color: #057A96 !important;
+                 color: #057A96 !important;
+                 box-shadow: inset 0 0 0 1px #057A96;
+             }
+             .pay-team-plan-indicator {
+                 position: absolute;
+                 top: calc(100% - 26px);
+                 left: var(--team-indicator-left, 50%);
+                 transform: translateX(-50%);
+                 display: flex;
+                 flex-direction: column;
+                 align-items: center;
+                 gap: 3px;
+                 color: #667085;
+                 font-size: 11px;
+                 font-weight: 600;
+                 line-height: 1;
+                 pointer-events: none;
+                 white-space: nowrap;
+             }
+             .pay-team-plan-indicator[hidden] { display: none !important; }
+             .pay-team-plan-indicator__line { width: 1px; height: 11px; background: #98a2b3; }
+             .os-mini-badge:empty { display: none !important; }
+             .os-mini-badge { white-space: nowrap; }
+         </style>
+
          <!-- Existing User Modal -->
          <div id="existingUserModal" class="existing-user-modal" aria-hidden="true">
              <div class="existing-user-dialog" role="dialog" aria-modal="true" aria-labelledby="existingUserTitle">
@@ -685,19 +800,5 @@
          </div>
      @endsection
       @section('scripts')
-         <script>
-             window.PAYMENT_CONFIG = {
-                 csrfToken: @json(csrf_token()),
-                 applyPromoUrl: @json(action([\App\Http\Controllers\UserLicensePlansController::class, 'applyPromocode'])),
-                 savePaymentUrl: @json(action([\App\Http\Controllers\UserLicensePlansController::class, 'saveUserPayment'])),
-                 checkUsernameUrl: @json(action([\App\Http\Controllers\UserLicensePlansController::class, 'checkUsername'])),
-                 checkEmailUrl: @json(action([\App\Http\Controllers\UserLicensePlansController::class, 'checkUserEmail'])),
-                 currencyCode: @json($currencyData->currency_code ?? request('currency_code', 'USD')),
-                 initialBilling: @json($billing_type ?? 'monthly'),
-                 initialPlanType: @json($selectedPlanType ?? 'single'),
-                 initialPlanId: @json($selectedPlanId ?? null),
-                 initialQuantity: @json($selectedQuantity ?? 1),
-             };
-         </script>
-         @vite(['resources/js/payment.js'])
-     @endsection
+          @vite(['resources/js/payment.js'])
+      @endsection
