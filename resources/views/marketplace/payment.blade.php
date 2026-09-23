@@ -640,7 +640,7 @@
 
                                         <div id="couponMsg" style="font-size:12px;margin-top:7px;"></div>
 
-                                        <div id="removeCouponWrapper" style="display:none;margin-top:8px;">
+                                        <div id="removeCouponWrapper">
                                             <button
                                                 type="button"
                                                 id="removeCouponBtn"
