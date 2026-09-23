@@ -653,6 +653,7 @@
                                                     font-weight:600;
                                                     cursor:pointer;
                                                     text-decoration:underline;
+                                                    display:none;
                                                 ">
                                                 Remove promo code
                                             </button>

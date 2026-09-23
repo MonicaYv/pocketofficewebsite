@@ -899,6 +899,7 @@ document.addEventListener("DOMContentLoaded", function () {
         appliedPromoValue = 0;
         appliedPromoType = "";
         $("#removeCouponBtn").hide();
+        $("#poPromoSuccessMsg").hide();
         if (poPromoSuccessMsg) poPromoSuccessMsg.style.display = "none";
         if (message) $("#couponMsg").html(message).css("color", "red");
         updateFinalAmounts();
