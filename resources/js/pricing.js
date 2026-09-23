@@ -1207,12 +1207,16 @@ function handlePlanSelection(btn, forcedType) {
 
     localStorage.setItem("selectedPlan", JSON.stringify(planData));
 
-    window.location.href =
-        "/payment?currency_code=" +
-        (document.querySelector("#currencyMenu li.active")?.dataset.currency ||
-            "") +
-        "&plan_type=" +
-        planData.plan_type +
-        "&billing_type=" +
-        planData.billing_type;
+    const currencyCode =
+        document.querySelector("#currencyMenu li.active")?.dataset.currency || "";
+
+    const paymentParams = new URLSearchParams({
+        currency_code: currencyCode,
+        plan_type: planData.plan_type,
+        billing_type: planData.billing_type,
+        plan_id: String(planData.plan_id || ""),
+        quantity: String(planData.quantity || planData.default_qty || 1),
+    });
+
+    window.location.href = "/payment?" + paymentParams.toString();
 }

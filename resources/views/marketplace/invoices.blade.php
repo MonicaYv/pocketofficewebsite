@@ -734,10 +734,10 @@
                 <tr>
                     <td class="label">Promocode Discount Applied</td>
                     <td class="value">
-                        @if($promocodeType == 'percentage')
+                        @if(in_array(strtolower((string) $promocodeType), ['percent', 'percentage'], true))
                         {{ $promocodeValue }}%
-                        @elseif($promocodeType == 'flat')
-                        {{ $promocodeValue }}
+                        @elseif(in_array(strtolower((string) $promocodeType), ['flat', 'fixed', 'amount'], true))
+                        {{ $currency }}{{ number_format((float) $promocodeValue, 2) }}
                         @endif
                     </td>
                 </tr>
@@ -758,7 +758,7 @@
                 <td class="icon-cell">🎁</td>
                 <td>
                     <div style="font-size:12px;font-weight:800;color:#555;">Promo Code</div>
-                    <div style="font-size:11.5px;color:#bbb;">{{ $promocode }}</div>
+                    <div style="font-size:11.5px;color:#bbb;">{{ $promocode ?: 'No promo code' }}</div>
                 </td>
             </tr>
         </table>

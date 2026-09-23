@@ -21,7 +21,7 @@
              <div class="row">
                  <!--LEFT COLUMN — Registration Form -->
                  <div class="col-md-7" id="formCol">
-                     <form>
+                     <form id="registrationForm" novalidate>
                          <!-- company details-->
                          <div class="panel panel-default mb-4 pay-company-form hidden">
                              <div class="panel-heading">
@@ -285,14 +285,13 @@
                              <!-- Header -->
                              <div class="os-header">
                                  <h4 class="os-title">Review & Choose Plan</h4>
-                                 <p class="os-subtitle">Select a plan that fits your team's needs. You can switch plans anytime.</p>
+                                 <p class="os-subtitle">Select the Personal or Team plan you want to purchase. You can switch plans here before payment.</p>
                              </div>
 
                              <!-- Billing Period -->
                              <div id="payBillingControls" class="os-section">
                                  @php
-                                     $singlePlan = collect($planLists)->firstWhere('is_single_user', 1);
-                                     $selectedPlanType = request('plan_type', 'single');
+                                     $selectedPlanType = $selectedPlanType ?? request('plan_type', 'single');
                                  @endphp
 
                                  <div class="">
@@ -340,98 +339,28 @@
 
                               <!-- Change Plan -->
                               @php
-                                  $currencyCode = request('currency_code') ?? 'USD';
-                                  $currencyData = \App\Models\CurrencyRate::where('currency_code', $currencyCode)->first();
-                                  $rate = $currencyData ? round($currencyData->actual_amount) : 15;
-                                  $currSymbol = $currencyData->currency_symbol ?? '$';
-                                  $curBillingType = request('billing_type') ?? ($billing_type ?? 'monthly');
-
-                                  $allDbPlans = \App\Models\UsersLicensePlan::where('pof_plan_status', 1)->get()->keyBy('id');
-                                  $allFivePlans = [];
-
-                                  // 1. Personal (Single User, based on Plan ID 1)
-                                  if (isset($allDbPlans[1])) {
-                                      $raw = $allDbPlans[1];
-                                      $p = clone $raw;
-                                      $base = $rate * 1;
-                                      $monthly = $base;
-                                      $yearly = $base * 12;
-
-                                      $p->original_monthly_price = $monthly;
-                                      $p->original_yearly_price = $yearly;
-
-                                      $monthlyTotalDisc = ($p->single_user_monthly_discount ?? 0) + ($p->single_user_monthly_extra_disc ?? 0);
-                                      $singleYearlyDiscount = $p->single_user_yearly_discount ?? 0;
-                                      $yearlyTotalDisc = ($p->single_user_yearly_discount ?? 0) + $singleYearlyDiscount;
-
-                                      $p->final_monthly_price = $monthly * (1 - $monthlyTotalDisc / 100);
-                                      $p->final_yearly_price = $yearly * (1 - $yearlyTotalDisc / 100);
-                                      $p->active_price = ($curBillingType === 'yearly') ? round($p->final_yearly_price) : round($p->final_monthly_price);
-                                      $p->currency_symbol = $currSymbol;
-
-                                      $p->ui_name = 'Personal';
-                                      $p->ui_plan_type = 'single';
-                                      $p->ui_default_qty = 1;
-                                      $p->ui_license = 1;
-                                      $p->ui_extra_yr_discount = $p->single_user_yearly_discount ?? 0;
-                                      $p->ui_extra_monthly_discount = 0;
-                                      $p->ui_monthly_discount = $p->single_user_monthly_discount ?? 0;
-                                      $p->ui_yearly_discount = $p->single_user_yearly_discount ?? 0;
-                                      $allFivePlans[] = $p;
-                                  }
-
-                                  // 2. Team Plans: Basic (1), Standard (2), Advanced (3), Premium (13)
-                                  $teamSpecs = [
-                                      1 => ['name' => 'Basic', 'def_qty' => 2],
-                                      2 => ['name' => 'Standard', 'def_qty' => 10],
-                                      3 => ['name' => 'Advanced', 'def_qty' => 50],
-                                      13 => ['name' => 'Premium', 'def_qty' => 100],
-                                  ];
-
-                                  foreach ($teamSpecs as $id => $spec) {
-                                      if (isset($allDbPlans[$id])) {
-                                          $raw = $allDbPlans[$id];
-                                          $p = clone $raw;
-                                          $base = $rate * ($p->plans_license ?? 1);
-                                          $monthly = $base;
-                                          $yearly = $base * 12;
-
-                                          $p->original_monthly_price = $monthly;
-                                          $p->original_yearly_price = $yearly;
-
-                                          $monthlyDiscount = ($p->is_team_discount_apply == 1) ? ($p->monthly_discount ?? 0) : 0;
-                                          $yearlyDiscount = ($p->is_team_discount_apply == 1) ? ($p->yearly_discount ?? 0) : 0;
-                                          $monthlyExtraDiscount = ($p->is_team_extraM_discount_apply == 1) ? ($p->monthly_extra_disc ?? 0) : 0;
-                                          $yearlyExtraDiscount = ($p->is_team_extraY_discount_apply == 1) ? ($p->yearly_extra_disc ?? 0) : 0;
-
-                                          $p->monthly_discount = $monthlyDiscount;
-                                          $p->yearly_discount = $yearlyDiscount;
-                                          $p->monthly_extra_disc = $monthlyExtraDiscount;
-                                          $p->yearly_extra_disc = $yearlyExtraDiscount;
-
-                                          $monthlyTotalDisc = $monthlyDiscount + $monthlyExtraDiscount;
-                                          $yearlyTotalDisc = $yearlyDiscount + $yearlyExtraDiscount;
-
-                                          $p->final_monthly_price = $monthly * (1 - $monthlyTotalDisc / 100);
-                                          $p->final_yearly_price = $yearly * (1 - $yearlyTotalDisc / 100);
-                                          $p->active_price = ($curBillingType === 'yearly') ? round($p->final_yearly_price) : round($p->final_monthly_price);
-                                          $p->currency_symbol = $currSymbol;
-
-                                          $p->ui_name = $spec['name'];
-                                          $p->ui_plan_type = 'team';
-                                          $p->ui_default_qty = $spec['def_qty'];
-                                          $p->ui_license = $p->plans_license ?? 1;
-                                          $p->ui_extra_yr_discount = $p->yearly_extra_disc ?? 0;
-                                          $p->ui_extra_monthly_discount = $p->additional_disc_month ?? 0;
-                                          $p->ui_monthly_discount = $monthlyDiscount;
-                                          $p->ui_yearly_discount = $yearlyDiscount;
-                                          $allFivePlans[] = $p;
-                                      }
-                                  }
+                                  $curBillingType = $billing_type ?? request('billing_type', 'monthly');
+                                  $currSymbol = $currencySymbol ?? ($currencyData->currency_symbol ?? '$');
+                                  $allFivePlans = collect($checkoutPlans ?? []);
+                                  $selectedPlanId = $selectedPlanId ?? request('plan_id');
                               @endphp
 
                               <div class="pay-plan-selector os-section">
-                                  <!-- <p class="pay-plan-selector__label os-label">Change Plan</p> -->
+                                  <div class="pay-plan-type-shortcuts" style="display:flex;gap:8px;align-items:center;margin-bottom:10px;position:relative;">
+                                      <button type="button" id="personalPlanShortcut" class="btn btn-default btn-sm">Personal</button>
+                                      <div style="position:relative;">
+                                          <button type="button" id="teamPlanDropdownBtn" class="btn btn-default btn-sm" aria-expanded="false">
+                                              Team Plans <span aria-hidden="true">▾</span>
+                                          </button>
+                                          <div id="teamPlanDropdownMenu" style="display:none;position:absolute;z-index:20;top:100%;left:0;min-width:170px;background:#fff;border:1px solid #ddd;border-radius:8px;padding:6px;box-shadow:0 8px 24px rgba(0,0,0,.12);">
+                                              @foreach ($allFivePlans->where('ui_plan_type', 'team') as $teamPlanOption)
+                                                  <button type="button" class="team-plan-menu-item" data-team-plan-id="{{ $teamPlanOption->id }}" style="display:block;width:100%;text-align:left;border:0;background:transparent;padding:8px 10px;border-radius:6px;">
+                                                      {{ $teamPlanOption->ui_name }}
+                                                  </button>
+                                              @endforeach
+                                          </div>
+                                      </div>
+                                  </div>
 
                                   <div class="pay-plan-scroll-wrapper" id="planOptions">
                                       <button type="button" class="pay-plan-scroll-btn" id="planScrollLeft" aria-label="Previous plans">
@@ -443,9 +372,12 @@
                                       <div class="pay-plan-scroll-track" id="planScrollTrack">
                                           @foreach ($allFivePlans as $plan)
                                               @php
-                                                  $isInitSelected = ($selectedPlanType === 'single')
-                                                      ? ($plan->ui_plan_type === 'single')
-                                                      : ($plan->ui_plan_type === 'team' && $loop->iteration === 2);
+                                                  $isInitSelected = $selectedPlanType === $plan->ui_plan_type
+                                                      && (
+                                                          $selectedPlanId
+                                                              ? (int) $selectedPlanId === (int) $plan->id
+                                                              : ($plan->ui_plan_type === 'single' || $plan->ui_name === 'Basic')
+                                                      );
                                               @endphp
                                               <div class="pay-plan-tile selected-plan-option pay-plan-scroll-pill {{ $isInitSelected ? 'selected' : '' }} payment-tab-{{ $plan->id }} payment-tab-{{ $plan->ui_plan_type }}-{{ $plan->id }}"
                                                   data-plan-type="{{ $plan->ui_plan_type }}"
@@ -467,12 +399,13 @@
                                                   data-singleuser-monthly-discount="{{ $plan->single_user_monthly_discount ?? 0 }}"
                                                   data-singleuser-yearly-discount="{{ $plan->single_user_yearly_discount ?? 0 }}"
                                                   data-extra-monthly-discount="{{ $plan->ui_extra_monthly_discount }}"
-                                                  data-extra-yearly-discount="{{ $plan->ui_extra_yr_discount }}"
+                                                  data-extra-yearly-discount="{{ $plan->ui_extra_yearly_discount }}"
                                                   data-extra-mo-discount="{{ $plan->monthly_extra_disc ?? 0 }}"
                                                   data-extra-yr-discount="{{ $plan->yearly_extra_disc ?? 0 }}"
                                                   data-singleuser-extra-mo-discount="{{ $plan->single_user_monthly_extra_disc ?? 0 }}"
-                                                  data-singleuser-extra-yr-discount="{{ $plan->single_user_yearly_discount ?? 0 }}"
+                                                  data-singleuser-extra-yr-discount="0"
                                                   data-def-qty="{{ $plan->ui_default_qty }}"
+                                                  data-license-step="{{ $plan->ui_license }}"
                                                   data-symbol="{{ $plan->currency_symbol ?? '' }}"
                                                   data-features="{{ json_encode(json_decode($plan->features) ?? []) }}"
                                                   data-unit-rate="{{ $rate }}"
@@ -519,7 +452,7 @@
                                       <label class="po-section-subheading" for="payQtyInput">License Count</label>
                                       <div class="po-stepper-wrap">
                                           <button type="button" class="po-stepper-btn" id="payQtyMinus">−</button>
-                                          <input type="number" id="payQtyInput" class="po-stepper-input" value="100" min="1" />
+                                          <input type="number" id="payQtyInput" class="po-stepper-input" value="1" min="1" readonly />
                                           <button type="button" class="po-stepper-btn" id="payQtyPlus">+</button>
                                       </div>
                                       <p class="po-license-hint" id="payQtyHint">
@@ -548,24 +481,24 @@
                                           <span class="po-summary-val" id="summaryOrgTotal">—</span>
                                       </div>
 
-                                      <div class="po-summary-row" id="poRowPlanDiscount">
+                                      <div class="po-summary-row" id="poRowPlanDiscount" style="display:none;">
                                           <span class="po-summary-label">Plan Discount</span>
                                           <span class="po-summary-val text-success" id="poPlanDiscountVal">15%</span>
                                       </div>
 
-                                      <div class="po-summary-row" id="poRowAnnualDiscount">
-                                          <span class="po-summary-label">Annual Billing Discount</span>
+                                      <div class="po-summary-row" id="poRowAnnualDiscount" style="display:none;">
+                                          <span class="po-summary-label" id="poBillingDiscountLabel">Billing Discount</span>
                                           <span class="po-summary-val text-success" id="poAnnualDiscountVal">10%</span>
                                       </div>
 
-                                      <div class="po-summary-row" id="poRowPromoDiscount">
+                                      <div class="po-summary-row" id="poRowPromoDiscount" style="display:none;">
                                           <span class="po-summary-label">Promo Code Discount</span>
                                           <span class="po-summary-val text-success" id="poPromoDiscountVal">5%</span>
                                       </div>
 
                                       <div class="po-summary-row po-summary-row--bold">
                                           <span class="po-summary-label font-weight-bold">Total Discount</span>
-                                          <span class="po-summary-val text-success font-weight-bold" id="poTotalDiscountVal">30%</span>
+                                          <span class="po-summary-val text-success font-weight-bold" id="poTotalDiscountVal">0%</span>
                                       </div>
                                   </div>
 
@@ -586,10 +519,10 @@
                                   </div>
 
                                   <!-- Celebration / Savings Banner -->
-                                  <div class="po-savings-banner" id="poSavingsBanner">
+                                  <div class="po-savings-banner" id="poSavingsBanner" style="display:none;">
                                       <span class="po-party-icon">🎉</span>
                                       <span class="po-savings-text" id="poSavingsBannerText">
-                                          15% Premium Team Discount + 10% Annual Billing Discount + 5% Promo Code Discount Total Savings 30%
+                                          Your available savings will appear here.
                                       </span>
                                   </div>
 
@@ -597,19 +530,21 @@
                                   <div class="po-promo-section">
                                       <label class="po-section-subheading" for="couponInput">Promo code</label>
                                       <div class="po-promo-input-group">
-                                          <input type="text" class="po-promo-input" id="couponInput" value="SAVE10" placeholder="SAVE10" />
+                                          <input type="text" class="po-promo-input" id="couponInput" placeholder="Enter promo code" autocomplete="off" />
                                           <button type="button" class="po-promo-btn" id="applyPromoBtn">Apply</button>
                                       </div>
-                                      <div class="po-promo-success-msg" id="poPromoSuccessMsg">
+                                      <div class="po-promo-success-msg" id="poPromoSuccessMsg" style="display:none;">
                                           <svg width="14" height="14" viewBox="0 0 24 24" fill="#16a34a">
                                               <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
                                           </svg>
-                                          <span>Promo code applied successfully!</span>
+                                          <span id="poPromoSuccessText">Promo code applied successfully!</span>
                                       </div>
+                                      <div id="couponMsg" style="font-size:12px;margin-top:6px;"></div>
+                                      <button type="button" id="removeCouponBtn" style="display:none;border:0;background:transparent;color:#c0392b;padding:4px 0;font-size:12px;">Remove promo code</button>
                                   </div>
 
                                   <!-- Continue CTA Button -->
-                                  <button type="button" class="po-continue-btn" id="sideSubmitBtnForTeam">
+                                  <button type="button" class="po-continue-btn" id="sideSubmitBtn">
                                       <span>Continue with</span> <span id="poContinuePlanName">Premium</span>
                                   </button>
 
@@ -635,8 +570,6 @@
                                       <div id="promoDiscountAmt"></div>
                                       <div id="paySavingsNotice"></div>
                                       <ul id="planFeatureList"></ul>
-                                      <div id="couponMsg"></div>
-                                      <button id="removeCouponBtn"></button>
                                       <span id="payQtyPriceHint"></span>
                                   </div>
                               </div>
@@ -653,7 +586,7 @@
              CARD PAYMENT MODAL
              Shown after "Verify and Checkout" click
              ============================================================ -->
-         <div class="pay-modal-overlay hidden" id="paymentModalForTeam">
+         <div class="pay-modal-overlay hidden" id="paymentModal">
              <div class="pay-modal-box">
                  <button class="pay-modal-close" id="closePayModal">&times;</button>
 
@@ -752,418 +685,19 @@
          </div>
      @endsection
       @section('scripts')
-          @vite(['resources/js/payment.js'])
-          <script>
-              document.addEventListener('DOMContentLoaded', function () {
-                  // Ensure plan selector is visible
-                  const planSelector = document.querySelector('.pay-plan-selector');
-                  if (planSelector) {
-                      planSelector.classList.remove('hidden');
-                      planSelector.style.display = 'block';
-                  }
-
-                  // Ensure all 5 pills remain displayed
-                  document.querySelectorAll('.pay-plan-scroll-pill').forEach(function (pill) {
-                      pill.style.display = 'inline-flex';
-                  });
-
-                  const track = document.getElementById('planScrollTrack');
-                  const btnLeft = document.getElementById('planScrollLeft');
-                  const btnRight = document.getElementById('planScrollRight');
-
-                  if (btnLeft && track) {
-                      btnLeft.addEventListener('click', function (e) {
-                          e.preventDefault();
-                          track.scrollBy({ left: -140, behavior: 'smooth' });
-                      });
-                  }
-
-                  if (btnRight && track) {
-                      btnRight.addEventListener('click', function (e) {
-                          e.preventDefault();
-                          track.scrollBy({ left: 140, behavior: 'smooth' });
-                      });
-                  }
-
-                  function scrollToActivePill() {
-                      const activePill = track ? track.querySelector('.pay-plan-scroll-pill.selected') : null;
-                      if (activePill && track) {
-                          const trackRect = track.getBoundingClientRect();
-                          const pillRect = activePill.getBoundingClientRect();
-                          if (pillRect.left < trackRect.left || pillRect.right > trackRect.right) {
-                              const scrollDiff = (pillRect.left - trackRect.left) - (track.clientWidth / 2) + (activePill.clientWidth / 2);
-                              track.scrollBy({ left: scrollDiff, behavior: 'smooth' });
-                          }
-                      }
-                  }
-
-                  // Exact SVGs from pricing.blade.php
-                  const iconMap = {
-                      'Personal': `<svg viewBox="0 0 24 24" fill="none"><path d="M20 21a8 8 0 0 0-16 0" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M12 13a5 5 0 1 0 0-10 5 5 0 0 0 0 10Z" stroke="currentColor" stroke-width="1.8"/></svg>`,
-                      'Basic': `<svg viewBox="0 0 24 24" fill="none"><path d="M20 21a8 8 0 0 0-16 0" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M12 13a5 5 0 1 0 0-10 5 5 0 0 0 0 10Z" stroke="currentColor" stroke-width="1.8"/></svg>`,
-                      'Standard': `<svg viewBox="0 0 24 24" fill="none"><path d="M3 3v18h18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="m7 15 4-4 3 3 5-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
-                      'Advanced': `<svg viewBox="0 0 24 24" fill="none"><path d="m3 8 5 4 4-7 4 7 5-4-2 11H5L3 8Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M5 19h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>`,
-                      'Premium': `<svg viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="m9 12 2 2 4-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`
-                  };
-
-                  const descMap = {
-                      'Personal': 'Best for individual users',
-                      'Basic': 'Essential cloud desktop features for individuals & small teams.',
-                      'Standard': 'Collaborative cloud workspace with scalable storage for growing businesses.',
-                      'Advanced': 'Comprehensive cloud desktop with enhanced security & multi-admin controls.',
-                      'Premium': 'Built for large organizations with advanced control and flexibility.'
-                  };
-
-                  const minQtyMap = {
-                      'Personal': 1,
-                      'Basic': 2,
-                      'Standard': 10,
-                      'Advanced': 50,
-                      'Premium': 100
-                  };
-
-                  const planDiscountMap = {
-                      'Personal': 10,
-                      'Basic': 0,
-                      'Standard': 5,
-                      'Advanced': 10,
-                      'Premium': 15
-                  };
-
-                  function formatIndianNum(num) {
-                      return Math.round(Number(num) || 0).toLocaleString('en-IN');
-                  }
-
-                  let isUpdatingUI = false;
-
-                  function updateCustomCardUI(explicitPlanName) {
-                      if (isUpdatingUI) return;
-                      isUpdatingUI = true;
-
-                      try {
-                          // Ensure all pills remain displayed
-                          document.querySelectorAll('.pay-plan-scroll-pill').forEach(function (pill) {
-                              pill.style.display = 'inline-flex';
-                          });
-
-                          let selectedPill = null;
-                          if (explicitPlanName) {
-                              selectedPill = Array.from(document.querySelectorAll('.pay-plan-scroll-pill')).find(function (p) {
-                                  return p.dataset.name === explicitPlanName;
-                              });
-                          }
-                          if (!selectedPill) {
-                              selectedPill = document.querySelector('.pay-plan-scroll-pill.selected') || 
-                                             document.querySelector('.pay-plan-scroll-pill');
-                          }
-                          if (!selectedPill) {
-                              return;
-                          }
-
-                          const planName = explicitPlanName || selectedPill.dataset.name || 'Premium';
-                          const planType = selectedPill.dataset.planType || 'team';
-                          const symbol = selectedPill.dataset.symbol || '₹';
-                          const unitRate = parseFloat(selectedPill.dataset.unitRate) || 999;
-                          const toggle = document.getElementById('payBillingToggle');
-                          const isYearly = toggle ? toggle.checked : false;
-
-                          const minQty = minQtyMap[planName] || parseInt(selectedPill.dataset.defQty || 1);
-                          const planDesc = selectedPill.dataset.desc || descMap[planName] || 'Select a plan that fits your team\'s needs.';
-                          const planDiscountPercent = (planDiscountMap[planName] !== undefined)
-                              ? planDiscountMap[planName]
-                              : (parseFloat(selectedPill.dataset.monthlyDiscount) || 0);
-
-                          const qtyInput = document.getElementById('payQtyInput');
-                          let qty = minQty;
-
-                          if (planType === 'team') {
-                              qty = parseInt(qtyInput?.value || minQty);
-                              if (isNaN(qty) || qty < minQty) {
-                                  qty = minQty;
-                              }
-                              if (qtyInput && qtyInput.value != qty) {
-                                  qtyInput.min = minQty;
-                                  qtyInput.value = qty;
-                              }
-                              if (payQtyControls && payQtyControls.style.display !== 'block') {
-                                  payQtyControls.style.display = 'block';
-                              }
-                              if (companyForm && companyForm.classList.contains('hidden')) {
-                                  companyForm.classList.remove('hidden');
-                              }
-                          } else {
-                              qty = 1;
-                              if (qtyInput && qtyInput.value != 1) {
-                                  qtyInput.min = 1;
-                                  qtyInput.value = 1;
-                              }
-                              if (payQtyControls && payQtyControls.style.display !== 'none') {
-                                  payQtyControls.style.display = 'none';
-                              }
-                              if (companyForm && !companyForm.classList.contains('hidden')) {
-                                  companyForm.classList.add('hidden');
-                              }
-                          }
-
-                          // Math calculations
-                          const baseUserPrice = unitRate;
-                          const months = isYearly ? 12 : 1;
-                          const baseTotal = baseUserPrice * qty * months;
-
-                          const annualDiscountPercent = isYearly ? 10 : 0;
-                          const promoDiscountPercent = 5; // Static promo code as requested
-                          const totalDiscountPercent = planDiscountPercent + annualDiscountPercent + promoDiscountPercent;
-
-                          const youSave = Math.round(baseTotal * (totalDiscountPercent / 100));
-                          const finalTotal = baseTotal - youSave;
-
-                          // 1. Header
-                          const iconEl = document.getElementById('summaryPlanIcon');
-                          if (iconEl) iconEl.innerHTML = iconMap[planName] || iconMap['Premium'];
-
-                          const nameEl = document.getElementById('summaryPlanName');
-                          if (nameEl) nameEl.innerText = planName;
-
-                          const descEl = document.getElementById('summaryPlanDesc');
-                          if (descEl) descEl.innerText = planDesc;
-
-                          // 2. Unit Price
-                          const symEl = document.getElementById('poSymbol');
-                          if (symEl) symEl.innerText = symbol;
-
-                          const unitPriceEl = document.getElementById('poUnitPrice');
-                          if (unitPriceEl) unitPriceEl.innerText = formatIndianNum(baseUserPrice);
-
-                          // 3. License Section
-                          const minQtyEl = document.getElementById('poMinQtyText');
-                          if (minQtyEl) minQtyEl.innerText = minQty;
-
-                          // 4. Price Summary Rows
-                          const sumBaseUserEl = document.getElementById('poSumBaseUser');
-                          if (sumBaseUserEl) sumBaseUserEl.innerText = symbol + formatIndianNum(baseUserPrice);
-
-                          const sumUsersEl = document.getElementById('poSumUsers');
-                          if (sumUsersEl) sumUsersEl.innerText = qty;
-
-                          const orgTotalEl = document.getElementById('summaryOrgTotal');
-                          if (orgTotalEl) orgTotalEl.innerText = symbol + formatIndianNum(baseTotal);
-
-                          // Plan Discount
-                          const rowPlanDiscount = document.getElementById('poRowPlanDiscount');
-                          const valPlanDiscount = document.getElementById('poPlanDiscountVal');
-                          if (rowPlanDiscount && valPlanDiscount) {
-                              if (planDiscountPercent > 0) {
-                                  rowPlanDiscount.style.display = 'flex';
-                                  valPlanDiscount.innerText = planDiscountPercent + '%';
-                              } else {
-                                  rowPlanDiscount.style.display = 'none';
-                              }
-                          }
-
-                          // Annual Billing Discount (show only when annually tab is active)
-                          const rowAnnualDiscount = document.getElementById('poRowAnnualDiscount');
-                          const valAnnualDiscount = document.getElementById('poAnnualDiscountVal');
-                          if (rowAnnualDiscount && valAnnualDiscount) {
-                              if (isYearly) {
-                                  rowAnnualDiscount.style.display = 'flex';
-                                  valAnnualDiscount.innerText = '10%';
-                              } else {
-                                  rowAnnualDiscount.style.display = 'none';
-                              }
-                          }
-
-                          // Promo Discount (static 5%)
-                          const rowPromoDiscount = document.getElementById('poRowPromoDiscount');
-                          const valPromoDiscount = document.getElementById('poPromoDiscountVal');
-                          if (rowPromoDiscount && valPromoDiscount) {
-                              rowPromoDiscount.style.display = 'flex';
-                              valPromoDiscount.innerText = promoDiscountPercent + '%';
-                          }
-
-                          // Total Discount
-                          const valTotalDiscount = document.getElementById('poTotalDiscountVal');
-                          if (valTotalDiscount) valTotalDiscount.innerText = totalDiscountPercent + '%';
-
-                          // 5. Highlight Total Box (Cyan)
-                          const periodLabelEl = document.getElementById('poTotalPeriodLabel');
-                          if (periodLabelEl) {
-                              periodLabelEl.innerText = isYearly ? '(Total Per Year)' : '(Total Per Month)';
-                          }
-
-                          const totalEl = document.getElementById('summaryTotal');
-                          if (totalEl) totalEl.innerText = symbol + ' ' + formatIndianNum(finalTotal);
-
-                          const subtotalEl = document.getElementById('summarySubtotal');
-                          if (subtotalEl) subtotalEl.innerText = symbol + formatIndianNum(youSave);
-
-                          const modalTotalEl = document.getElementById('modalTotal');
-                          if (modalTotalEl) modalTotalEl.innerText = symbol + ' ' + formatIndianNum(finalTotal);
-
-                          // 6. Celebration Banner
-                          const bannerParts = [];
-                          if (planDiscountPercent > 0) {
-                              const discountTypeLabel = (planName === 'Personal') ? 'Personal Discount' : (planName + ' Team Discount');
-                              bannerParts.push(`${planDiscountPercent}% ${discountTypeLabel}`);
-                          }
-                          if (isYearly && annualDiscountPercent > 0) {
-                              bannerParts.push(`${annualDiscountPercent}% Annual Billing Discount`);
-                          }
-                          if (promoDiscountPercent > 0) {
-                              bannerParts.push(`${promoDiscountPercent}% Promo Code Discount`);
-                          }
-                          const bannerText = bannerParts.length > 0 
-                              ? `${bannerParts.join(' + ')} Total Savings ${totalDiscountPercent}%`
-                              : `Total Savings ${totalDiscountPercent}%`;
-
-                          const bannerTextEl = document.getElementById('poSavingsBannerText');
-                          if (bannerTextEl) bannerTextEl.innerText = bannerText;
-
-                          // 7. CTA Button
-                          const continuePlanNameEl = document.getElementById('poContinuePlanName');
-                          if (continuePlanNameEl) continuePlanNameEl.innerText = planName;
-
-                      } finally {
-                          isUpdatingUI = false;
-                      }
-                  }
-
-                  // Expose globally for seamless synchronization with payment.js
-                  window.updateCustomCardUI = updateCustomCardUI;
-
-                  // Stepper buttons
-                  const payQtyPlus = document.getElementById('payQtyPlus');
-                  const payQtyMinus = document.getElementById('payQtyMinus');
-                  const payQtyInput = document.getElementById('payQtyInput');
-
-                  if (payQtyPlus) {
-                      payQtyPlus.addEventListener('click', function (e) {
-                          e.preventDefault();
-                          updateCustomCardUI();
-                      });
-                      payQtyPlus.addEventListener('mousedown', function (e) {
-                          e.preventDefault();
-                      });
-                  }
-
-                  if (payQtyMinus) {
-                      payQtyMinus.addEventListener('click', function (e) {
-                          e.preventDefault();
-                          updateCustomCardUI();
-                      });
-                      payQtyMinus.addEventListener('mousedown', function (e) {
-                          e.preventDefault();
-                      });
-                  }
-
-                  if (payQtyInput) {
-                      payQtyInput.addEventListener('input', function () {
-                          updateCustomCardUI();
-                      });
-                      payQtyInput.addEventListener('change', function () {
-                          updateCustomCardUI();
-                      });
-                  }
-
-                  // Billing toggle
-                  const toggle = document.getElementById('payBillingToggle');
-                  if (toggle) {
-                      toggle.addEventListener('change', function () {
-                          updateCustomCardUI();
-                      });
-                  }
-
-                  const monthLabel = document.getElementById('payBillingMonthLabel');
-                  const yearLabel = document.getElementById('payBillingYearLabel');
-
-                  if (monthLabel && toggle) {
-                      monthLabel.addEventListener('click', function (e) {
-                          e.preventDefault();
-                          e.stopPropagation();
-                          if (toggle.checked) {
-                              toggle.checked = false;
-                              toggle.dispatchEvent(new Event('change'));
-                          }
-                      });
-                  }
-
-                  if (yearLabel && toggle) {
-                      yearLabel.addEventListener('click', function (e) {
-                          e.preventDefault();
-                          e.stopPropagation();
-                          if (!toggle.checked) {
-                              toggle.checked = true;
-                              toggle.dispatchEvent(new Event('change'));
-                          }
-                      });
-                  }
-
-                  // Promo apply button (static)
-                  const applyPromoBtn = document.getElementById('applyPromoBtn');
-                  if (applyPromoBtn) {
-                      applyPromoBtn.addEventListener('click', function (e) {
-                          e.preventDefault();
-                          e.stopPropagation();
-                          const msg = document.getElementById('poPromoSuccessMsg');
-                          if (msg) msg.style.display = 'flex';
-                          updateCustomCardUI();
-                      });
-                  }
-
-                  // Plan pills click
-                  document.querySelectorAll('.pay-plan-scroll-pill').forEach(function (pill) {
-                      pill.addEventListener('click', function (e) {
-                          e.preventDefault();
-                          document.querySelectorAll('.pay-plan-scroll-pill').forEach(function (p) {
-                              p.classList.remove('selected');
-                          });
-                          this.classList.add('selected');
-
-                          const name = this.dataset.name;
-                          const type = this.dataset.planType;
-                          const minMap = { 'Personal': 1, 'Basic': 2, 'Standard': 10, 'Advanced': 50, 'Premium': 100 };
-                          const minQ = minMap[name] || parseInt(this.dataset.defQty || 1);
-
-                          if (payQtyInput) {
-                              payQtyInput.min = minQ;
-                              payQtyInput.value = minQ;
-                          }
-
-                          try {
-                              const sp = JSON.parse(localStorage.getItem('selectedPlan')) || {};
-                              sp.plan_id = this.dataset.planId;
-                              sp.plan_type = type;
-                              sp.name = name;
-                              delete sp.display_name;
-                              if (this.dataset.features) {
-                                  sp.features = JSON.parse(this.dataset.features);
-                              }
-                              localStorage.setItem('selectedPlan', JSON.stringify(sp));
-                          } catch (e) {}
-
-                          scrollToActivePill();
-                          updateCustomCardUI(name);
-                      });
-                  });
-
-                  // Initial setup - match pill from localStorage if available
-                  try {
-                      const sp = JSON.parse(localStorage.getItem('selectedPlan'));
-                      if (sp && (sp.name || sp.plan_id)) {
-                          const matchingPill = Array.from(document.querySelectorAll('.pay-plan-scroll-pill')).find(function (p) {
-                              return (sp.name && p.dataset.name === sp.name) || 
-                                     (p.dataset.planId == sp.plan_id && p.dataset.planType == sp.plan_type);
-                          });
-                          if (matchingPill) {
-                              document.querySelectorAll('.pay-plan-scroll-pill').forEach(function (p) {
-                                  p.classList.remove('selected');
-                              });
-                              matchingPill.classList.add('selected');
-                          }
-                      }
-                  } catch (e) {}
-
-                  scrollToActivePill();
-                  updateCustomCardUI();
-              });
-          </script>
-      @endsection
+         <script>
+             window.PAYMENT_CONFIG = {
+                 csrfToken: @json(csrf_token()),
+                 applyPromoUrl: @json(action([\App\Http\Controllers\UserLicensePlansController::class, 'applyPromocode'])),
+                 savePaymentUrl: @json(action([\App\Http\Controllers\UserLicensePlansController::class, 'saveUserPayment'])),
+                 checkUsernameUrl: @json(action([\App\Http\Controllers\UserLicensePlansController::class, 'checkUsername'])),
+                 checkEmailUrl: @json(action([\App\Http\Controllers\UserLicensePlansController::class, 'checkUserEmail'])),
+                 currencyCode: @json($currencyData->currency_code ?? request('currency_code', 'USD')),
+                 initialBilling: @json($billing_type ?? 'monthly'),
+                 initialPlanType: @json($selectedPlanType ?? 'single'),
+                 initialPlanId: @json($selectedPlanId ?? null),
+                 initialQuantity: @json($selectedQuantity ?? 1),
+             };
+         </script>
+         @vite(['resources/js/payment.js'])
+     @endsection
