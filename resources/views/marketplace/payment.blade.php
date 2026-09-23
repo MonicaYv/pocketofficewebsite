@@ -603,19 +603,61 @@
                                   </div>
 
                                   <!-- Promo Code Section -->
-                                  <div class="po-promo-section">
-                                      <label class="po-section-subheading" for="couponInput">Promo code</label>
-                                      <div class="po-promo-input-group">
-                                          <input type="text" class="po-promo-input" id="couponInput" placeholder="Enter promo code" />
-                                          <button type="button" class="po-promo-btn" id="applyPromoBtn">Apply</button>
-                                      </div>
-                                      <div class="po-promo-success-msg" id="poPromoSuccessMsg" style="display:none;">
-                                          <svg width="14" height="14" viewBox="0 0 24 24" fill="#16a34a">
-                                              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                                          </svg>
-                                          <span>Promo code applied successfully!</span>
-                                      </div>
-                                  </div>
+                                    <div class="po-promo-section">
+                                        <label class="po-section-subheading" for="couponInput">
+                                            Promo code
+                                        </label>
+
+                                        <div class="po-promo-input-group">
+                                            <input
+                                                type="text"
+                                                class="po-promo-input"
+                                                id="couponInput"
+                                                placeholder="Enter promo code"
+                                            />
+
+                                            <button
+                                                type="button"
+                                                class="po-promo-btn"
+                                                id="applyPromoBtn">
+                                                Apply
+                                            </button>
+                                        </div>
+
+                                        <div
+                                            class="po-promo-success-msg"
+                                            id="poPromoSuccessMsg"
+                                            style="display:none;">
+
+                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="#16a34a">
+                                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10
+                                                10-4.48S17.52 2 12 2zm-2 15l-5-5
+                                                1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                                            </svg>
+
+                                            <span>Promo code applied successfully!</span>
+                                        </div>
+
+                                        <div id="couponMsg" style="font-size:12px;margin-top:7px;"></div>
+
+                                        <div id="removeCouponWrapper" style="display:none;margin-top:8px;">
+                                            <button
+                                                type="button"
+                                                id="removeCouponBtn"
+                                                style="
+                                                    border:0;
+                                                    background:transparent;
+                                                    padding:0;
+                                                    color:#dc2626;
+                                                    font-size:12px;
+                                                    font-weight:600;
+                                                    cursor:pointer;
+                                                    text-decoration:underline;
+                                                ">
+                                                Remove promo code
+                                            </button>
+                                        </div>
+                                    </div>
 
                                   <!-- Continue CTA Button -->
                                   <button type="button" class="po-continue-btn" id="sideSubmitBtnForTeam">
@@ -631,23 +673,7 @@
                                       Your payment details are secure and encrypted.
                                   </p>
 
-                                  <!-- Hidden compatibility elements for payment.js -->
-                                  <div style="display:none !important;" aria-hidden="true">
-                                      <span id="summarySymbol"></span>
-                                      <span id="summaryUnitPrice"></span>
-                                      <span id="summaryTax">0</span>
-                                      <div id="discountRow"></div>
-                                      <div id="discountAmt"></div>
-                                      <div id="extradiscountRow"></div>
-                                      <div id="extradiscountAmt"></div>
-                                      <div id="promoDiscountRow"></div>
-                                      <div id="promoDiscountAmt"></div>
-                                      <div id="paySavingsNotice"></div>
-                                      <ul id="planFeatureList"></ul>
-                                      <div id="couponMsg"></div>
-                                      <button id="removeCouponBtn"></button>
-                                      <span id="payQtyPriceHint"></span>
-                                  </div>
+                                 
                               </div>
 
                          </div>
