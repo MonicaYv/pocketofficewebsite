@@ -17826,7 +17826,7 @@ body {
 .order-summary-card .os-toggle__pill .billing-name,
 .order-summary-card .os-toggle__pill .os-mini-badge {
     min-width: 0;
-    font-size: inherit !important;
+    font-size: 14px !important;
     line-height: 1.1;
 }
 
@@ -18329,7 +18329,7 @@ body {
   width: 20px;
 }
 
- FINAL BILLING PERIOD - SINGLE ROW=========================================================*/ .os-toggle {
+.os-toggle {
    display: flex !important;
    flex-direction: row !important;
    flex-wrap: nowrap !important;
@@ -18534,7 +18534,6 @@ body {
  @media (max-width: 700px) {
    .os-toggle {
      gap: 8px !important;
-     flex-direction: column !important;
    }
 
    .os-toggle__pill {
@@ -18566,9 +18565,11 @@ body {
  .pay-plan-scroll-wrapper {
    display: flex !important;
    align-items: center !important;
-   gap: 10px !important;
+   gap: 8px !important;
    width: 100% !important;
    margin-top: 6px !important;
+   margin-bottom: 8px !important;
+   position: relative !important;
  }
 
  .pay-plan-scroll-btn {
@@ -18588,6 +18589,8 @@ body {
    transition: all 0.2s ease !important;
    user-select: none !important;
    flex-shrink: 0 !important;
+   align-self: flex-end !important;
+   margin-bottom: 2px !important;
  }
 
  .pay-plan-scroll-btn:hover {
@@ -18607,55 +18610,133 @@ body {
 
  .pay-plan-scroll-track {
    display: flex !important;
-   align-items: center !important;
-   gap: 16px !important;
+   align-items: stretch !important;
+   flex: 1 1 auto !important;
    overflow-x: auto !important;
    scroll-behavior: smooth !important;
    scrollbar-width: none !important;
    -ms-overflow-style: none !important;
-   flex: 1 1 auto !important;
    padding: 4px 2px !important;
+   box-sizing: border-box !important;
  }
 
  .pay-plan-scroll-track::-webkit-scrollbar {
    display: none !important;
  }
 
- /* Plan Pills */
+ /* Plan Groups: Personal & Team */
+ .pay-plan-group {
+   display: flex !important;
+   flex-direction: column !important;
+   justify-content: flex-start !important;
+ }
+
+ .pay-plan-group--personal {
+   flex: 0 0 auto !important;
+ }
+
+ .pay-plan-group--team {
+   flex: 1 1 auto !important;
+   min-width: 0 !important;
+ }
+
+ /* Group Headers with Lines */
+ .pay-plan-group__header {
+   display: flex !important;
+   align-items: center !important;
+   gap: 8px !important;
+   margin-bottom: 12px !important;
+   height: 16px !important;
+ }
+
+ .pay-plan-group__title {
+   font-size: 13px !important;
+   font-weight: 600 !important;
+   color: #3b506c !important;
+   white-space: nowrap !important;
+   letter-spacing: 0.01em !important;
+   line-height: 1 !important;
+ }
+
+ .pay-plan-group__line {
+   display: block !important;
+   height: 1px !important;
+   background: #d8e0ea !important;
+ }
+
+ .pay-plan-group--personal .pay-plan-group__line {
+   flex: 1 1 14px !important;
+   min-width: 12px !important;
+ }
+
+ .pay-plan-group--team .pay-plan-group__line--left {
+   width: 24px !important;
+   flex: 0 0 24px !important;
+ }
+
+ .pay-plan-group--team .pay-plan-group__line--right {
+   flex: 1 1 auto !important;
+   min-width: 30px !important;
+ }
+
+ /* Vertical Divider between Personal and Team */
+ .pay-plan-group-divider {
+   width: 1px !important;
+   background: #cbd5e1 !important;
+   margin: 0 14px !important;
+   flex: 0 0 1px !important;
+   height: 32px !important;
+   align-self: flex-end !important;
+   margin-bottom: 2px !important;
+ }
+
+ /* Pills Row */
+ .pay-plan-group__pills {
+   display: flex !important;
+   align-items: center !important;
+   gap: 8px !important;
+ }
+
+ .pay-plan-group--personal .pay-plan-group__pills {
+   justify-content: center !important;
+ }
+
+ /* Plan Pills (Single, Basic, Standard, Advanced, Premium) */
  .pay-plan-tile.pay-plan-scroll-pill {
    display: inline-flex !important;
    align-items: center !important;
    justify-content: center !important;
    flex: 0 0 auto !important;
-   padding: 6px 16px !important;
+   padding: 6px 14px !important;
    margin: 0 !important;
    background: transparent !important;
    border: 1.5px solid transparent !important;
    border-radius: 8px !important;
-   color: #475569 !important;
-   font-size: 15px !important;
+   color: #102a43 !important;
+   font-size: 14px !important;
    font-weight: 700 !important;
    cursor: pointer !important;
    box-shadow: none !important;
-   min-height: auto !important;
+   min-height: 34px !important;
    min-width: auto !important;
    width: auto !important;
    height: auto !important;
    line-height: 1.2 !important;
-   transition: all 0.2s ease !important;
+   transition: all 0.15s ease !important;
    user-select: none !important;
    text-align: center !important;
+   white-space: nowrap !important;
  }
 
  .pay-plan-tile.pay-plan-scroll-pill:hover {
-   color: #00a0b8 !important;
+   color: #057a96 !important;
  }
 
- /* Active/Selected Pill */
+ /* Active/Selected Pill matching screenshot */
  .pay-plan-tile.pay-plan-scroll-pill.selected {
-   border: 1.5px solid #00a0b8 !important;
-   color: #00a0b8 !important;
-   background: #f4fcfd !important;
+   border: 1.5px solid #22a6b3 !important;
+   color: #057a96 !important;
+   background: #edf9fb !important;
    font-weight: 700 !important;
  }
 
@@ -18665,6 +18746,28 @@ body {
    color: inherit !important;
    display: inline !important;
    line-height: inherit !important;
+ }
+
+ @media (max-width: 480px) {
+   .pay-plan-group__header {
+     gap: 5px !important;
+     margin-bottom: 8px !important;
+   }
+   .pay-plan-group__title {
+     font-size: 11.5px !important;
+   }
+   .pay-plan-group-divider {
+     margin: 0 8px !important;
+     height: 26px !important;
+   }
+   .pay-plan-group__pills {
+     gap: 4px !important;
+   }
+   .pay-plan-tile.pay-plan-scroll-pill {
+     padding: 4px 8px !important;
+     font-size: 12px !important;
+     min-height: 28px !important;
+   }
  }
 
  /* =========================================================
@@ -18758,10 +18861,14 @@ body {
    display: block !important;
  }
 
+ .order-summary-card .po-stepper-wrap,
  .po-stepper-wrap {
    display: flex !important;
    align-items: center !important;
-   width: 100% !important;
+   width: 60% !important;
+   min-width: 140px !important;
+   max-width: 100% !important;
+   box-sizing: border-box !important;
    border: 1px solid #d1d5db !important;
    border-radius: 8px !important;
    overflow: hidden !important;
@@ -18771,6 +18878,7 @@ body {
 
  .po-stepper-btn {
    width: 44px !important;
+   flex-shrink: 0 !important;
    height: 100% !important;
    background: #ffffff !important;
    border: none !important;
@@ -18791,6 +18899,8 @@ body {
 
  .po-stepper-input {
    flex: 1 1 auto !important;
+   min-width: 0 !important;
+   width: 100% !important;
    height: 100% !important;
    border: none !important;
    border-left: 1px solid #e5e7eb !important;
@@ -18802,12 +18912,30 @@ body {
    outline: none !important;
    background: #ffffff !important;
    -moz-appearance: textfield !important;
+   padding: 0 4px !important;
  }
 
  .po-stepper-input::-webkit-outer-spin-button,
  .po-stepper-input::-webkit-inner-spin-button {
    -webkit-appearance: none !important;
    margin: 0 !important;
+ }
+
+ @media (max-width: 480px) {
+   .order-summary-card .po-stepper-wrap,
+   .po-stepper-wrap {
+     width: 100% !important;
+     min-width: 120px !important;
+   }
+
+   .po-stepper-btn {
+     width: 36px !important;
+     font-size: 16px !important;
+   }
+
+   .po-stepper-input {
+     font-size: 14px !important;
+   }
  }
 
  .po-license-hint {
@@ -18918,7 +19046,7 @@ body {
    border-radius: 8px !important;
    padding: 12px 14px !important;
    margin-bottom: 16px !important;
-   display: flex !important;
+   display: flex;
    align-items: flex-start !important;
    gap: 10px !important;
  }

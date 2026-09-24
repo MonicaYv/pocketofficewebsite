@@ -20,7 +20,7 @@
          <div class="container my-4">
              <div class="row">
                  <!--LEFT COLUMN — Registration Form -->
-                 <div class="col-md-7" id="formCol">
+                 <div class="col-md-8" id="formCol">
                      <form>
                          <!-- company details-->
                          <div class="panel panel-default mb-4 pay-company-form hidden">
@@ -278,7 +278,7 @@
                  </div>
 
                  <!-- RIGHT COLUMN — Order Summary -->
-                 <div class="col-md-5">
+                 <div class="col-md-4">
                      <div class="sidebar-sticky">
                          <div class="order-summary-card">
 
@@ -348,6 +348,8 @@
 
                                   $allDbPlans = \App\Models\UsersLicensePlan::where('pof_plan_status', 1)->get()->keyBy('id');
                                   $allFivePlans = [];
+                                  $personalPlan = null;
+                                  $teamPlans = [];
 
                                   // 1. Personal (Single User, based on Plan ID 1)
                                   if (isset($allDbPlans[1])) {
@@ -363,7 +365,6 @@
                                       $monthlyPlanDiscount = (float) ($p->single_user_monthly_discount ?? 0);
                                       $monthlyExtraDiscount = (float) ($p->single_user_monthly_extra_disc ?? 0);
                                       $yearlyPlanDiscount = (float) ($p->single_user_yearly_discount ?? 0);
-                                      // Keep yearly extra separate. Do not add the yearly plan discount twice.
                                       $yearlyExtraDiscount = (float) ($p->single_user_yearly_extra_disc ?? 0);
 
                                       $monthlyTotalDisc = min(100, $monthlyPlanDiscount + $monthlyExtraDiscount);
@@ -382,6 +383,7 @@
                                       $p->ui_extra_monthly_discount = $monthlyExtraDiscount;
                                       $p->ui_monthly_discount = $monthlyPlanDiscount;
                                       $p->ui_yearly_discount = $yearlyPlanDiscount;
+                                      $personalPlan = $p;
                                       $allFivePlans[] = $p;
                                   }
 
@@ -430,14 +432,13 @@
                                           $p->ui_extra_monthly_discount = $monthlyExtraDiscount;
                                           $p->ui_monthly_discount = $monthlyDiscount;
                                           $p->ui_yearly_discount = $yearlyDiscount;
+                                          $teamPlans[] = $p;
                                           $allFivePlans[] = $p;
                                       }
                                   }
                               @endphp
 
                               <div class="pay-plan-selector os-section">
-                                  <!-- <p class="pay-plan-selector__label os-label">Change Plan</p> -->
-
                                   <div class="pay-plan-scroll-wrapper" id="planOptions">
                                       <button type="button" class="pay-plan-scroll-btn" id="planScrollLeft" aria-label="Previous plans">
                                           <svg viewBox="0 0 24 24">
@@ -446,48 +447,107 @@
                                       </button>
 
                                       <div class="pay-plan-scroll-track" id="planScrollTrack">
-                                          @foreach ($allFivePlans as $plan)
+                                          @if ($personalPlan)
                                               @php
-                                                  $isInitSelected = ($selectedPlanType === 'single')
-                                                      ? ($plan->ui_plan_type === 'single')
-                                                      : ($plan->ui_plan_type === 'team' && $loop->iteration === 2);
+                                                  $isInitSelected = ($selectedPlanType === 'single');
                                               @endphp
-                                              <div class="pay-plan-tile selected-plan-option pay-plan-scroll-pill {{ $isInitSelected ? 'selected' : '' }} payment-tab-{{ $plan->id }} payment-tab-{{ $plan->ui_plan_type }}-{{ $plan->id }}"
-                                                  data-plan-type="{{ $plan->ui_plan_type }}"
-                                                  data-apply-discount="{{ $plan->is_team_discount_apply == 1 }}"
-                                                  data-team-allowed="{{ $plan->is_team_allowed == 1 }}"
-                                                  data-plan-id="{{ $plan->id }}"
-                                                  data-name="{{ $plan->ui_name }}"
-                                                  data-subscription="{{ $plan->plans_subscription_type }}"
-                                                  data-license="{{ $plan->ui_license }}"
-                                                  data-storage="{{ $plan->plans_users }}"
-                                                  data-storage-unit="{{ $plan->storage_unit }}"
-                                                  data-monthly-price="{{ $plan->final_monthly_price }}"
-                                                  data-yearly-price="{{ $plan->final_yearly_price }}"
-                                                  data-pricemonth="{{ $plan->final_monthly_price }}"
-                                                  data-original-monthly="{{ $plan->original_monthly_price }}"
-                                                  data-original-yearly="{{ $plan->original_yearly_price }}"
-                                                  data-monthly-discount="{{ $plan->ui_monthly_discount }}"
-                                                  data-yearly-discount="{{ $plan->ui_yearly_discount }}"
-                                                  data-singleuser-monthly-discount="{{ $plan->single_user_monthly_discount ?? 0 }}"
-                                                  data-singleuser-yearly-discount="{{ $plan->single_user_yearly_discount ?? 0 }}"
-                                                  data-extra-monthly-discount="{{ $plan->ui_extra_monthly_discount }}"
-                                                  data-extra-yearly-discount="{{ $plan->ui_extra_yr_discount }}"
-                                                  data-extra-mo-discount="{{ $plan->monthly_extra_disc ?? 0 }}"
-                                                  data-extra-yr-discount="{{ $plan->yearly_extra_disc ?? 0 }}"
-                                                  data-singleuser-extra-mo-discount="{{ $plan->single_user_monthly_extra_disc ?? 0 }}"
-                                                  data-singleuser-extra-yr-discount="{{ $plan->ui_plan_type === 'single' ? ($plan->ui_extra_yr_discount ?? 0) : 0 }}"
-                                                  data-def-qty="{{ $plan->ui_default_qty }}"
-                                                  data-license-step="{{ max(1, (int) ($plan->ui_license ?? 1)) }}"
-                                                  data-symbol="{{ $plan->currency_symbol ?? '' }}"
-                                                  data-features="{{ json_encode(json_decode($plan->features) ?? []) }}"
-                                                  data-unit-rate="{{ $rate }}"
-                                                  data-desc="{{ $plan->plans_content ?? '' }}">
+                                              <div class="pay-plan-group pay-plan-group--personal">
+                                                  <div class="pay-plan-group__header">
+                                                      <span class="pay-plan-group__line"></span>
+                                                      <span class="pay-plan-group__title">Single</span>
+                                                      <span class="pay-plan-group__line"></span>
+                                                  </div>
+                                                  <div class="pay-plan-group__pills">
+                                                      <div class="pay-plan-tile selected-plan-option pay-plan-scroll-pill {{ $isInitSelected ? 'selected' : '' }} payment-tab-{{ $personalPlan->id }} payment-tab-{{ $personalPlan->ui_plan_type }}-{{ $personalPlan->id }}"
+                                                          data-plan-type="{{ $personalPlan->ui_plan_type }}"
+                                                          data-apply-discount="{{ $personalPlan->is_team_discount_apply == 1 }}"
+                                                          data-team-allowed="{{ $personalPlan->is_team_allowed == 1 }}"
+                                                          data-plan-id="{{ $personalPlan->id }}"
+                                                          data-name="{{ $personalPlan->ui_name }}"
+                                                          data-subscription="{{ $personalPlan->plans_subscription_type }}"
+                                                          data-license="{{ $personalPlan->ui_license }}"
+                                                          data-storage="{{ $personalPlan->plans_users }}"
+                                                          data-storage-unit="{{ $personalPlan->storage_unit }}"
+                                                          data-monthly-price="{{ $personalPlan->final_monthly_price }}"
+                                                          data-yearly-price="{{ $personalPlan->final_yearly_price }}"
+                                                          data-pricemonth="{{ $personalPlan->final_monthly_price }}"
+                                                          data-original-monthly="{{ $personalPlan->original_monthly_price }}"
+                                                          data-original-yearly="{{ $personalPlan->original_yearly_price }}"
+                                                          data-monthly-discount="{{ $personalPlan->ui_monthly_discount }}"
+                                                          data-yearly-discount="{{ $personalPlan->ui_yearly_discount }}"
+                                                          data-singleuser-monthly-discount="{{ $personalPlan->single_user_monthly_discount ?? 0 }}"
+                                                          data-singleuser-yearly-discount="{{ $personalPlan->single_user_yearly_discount ?? 0 }}"
+                                                          data-extra-monthly-discount="{{ $personalPlan->ui_extra_monthly_discount }}"
+                                                          data-extra-yearly-discount="{{ $personalPlan->ui_extra_yr_discount }}"
+                                                          data-extra-mo-discount="{{ $personalPlan->monthly_extra_disc ?? 0 }}"
+                                                          data-extra-yr-discount="{{ $personalPlan->yearly_extra_disc ?? 0 }}"
+                                                          data-singleuser-extra-mo-discount="{{ $personalPlan->single_user_monthly_extra_disc ?? 0 }}"
+                                                          data-singleuser-extra-yr-discount="{{ $personalPlan->ui_extra_yr_discount ?? 0 }}"
+                                                          data-def-qty="{{ $personalPlan->ui_default_qty }}"
+                                                          data-license-step="{{ max(1, (int) ($personalPlan->ui_license ?? 1)) }}"
+                                                          data-symbol="{{ $personalPlan->currency_symbol ?? '' }}"
+                                                          data-features="{{ json_encode(json_decode($personalPlan->features) ?? []) }}"
+                                                          data-unit-rate="{{ $rate }}"
+                                                          data-desc="{{ $personalPlan->plans_content ?? '' }}">
 
-                                                  <span class="pay-plan-tile__name">{{ $plan->ui_name }}</span>
-                                                  <span class="view_plan_price_details hidden" style="display: none !important;"></span>
+                                                          <span class="pay-plan-tile__name">{{ $personalPlan->ui_name }}</span>
+                                                          <span class="view_plan_price_details hidden" style="display: none !important;"></span>
+                                                      </div>
+                                                  </div>
                                               </div>
-                                          @endforeach
+                                          @endif
+
+                                          <div class="pay-plan-group-divider" aria-hidden="true"></div>
+
+                                          <div class="pay-plan-group pay-plan-group--team">
+                                              <div class="pay-plan-group__header">
+                                                  <span class="pay-plan-group__line pay-plan-group__line--left"></span>
+                                                  <span class="pay-plan-group__title">Team</span>
+                                                  <span class="pay-plan-group__line pay-plan-group__line--right"></span>
+                                              </div>
+                                              <div class="pay-plan-group__pills">
+                                                  @foreach ($teamPlans as $plan)
+                                                      @php
+                                                          $isInitSelected = ($selectedPlanType !== 'single' && $loop->iteration === 1);
+                                                      @endphp
+                                                      <div class="pay-plan-tile selected-plan-option pay-plan-scroll-pill {{ $isInitSelected ? 'selected' : '' }} payment-tab-{{ $plan->id }} payment-tab-{{ $plan->ui_plan_type }}-{{ $plan->id }}"
+                                                          data-plan-type="{{ $plan->ui_plan_type }}"
+                                                          data-apply-discount="{{ $plan->is_team_discount_apply == 1 }}"
+                                                          data-team-allowed="{{ $plan->is_team_allowed == 1 }}"
+                                                          data-plan-id="{{ $plan->id }}"
+                                                          data-name="{{ $plan->ui_name }}"
+                                                          data-subscription="{{ $plan->plans_subscription_type }}"
+                                                          data-license="{{ $plan->ui_license }}"
+                                                          data-storage="{{ $plan->plans_users }}"
+                                                          data-storage-unit="{{ $plan->storage_unit }}"
+                                                          data-monthly-price="{{ $plan->final_monthly_price }}"
+                                                          data-yearly-price="{{ $plan->final_yearly_price }}"
+                                                          data-pricemonth="{{ $plan->final_monthly_price }}"
+                                                          data-original-monthly="{{ $plan->original_monthly_price }}"
+                                                          data-original-yearly="{{ $plan->original_yearly_price }}"
+                                                          data-monthly-discount="{{ $plan->ui_monthly_discount }}"
+                                                          data-yearly-discount="{{ $plan->ui_yearly_discount }}"
+                                                          data-singleuser-monthly-discount="{{ $plan->single_user_monthly_discount ?? 0 }}"
+                                                          data-singleuser-yearly-discount="{{ $plan->single_user_yearly_discount ?? 0 }}"
+                                                          data-extra-monthly-discount="{{ $plan->ui_extra_monthly_discount }}"
+                                                          data-extra-yearly-discount="{{ $plan->ui_extra_yr_discount }}"
+                                                          data-extra-mo-discount="{{ $plan->monthly_extra_disc ?? 0 }}"
+                                                          data-extra-yr-discount="{{ $plan->yearly_extra_disc ?? 0 }}"
+                                                          data-singleuser-extra-mo-discount="{{ $plan->single_user_monthly_extra_disc ?? 0 }}"
+                                                          data-singleuser-extra-yr-discount="0"
+                                                          data-def-qty="{{ $plan->ui_default_qty }}"
+                                                          data-license-step="{{ max(1, (int) ($plan->ui_license ?? 1)) }}"
+                                                          data-symbol="{{ $plan->currency_symbol ?? '' }}"
+                                                          data-features="{{ json_encode(json_decode($plan->features) ?? []) }}"
+                                                          data-unit-rate="{{ $rate }}"
+                                                          data-desc="{{ $plan->plans_content ?? '' }}">
+
+                                                          <span class="pay-plan-tile__name">{{ $plan->ui_name }}</span>
+                                                          <span class="view_plan_price_details hidden" style="display: none !important;"></span>
+                                                      </div>
+                                                  @endforeach
+                                              </div>
+                                          </div>
                                       </div>
 
                                       <button type="button" class="pay-plan-scroll-btn" id="planScrollRight" aria-label="Next plans">
@@ -495,11 +555,6 @@
                                               <polyline points="9 18 15 12 9 6"></polyline>
                                           </svg>
                                       </button>
-                                  </div>
-
-                                  <div id="teamPlanIndicator" class="pay-team-plan-indicator" hidden aria-live="polite">
-                                      <span class="pay-team-plan-indicator__line" aria-hidden="true"></span>
-                                      <span class="pay-team-plan-indicator__text">Team</span>
                                   </div>
                               </div>
 
@@ -629,13 +684,6 @@
                                             id="poPromoSuccessMsg"
                                             style="display:none;">
 
-                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="#16a34a">
-                                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10
-                                                10-4.48S17.52 2 12 2zm-2 15l-5-5
-                                                1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                                            </svg>
-
-                                            <span>Promo code applied successfully!</span>
                                         </div>
 
                                         <div id="couponMsg" style="font-size:12px;margin-top:7px;"></div>

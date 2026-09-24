@@ -416,6 +416,21 @@
                                                           <span class="personal-card__check">&#10003;</span> Account Security
                                                       </li>
                                                   </ul>
+
+                                                  <ul class="personal-card__features">
+                                                      <li>
+                                                          <span class="personal-card__check">&#10003;</span>
+                                                          File Management
+                                                      </li>
+                                                      <li>
+                                                          <span class="personal-card__check">&#10003;</span>
+                                                          App Management
+                                                      </li>
+                                                      <li>
+                                                          <span class="personal-card__check">&#10003;</span>
+                                                          Personalization
+                                                      </li>
+                                                  </ul>
                                               </div>
                                           </div>
 
