@@ -87,6 +87,7 @@ class PortalLoginController extends Controller
             'client' => 'https://documentation.pocket-office.ai/partner',
             'company' => 'https://documentation.pocket-office.ai/company',
             'user', 'group' => 'https://documentation.pocket-office.ai/user',
+            'special_user' => 'https://documentation.pocket-office.ai/single-user',
             default => null,
         };
     }
@@ -94,7 +95,7 @@ class PortalLoginController extends Controller
     private function resolveSelectedTab(?string $userType): ?string
     {
         return match (strtolower((string) $userType)) {
-            'user', 'group' => 'user',
+            'user', 'group','special_user' => 'user',
             'company' => 'company',
             'client' => 'partner',
             default => null,
