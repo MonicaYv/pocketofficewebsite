@@ -139,7 +139,7 @@
 
         <div class="attach-files-group">
           <input type="file" id="attach-files" name="attachments[]" multiple />
-          <p id="file-error" class="custom-deco-error" style="display:none;">
+          <p id="file-error" class="custom-deco-error d-none">
             Each file must be under 2MB.
           </p>
         </div>
@@ -192,10 +192,10 @@
         }
 
         if (!valid) {
-          fileError.style.display = "block";
+          fileError.classList.remove("d-none");
           event.target.value = "";
         } else {
-          fileError.style.display = "none";
+          fileError.classList.add("d-none");
         }
       });
 
@@ -238,7 +238,7 @@
           form.reset();
           departmentInput.value = "";
           localStorage.removeItem("selectedDepartment");
-          fileError.style.display = "none";
+          fileError.classList.add("d-none");
         } catch (error) {
           toastr.error(error.message || "Something went wrong. Try again.");
         } finally {

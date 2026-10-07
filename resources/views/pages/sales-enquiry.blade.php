@@ -46,9 +46,8 @@
 
                         <div class="form-item mt-3">
                             <label for="industry">Industry <span class="required-asterisk">*</span></label>
-                            <div class="enquiry-form-group" style="margin: 0;">
-                                <select id="industry" name="industry" required class="form-control"
-                                    style="padding:12px 40px 12px 16px;appearance:none;-webkit-appearance:none;-moz-appearance:none;background-image:url('data:image/svg+xml;utf8,<svg fill=\'%23333\' height=\'20\' viewBox=\'0 0 20 20\' width=\'20\' xmlns=\'http://www.w3.org/2000/svg\'><path d=\'M5 7l5 5 5-5z\'/></svg>');background-repeat:no-repeat;background-position:right 12px center;">
+                            <div class="enquiry-form-group m-0">
+                                <select id="industry" name="industry" required class="form-control sales-popup">
                                     <option value="" hidden>Select your industry</option>
                                     <option value="education">Education</option>
                                     <option value="consulting">Consulting</option>
@@ -84,7 +83,7 @@
                         <div class="form-grid mt-3">
                             <div class="form-item">
                                 <label for="country">Country <span class="required-asterisk">*</span></label>
-                                <select id="country" name="country" required class="form-control" style="padding: 12px 40px 12px 16px; border-radius: .25rem; height: 48px; appearance:none;-webkit-appearance:none;-moz-appearance:none;background-image:url('data:image/svg+xml;utf8,<svg fill=\'%23333\' height=\'20\' viewBox=\'0 0 20 20\' width=\'20\' xmlns=\'http://www.w3.org/2000/svg\'><path d=\'M5 7l5 5 5-5z\'/></svg>');background-repeat:no-repeat;background-position:right 12px center;">
+                                <select id="country" name="country" required class="form-control sales-popup-country">
                                     <option value="">Select a country</option>
                                 </select>
                                 <div class="invalid-feedback">Please select a country.</div>
@@ -98,7 +97,7 @@
                     </div>
 
                     <!-- STEP 2: Contact Person -->
-                    <div class="enquiry-step step-2" data-step="2" style="display: none;">
+                    <div class="enquiry-step step-2 d-none" data-step="2">
                         <div class="step-section-heading">
                             <span>CONTACT PERSON DETAILS</span>
                             <div class="heading-line"></div>
@@ -138,7 +137,7 @@
                     </div>
 
                     <!-- STEP 3: Services & Message -->
-                    <div class="enquiry-step step-3" data-step="3" style="display: none;">
+                    <div class="enquiry-step step-3 d-none" data-step="3">
                         <div class="step-section-heading">
                             <span>YOUR REQUIREMENTS</span>
                             <div class="heading-line"></div>
@@ -170,7 +169,7 @@
                     <div class="footer-buttons">
                         <button type="button" class="prev-step-btn btn"><i class="fa fa-arrow-left mr-2"></i> Back</button>
                         <button type="button" class="next-step-btn btn btn-primary">Continue &rarr;</button>
-                        <button type="submit" class="submit-step-btn btn btn-primary enquiry-btn" style="display: none;">Submit Request</button>
+                        <button type="submit" class="submit-step-btn btn btn-primary enquiry-btn d-none">Submit Request</button>
                     </div>
                 </div>
 
