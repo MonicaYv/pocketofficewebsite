@@ -199,7 +199,7 @@
             </div>
 
             <div class="contact-modal">
-                <form id="serviceForm" class="form needs-validation salesEnquiryForm" novalidate>
+                <form id="serviceForm" class="form needs-validation salesEnquiryForm" data-url="{{ route('sales.enquiry.submit') }}" novalidate>
                     <!-- Scrollable step contents -->
                     <div class="steps-body-wrapper">
                         <!-- STEP 1: Company Details -->

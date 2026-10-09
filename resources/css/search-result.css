@@ -1,0 +1,50 @@
+/* ==========================================================================
+   Search Result Page Styles (pages/search-result.blade.php)
+   ========================================================================== */
+
+/* Breadcrumb background */
+.search-result-breadcrumb-bg {
+    background-image: url('/assets/img/page-title-bg.png');
+}
+
+/* Search Container Section */
+.search-result-section {
+    padding: 60px 0;
+}
+
+/* Search Input */
+.search-result-input {
+    max-width: 600px;
+    margin: auto;
+    padding: 15px;
+    font-size: 18px;
+}
+
+/* Search Results List Container */
+#search-results {
+    max-width: 700px;
+    margin: auto;
+}
+
+/* Search Result Item */
+.search-result-item {
+    padding: 18px;
+    border-bottom: 1px solid #eee;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.search-result-item:hover {
+    background: #f7f7f7;
+}
+
+.search-result-item h5 {
+    margin: 0;
+    font-weight: 600;
+    color: #222;
+}
+
+.search-result-item span {
+    font-size: 14px;
+    color: #888;
+}

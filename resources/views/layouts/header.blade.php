@@ -16,14 +16,3 @@
 <link rel="icon" href="{{ asset('assets/img/logo/favicon.ico') }}?v=2" sizes="any">
 <link rel="icon" type="image/svg+xml" href="{{ asset('assets/img/logo/fav-icon.svg') }}?v=2">
 <link rel="apple-touch-icon" href="{{ asset('assets/img/logo/apple-touch-icon.png') }}?v=2">
-
-<style>
-    .hidden { display: none !important; }
-    .custom-error { font-size: 12px; color: red; margin-top: 4px; }
-    .is-invalid { border: 1px solid red !important; }
-    select.is-invalid,
-    input.is-invalid,
-    textarea.is-invalid {
-        border: 1px solid red !important;
-    }
-</style>

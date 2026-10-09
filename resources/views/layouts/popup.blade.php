@@ -69,7 +69,7 @@
                 </form>
 
                 <!-- Forgot Password Form -->
-                <form class="MapUI-form-wrap forgot-form needs-validation" id="forgotForm" style="display:none;" novalidate>
+                <form class="MapUI-form-wrap forgot-form popup-form-hidden needs-validation" id="forgotForm" novalidate>
                     <div class="popup-widget-title">
                         <span class="forgot-heading">Forgot Password</span>
                         <span class="forgot-text">Please Enter Your Email Address To Receive a Link</span>
@@ -146,7 +146,7 @@
                 </form>
 
                 <!--Forgot Password Form-->
-                <form class="MapUI-form-wrap forgot-form needs-validation" novalidate style="display:none;">
+                <form class="MapUI-form-wrap forgot-form popup-form-hidden needs-validation" novalidate>
                     <div class="popup-widget-title">
                         <span class="forgot-heading">Forgot Password</span>
                         <span class="forgot-text">Please Enter Your Email Address To Receive a Link</span>

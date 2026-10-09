@@ -5,29 +5,14 @@
 'resources/css/login.css',
 'resources/css/slick.css',
 ])
-<style>
-    .image-section {
-        background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60');
-        background-size: cover;
-        background-position: center;
-        color: white;
-        padding: 30px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        height: 100vh;
-        margin-right: 20px;
-        color: #fff;
-    }
-</style>
 <link rel="icon" type="image/svg+xml" href="assets/img/logo/fav-icon.svg">
 <!-- Login Page -->
 <div id="loginPage" class="page active">
     <div class="login-container">
         <div class="col-md-6 image-section">
             <div class="image-content">
-                <h2 style="color: #fff;">Secure Login Portal</h2>
-                <p style="color:#fff">Access your account with confidence knowing your data is protected with industry-standard security measures.</p>
+                <h2 class="image-title">Secure Login Portal</h2>
+                <p class="image-text">Access your account with confidence knowing your data is protected with industry-standard security measures.</p>
             </div>
         </div>
         <div class="login-card col-md-4">

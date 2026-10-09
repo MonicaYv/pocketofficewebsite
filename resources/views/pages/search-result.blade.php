@@ -28,39 +28,12 @@
   }
   @endverbatim
   @endsection
-  <style>
-    /* Search Results */
-
-    #search-results {
-      max-width: 700px;
-      margin: auto;
-    }
-
-    .search-result-item {
-      padding: 18px;
-      border-bottom: 1px solid #eee;
-      transition: 0.3s;
-      cursor: pointer;
-    }
-
-    .search-result-item:hover {
-      background: #f7f7f7;
-    }
-
-    .search-result-item h5 {
-      margin: 0;
-      font-weight: 600;
-      color: #222;
-    }
-
-    .search-result-item span {
-      font-size: 14px;
-      color: #888;
-    }
-  </style>
+  @section('styles')
+    @vite(['resources/css/search-result.css'])
+  @endsection
   @section('content')
   <!-- breadcrumb area start -->
-  <div class="breadcrumb-area" style="background-image: url(assets/img/page-title-bg.png)">
+  <div class="breadcrumb-area search-result-breadcrumb-bg">
     <div class="container">
       <div class="row">
         <div class="col-lg-12">
@@ -77,13 +50,13 @@
   </div>
 
   <!-- SEARCH SECTION -->
-  <section class="container" style="padding:60px 0">
+  <section class="container search-result-section">
 
     <div class="text-center mb-4">
       <h2>Search the Website</h2>
 
       <input type="text" id="search-input" placeholder="Search pages, industries, features..."
-        class="form-control" style="max-width:600px;margin:auto;padding:15px;font-size:18px" />
+        class="form-control search-result-input" />
 
     </div>
 

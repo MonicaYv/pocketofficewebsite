@@ -29,6 +29,7 @@
     </script>
  @yield('preload')
     @include('layouts.header')
+    @yield('styles')
 
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-HQ34D3KCXF"></script>
     <script>
@@ -37,7 +38,6 @@
     gtag('js', new Date());
     gtag('config', 'G-HQ34D3KCXF');
     </script>
-    <head>
     
     <!-- Meta Pixel Code -->
     <script>
@@ -63,9 +63,9 @@
 
 <body>
     <noscript>
-<img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=467144275341276&ev=PageView&noscript=1"/>
-</noscript>
+        <img height="1" width="1" class="tracking-pixel"
+            src="https://www.facebook.com/tr?id=467144275341276&ev=PageView&noscript=1" alt="" />
+    </noscript>
 
     {{-- Preloader --}}
     {{-- @include('layouts.preloader') --}}

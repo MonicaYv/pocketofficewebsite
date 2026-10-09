@@ -1,5 +1,8 @@
   @extends('layouts.backendsettings')
   @section('title', 'Affordable Cloud Desktop Plans for Teams & Businesses | Pocket Office')
+  @section('styles')
+      @vite(['resources/css/pricing.css'])
+  @endsection
   @section('structured-data')
       @php
           $schemaPlanOffers = [];
@@ -109,165 +112,13 @@
               | JSON_THROW_ON_ERROR,
       ) !!}
   @endsection
-  <style>
-      .currency-select {
-          padding: 10px 14px;
-          border: 1px solid #ddd;
-          border-radius: 8px;
-          min-width: 220px;
-          font-size: 14px;
-          cursor: pointer;
-          outline: none;
-      }
-  </style>
+  
 
-  <style>
-      /* Responsive Currency Dropdown overrides */
-      /* Responsive Currency Dropdown overrides */
-      .currency-header-container {
-          position: relative !important;
-          z-index: 4 !important;
-      }
-
-      .pricing-title-row .currency-dropdown-wrapper {
-          position: relative !important;
-          display: inline-block !important;
-          left: auto !important;
-          right: auto !important;
-          top: auto !important;
-          margin-top: 12px !important;
-          max-width: 100% !important;
-          width: auto !important;
-          vertical-align: middle;
-      }
-
-      @media (min-width: 992px) {
-          .currency-header-container {
-              display: flex !important;
-              align-items: center;
-              justify-content: center;
-          }
-
-          .pricing-header {
-              margin-bottom: 0 !important;
-              flex-grow: 1;
-              text-align: center;
-          }
-
-          .pricing-title-row {
-              position: absolute !important;
-              right: 15px !important;
-              top: 50% !important;
-              transform: translateY(-50%) !important;
-              margin-top: 0 !important;
-          }
-
-          .pricing-title-row .currency-dropdown-wrapper {
-              margin-top: 0 !important;
-          }
-      }
-
-      .currency-btn {
-          display: inline-flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 10px;
-          border: 1px solid #ddd;
-          padding: 6px 16px;
-          border-radius: 8px;
-          background: #fff;
-          cursor: pointer;
-          max-width: 100%;
-          box-sizing: border-box;
-          transition: all 0.2s ease-in-out;
-      }
-
-      .currency-btn:hover {
-          border-color: #057A96;
-          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-      }
-
-      .currency-code {
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          font-weight: 400;
-          font-size: 14px;
-          color: #5b6880;
-          flex: 1;
-          min-width: 0;
-      }
-
-      .currency-menu {
-          position: absolute;
-          top: 115%;
-          left: 50%;
-          right: auto;
-          transform: translateX(-50%);
-          width: 280px;
-          max-width: calc(100vw - 32px);
-          background: #fff;
-          border: 1px solid #ddd;
-          border-radius: 10px;
-          padding: 8px 0;
-          margin: 0;
-          list-style: none;
-          display: none;
-          z-index: 9999;
-          max-height: 250px;
-          overflow-y: auto;
-          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-      }
-
-      .currency-menu.open {
-          display: block;
-      }
-
-      .currency-menu li {
-          padding: 10px 14px;
-          cursor: pointer;
-          transition: 0.2s;
-          font-size: 14px;
-          text-align: left;
-      }
-
-      .currency-menu li:hover {
-          background: #f5f5f5;
-      }
-
-      .currency-search-li {
-          padding: 8px 10px;
-          border-bottom: 1px solid #eee;
-      }
-
-      #currencySearch {
-          width: 100%;
-          padding: 8px 10px;
-          border: 1px solid #ddd;
-          border-radius: 6px;
-          outline: none;
-          font-size: 14px;
-      }
-
-      .price-wrapper {
-          display: flex;
-          align-items: center;
-          gap: 2px;
-      }
-
-      .original-price {
-          margin-top: 1px;
-          font-size: 16px;
-          color: #8a8a8a;
-          text-decoration: line-through;
-          text-decoration-color: #b5b5b5;
-          opacity: 0.8;
-      }
-  </style>
+  
 
   @section('content')
       <!-- breadcrumb area start -->
-      <div class="breadcrumb-area pricing-bg" style="background-image: url(assets/img/hero-images/Pricing.svg)">
+      <div class="breadcrumb-area pricing-bg pricing-breadcrumb-bg">
           <div class="content-wrapper">
               <div class="row">
                   <div class="col-lg-12">
@@ -517,8 +368,10 @@
 
                                       @if (count($parts))
                                           <div class="personal-annual-strip show-strip-month">
-                                              <img class="party-popover" src="/assets/img/party-popover.png" alt="popover"> {{ implode(' + ', $parts) }} — You save total {{ $totalDiscount }}% on
-                                              monthly payment
+                                              <div class="personal-annual-strip-inner">
+                                                  <img class="party-popover" src="/assets/img/party-popover.png" alt="popover">
+                                                  <span>{{ implode(' + ', $parts) }} — You save total {{ $totalDiscount }}% on monthly payment</span>
+                                              </div>
                                           </div>
                                       @endif
 
@@ -532,23 +385,25 @@
                                       @endphp
 
                                       @if ($main > 0 || $extra > 0)
-                                          <div class="personal-annual-strip show-strip"
-                                              style="display: block; display: none;">
-                                              <img class="party-popover" src="/assets/img/party-popover.png" alt="popover">
+                                          <div class="personal-annual-strip show-strip strip-init-hidden">
+                                              <div class="personal-annual-strip-inner">
+                                                  <img class="party-popover" src="/assets/img/party-popover.png" alt="popover">
+                                                  <span>
+                                                      @if ($main > 0)
+                                                          {{ $main }}% off Individual user discount
+                                                      @endif
 
-                                              @if ($main > 0)
-                                                  {{ $main }}% off Individual user discount
-                                              @endif
+                                                      @if ($main > 0 && $extra > 0)
+                                                          +
+                                                      @endif
 
-                                              @if ($main > 0 && $extra > 0)
-                                                  +
-                                              @endif
+                                                      @if ($extra > 0)
+                                                          {{ $extra }}% special offer for annual billing
+                                                      @endif
 
-                                              @if ($extra > 0)
-                                                  {{ $extra }}% special offer for annual billing
-                                              @endif
-
-                                              — You save total {{ $totalDiscount }}% on annual payment
+                                                      — You save total {{ $totalDiscount }}% on annual payment
+                                                  </span>
+                                              </div>
                                           </div>
                                       @endif
 
@@ -723,7 +578,7 @@
                                                    <p class="po-minimum-note">Note: Minimum of {{ $minimumLicenses }} licenses
                                                        must be selected.</p>
                                                    @else
-                                                   <p class="po-minimum-note" style="visibility: hidden; pointer-events: none; user-select: none;">Note: Minimum of 2 licenses
+                                                   <p class="po-minimum-note po-minimum-note-invisible">Note: Minimum of 2 licenses
                                                        must be selected.</p>
                                                    @endif
                                               </div>
@@ -733,7 +588,7 @@
                                                   <div class="po-summary-row">
                                                       <span class="base-user-label">Base User / Month</span>
                                                       <div>
-                                                          <span class="view-currency" style="gap:3px">-</span>
+                                                          <span class="view-currency">-</span>
                                                           <span class="base-price">{{ $plan->plans_amount }}</span>
                                                       </div>
                                                   </div>
@@ -749,7 +604,7 @@
                                                   <div class="po-summary-row">
                                                       <span>Base Total</span>
                                                       <div>
-                                                          <span class="view-currency" style="gap:3px"></span>
+                                                          <span class="view-currency"></span>
                                                           <span class="total-amount view-total-amount-count"></span>
                                                       </div>
                                                   </div>
@@ -757,7 +612,7 @@
                                                       class="po-summary-row po-summary-row--discount monthly-discount-row">
                                                       <span>Discount <span class="discount-percent-badge"></span></span>
                                                       <div>
-                                                          <span>-</span><span class="view-currency" style="gap:3px"></span>
+                                                          <span>-</span><span class="view-currency"></span>
                                                           <span class="total-discount view-total-discount-count"></span>
                                                       </div>
                                                   </div>
@@ -780,7 +635,7 @@
                                                       <div>
                                                           <p class="total-period-label">(Total Per Month)</p>
                                                           <div class="po-total-amount">
-                                                              <span class="view-currency" style="gap:3px">-</span>
+                                                              <span class="view-currency">-</span>
                                                               <span class="total-amount view-total-amount-count">999</span>
                                                           </div>
                                                       </div>
@@ -898,8 +753,7 @@
 
                                   {{-- Single User Plan --}}
                                   @foreach ($userLicenseData['getPlanList']['planListsSingle'] as $singlePlan)
-                                      <th data-plan-col="personal" class="ul-pricing-tbl-single"
-                                          style="min-width:130px;">
+                                      <th data-plan-col="personal" class="ul-pricing-tbl-single pricing-tbl-th-minwidth">
                                           (Personal)<br>{{ $singlePlan->plans_name }}<br>
                                           <span class="table-plan-price">
                                               <span class="table-plan-symbol">{{ $currencySymbol }}</span>
@@ -938,10 +792,10 @@
                                           );
                                           $comparisonPoolStorage = (float) $plan->plans_users * $comparisonLicenses;
                                       @endphp
-                                      <th class="ul-pricing-tbl-team"
+                                      <th class="ul-pricing-tbl-team pricing-tbl-th-minwidth"
                                           data-team-discount="{{ $plan->is_team_discount_apply }}"
                                           data-plan-name="{{ $plan->plans_name }}"
-                                          style="min-width:130px;">
+                                          >
                                           (Team)<br>{{ $plan->plans_name }}<br>
                                           <span class="table-plan-price">
                                               <span class="table-plan-symbol">{{ $currencySymbol }}</span>
@@ -964,7 +818,7 @@
                               <tr>
                                   <td class="table-td">Members</td>
                                   @foreach ($userLicenseData['getPlanList']['planListsSingle'] as $singlePlan)
-                                      <td class="ul-pricing-tbl-single" data-plan-col="personal">
+                                      <td class="ul-pricing-tbl-single pricing-tbl-th-minwidth" data-plan-col="personal">
                                           {{ $singlePlan->plans_license }} </td>
                                   @endforeach
 
@@ -991,7 +845,7 @@
                               <tr>
                                   <td class="table-td">Per User Storage</td>
                                   @foreach ($userLicenseData['getPlanList']['planListsSingle'] as $singlePlan)
-                                      <td class="ul-pricing-tbl-single" data-plan-col="personal">
+                                      <td class="ul-pricing-tbl-single pricing-tbl-th-minwidth" data-plan-col="personal">
                                           {{ $singlePlan->plans_users }} {{ $singlePlan->storage_unit }}</td>
                                   @endforeach
 
@@ -1003,7 +857,7 @@
                               <tr>
                                   <td class="table-td">Total Pool Storage</td>
                                   @foreach ($userLicenseData['getPlanList']['planListsSingle'] as $singlePlan)
-                                      <td class="ul-pricing-tbl-single" data-plan-col="personal">
+                                      <td class="ul-pricing-tbl-single pricing-tbl-th-minwidth" data-plan-col="personal">
                                           {{ $singlePlan->pool_storage }} </td>
                                   @endforeach
 
@@ -1033,7 +887,7 @@
 
                               <tr>
                                   <td class="table-td">Teams</td>
-                                  <td class="ul-pricing-tbl-single" data-plan-col="personal">1 Workspace</td>
+                                  <td class="ul-pricing-tbl-single pricing-tbl-th-minwidth" data-plan-col="personal">1 Workspace</td>
                                   <td>Unlimited</td>
                                   <td>Unlimited</td>
                                   <td>Unlimited</td>
@@ -1060,7 +914,7 @@
                                   <td></td>
                                   @foreach ($userLicenseData['getPlanList']['planListsSingle'] as $singlePlan)
                                       <td class="ul-pricing-tbl-single text-center" data-plan-col="personal">
-                                          <button class="btn btn-outline-secondary js-select-plan-compare"
+                                          <button class="btn btn-outline-secondary js-select-plan-compare pricing-compare-btn"
                                               data-plan-type="single" data-name="{{ $singlePlan->plans_name }}"
                                               data-license="{{ $singlePlan->plans_license }}"
                                               data-storage="{{ $singlePlan->plans_users }}"
@@ -1068,7 +922,7 @@
                                               data-plan-discount="{{ $singlePlan->monthly_discount }}"
                                               data-default-qty="{{ $singlePlan->default_qty }}"
                                               data-storage-unit="{{ $singlePlan->storage_unit }}"
-                                              style="width: 100% !important; max-width: 115px !important; height: 36px !important; display: inline-flex; align-items: center; justify-content: center; margin: 0 auto; padding: 0 !important;">
+                                              >
                                               Get Started
                                           </button>
                                       </td>
@@ -1086,14 +940,14 @@
                                                       default => (int) ($plan->default_qty ?? ($plan->plans_license ?? 1)),
                                                   };
                                           @endphp
-                                          <button class="btn btn-outline-secondary team-js-select-plan-compare"
+                                          <button class="btn btn-outline-secondary team-js-select-plan-compare pricing-compare-btn"
                                               data-plan-type="team" data-plan-id="{{ $plan->id }}"
                                               data-name="{{ $plan->plans_name }}"
                                               data-license="{{ $plan->plans_license }}"
                                               data-storage="{{ $plan->plans_users }}"
                                               data-default-qty="{{ $minimumLicenses }}"
                                               data-storage-unit="{{ $plan->storage_unit }}"
-                                              style="width: 100% !important; max-width: 115px !important; height: 36px !important; display: inline-flex; align-items: center; justify-content: center; margin: 0 auto; padding: 0 !important;">
+                                              >
                                               Get Started
                                           </button>
                                       </td>

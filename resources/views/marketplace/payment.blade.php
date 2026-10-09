@@ -1,8 +1,11 @@
      @extends('layouts.backendsettings')
      @section('title', 'Payment')
+     @section('styles')
+         @vite(['resources/css/payment.css'])
+     @endsection
      @section('content')
          <!-- breadcrumb area start -->
-         <div class="breadcrumb-area pricing-bg" style="background-image: url(assets/img/hero-images/Payment.svg)">
+         <div class="breadcrumb-area pricing-bg pay-breadcrumb-bg">
              <div class="container">
                  <div class="row">
                      <div class="col-lg-12">
@@ -35,7 +38,7 @@
                                              <input type="text" class="form-control" id="companyNamePlan"
                                                  placeholder="XYZ Company" data-rule="required|minlen:2" />
                                              <span class="glyphicon form-control-feedback" id="companyNamePlan-icon"></span>
-                                             <span class="help-block text-danger" style="display: none"
+                                             <span class="help-block text-danger pay-err-text"
                                                  id="companyNamePlan-err">
                                                  Company name is required (min 2 chars)
                                              </span>
@@ -86,7 +89,7 @@
                                              <input type="text" class="form-control" id="address"
                                                  placeholder="123 Main Street" data-rule="required" />
                                              <span class="glyphicon form-control-feedback" id="address-icon"></span>
-                                             <span class="help-block text-danger" style="display: none" id="address-err">
+                                             <span class="help-block text-danger pay-err-text" id="address-err">
                                                  Address is required
                                              </span>
                                          </div>
@@ -101,7 +104,7 @@
                                                  placeholder="98765XXXXX" maxlength="15" inputmode="numeric"
                                                  autocomplete="off" />
                                              <span class=" glyphicon form-control-feedback" id="companyNumber-icon"></span>
-                                             <span class="help-block text-danger" style="display: none"
+                                             <span class="help-block text-danger pay-err-text"
                                                  id="companyNumber-err">
                                                  Enter valid 10-15 digit mobile number
                                              </span>
@@ -113,7 +116,7 @@
                                              <input type="email" class="form-control" id="companyEmail"
                                                  placeholder="company@example.com" data-rule="email" />
                                              <span class="glyphicon form-control-feedback" id="companyEmail-icon"></span>
-                                             <span class="help-block text-danger" style="display: none"
+                                             <span class="help-block text-danger pay-err-text"
                                                  id="companyEmail-err">
                                                  Enter a valid email
                                              </span>
@@ -128,7 +131,7 @@
                                              <input type="url" class="form-control" id="website"
                                                  placeholder="https://example.com" data-rule="url" />
                                              <span class="glyphicon form-control-feedback" id="website-icon"></span>
-                                             <span class="help-block text-danger" style="display: none" id="website-err">
+                                             <span class="help-block text-danger pay-err-text" id="website-err">
                                                  Enter a valid URL
                                              </span>
                                          </div>
@@ -150,7 +153,7 @@
                                              <input type="text" class="form-control" id="contactPerson"
                                                  placeholder="Full name" data-rule="required|minlen:2" />
                                              <span class="glyphicon form-control-feedback" id="contactPerson-icon"></span>
-                                             <span class="help-block text-danger" style="display: none"
+                                             <span class="help-block text-danger pay-err-text"
                                                  id="contactPerson-err">
                                                  Contact person name is required
                                              </span>
@@ -178,7 +181,7 @@
                                                  placeholder="98765XXXXX" maxlength="15" inputmode="numeric"
                                                  autocomplete="off" />
                                              <span class=" glyphicon form-control-feedback" id="phone-icon"></span>
-                                             <span class="help-block text-danger" style="display: none" id="phone-err">
+                                             <span class="help-block text-danger pay-err-text" id="phone-err">
                                                  Enter valid 10-15 digit mobile number
                                              </span>
                                          </div>
@@ -189,7 +192,7 @@
                                              <input type="email" class="form-control" id="userEmail"
                                                  placeholder="name@gmail.com" maxlength="100" autocomplete="off" />
                                              <span class="glyphicon form-control-feedback" id="userEmail-icon"></span>
-                                             <span class="help-block text-danger" style="display: none"
+                                             <span class="help-block text-danger pay-err-text"
                                                  id="userEmail-err">
                                                  Enter a valid email
                                              </span>
@@ -214,7 +217,7 @@
                                              <input type="text" class="form-control" id="username"
                                                  placeholder="Choose a username" maxlength="30" autocomplete="off" />
                                              <span class=" glyphicon form-control-feedback" id="username-icon"></span>
-                                             <span class="help-block text-danger" style="display: none"
+                                             <span class="help-block text-danger pay-err-text"
                                                  id="username-err">
                                                  Username must contain letters, numbers, and underscores only
                                              </span>
@@ -240,7 +243,7 @@
                                                  <option value="What was the name of your first school?">What was the name
                                                      of your first school?</option>
                                              </select>
-                                             <span class="help-block text-danger" style="display: none"
+                                             <span class="help-block text-danger pay-err-text"
                                                  id="passwordQuestion-err">
                                                  Please select a security question
                                              </span>
@@ -253,7 +256,7 @@
                                                  placeholder="Write answer for the question" data-rule="required" />
                                              <span class="glyphicon form-control-feedback"
                                                  id="securityAnswer-icon"></span>
-                                             <span class="help-block text-danger" style="display: none"
+                                             <span class="help-block text-danger pay-err-text"
                                                  id="securityAnswer-err">
                                                  Please provide your security answer
                                              </span>
@@ -265,10 +268,10 @@
                                      <label>
                                          <input type="checkbox" id="terms" />
                                          I accept the
-                                         <a href="{{ url('terms-condition') }}" style="color: #057a96">terms and
+                                         <a href="{{ url('terms-condition') }}" class="pay-terms-link">terms and
                                              conditions</a>
                                      </label>
-                                     <span class="help-block text-danger" style="display: none" id="terms-err">
+                                     <span class="help-block text-danger pay-err-text" id="terms-err">
                                          You must accept the terms and conditions
                                      </span>
                                  </div>
@@ -491,7 +494,7 @@
                                                           data-desc="{{ $personalPlan->plans_content ?? '' }}">
 
                                                           <span class="pay-plan-tile__name">{{ $personalPlan->ui_name }}</span>
-                                                          <span class="view_plan_price_details hidden" style="display: none !important;"></span>
+                                                          <span class="view_plan_price_details hidden"></span>
                                                       </div>
                                                   </div>
                                               </div>
@@ -543,7 +546,7 @@
                                                           data-desc="{{ $plan->plans_content ?? '' }}">
 
                                                           <span class="pay-plan-tile__name">{{ $plan->ui_name }}</span>
-                                                          <span class="view_plan_price_details hidden" style="display: none !important;"></span>
+                                                          <span class="view_plan_price_details hidden"></span>
                                                       </div>
                                                   @endforeach
                                               </div>
@@ -681,28 +684,14 @@
 
                                         <div
                                             class="po-promo-success-msg"
-                                            id="poPromoSuccessMsg"
-                                            style="display:none;">
+                                            id="poPromoSuccessMsg">
 
                                         </div>
 
-                                        <div id="couponMsg" style="font-size:12px;margin-top:7px;"></div>
+                                        <div id="couponMsg" class="pay-coupon-msg"></div>
 
                                         <div id="removeCouponWrapper">
-                                            <button
-                                                type="button"
-                                                id="removeCouponBtn"
-                                                style="
-                                                    border:0;
-                                                    background:transparent;
-                                                    padding:0;
-                                                    color:#dc2626;
-                                                    font-size:12px;
-                                                    font-weight:600;
-                                                    cursor:pointer;
-                                                    text-decoration:underline;
-                                                    display:none;
-                                                ">
+                                            <button type="button" id="removeCouponBtn" class="pay-remove-coupon-btn">
                                                 Remove promo code
                                             </button>
                                         </div>
@@ -759,7 +748,7 @@
                      <label>Card Number <span class="req">*</span></label>
                      <input type="text" class="form-control pay-card-input" id="cardNumber"
                          placeholder="1234 5678 9012 3456" maxlength="19" />
-                     <span class="help-block text-danger" style="display: none" id="cardNumber-err">
+                     <span class="help-block text-danger pay-err-text" id="cardNumber-err">
                          Enter a valid 16-digit card number
                      </span>
                  </div>
@@ -770,7 +759,7 @@
                              <label>Expiry Date <span class="req">*</span></label>
                              <input type="text" class="form-control" id="cardExpiry" placeholder="MM / YY"
                                  maxlength="7" />
-                             <span class="help-block text-danger" style="display: none" id="cardExpiry-err">
+                             <span class="help-block text-danger pay-err-text" id="cardExpiry-err">
                                  Enter valid expiry (MM/YY)
                              </span>
                          </div>
@@ -780,7 +769,7 @@
                              <label>CVV <span class="req">*</span></label>
                              <input type="password" class="form-control" id="cardCvv" placeholder="•••"
                                  maxlength="4" />
-                             <span class="help-block text-danger" style="display: none" id="cardCvv-err">
+                             <span class="help-block text-danger pay-err-text" id="cardCvv-err">
                                  Enter 3 or 4-digit CVV
                              </span>
                          </div>
@@ -790,66 +779,26 @@
                  <div class="form-group">
                      <label>Cardholder Name <span class="req">*</span></label>
                      <input type="text" class="form-control" id="cardName" placeholder="As printed on card" />
-                     <span class="help-block text-danger" style="display: none" id="cardName-err">
+                     <span class="help-block text-danger pay-err-text" id="cardName-err">
                          Cardholder name is required
                      </span>
                  </div>
 
-                 <span class="help-block text-danger" style="display: none" id="payError">
+                 <span class="help-block text-danger pay-err-text" id="payError">
                      Please fix the errors above before proceeding.
                  </span>
 
                  <!-- Amount reminder -->
                  <div class="pay-amount-box">
-                     <span class="text-muted" style="font-size: 13px">Amount to pay</span>
-                     <strong id="modalTotal" style="font-size: 18px; color: #057a96">—</strong>
+                     <span class="text-muted pay-amount-label">Amount to pay</span>
+                     <strong id="modalTotal" class="pay-amount-total">—</strong>
                  </div>
 
-                 <button class="btn btn-brand btn-block" id="confirmPayBtn" style="margin-top: 14px">
+                 <button class="btn btn-brand btn-block pay-confirm-btn" id="confirmPayBtn">
                      🔒 Confirm Payment
                  </button>
              </div>
          </div>
-
-
-
-         <style>
-             /* Payment-side plan and billing selectors */
-             .pay-plan-selector { position: relative; padding-bottom: 28px; }
-             .pay-plan-scroll-track { display: flex; gap: 8px; align-items: stretch; }
-             .pay-plan-scroll-pill {
-                 flex: 0 0 auto;
-                 min-width: 82px;
-                 justify-content: center;
-                 cursor: pointer;
-                 user-select: none;
-             }
-             .pay-plan-scroll-pill.selected {
-                 border-color: #057A96 !important;
-                 color: #057A96 !important;
-                 box-shadow: inset 0 0 0 1px #057A96;
-             }
-             .pay-team-plan-indicator {
-                 position: absolute;
-                 top: calc(100% - 26px);
-                 left: var(--team-indicator-left, 50%);
-                 transform: translateX(-50%);
-                 display: flex;
-                 flex-direction: column;
-                 align-items: center;
-                 gap: 3px;
-                 color: #667085;
-                 font-size: 11px;
-                 font-weight: 600;
-                 line-height: 1;
-                 pointer-events: none;
-                 white-space: nowrap;
-             }
-             .pay-team-plan-indicator[hidden] { display: none !important; }
-             .pay-team-plan-indicator__line { width: 1px; height: 11px; background: #98a2b3; }
-             .os-mini-badge:empty { display: none !important; }
-             .os-mini-badge { white-space: nowrap; }
-         </style>
 
          <!-- Existing User Modal -->
          <div id="existingUserModal" class="existing-user-modal" aria-hidden="true">
