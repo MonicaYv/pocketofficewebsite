@@ -16,7 +16,7 @@
 <div class="job-details-area pd-top-112">
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-xl-6 col-lg-8 offset-xl-1" id="job-detail-container">
+            <div class="col-xl-6 col-lg-8 offset-xl-1" id="job-detail-container" data-slug="{{ $slug ?? '' }}">
                 <div class="section-title">
                     <h2 class="title">Job Details</h2>
                 </div>
@@ -97,81 +97,7 @@
             </div>
         </div>
     </div>
-</div>
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-    const pathSegments = window.location.pathname.split('/');
-    const jobSlug = pathSegments[pathSegments.length - 1];
-
-    if (!jobSlug) {
-        console.error("No valid job slug detected.");
-        return;
-    }
-
-    const API_URL = `/fetch-job-detail/${jobSlug}`;
-
-    fetch(API_URL)
-        .then(response => response.json())
-        .then(result => {
-            if (!result.status || !result.data) {
-                document.getElementById("jd-title").innerText = "Position Not Found";
-                document.getElementById("jd-responsibilities").innerHTML = "<p>The requested job opening could not be located on the server.</p>";
-                return;
-            }
-
-            const job = result.data;
-            const acf = job.acf || {};
-
-            // Extract Main Properties safely
-            const jobTitle = job.title?.rendered || "Open Position";
-            const companyName = acf.company_name || "Pocketoffice";
-            const vacancyCount = acf.vacancy || "N/A";
-            const jobLocation = acf.job_location || "Remote";
-            const salaryPackage = acf.salary || "Negotiable";
-            const experienceYears = acf.experience_requirements ? `${acf.experience_requirements} Years` : "Not Specified";
-            
-            // Handle Employment Status array wrapper if exists
-            const employmentType = Array.isArray(acf.employment_status) 
-                ? acf.employment_status.join(', ') 
-                : (acf.employment_status || "Full-time");
-
-            // Meta tags updates
-            document.title = `${jobTitle} | Pocketoffice Careers`;
-
-            // Update main content fields
-            document.getElementById("jd-title").innerText = jobTitle;
-            document.getElementById("jd-company").innerText = companyName;
-            document.getElementById("jd-vacancy").innerText = vacancyCount;
-            document.getElementById("jd-location").innerText = jobLocation;
-            document.getElementById("jd-salary").innerText = salaryPackage;
-
-            // Render rich content blocks (inner HTML from WordPress)
-            document.getElementById("jd-responsibilities").innerHTML = acf.job_responsibilities || "<p>Contact HR for duties.</p>";
-            document.getElementById("jd-education").innerHTML = acf.educational_requirements || "<p>Degree equivalent background.</p>";
-            document.getElementById("jd-experience").innerHTML = acf.experience_requirements ? `<p>${acf.experience_requirements} year(s) of core experience required.</p>` : "<p>Open to entry-level professionals.</p>";
-            document.getElementById("jd-additional").innerHTML = acf.additional_requirements || "<p>No specific extra prerequisites.</p>";
-
-            // Update Sidebar Widget info fields
-            document.getElementById("widget-company").innerText = companyName;
-            document.getElementById("widget-location").innerText = jobLocation;
-            document.getElementById("widget-type").innerText = employmentType;
-            document.getElementById("widget-experience").innerText = experienceYears;
-            document.getElementById("widget-salary").innerText = salaryPackage;
-
-            const applyButton = document.querySelector(".job-apply-btn");
-            if (applyButton) {
-                const applyUrl = new URL("{{ url('job-apply') }}", window.location.origin);
-                applyUrl.searchParams.set("slug", jobSlug);
-                applyUrl.searchParams.set("title", jobTitle);
-                applyButton.href = applyUrl.toString();
-            }
-        })
-        .catch(err => {
-            console.error("Job details loading error:", err);
-            document.getElementById("jd-title").innerText = "Error Loading Details";
-            document.getElementById("jd-responsibilities").innerHTML = "<p>An unexpected technical connection error occurred while pulling position information.</p>";
-        });
-});
-</script>
-
+@endsection
+@section('scripts')
+    @vite(['resources/js/job-details.js'])
 @endsection

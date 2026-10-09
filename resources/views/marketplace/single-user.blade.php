@@ -1,10 +1,11 @@
 @extends('layouts.backendsettings')
 @section('title', 'Affordable Cloud Desktop Plans for Teams & Businesses | Pocket Office')
+@section('styles')
+    @vite(['resources/css/payment.css'])
+@endsection
 @section('content')
 <!-- breadcrumb area start -->
-<div
-  class="breadcrumb-area pricing-bg"
-  style="background-image: url(assets/img/hero-images/Payment.svg)">
+<div class="breadcrumb-area pricing-bg pay-breadcrumb-bg">
   <div class="container">
     <div class="row">
       <div class="col-lg-12">
@@ -41,8 +42,7 @@
                     class="glyphicon form-control-feedback"
                     id="contactPerson-icon"></span>
                   <span
-                    class="help-block text-danger"
-                    style="display: none"
+                    class="help-block text-danger pay-err-text"
                     id="contactPerson-err">
                     Contact person name is required
                   </span>
@@ -77,8 +77,7 @@
                     class="glyphicon form-control-feedback"
                     id="phone-icon"></span>
                   <span
-                    class="help-block text-danger"
-                    style="display: none"
+                    class="help-block text-danger pay-err-text"
                     id="phone-err">
                     Enter a valid phone number
                   </span>
@@ -97,8 +96,7 @@
                     class="glyphicon form-control-feedback"
                     id="email-icon"></span>
                   <span
-                    class="help-block text-danger"
-                    style="display: none"
+                    class="help-block text-danger pay-err-text"
                     id="email-err">
                     Enter a valid email
                   </span>
@@ -122,8 +120,7 @@
                     class="glyphicon form-control-feedback"
                     id="username-icon"></span>
                   <span
-                    class="help-block text-danger"
-                    style="display: none"
+                    class="help-block text-danger pay-err-text"
                     id="username-err">
                     Username must be 4+ chars, letters/numbers/underscore
                     only
@@ -149,8 +146,7 @@
                     <option>What was the name of your first school?</option>
                   </select>
                   <span
-                    class="help-block text-danger"
-                    style="display: none"
+                    class="help-block text-danger pay-err-text"
                     id="passwordQuestion-err">
                     Please select a security question
                   </span>
@@ -169,8 +165,7 @@
                     class="glyphicon form-control-feedback"
                     id="securityAnswer-icon"></span>
                   <span
-                    class="help-block text-danger"
-                    style="display: none"
+                    class="help-block text-danger pay-err-text"
                     id="securityAnswer-err">
                     Please provide your security answer
                   </span>
@@ -182,11 +177,10 @@
               <label>
                 <input type="checkbox" id="terms" />
                 I accept the
-                <a href="#" style="color: #057a96">terms and conditions</a>
+                <a href="#" class="pay-terms-link">terms and conditions</a>
               </label>
               <span
-                class="help-block text-danger"
-                style="display: none"
+                class="help-block text-danger pay-err-text"
                 id="terms-err">
                 You must accept the terms and conditions
               </span>
@@ -200,65 +194,58 @@
     <div class="col-md-4">
       <div class="sidebar-sticky">
         <div class="panel panel-default">
-          <div class="panel-heading" style="border-bottom: 1px solid #ddd">
-            <h4
-              style="
-                    color: #333;
-                    margin: 0;
-                    font-size: 15px;
-                    font-weight: 600;
-                  ">
+          <div class="panel-heading pay-order-summary-heading">
+            <h4 class="pay-order-summary-title">
               Order Summary
             </h4>
           </div>
 
           <div class="panel-body">
 
-            <div id="payBillingControls" style="margin-bottom: 10px;">
-              <div style="display:flex;align-items:center;justify-content:space-between;">
-                <span style="font-size:13px;font-weight:600;color:#333;">Billing Period</span>
-                <label style="display:flex;align-items:center;gap:8px;cursor:pointer;margin:0;">
-                  <span id="payBillingMonthLabel" style="font-size:12px;font-weight:600;color:#057A96;">
+            <div id="payBillingControls" class="pay-billing-controls">
+              <div class="pay-row-between">
+                <span class="pay-control-label">Billing Period</span>
+                <label class="pay-toggle-label">
+                  <span id="payBillingMonthLabel" class="pay-month-label">
                     Monthly
                   </span>
-                  <span style="position:relative;display:inline-block;width:40px;height:22px;">
-                    <input type="checkbox" id="payBillingToggle" style="opacity:0;width:0;height:0;position:absolute;">
-                    <span id="payToggleTrack" style="position:absolute;inset:0;border-radius:999px;cursor:pointer;background:#ccc;transition:background .2s;">
-                      <span id="payToggleThumb" style="position:absolute;top:3px;width:16px;height:16px;border-radius:50%;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,.2);transition:left .2s;left:3px;"></span>
+                  <span class="pay-switch-wrap">
+                    <input type="checkbox" id="payBillingToggle" class="pay-switch-input">
+                    <span id="payToggleTrack" class="pay-switch-track">
+                      <span id="payToggleThumb" class="pay-switch-thumb"></span>
                     </span>
                   </span>
-                  <span id="payBillingYearLabel" style="font-size:12px;font-weight:400;color:#888;">
-                    Yearly <span style="background:#d1fae5;color:#065f46;border-radius:999px;font-size:10px;font-weight:700;padding:1px 6px;margin-left:2px;">10% off</span>
+                  <span id="payBillingYearLabel" class="pay-year-label">
+                    Yearly <span class="pay-discount-badge-inline">10% off</span>
                   </span>
                 </label>
               </div>
-              <hr style="margin:10px 0 0 0;">
+              <hr class="pay-hr-top">
             </div>
 
-            <div id="payQtyControls" style="margin-top: 10px;">
-              <div style="display:flex;align-items:center;justify-content:space-between;">
-                <span style="font-size:13px;font-weight:600;color:#333;" id="">Users</span>
-                <div id="payQtyBox" style="display: flex; align-items: center; border: 1px solid rgb(221, 221, 221); border-radius: 8px; overflow: hidden; opacity: 1; pointer-events: auto;">
-                  <button id="payQtyMinus" type="button" style="width:32px;height:32px;border:none;background:#f5f5f5;font-size:18px;font-weight:600;cursor:pointer;color:#333;display:flex;align-items:center;justify-content:center;">−</button>
-                  <input type="number" id="payQtyInput" value="1" min="1" style="width:42px;height:32px;text-align:center;border:none;border-left:1px solid #ddd;border-right:1px solid #ddd;font-size:13px;font-weight:600;color:#333-moz-appearance:textfield;outline:none;background:#fff;">
-                  <button id="payQtyPlus" type="button" style="width:32px;height:32px;border:none;background:#f5f5f5;font-size:18px;font-weight:600;cursor:pointer;color:#333; display:flex;align-items:center;justify-content:center;">+</button>
+            <div id="payQtyControls" class="pay-qty-controls">
+              <div class="pay-row-between">
+                <span class="pay-control-label" id="">Users</span>
+                <div id="payQtyBox" class="pay-qty-box">
+                  <button id="payQtyMinus" type="button" class="pay-qty-btn">−</button>
+                  <input type="number" id="payQtyInput" value="1" min="1" class="pay-qty-input">
+                  <button id="payQtyPlus" type="button" class="pay-qty-btn">+</button>
                 </div>
               </div>
             </div>
 
-            <hr style="margin: 12px 0">
+            <hr class="pay-hr-12">
 
             <!-- ── Active Plan Box ── -->
             <div class="plan-box">
               <div class="clearfix">
                 <strong
                   id="summaryPlanName"
-                  style="font-size: 18px; color: #057a96">—</strong>
+                  class="pay-summary-plan-name">—</strong>
                 <span class="pull-right plan-price">
                   <span id="summarySymbol"></span>&nbsp;<span id="summaryUnitPrice">—</span>
                   <small id="summaryPeriod"
-                    class="text-muted"
-                    style="font-size: 13px; font-weight: 400">
+                    class="text-muted pay-summary-period">
                    </small>
                 </span>
               </div>
@@ -267,15 +254,14 @@
               </ul>
             </div>
 
-            <div style="margin-top: 14px">
+            <div class="pay-mt-14">
               <div class="summary-row">
                 <span>Subtotal</span>
                 <span id="summarySubtotal">—</span>
               </div>
               <div
-                class="summary-row"
-                id="discountRow"
-                style="display: none; color: #16a34a">
+                class="summary-row pay-discount-row"
+                id="discountRow">
                 <span>Coupon Discount (10%)</span>
                 <span id="discountAmt">—</span>
               </div>
@@ -285,14 +271,13 @@
               </div> -->
               <div class="summary-total">
                 <span>Total</span>
-                <span id="summaryTotal" style="color: #057a96">—</span>
+                <span id="summaryTotal" class="pay-summary-total-val">—</span>
               </div>
             </div>
 
-            <hr style="margin: 14px 0" />
+            <hr class="pay-hr-14" />
             <label
-              class="text-muted"
-              style="font-size: 13px; font-weight: 500">Promo code</label>
+              class="text-muted pay-promo-label">Promo code</label>
             <div class="input-group">
               <input
                 type="text"
@@ -310,15 +295,15 @@
             </div>
             <div
               id="couponMsg"
-              style="font-size: 12px; margin-top: 6px"></div>
+              class="pay-coupon-msg"></div>
 
-            <div id="removeCouponWrapper" style="display:none; margin-top:5px;">
-              <a href="javascript:void(0)" id="removeCouponBtn" style="color:red; font-size:12px;">
+            <div id="removeCouponWrapper" class="pay-remove-coupon-wrapper">
+              <button type="button" id="removeCouponBtn" class="pay-remove-coupon-btn">
                 Remove coupon
-              </a>
+              </button>
             </div>
 
-            <hr style="margin: 14px 0" />
+            <hr class="pay-hr-14" />
 
             <button
               class="btn btn-brand btn-block"
@@ -334,7 +319,7 @@
 </div>
 
 <!--PAYMENT MODAL -->
-<div class="pay-modal-overlay" id="paymentModal">
+<div class="pay-modal-overlay hidden" id="paymentModal">
   <div class="pay-modal-box">
     <button class="pay-modal-close" id="closePayModal">&times;</button>
 
@@ -360,8 +345,7 @@
         placeholder="1234 5678 9012 3456"
         maxlength="19" />
       <span
-        class="help-block text-danger"
-        style="display: none"
+        class="help-block text-danger pay-err-text"
         id="cardNumber-err">
         Enter a valid 16-digit card number
       </span>
@@ -378,8 +362,7 @@
             placeholder="MM / YY"
             maxlength="7" />
           <span
-            class="help-block text-danger"
-            style="display: none"
+            class="help-block text-danger pay-err-text"
             id="cardExpiry-err">
             Enter valid expiry (MM/YY)
           </span>
@@ -395,8 +378,7 @@
             placeholder="•••"
             maxlength="4" />
           <span
-            class="help-block text-danger"
-            style="display: none"
+            class="help-block text-danger pay-err-text"
             id="cardCvv-err">
             Enter 3 or 4-digit CVV
           </span>
@@ -412,31 +394,31 @@
         id="cardName"
         placeholder="As printed on card" />
       <span
-        class="help-block text-danger"
-        style="display: none"
+        class="help-block text-danger pay-err-text"
         id="cardName-err">
         Cardholder name is required
       </span>
     </div>
 
     <span
-      class="help-block text-danger"
-      style="display: none"
+      class="help-block text-danger pay-err-text"
       id="payError">
       Please fix the errors above before proceeding.
     </span>
 
     <div class="pay-amount-box">
-      <span class="text-muted" style="font-size: 13px">Amount to pay</span>
-      <strong id="modalTotal" style="font-size: 18px; color: #057a96">—</strong>
+      <span class="text-muted pay-amount-label">Amount to pay</span>
+      <strong id="modalTotal" class="pay-amount-total">—</strong>
     </div>
 
     <button
-      class="btn btn-brand btn-block"
-      id="confirmPayBtn"
-      style="margin-top: 14px">
+      class="btn btn-brand btn-block pay-confirm-btn"
+      id="confirmPayBtn">
       🔒 Confirm Payment
     </button>
   </div>
 </div>
+@endsection
+@section('scripts')
+    @vite(['resources/js/payment.js'])
 @endsection

@@ -1,0 +1,318 @@
+/* ==========================================================================
+   Payment Page Styles (marketplace/payment.blade.php)
+   ========================================================================== */
+
+/* Breadcrumb background */
+.pay-breadcrumb-bg {
+    background-image: url('/assets/img/hero-images/Payment.svg');
+}
+
+/* Plan and billing selectors */
+.pay-plan-selector {
+    position: relative;
+    padding-bottom: 28px;
+}
+
+.pay-plan-scroll-track {
+    display: flex;
+    gap: 8px;
+    align-items: stretch;
+}
+
+.pay-plan-scroll-pill {
+    flex: 0 0 auto;
+    min-width: 82px;
+    justify-content: center;
+    cursor: pointer;
+    user-select: none;
+}
+
+.pay-plan-scroll-pill.selected {
+    border-color: #057A96 !important;
+    color: #057A96 !important;
+    box-shadow: inset 0 0 0 1px #057A96;
+}
+
+.pay-team-plan-indicator {
+    position: absolute;
+    top: calc(100% - 26px);
+    left: var(--team-indicator-left, 50%);
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    color: #667085;
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1;
+    pointer-events: none;
+    white-space: nowrap;
+}
+
+.pay-team-plan-indicator[hidden] {
+    display: none !important;
+}
+
+.pay-team-plan-indicator__line {
+    width: 1px;
+    height: 11px;
+    background: #98a2b3;
+}
+
+.os-mini-badge:empty {
+    display: none !important;
+}
+
+.os-mini-badge {
+    white-space: nowrap;
+}
+
+/* Validation error text helper (hidden by default, toggled via JS) */
+.pay-err-text {
+    display: none;
+}
+
+/* Terms and conditions link */
+.pay-terms-link {
+    color: #057a96;
+}
+
+/* Hidden plan price details */
+.view_plan_price_details.hidden {
+    display: none !important;
+}
+
+/* Coupon & Promo messages */
+.po-promo-success-msg {
+    display: none;
+}
+
+.pay-coupon-msg {
+    font-size: 12px;
+    margin-top: 7px;
+}
+
+.pay-remove-coupon-btn {
+    border: 0;
+    background: transparent;
+    padding: 0;
+    color: #dc2626;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: underline;
+    display: none;
+}
+
+/* Payment Modal amount & button */
+.pay-amount-label {
+    font-size: 13px;
+}
+
+.pay-amount-total {
+    font-size: 18px;
+    color: #057a96;
+}
+
+.pay-confirm-btn {
+    margin-top: 14px;
+}
+
+/* Single User & Order Summary specific classes */
+.pay-order-summary-heading {
+    border-bottom: 1px solid #ddd;
+}
+
+.pay-order-summary-title {
+    color: #333;
+    margin: 0;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.pay-billing-controls {
+    margin-bottom: 10px;
+}
+
+.pay-row-between {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.pay-control-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #333;
+}
+
+.pay-toggle-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    margin: 0;
+}
+
+.pay-month-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #057a96;
+}
+
+.pay-switch-wrap {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 22px;
+}
+
+.pay-switch-input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    position: absolute;
+}
+
+.pay-switch-track {
+    position: absolute;
+    inset: 0;
+    border-radius: 999px;
+    cursor: pointer;
+    background: #ccc;
+    transition: background 0.2s;
+}
+
+.pay-switch-thumb {
+    position: absolute;
+    top: 3px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    transition: left 0.2s;
+    left: 3px;
+}
+
+.pay-switch-input:checked + .pay-switch-track,
+.pay-switch-track.yearly-selected {
+    background: #057a96;
+}
+
+.pay-switch-input:checked + .pay-switch-track .pay-switch-thumb,
+.pay-switch-track.yearly-selected .pay-switch-thumb {
+    left: 21px;
+}
+
+.pay-year-label {
+    font-size: 12px;
+    font-weight: 400;
+    color: #888;
+}
+
+.pay-discount-badge-inline {
+    background: #d1fae5;
+    color: #065f46;
+    border-radius: 999px;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 1px 6px;
+    margin-left: 2px;
+}
+
+.pay-hr-top {
+    margin: 10px 0 0 0;
+}
+
+.pay-qty-controls {
+    margin-top: 10px;
+}
+
+.pay-qty-box {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.pay-qty-btn {
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: #f5f5f5;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pay-qty-input {
+    width: 42px;
+    height: 32px;
+    text-align: center;
+    border: none;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    font-size: 13px;
+    font-weight: 600;
+    color: #333;
+    -moz-appearance: textfield;
+    outline: none;
+    background: #fff;
+}
+
+.pay-qty-input::-webkit-outer-spin-button,
+.pay-qty-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.pay-hr-12 {
+    margin: 12px 0;
+}
+
+.pay-hr-14 {
+    margin: 14px 0;
+}
+
+.pay-summary-plan-name {
+    font-size: 18px;
+    color: #057a96;
+}
+
+.pay-summary-period {
+    font-size: 13px;
+    font-weight: 400;
+}
+
+.pay-mt-14 {
+    margin-top: 14px;
+}
+
+.pay-discount-row {
+    display: none;
+    color: #16a34a;
+}
+
+.pay-summary-total-val {
+    color: #057a96;
+}
+
+.pay-promo-label {
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.pay-remove-coupon-wrapper {
+    display: none;
+    margin-top: 5px;
+}
+

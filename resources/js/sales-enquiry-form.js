@@ -444,8 +444,10 @@
                     },
                 });
 
+                var submitUrl = form.dataset.url || $(form).data("url") || (typeof enquiryUrl !== "undefined" ? enquiryUrl : "/sales-enquiry-submit");
+
                 $.ajax({
-                    url: enquiryUrl,
+                    url: submitUrl,
                     type: "POST",
                     data: formData,
                     processData: false,

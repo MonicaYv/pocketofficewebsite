@@ -781,11 +781,13 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // MODAL
-    const paymentModalForTeam = document.getElementById("paymentModalForTeam");
+    const paymentModalForTeam =
+        document.getElementById("paymentModalForTeam") ||
+        document.getElementById("paymentModal");
 
-    const sideSubmitBtnForTeam = document.getElementById(
-        "sideSubmitBtnForTeam",
-    );
+    const sideSubmitBtnForTeam =
+        document.getElementById("sideSubmitBtnForTeam") ||
+        document.getElementById("sideSubmitBtn");
 
     const closePayModal = document.getElementById("closePayModal");
 
@@ -899,6 +901,7 @@ document.addEventListener("DOMContentLoaded", function () {
         appliedPromoValue = 0;
         appliedPromoType = "";
         $("#removeCouponBtn").hide();
+        $("#removeCouponWrapper").hide();
         $("#poPromoSuccessMsg").hide();
         if (poPromoSuccessMsg) poPromoSuccessMsg.style.display = "none";
         if (message) $("#couponMsg").html(message).css("color", "red");
@@ -926,6 +929,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     appliedPromoValue = parseFloat(response.discount_value || response.promodiscount || 0);
                     appliedPromoType = response.discount_type || response.type || "";
                     $("#removeCouponBtn").show();
+                    $("#removeCouponWrapper").show();
                     if (poPromoSuccessMsg) poPromoSuccessMsg.style.display = "flex";
                     if (!silent) $("#couponMsg").html("✅ Promo code applied successfully").css("color", "green");
                     updateFinalAmounts();
@@ -973,6 +977,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // HIDE REMOVE BUTTON
     $("#removeCouponBtn").hide();
+    $("#removeCouponWrapper").hide();
     if (poPromoSuccessMsg) poPromoSuccessMsg.style.display = "none";
 
     // HIDE PROMO DISCOUNT ROW

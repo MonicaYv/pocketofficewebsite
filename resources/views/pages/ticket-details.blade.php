@@ -68,7 +68,7 @@
         <div class="section-heading">General Information</div>
         <div class="horizontal-line"></div>
       </div>
-      <form id="supportRequestForm" class="needs-validation" enctype="multipart/form-data" novalidate>
+      <form id="supportRequestForm" class="needs-validation" method="POST" action="{{ route('support.request.submit') }}" data-url="{{ route('support.request.submit') }}" data-redirect="{{ url('submit-ticket') }}" enctype="multipart/form-data" novalidate>
         <input type="hidden" id="support-department" name="department" />
         <div class="form-item">
           <label for="customerId" class="emailLabel">Customer Id</label>
@@ -151,7 +151,7 @@
           <div class="g-recaptcha mil-mt-30" data-sitekey="6LftJJ8qAAAAAOGdsVx3yOGqvRXTVc2VUQl8D-tW"></div>
         </div>
         <div class="buttons">
-          <button type="button" class="previous-btn" onclick="window.location.href='{{ url('submit-ticket') }}'">
+          <button type="button" class="previous-btn" data-href="{{ url('submit-ticket') }}">
             Previous
           </button>
           <button type="submit" class="ticket-submit-btn">Submit</button>
@@ -161,92 +161,6 @@
   </div>
 
   @endsection
-
-
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const form = document.getElementById("supportRequestForm");
-      const departmentInput = document.getElementById("support-department");
-      const fileInput = document.getElementById("attach-files");
-      const fileError = document.getElementById("file-error");
-      const selectedDepartment = localStorage.getItem("selectedDepartment") || "";
-
-      if (departmentInput) {
-        departmentInput.value = selectedDepartment;
-      }
-
-      if (!selectedDepartment) {
-        toastr.warning("Please choose a department first.");
-      }
-
-      fileInput.addEventListener("change", function(event) {
-        const maxFileSize = 2 * 1024 * 1024;
-        const files = event.target.files;
-        let valid = true;
-
-        for (let i = 0; i < files.length; i++) {
-          if (files[i].size > maxFileSize) {
-            valid = false;
-            break;
-          }
-        }
-
-        if (!valid) {
-          fileError.classList.remove("d-none");
-          event.target.value = "";
-        } else {
-          fileError.classList.add("d-none");
-        }
-      });
-
-      form.addEventListener("submit", async function(event) {
-        event.preventDefault();
-
-        if (!departmentInput.value) {
-          toastr.error("Please select a department before submitting.");
-          window.location.href = "{{ url('submit-ticket') }}";
-          return;
-        }
-
-        const submitBtn = form.querySelector(".ticket-submit-btn");
-        const originalBtnText = submitBtn ? submitBtn.textContent : "Submit";
-
-        if (submitBtn) {
-          submitBtn.disabled = true;
-          submitBtn.textContent = "Submitting...";
-        }
-
-        const formData = new FormData(form);
-
-        try {
-          const response = await fetch("{{ route('support.request.submit') }}", {
-            method: "POST",
-            headers: {
-              "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').content,
-              "X-Requested-With": "XMLHttpRequest"
-            },
-            body: formData
-          });
-
-          const data = await response.json().catch(() => ({}));
-
-          if (!response.ok || !data.status) {
-            throw new Error(data.message || "Unable to submit support request.");
-          }
-
-          toastr.success(data.message || "Support request submitted successfully");
-          form.reset();
-          departmentInput.value = "";
-          localStorage.removeItem("selectedDepartment");
-          fileError.classList.add("d-none");
-        } catch (error) {
-          toastr.error(error.message || "Something went wrong. Try again.");
-        } finally {
-          if (submitBtn) {
-            submitBtn.disabled = false;
-            submitBtn.textContent = originalBtnText;
-          }
-        }
-      });
-    });
-  </script>
+  @section('scripts')
+    @vite(['resources/js/ticket-details.js'])
+  @endsection

@@ -9768,6 +9768,11 @@ input[type="number"] {
     margin-bottom: 10px;
 }
 
+.popup-form-hidden,
+.forgot-form {
+    display: none;
+}
+
 .forgot-form .btn-wrap {
     padding-top: 0px;
     display: flex;
@@ -12819,10 +12824,7 @@ input:checked + .toggle-slider:before {
     color: #1ea939;
     font-size: 12px;
     font-weight: 600;
-    display: flex;
-    align-items: start;
-    justify-content: center;
-    gap: 7px;
+    text-align: center;
     padding: 6px 24px;
     border-top: 1px solid #ddeedf;
 }
@@ -20125,3 +20127,70 @@ body {
       font-size: 28px;
     }
   }
+
+.hidden { display: none !important; }
+.custom-error { font-size: 12px; color: red; margin-top: 4px; }
+.is-invalid { border: 1px solid red !important; }
+select.is-invalid,
+input.is-invalid,
+textarea.is-invalid {
+    border: 1px solid red !important;
+}
+
+/* Reusable tracking pixel utility */
+.tracking-pixel {
+    display: none !important;
+}
+
+/* ==========================================================================
+   Industry Solutions Hero Breadcrumb Backgrounds (layouts/industry_hero.blade.php)
+   ========================================================================== */
+.industry-hero-bg {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.industry-hero-finance-accounting {
+    background-image: url('/assets/img/hero-images/industries/Finance-Accounting/Finance & Accounting 1.svg');
+}
+
+.industry-hero-consulting {
+    background-image: url('/assets/img/hero-images/industries/Consulting/Consulting 2.svg');
+}
+
+.industry-hero-education {
+    background-image: url('/assets/img/hero-images/industries/Education/Education 1.svg');
+}
+
+.industry-hero-healthcare {
+    background-image: url('/assets/img/hero-images/industries/Healthcare/Healthcare 1.svg');
+}
+
+.industry-hero-bpo {
+    background-image: url('/assets/img/hero-images/industries/BPO-Outsourcing/BPO & Outsourcing 1.svg');
+}
+
+.industry-hero-it-software {
+    background-image: url('/assets/img/hero-images/industries/IT-Software/Software-1.svg');
+}
+
+.industry-hero-legal-services {
+    background-image: url('/assets/img/hero-images/industries/LegalServices/Legal Services 1.svg');
+}
+
+.industry-hero-manufacturing {
+    background-image: url('/assets/img/hero-images/industries/Manufacturing/Manufacturing 1.svg');
+}
+
+.industry-hero-media-publishing {
+    background-image: url('/assets/img/hero-images/industries/Media-Publishing/Media & Publishing 1.svg');
+}
+
+.industry-hero-retail-ecommerce {
+    background-image: url('/assets/img/hero-images/industries/Retail-E-commerce/Retail & E-commerce 1.svg');
+}
+
+.industry-hero-design {
+    background-image: url('/assets/img/hero-images/industries/Design/Design 1.svg');
+}

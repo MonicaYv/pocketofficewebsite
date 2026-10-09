@@ -1,0 +1,219 @@
+/* ==========================================================================
+   Pricing Page Styles (marketplace/pricing.blade.php)
+   ========================================================================== */
+
+/* Currency Select */
+.currency-select {
+    padding: 10px 14px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    min-width: 220px;
+    font-size: 14px;
+    cursor: pointer;
+    outline: none;
+}
+
+/* Responsive Currency Dropdown overrides */
+.currency-header-container {
+    position: relative !important;
+    z-index: 4 !important;
+}
+
+.pricing-title-row .currency-dropdown-wrapper {
+    position: relative !important;
+    display: inline-block !important;
+    left: auto !important;
+    right: auto !important;
+    top: auto !important;
+    margin-top: 12px !important;
+    max-width: 100% !important;
+    width: auto !important;
+    vertical-align: middle;
+}
+
+@media (min-width: 992px) {
+    .currency-header-container {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .pricing-header {
+        margin-bottom: 0 !important;
+        flex-grow: 1;
+        text-align: center;
+    }
+
+    .pricing-title-row {
+        position: absolute !important;
+        right: 15px !important;
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+        margin-top: 0 !important;
+    }
+
+    .pricing-title-row .currency-dropdown-wrapper {
+        margin-top: 0 !important;
+    }
+}
+
+.currency-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    border: 1px solid #ddd;
+    padding: 6px 16px;
+    border-radius: 8px;
+    background: #fff;
+    cursor: pointer;
+    max-width: 100%;
+    box-sizing: border-box;
+    transition: all 0.2s ease-in-out;
+}
+
+.currency-btn:hover {
+    border-color: #057A96;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.currency-code {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 400;
+    font-size: 14px;
+    color: #5b6880;
+    flex: 1;
+    min-width: 0;
+}
+
+.currency-menu {
+    position: absolute;
+    top: 115%;
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    width: 280px;
+    max-width: calc(100vw - 32px);
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 8px 0;
+    margin: 0;
+    list-style: none;
+    display: none;
+    z-index: 9999;
+    max-height: 250px;
+    overflow-y: auto;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.currency-menu.open {
+    display: block;
+}
+
+.currency-menu li {
+    padding: 10px 14px;
+    cursor: pointer;
+    transition: 0.2s;
+    font-size: 14px;
+    text-align: left;
+}
+
+.currency-menu li:hover {
+    background: #f5f5f5;
+}
+
+.currency-search-li {
+    padding: 8px 10px;
+    border-bottom: 1px solid #eee;
+}
+
+#currencySearch {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    outline: none;
+    font-size: 14px;
+}
+
+.price-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+
+.original-price {
+    margin-top: 1px;
+    font-size: 16px;
+    color: #8a8a8a;
+    text-decoration: line-through;
+    text-decoration-color: #b5b5b5;
+    opacity: 0.8;
+}
+
+/* Breadcrumb background */
+.pricing-breadcrumb-bg {
+    background-image: url('/assets/img/hero-images/Pricing.svg');
+}
+
+/* Annual / Monthly savings strip in personal plan card */
+.personal-annual-strip {
+    display: block;
+    text-align: center;
+}
+
+.personal-annual-strip-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 7px;
+    width: 100%;
+    text-align: center;
+}
+
+.personal-annual-strip .party-popover {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    vertical-align: middle;
+    flex-shrink: 0;
+}
+
+/* Annual discount strip initially hidden (shown dynamically by JS) */
+.personal-annual-strip.strip-init-hidden,
+.strip-init-hidden {
+    display: none;
+}
+
+/* Invisible minimum note to maintain vertical alignment */
+.po-minimum-note-invisible {
+    visibility: hidden;
+    pointer-events: none;
+    user-select: none;
+}
+
+/* Currency label gap */
+.view-currency {
+    gap: 3px;
+}
+
+/* Comparison table column minimum width */
+.pricing-tbl-th-minwidth {
+    min-width: 130px;
+}
+
+/* Comparison table action button */
+.pricing-compare-btn {
+    width: 100% !important;
+    max-width: 115px !important;
+    height: 36px !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    padding: 0 !important;
+}

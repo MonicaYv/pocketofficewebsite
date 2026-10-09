@@ -1,0 +1,11 @@
+/* Move label when input is focused */
+.single-input-wrap .single-input:focus + label {
+    top: -10px;
+    font-size: 12px;
+}
+
+/* Move label when input has value */
+.single-input-wrap.active label {
+    top: -10px;
+    font-size: 12px;
+}

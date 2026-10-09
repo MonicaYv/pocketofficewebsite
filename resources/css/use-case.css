@@ -1,0 +1,8 @@
+/* ==========================================================================
+   Use Case Page Styles (pages/use-case.blade.php)
+   ========================================================================== */
+
+/* Breadcrumb background */
+.use-case-breadcrumb-bg {
+    background-image: url('/assets/img/hero-images/By%20use%20case%20.svg');
+}
