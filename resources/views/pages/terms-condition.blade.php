@@ -31,10 +31,7 @@
  @section('content')
  <!-- breadcrumb area start -->
  <div
-   class="breadcrumb-area"
-   style="
-        background-image: url(assets/img/hero-images/Terms-conditions\ .svg);
-      ">
+   class="breadcrumb-area breadcrumb-terms-conditions">
    <div class="container">
      <div class="row">
        <div class="col-lg-12">

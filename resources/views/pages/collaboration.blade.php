@@ -32,8 +32,7 @@ Pocket Office')
 @section('content')
 <!-- breadcrumb area start -->
 <div
-    class="breadcrumb-area"
-    style="background-image: url('{{ asset($constants['IMAGEFILEPATH'] . 'hero-images/collaboration.svg') }}')">
+    class="breadcrumb-area breadcrumb-collaboration">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">

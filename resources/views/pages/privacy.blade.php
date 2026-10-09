@@ -31,8 +31,7 @@
   @section('content')
   <!-- breadcrumb area start -->
   <div
-    class="breadcrumb-area"
-    style="background-image: url(assets/img/hero-images/Privacy-Policy.svg)">
+    class="breadcrumb-area breadcrumb-privacy-policy">
     <div class="container">
       <div class="row">
         <div class="col-lg-12">

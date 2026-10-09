@@ -30,7 +30,7 @@
 @endsection
 @section('content')
 <!-- breadcrumb area start -->
-<div class="breadcrumb-area" style="background-image: url('{{ asset($constants['IMAGEFILEPATH'] . 'page-title-bg.png') }}')">
+<div class="breadcrumb-area breadcrumb-attribution">
   <div class="container">
     <div class="row">
       <div class="col-lg-12">

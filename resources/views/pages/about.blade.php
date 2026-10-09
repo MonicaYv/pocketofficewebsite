@@ -32,9 +32,8 @@
 @section('content')
 
 <div
-  class="breadcrumb-area"
-  style="background-image: url('{{ asset($constants['IMAGEFILEPATH'] . 'hero-images/about-us-hero.svg') }}')">
-  <div class="container">
+  class="breadcrumb-area breadcrumb-about">
+<div class="container">
     <div class="row">
       <div class="col-lg-12">
         <div class="breadcrumb-inner">

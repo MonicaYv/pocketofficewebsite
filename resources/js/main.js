@@ -984,7 +984,8 @@ $(function () {
     "#sales-enquiry-trigger",
     function (e) {
       e.preventDefault();
-      $("#sales-enquiry-overlay").fadeIn(200);
+      const overlay = document.getElementById("sales-enquiry-overlay");
+      if (overlay) overlay.classList.toggle("hidden-state", false);
       $("body").css("overflow", "hidden"); // prevent background scroll
     },
   );
@@ -1007,7 +1008,8 @@ $(function () {
   });
 
   function closePopup() {
-    $("#sales-enquiry-overlay").fadeOut(200);
+    const overlay = document.getElementById("sales-enquiry-overlay");
+    if (overlay) overlay.classList.toggle("hidden-state", true);
     $("body").css("overflow", "");
   }
 });

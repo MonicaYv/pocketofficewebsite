@@ -31,8 +31,7 @@
    @section('content')
    <!-- breadcrumb area start -->
    <div
-     class="breadcrumb-area"
-     style="background-image: url('{{ asset($constants['IMAGEFILEPATH'] . 'hero-images/disclaimer\ .svg') }}')">
+     class="breadcrumb-area breadcrumb-disclaimer">
      <div class="container">
        <div class="row">
          <div class="col-lg-12">

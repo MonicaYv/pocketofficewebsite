@@ -2,7 +2,7 @@
 @section('title', 'Job Details')
 @section('content')
 
-<div class="breadcrumb-area" style="background-image: url({{ asset('assets/img/hero-images/careers.svg') }})">
+<div class="breadcrumb-area breadcrumb-job-details">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">

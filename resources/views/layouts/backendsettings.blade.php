@@ -61,7 +61,7 @@
     
 </head>
 
-<body>
+<body class="@yield('body-class')">
     <noscript>
 <img height="1" width="1" style="display:none"
 src="https://www.facebook.com/tr?id=467144275341276&ev=PageView&noscript=1"/>

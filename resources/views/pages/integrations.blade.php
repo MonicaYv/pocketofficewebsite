@@ -29,8 +29,7 @@
 
   <!-- breadcrumb area start -->
   <div
-      class="breadcrumb-area"
-      style="background-image: url(assets/img/hero-images/integrations.svg)">
+      class="breadcrumb-area breadcrumb-integrations">
       <div class="container">
           <div class="row">
               <div class="col-lg-12">

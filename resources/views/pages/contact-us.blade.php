@@ -538,7 +538,7 @@
             </div>
         </div>
     </div>
-<div id="sales-enquiry-overlay" style="display:none;">
+<div id="sales-enquiry-overlay" class="hidden-state">
     @include('pages.sales-enquiry')
 </div>
     <div class="support-modal-overlay">
@@ -556,4 +556,3 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     @vite(['resources/js/contact-us.js'])
     @endsection
-
