@@ -4,4 +4,4 @@
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-@vite(['resources/js/main.js', 'resources/js/enquiry.js','resources/js/sales-enquiry-form.js','resources/js/countries.js',])
+@vite(['resources/js/main.js', 'resources/js/enquiry.js','resources/js/sales-enquiry-form.js','resources/js/countries.js','resources/js/analytics.js'])

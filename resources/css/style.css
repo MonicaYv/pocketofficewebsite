@@ -1092,6 +1092,14 @@ ul.wp-block-latest-posts.is-grid.alignwide {
     background-image: url("/assets/img/hero-images/news.svg");
 }
 
+.breadcrumb-documentation {
+    background-image: url("/assets/img/hero-images/getting-started.svg");
+}
+
+.breadcrumb-contact-us {
+    background-image: url("/assets/img/hero-images/Contact%20-%20Us.svg");
+}
+
 .breadcrumb-team-type {
     background-image: url("/assets/img/hero-images/By%20team%20Type.svg");
 }
@@ -15128,6 +15136,43 @@ h5.footer-sub-heading {
 
 .careers-page .job-load-error {
     color: red;
+}
+
+.contact-page #contact-enquiry-overlay {
+    display: none;
+}
+
+.contact-page .contact-industry-group {
+    margin: 0;
+}
+
+.contact-page #industry,
+.contact-page #country {
+    padding: 12px 40px 12px 16px;
+}
+
+.contact-page #country {
+    border-radius: .25rem;
+    height: 48px;
+}
+
+.contact-page .submit-step-btn {
+    display: none;
+}
+
+.documentation-page .documentation-sidebar {
+    height: auto;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.documentation-page .documentation-list-intro {
+    margin-top: .5rem;
+}
+
+.documentation-page .documentation-list-label {
+    color: #0d2d36;
+    font-size: 13.5px;
 }
 
 .careers-section {

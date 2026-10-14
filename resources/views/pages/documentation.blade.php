@@ -6,6 +6,7 @@
 @section('meta-image', 'https://pocket-office.ai/assets/img/hero-images/getting-started.svg')
 @section('canonical', 'https://pocket-office.ai/documentation')
 @section('meta-url', 'https://pocket-office.ai/documentation')
+@section('body-class', 'documentation-page')
 @section('structured-data')
 @verbatim
 {
@@ -34,7 +35,7 @@
 @section('content')
 
 <!-- Breadcrumb -->
-<div class="breadcrumb-area" style="background-image: url(assets/img/hero-images/getting-started.svg)">
+<div class="breadcrumb-area breadcrumb-documentation">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -55,7 +56,7 @@
                 Login to Training Portal
             </a>
       </div>
-     <aside class="sidebar" style="height: auto; max-height: 400px; overflow-y: auto;">
+     <aside class="sidebar documentation-sidebar">
        <h2>Table Of Contents</h2>
 
        <a href="#overview">
@@ -100,7 +101,7 @@
          <p>PocketOffice provides a secure, cloud-based desktop experience that combines files, applications, collaboration tools, and workspace management in one place. Whether you’re working individually or as part of a team, PocketOffice helps you stay organized, productive, and connected from any device.</p>
          <h6>Explore the Demo Workspace</h6>
          <p>Experience PocketOffice firsthand through our interactive demo environment. Browse files and folders, open applications, test workspace features, and explore how teams collaborate within shared environments.</p>
-          <p style="margin-top:.5rem"><strong style="color:#0d2d36;font-size:13.5px">What you can explore:</strong></p>
+          <p class="documentation-list-intro"><strong class="documentation-list-label">What you can explore:</strong></p>
                 <ul>
                     <li>Desktop navigation and workspace layout</li>
                     <li>File and folder management</li>
@@ -112,7 +113,7 @@
                     Note: Changes made in the demo workspace are temporary and will reset when the page is refreshed.
                     Advanced administrative controls and security settings may not be available in the demo environment.
             </span>
-             <p style="margin-top:.5rem"><strong style="color:#0d2d36;font-size:13.5px">Learn how to:</strong></p>
+             <p class="documentation-list-intro"><strong class="documentation-list-label">Learn how to:</strong></p>
                 <ul>
                     <li>Navigate the desktop interface</li>
                     <li>Open, resize, and organize windows</li>
@@ -141,7 +142,7 @@
          </p>
          <h6>Organize Files & Folders</h6>
          <p>Keep your workspace structured by uploading documents, creating folders, and organizing resources for quick access.</p>
-         <p style="margin-top:.5rem"><strong style="color:#0d2d36;font-size:13.5px">Benefits::</strong></p>
+         <p class="documentation-list-intro"><strong class="documentation-list-label">Benefits::</strong></p>
                 <ul>
                     <li>Faster file discovery</li>
                     <li>Better project organization</li>
@@ -152,7 +153,7 @@
          <p>
            Integrate your existing cloud storage services directly into PocketOffice and access all your files from a single workspace.
         </p>
-        <p style="margin-top:.5rem"><strong style="color:#0d2d36;font-size:13.5px">Supported integrations include:</strong></p>
+        <p class="documentation-list-intro"><strong class="documentation-list-label">Supported integrations include:</strong></p>
                 <ul>
                     <li>Google Drive</li>
                     <li>Dropbox</li>
@@ -178,7 +179,7 @@
          </p>
          <h6>Launch Apps</h6>
          <p>Access the tools you need directly from your desktop. Open productivity applications, communication platforms, internal business tools, and web-based services without disrupting your workflow.</p>
-        <p style="margin-top:.5rem"><strong style="color:#0d2d36;font-size:13.5px">Common use cases:</strong></p>
+        <p class="documentation-list-intro"><strong class="documentation-list-label">Common use cases:</strong></p>
                 <ul>
                     <li>Document creation and editing</li>
                     <li>Team communication</li>
@@ -190,7 +191,7 @@
          <p>
            Boost efficiency with built-in multitasking capabilities and keyboard shortcuts designed for faster navigation and smoother workflows.
          </p>
-            <p style="margin-top:.5rem"><strong style="color:#0d2d36;font-size:13.5px">Features include:</strong></p>
+            <p class="documentation-list-intro"><strong class="documentation-list-label">Features include:</strong></p>
                     <ul>
                         <li>Multiple open windows</li>
                         <li>Quick application switching</li>
@@ -223,7 +224,7 @@
          <p>
           Share documents securely with team members or external stakeholders while maintaining full control over access.
          </p>
-        <p style="margin-top:.5rem"><strong style="color:#0d2d36;font-size:13.5px">Sharing options include:</strong></p>
+        <p class="documentation-list-intro"><strong class="documentation-list-label">Sharing options include:</strong></p>
                 <ul>
                     <li>Internal team sharing</li>
                     <li>External collaboration links</li>
@@ -234,7 +235,7 @@
                 </ul>
         <h6>Create Shared Workspaces</h6>
         <p>Build dedicated workspaces for teams, departments, projects, or clients. Shared workspaces centralize files, applications, and communication, making collaboration more organized and effective.</p>
-        <p style="margin-top:.5rem"><strong style="color:#0d2d36;font-size:13.5px">Ideal for:</strong></p>
+        <p class="documentation-list-intro"><strong class="documentation-list-label">Ideal for:</strong></p>
                 <ul>
                     <li>Project teams</li>
                     <li>Department collaboration</li>
@@ -259,7 +260,7 @@
          <p>Protect your data and maintain complete visibility over how information is accessed and shared.</p>
          <h6>Set Permissions</h6>
          <p>Define access levels for users, groups, and teams. Control who can view, edit, download, share, or manage files and resources across your workspace.</p>
-        <p style="margin-top:.5rem"><strong style="color:#0d2d36;font-size:13.5px">Permission controls include:</strong></p>
+        <p class="documentation-list-intro"><strong class="documentation-list-label">Permission controls include:</strong></p>
                 <ul>
                     <li>User-based access</li>
                     <li>Role-based permissions</li>
@@ -271,7 +272,7 @@
          <p>
            Maintain transparency with detailed activity tracking. Monitor file access, modifications, sharing events, and user actions across your organization.
         </p>
-        <p style="margin-top:.5rem"><strong style="color:#0d2d36;font-size:13.5px">Track activities such as:</strong></p>
+        <p class="documentation-list-intro"><strong class="documentation-list-label">Track activities such as:</strong></p>
                 <ul>
                     <li>File uploads and downloads</li>
                     <li>Document edits</li>
@@ -283,7 +284,7 @@
          <p>
            Keep your data protected with reliable backup and recovery options. Quickly restore important files and maintain business continuity in the event of accidental deletion or unexpected issues.
          </p>
-        <p style="margin-top:.5rem"><strong style="color:#0d2d36;font-size:13.5px">Key benefits:</strong></p>
+        <p class="documentation-list-intro"><strong class="documentation-list-label">Key benefits:</strong></p>
                 <ul>
                     <li>Automated data protection</li>
                     <li>Fast recovery options</li>
@@ -322,32 +323,5 @@
  </div>
 @endsection
 @section('scripts')
-<script>
-      (function () {
-        const navLinks = document.querySelectorAll(".sidebar a");
-
-        if (navLinks.length > 0) {
-          navLinks[0].classList.add("active");
-        }
-
-        navLinks.forEach((link) => {
-          link.addEventListener("click", function (e) {
-            e.preventDefault();
-            e.stopImmediatePropagation();
-
-            navLinks.forEach((l) => l.classList.remove("active"));
-            this.classList.add("active");
-
-            const targetId = this.getAttribute("href").substring(1);
-            const targetSection = document.getElementById(targetId);
-            if (!targetSection) return;
-
-            const offset =
-              targetSection.getBoundingClientRect().top + window.pageYOffset - 110;
-
-            window.scrollTo({ top: offset, behavior: "smooth" });
-          });
-        });
-      })();
-</script> 
+    @vite(['resources/js/documentation.js'])
 @endsection
