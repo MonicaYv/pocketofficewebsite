@@ -148,10 +148,10 @@
                         <p class="card-info">Ask product questions, report problems, or
                             leave feedback.</p>
                     </div>
-                    <button class="card-btn"
-                        onclick="window.location.href='{{ url('https://helpdesk.pocket-office.ai/submit-ticket') }}'">
+                    <a class="card-btn flex items-center justify-center"
+                        href="https://helpdesk.pocket-office.ai/submit-ticket">
                         Contact support
-                    </button>
+                   </a>
                 </div>
                 <div class="card">
                     <div class="card-head">

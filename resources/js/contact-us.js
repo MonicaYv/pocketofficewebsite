@@ -37,19 +37,8 @@ $(document).ready(function () {
       return L.divIcon({
         className: "",
         html: `
-          <div style="
-            width:36px;
-            height:36px;
-            background:#057a96;
-            border:3px solid #fff;
-            border-radius:50% 50% 50% 0;
-            transform:rotate(-45deg);
-            box-shadow:0 4px 14px rgba(0,0,0,0.25);
-            display:flex;
-            align-items:center;
-            justify-content:center;
-          ">
-            <div style="transform:rotate(45deg);color:#fff;font-size:14px;">
+          <div class="map-icon">
+            <div class="rotate-45">
               &#9679;
             </div>
           </div>

@@ -21,7 +21,7 @@
             // toast.setAttribute("role", "dialog");
             // toast.className = "fixed inset-0 flex items-center z-10 justify-center bg-black bg-opacity-50 previewmodal";
             html = `<div class="fixed inset-0 flex items-center z-10 justify-center bg-black bg-opacity-50 previewmodal" role="dialog" id="preview-modal">
-                <div class="w-full max-w-md rounded-2xl bg-white overflow-hidden modal-content" style="height: 400px;">
+                <div class="w-full max-w-md rounded-2xl bg-white overflow-hidden modal-content h-400">
                     <div class="flex justify-between py-4 border-b-2 items-center relative">
                         <div class="flex mx-auto items-center gap-2">
                             <i class="ri-message-2-line ri-xl"></i>

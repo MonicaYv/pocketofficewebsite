@@ -51,7 +51,7 @@ function loadCareers() {
 
             tableBody.innerHTML = `
                 <tr>
-                    <td colspan="3" class="text-center py-5" style="color: red;">
+                    <td colspan="3" class="text-center py-5 clr-red">
                         <h3>Oops! Something went wrong.</h3>
                         <p>We couldn't load job openings right now. Please refresh or try again later.</p>
                     </td>

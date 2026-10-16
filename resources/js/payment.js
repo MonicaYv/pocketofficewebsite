@@ -475,7 +475,7 @@ document.addEventListener("DOMContentLoaded", function () {
             discountRow.style.display = activeDiscount > 0 ? "flex" : "none";
             if (activeDiscount > 0) {
                 const label = discountRow.querySelector("span:first-child");
-                if (label) label.innerHTML = `Plan Discount (<span style="color:red;">${activeDiscount}%</span>)`;
+                if (label) label.innerHTML = `Plan Discount (<span class="clr-red">${activeDiscount}%</span>)`;
                 discountAmt.innerText = `-${formatCurrencyAmount(currentPlan.symbol, discountAmount)}`;
             }
         }
@@ -483,7 +483,7 @@ document.addEventListener("DOMContentLoaded", function () {
             extradiscountRow.style.display = extraDiscount > 0 ? "flex" : "none";
             if (extraDiscount > 0) {
                 const label = extradiscountRow.querySelector("span:first-child");
-                if (label) label.innerHTML = `${isYearly ? "Annual Billing" : "Monthly Extra"} Discount (<span style="color:red;">${extraDiscount}%</span>)`;
+                if (label) label.innerHTML = `${isYearly ? "Annual Billing" : "Monthly Extra"} Discount (<span class="clr-red">${extraDiscount}%</span>)`;
                 extradiscountAmt.innerText = `-${formatCurrencyAmount(currentPlan.symbol, extraDiscountAmount)}`;
             }
         }
