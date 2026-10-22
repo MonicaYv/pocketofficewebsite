@@ -1211,6 +1211,13 @@ ul.wp-block-latest-posts.is-grid.alignwide {
     margin-bottom: 40px;
     color: #01358d;
 }
+.search-result-link {
+    display: block;
+}
+
+.no-results-message {
+    color: red;
+}
 
 .comments-area .comments-title span {
     font-size: 18px;

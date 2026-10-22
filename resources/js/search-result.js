@@ -6,38 +6,53 @@ function getQueryParam(param) {
 
 function renderSearchResults(query) {
     const resultDiv = document.getElementById("result-div");
+
     if (!resultDiv) {
         return;
     }
 
-    resultDiv.innerHTML = ""; // clear placeholder
+    // Clear existing results
+    resultDiv.replaceChildren();
 
     if (query.trim() === "") {
-        resultDiv.innerHTML = "<p>Please enter a search term.</p>";
+        const message = document.createElement("p");
+        message.textContent = "Please enter a search term.";
+        resultDiv.appendChild(message);
         return;
     }
 
+    const normalizedQuery = query.trim().toLowerCase();
+
     const filteredPages = pages.filter(page =>
-        page.name.toLowerCase().includes(query) ||
-        (page.keywords && page.keywords.toLowerCase().includes(query))
+        page.name.toLowerCase().includes(normalizedQuery) ||
+        (
+            page.keywords &&
+            page.keywords.toLowerCase().includes(normalizedQuery)
+        )
     );
 
     if (filteredPages.length > 0) {
         filteredPages.forEach(page => {
             const link = document.createElement("a");
+
             link.href = page.url;
             link.textContent = page.name;
-            link.style.display = "block";
+            link.classList.add("search-result-link");
 
             resultDiv.appendChild(link);
         });
     } else {
-        resultDiv.innerHTML = `<p style="color:red">No results found for "${query}".</p>`;
+        const message = document.createElement("p");
+
+        message.classList.add("no-results-message");
+        message.textContent = `No results found for "${query}".`;
+
+        resultDiv.appendChild(message);
     }
 }
 
 // On page load, get query and render results
 document.addEventListener("DOMContentLoaded", () => {
-    const query = getQueryParam("q").toLowerCase();
+    const query = getQueryParam("q");
     renderSearchResults(query);
 });
