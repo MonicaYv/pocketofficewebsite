@@ -738,7 +738,7 @@ function fetchLicenseData(page = 1) {
                                                 </div>
                                             </div>
                                             <div class="relative ml-2">
-                                                <i class="ri-edit-line ri-xl text-gray-700  cursor-not-allowed has-tooltip" onclick="showCreateUserToast('${orderIdFormatUl + item.id}')"></i>
+                                                <i class="ri-edit-line ri-xl text-gray-700 cursor-not-allowed has-tooltip show-create-user-toast" data-order-id="${orderIdFormatUl + item.id}"></i>
                                                 <div class="absolute py-1 px-1.5 text-start text-xs tooltip -bottom-6 right-1 z-10 bg-white border rounded-md border-c-yellow font-normal whitespace-nowrap">
                                                     No Records
                                                 </div>
@@ -779,6 +779,11 @@ function showCreateUserToast(formattedLicenseId) {
     );
 }
 
+$(document).on("click", ".show-create-user-toast", function () {
+    const formattedLicenseId = $(this).attr("data-order-id") || $(this).data("order-id");
+    showCreateUserToast(formattedLicenseId);
+});
+
 function renderPagination(currentPage, lastPage, perPage = 0, total = 0) {
     let pagination = "";
 
@@ -807,9 +812,9 @@ function renderPagination(currentPage, lastPage, perPage = 0, total = 0) {
     if (currentPage === 1) {
         pagination += `<span class="px-3 py-1 text-sm text-gray-400 border border-gray-300 rounded-md cursor-not-allowed bg-c-black">Prev</span>`;
     } else {
-        pagination += `<a href="javascript:void(0)" data-page="${
+        pagination += `<button type="button" data-page="${
             currentPage - 1
-        }" class="px-3 py-1 text-sm text-white border border-gray-300 rounded-md hover:bg-gray-500 bg-c-black">Prev</a>`;
+        }" class="px-3 py-1 text-sm text-white border border-gray-300 rounded-md hover:bg-gray-500 bg-c-black">Prev</button>`;
     }
 
     // Page range
@@ -820,7 +825,7 @@ function renderPagination(currentPage, lastPage, perPage = 0, total = 0) {
     if (currentPage === 1) {
         pagination += `<span class="px-3 py-1 text-sm font-semibold text-yellow-600 border border-gray-300 rounded-md bg-c-black">1</span>`;
     } else {
-        pagination += `<a href="javascript:void(0)" data-page="1" class="px-3 py-1 text-sm text-white border border-gray-300 rounded-md hover:bg-gray-500 bg-c-black">1</a>`;
+        pagination += `<button type="button" data-page="1" class="px-3 py-1 text-sm text-white border border-gray-300 rounded-md hover:bg-gray-500 bg-c-black">1</button>`;
     }
 
     // Left dots
@@ -833,7 +838,7 @@ function renderPagination(currentPage, lastPage, perPage = 0, total = 0) {
         if (i === currentPage) {
             pagination += `<span class="px-3 py-1 text-sm font-semibold text-yellow-600 border border-gray-300 rounded-md bg-c-black">${i}</span>`;
         } else {
-            pagination += `<a href="javascript:void(0)" data-page="${i}" class="px-3 py-1 text-sm text-white border border-gray-300 rounded-md hover:bg-gray-500 bg-c-black">${i}</a>`;
+            pagination += `<button type="button" data-page="${i}" class="px-3 py-1 text-sm text-white border border-gray-300 rounded-md hover:bg-gray-500 bg-c-black">${i}</button>`;
         }
     }
 
@@ -847,15 +852,15 @@ function renderPagination(currentPage, lastPage, perPage = 0, total = 0) {
         if (currentPage === lastPage) {
             pagination += `<span class="px-3 py-1 text-sm font-semibold text-yellow-600 border border-gray-300 rounded-md bg-c-black">${lastPage}</span>`;
         } else {
-            pagination += `<a href="javascript:void(0)" data-page="${lastPage}" class="px-3 py-1 text-sm text-white border border-gray-300 rounded-md hover:bg-gray-500 bg-c-black">${lastPage}</a>`;
+            pagination += `<button type="button" data-page="${lastPage}" class="px-3 py-1 text-sm text-white border border-gray-300 rounded-md hover:bg-gray-500 bg-c-black">${lastPage}</button>`;
         }
     }
 
     // Next button
     if (currentPage < lastPage) {
-        pagination += `<a href="javascript:void(0)" data-page="${
+        pagination += `<button type="button" data-page="${
             currentPage + 1
-        }" class="px-3 py-1 text-sm text-white border border-gray-300 rounded-md hover:bg-gray-500 bg-c-black">Next</a>`;
+        }" class="px-3 py-1 text-sm text-white border border-gray-300 rounded-md hover:bg-gray-500 bg-c-black">Next</button>`;
     } else {
         pagination += `<span class="px-3 py-1 text-sm text-gray-400 border border-gray-300 rounded-md cursor-not-allowed bg-c-black">Next</span>`;
     }
@@ -883,9 +888,9 @@ function renderPagination_SHOW_WITH_BTNS(
     if (currentPage === 1) {
         pagination += `<span class="px-3 py-1 text-sm text-gray-400 border border-gray-300 rounded-md cursor-not-allowed bg-c-black">Prev</span>`;
     } else {
-        pagination += `<a href="javascript:void(0)" data-page="${
+        pagination += `<button type="button" data-page="${
             currentPage - 1
-        }" class="px-3 py-1 text-sm text-white border border-gray-300 rounded-md hover:bg-gray-500 bg-c-black">Prev</a>`;
+        }" class="px-3 py-1 text-sm text-white border border-gray-300 rounded-md hover:bg-gray-500 bg-c-black">Prev</button>`;
     }
 
     let start = Math.max(2, currentPage - 1);
@@ -895,7 +900,7 @@ function renderPagination_SHOW_WITH_BTNS(
     if (currentPage === 1) {
         pagination += `<span class="px-3 py-1 text-sm font-semibold text-yellow-600 border border-gray-300 rounded-md bg-c-black">1</span>`;
     } else {
-        pagination += `<a href="javascript:void(0)" data-page="1" class="px-3 py-1 text-sm text-white border border-gray-300 rounded-md hover:bg-gray-500 bg-c-black">1</a>`;
+        pagination += `<button type="button" data-page="1" class="px-3 py-1 text-sm text-white border border-gray-300 rounded-md hover:bg-gray-500 bg-c-black">1</button>`;
     }
 
     // Left dots
@@ -908,7 +913,7 @@ function renderPagination_SHOW_WITH_BTNS(
         if (i === currentPage) {
             pagination += `<span class="px-3 py-1 text-sm font-semibold text-yellow-600 border border-gray-300 rounded-md bg-c-black">${i}</span>`;
         } else {
-            pagination += `<a href="javascript:void(0)" data-page="${i}" class="px-3 py-1 text-sm text-white border border-gray-300 rounded-md hover:bg-gray-500 bg-c-black">${i}</a>`;
+            pagination += `<button type="button" data-page="${i}" class="px-3 py-1 text-sm text-white border border-gray-300 rounded-md hover:bg-gray-500 bg-c-black">${i}</button>`;
         }
     }
 
@@ -922,15 +927,15 @@ function renderPagination_SHOW_WITH_BTNS(
         if (currentPage === lastPage) {
             pagination += `<span class="px-3 py-1 text-sm font-semibold text-yellow-600 border border-gray-300 rounded-md bg-c-black">${lastPage}</span>`;
         } else {
-            pagination += `<a href="javascript:void(0)" data-page="${lastPage}" class="px-3 py-1 text-sm text-white border border-gray-300 rounded-md hover:bg-gray-500 bg-c-black">${lastPage}</a>`;
+            pagination += `<button type="button" data-page="${lastPage}" class="px-3 py-1 text-sm text-white border border-gray-300 rounded-md hover:bg-gray-500 bg-c-black">${lastPage}</button>`;
         }
     }
 
     // Next button
     if (currentPage < lastPage) {
-        pagination += `<a href="javascript:void(0)" data-page="${
+        pagination += `<button type="button" data-page="${
             currentPage + 1
-        }" class="px-3 py-1 text-sm text-white border border-gray-300 rounded-md hover:bg-gray-500 bg-c-black">Next</a>`;
+        }" class="px-3 py-1 text-sm text-white border border-gray-300 rounded-md hover:bg-gray-500 bg-c-black">Next</button>`;
     } else {
         pagination += `<span class="px-3 py-1 text-sm text-gray-400 border border-gray-300 rounded-md cursor-not-allowed bg-c-black">Next</span>`;
     }
@@ -954,7 +959,8 @@ function renderPagination_SHOW_WITH_BTNS(
 }
 
 // Attach click event dynamically
-$(document).on("click", "#pagination-links a[data-page]", function () {
+$(document).on("click", "#pagination-links [data-page]", function (e) {
+    e.preventDefault();
     let page = $(this).data("page");
     fetchLicenseData(page);
 });
@@ -1102,17 +1108,21 @@ $("#ul-clientDropdown").on("change", function () {
 });
 
 // Get random color for avatar background
-function getRandomColor() {
-    const colors = [
-        "#f44336",
-        "#e91e63",
-        "#9c27b0",
-        "#2196f3",
-        "#3f51b5",
-        "#4caf50",
-        "#ff9800",
+function getRandomColorClass() {
+    const colorClasses = [
+        "avatar-bg-red",
+        "avatar-bg-pink",
+        "avatar-bg-purple",
+        "avatar-bg-blue",
+        "avatar-bg-indigo",
+        "avatar-bg-green",
+        "avatar-bg-orange",
     ];
-    return colors[Math.floor(Math.random() * colors.length)];
+    return colorClasses[Math.floor(Math.random() * colorClasses.length)];
+}
+
+function getRandomColor() {
+    return getRandomColorClass();
 }
 
 // Render table rows for used license users drill down
@@ -1125,7 +1135,7 @@ function renderUserLicenseRows(users) {
 
     users.forEach((user, index) => {
         const firstLetter = user.name.charAt(0).toUpperCase();
-        const randomColor = getRandomColor();
+        const randomColor = getRandomColorClass();
         const showEditIcon = userType !== "client";
 
         tbody += `
@@ -1134,8 +1144,7 @@ function renderUserLicenseRows(users) {
                     index + 1
                 }</td>
                 <td class="px-2 py-3 flex items-center justify-center">
-                    <div class="flex items-center justify-center w-8 h-8 rounded-full text-white font-semibold text-sm"
-                        style="background-color: ${randomColor}">
+                    <div class="flex items-center justify-center w-8 h-8 rounded-full text-white font-semibold text-sm ${randomColor}">
                         ${firstLetter}
                     </div>
                 </td>

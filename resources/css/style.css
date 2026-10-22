@@ -20305,3 +20305,32 @@ textarea.is-invalid {
 .industry-hero-design {
     background-image: url("/assets/img/hero-images/industries/Design/Design 1.svg");
 }
+
+/* Avatar Random Background Colors */
+.avatar-bg-red {
+    background-color: #f44336;
+}
+
+.avatar-bg-pink {
+    background-color: #e91e63;
+}
+
+.avatar-bg-purple {
+    background-color: #9c27b0;
+}
+
+.avatar-bg-blue {
+    background-color: #2196f3;
+}
+
+.avatar-bg-indigo {
+    background-color: #3f51b5;
+}
+
+.avatar-bg-green {
+    background-color: #4caf50;
+}
+
+.avatar-bg-orange {
+    background-color: #ff9800;
+}
