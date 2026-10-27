@@ -44,7 +44,7 @@
             </div>
             
             <div class="login-section">
-               <h1 class="heading docs-heading">Welcome Back to PocketOffice Learning Hub</h1>
+               <h1 class="heading docs-heading">Welcome Back to PocketOffice <sup><img src="/assets/img/tm_logo.svg" alt="TM logo" width="14" height="14"></sup> Learning Hub</h1>
                 <form method="POST" action="{{ route('docs.login.submit') }}" id="docs-login-form" @if(session('error')) data-error="{{ session('error') }}" @endif>
                     @csrf
                     <input type="hidden" name="selected_tab" id="selected_tab" value="{{ $selectedTab }}">

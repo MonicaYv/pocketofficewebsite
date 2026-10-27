@@ -52,8 +52,9 @@
    <!-- Sidebar -->
    <div class="sidebar-section">
     <div class="mb-4">
+      
             <a href="{{ route('docs.login') }}" class="btn btn-green w-100" id="loginBtn">
-                Login to Training Portal
+               <i class="fa-solid fa-user-graduate mr-2"></i>Login to Training Portal
             </a>
       </div>
      <aside class="sidebar documentation-sidebar">
