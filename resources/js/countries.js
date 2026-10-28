@@ -1,26 +1,34 @@
 async function loadCountries() {
-  const select = document.getElementById("country");
-  if (!select) {
+  const selects = document.querySelectorAll('select[name="country"]');
+  if (!selects.length) {
     return;
   }
 
   try {
     const response = await fetch("/assets/data/countries.json");
+    if (!response.ok) {
+      throw new Error("Failed to fetch countries");
+    }
+
     const countries = await response.json();
 
     countries.sort((a, b) => a.name.localeCompare(b.name));
 
-    select.innerHTML = '<option value="">Select a Country </option>';
+    selects.forEach((select) => {
+      select.innerHTML = '<option value="">Select a Country </option>';
 
-    countries.forEach((country) => {
-      const option = document.createElement("option");
-      option.value = country.code;
-      option.textContent = country.name;
-      select.appendChild(option);
+      countries.forEach((country) => {
+        const option = document.createElement("option");
+        option.value = country.code;
+        option.textContent = country.name;
+        select.appendChild(option);
+      });
     });
   } catch (err) {
     console.error("Error loading countries:", err);
-    select.innerHTML = '<option value="">Failed to load</option>';
+    selects.forEach((select) => {
+      select.innerHTML = '<option value="">Failed to load</option>';
+    });
   }
 }
 loadCountries();

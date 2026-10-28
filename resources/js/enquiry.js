@@ -184,9 +184,9 @@ function validateNameInput(inputId, errorId) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-    const selectElement = document.getElementById("countryCodes");
+    const selectElements = document.querySelectorAll('select[name="countryCodes"]');
 
-    if (!selectElement) {
+    if (!selectElements.length) {
         return;
     }
 
@@ -199,37 +199,35 @@ document.addEventListener("DOMContentLoaded", function () {
             return response.json();
         })
         .then((data) => {
-            let usOption = null;
+            selectElements.forEach((selectElement) => {
+                let usOption = null;
 
-            // Populate the select element with options
-            data.forEach((country) => {
-                const option = document.createElement("option");
-                option.value = country.code; // Short form as value
-                option.textContent = `${country.name}`; // Full form as display in dropdown
-                option.dataset.dialCode = country.dial_code; // Add dial code as custom data
+                data.forEach((country) => {
+                    const option = document.createElement("option");
+                    option.value = country.code;
+                    option.textContent = country.name;
+                    option.dataset.dialCode = country.dial_code;
 
-                if (country.code === "US") {
-                    usOption = option; // Keep a reference to the US option
+                    if (country.code === "US") {
+                        usOption = option;
+                    }
+
+                    selectElement.appendChild(option);
+                });
+
+                if (usOption) {
+                    usOption.selected = true;
+                    usOption.textContent = `${usOption.value} (${usOption.dataset.dialCode})`;
                 }
 
-                selectElement.appendChild(option);
-            });
+                selectElement.addEventListener("change", function () {
+                    const selectedOption = selectElement.options[selectElement.selectedIndex];
+                    const shortForm = selectedOption.value;
+                    const dialCode = selectedOption.dataset.dialCode;
 
-            // Set US as default and update its display to short form
-            if (usOption) {
-                usOption.selected = true;
-                usOption.textContent = `${usOption.value} (${usOption.dataset.dialCode})`; // Display short form and code
-            }
+                    selectedOption.textContent = `${shortForm} (${dialCode})`;
+                });
+            });
         })
         .catch((error) => console.error("Error loading country codes:", error));
-
-    // Event listener to display short form and code for other selections
-    selectElement.addEventListener("change", function () {
-        const selectedOption = selectElement.options[selectElement.selectedIndex];
-        const shortForm = selectedOption.value; // Short form (code)
-        const dialCode = selectedOption.dataset.dialCode; // Dial code
-
-        // Update the selected option text
-        selectedOption.textContent = `${shortForm} (${dialCode})`;
-    });
 });

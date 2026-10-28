@@ -19377,6 +19377,7 @@ body {
 .po-promo-input-group {
     display: flex !important;
     gap: 8px !important;
+    flex-wrap: wrap;
 }
 
 .po-promo-input {
