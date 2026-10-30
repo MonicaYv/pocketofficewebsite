@@ -79,6 +79,7 @@ $(document).ready(function () {
       attribution:
         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
       maxZoom: 19,
+      referrerPolicy: 'strict-origin-when-cross-origin',
     }).addTo(map);
 
     var markers = {};
