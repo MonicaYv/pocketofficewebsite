@@ -14535,12 +14535,15 @@ h5.footer-sub-heading {
     display: flex;
     align-items: center;
     justify-content: center;
+    font: inherit;
     color: #000;
+    background: #ffffff;
     padding: 5px 0;
     border: 1px solid #e5e7eb;
     border-radius: 5px;
     cursor: pointer;
     outline: none !important;
+    text-align: center;
     transition:
         background-color 0.25s ease,
         color 0.25s ease,

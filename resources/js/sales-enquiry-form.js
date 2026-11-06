@@ -351,7 +351,11 @@
 
         // Hide active step, show new step
         $form.find(".enquiry-step").removeClass("active").hide();
-        $form.find(`.enquiry-step[data-step="${stepNum}"]`).addClass("active").fadeIn(200);
+        $form
+            .find(`.enquiry-step[data-step="${stepNum}"]`)
+            .removeClass("d-none")
+            .addClass("active")
+            .fadeIn(200);
 
         // Update active step number text in footer
         $form.find(".active-step-num").text(stepNum);
