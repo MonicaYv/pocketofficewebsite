@@ -94,14 +94,14 @@
      <!-- Bottom Section -->
      <div class="footer-bottom">
          <div class="social-icons">
-             <a href="https://x.com/pocket__office" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-x-twitter"></i></a>
-             <a href="https://www.youtube.com/@Pocket_Office" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-youtube-square"></i></a>
-             <a href="https://www.facebook.com/profile.php?id=61591500014745" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-facebook-square"></i></a>
-             <a href="https://www.linkedin.com/company/pocket-office-ai/" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-linkedin"></i></a>
-             <a href="https://www.instagram.com/pocket_office.ai/" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-instagram"></i></a>
-            <a href="https://in.pinterest.com/pocket_office/" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-pinterest-square"></i></a>
-            <a href="https://www.reddit.com/user/pocketoffice/" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-reddit-square"></i></a>
-            <a href="https://www.quora.com/profile/Pocketoffice" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-quora"></i></a>
+             <a href="https://x.com/pocket__office" target="_blank" rel="noopener noreferrer" aria-label="Pocket Office on X"><i class="fa-brands fa-x-twitter"></i></a>
+             <a href="https://www.youtube.com/@Pocket_Office" target="_blank" rel="noopener noreferrer" aria-label="Pocket Office on YouTube"><i class="fa-brands fa-youtube-square"></i></a>
+             <a href="https://www.facebook.com/profile.php?id=61591500014745" target="_blank" rel="noopener noreferrer" aria-label="Pocket Office on Facebook"><i class="fa-brands fa-facebook-square"></i></a>
+             <a href="https://www.linkedin.com/company/pocket-office-ai/" target="_blank" rel="noopener noreferrer" aria-label="Pocket Office on LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+             <a href="https://www.instagram.com/pocket_office.ai/" target="_blank" rel="noopener noreferrer" aria-label="Pocket Office on Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://in.pinterest.com/pocket_office/" target="_blank" rel="noopener noreferrer" aria-label="Pocket Office on Pinterest"><i class="fa-brands fa-pinterest-square"></i></a>
+            <a href="https://www.reddit.com/user/pocketoffice/" target="_blank" rel="noopener noreferrer" aria-label="Pocket Office on Reddit"><i class="fa-brands fa-reddit-square"></i></a>
+            <a href="https://www.quora.com/profile/Pocketoffice" target="_blank" rel="noopener noreferrer" aria-label="Pocket Office on Quora"><i class="fa-brands fa-quora"></i></a>
          </div>
 
          <div class="copyright-text">
@@ -114,4 +114,3 @@
  <div class="back-to-top">
      <span class="back-top"><i class="fa fa-angle-up"></i></span>
  </div>
-

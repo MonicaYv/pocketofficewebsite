@@ -53,6 +53,25 @@
     <link rel="preload" href="{{ asset('assets/img/hero_section_mob.webp') }}" as="image" type="image/webp"
         media="(max-width: 768px)" fetchpriority="high">
 @endsection
+@section('styles')
+    <style>
+        @font-face {
+            font-family: "Font Awesome 6 Free";
+            font-style: normal;
+            font-weight: 900;
+            font-display: swap;
+            src: url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/webfonts/fa-solid-900.woff2") format("woff2");
+        }
+
+        @font-face {
+            font-family: "Font Awesome 6 Brands";
+            font-style: normal;
+            font-weight: 400;
+            font-display: swap;
+            src: url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/webfonts/fa-brands-400.woff2") format("woff2");
+        }
+    </style>
+@endsection
 @section('content')
     <!-- header area start -->
     <section class="hero-header">

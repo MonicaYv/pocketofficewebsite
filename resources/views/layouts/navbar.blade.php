@@ -30,12 +30,12 @@
     <div class="container nav-container">
         <div class="responsive-mobile-menu">
             <div class="logo-wrapper mobile-logo">
-                <a href="{{ url('index') }}" class="logo custom-width"></a>
+                <a href="{{ url('index') }}" class="logo custom-width" aria-label="Pocket Office home"></a>
             </div>
             <div class="nav-right-content default-blue">
                 <ul>
                     <li class="order-icon">
-                        <a href="{{ url('pricing') }}">
+                        <a href="{{ url('pricing') }}" aria-label="Pricing">
                             <i class="fa-solid fa-cart-shopping"></i>
                         </a>
                     </li>
@@ -50,7 +50,8 @@
                 data-bs-toggle="collapse"
                 data-bs-target="#MapUI_main_menu"
                 aria-controls="MapUI_main_menu"
-                aria-expanded="false">
+                aria-expanded="false"
+                aria-label="Toggle navigation">
                 <span class="navbar-toggle-icon default-blue">
                     <span class="line"></span>
                     <span class="line"></span>
@@ -60,7 +61,7 @@
         </div>
         <div class="collapse navbar-collapse" id="MapUI_main_menu">
             <div class="logo-wrapper desktop-logo">
-                <a href="{{ url('/') }}" class="logo custom-width"></a>
+                <a href="{{ url('/') }}" class="logo custom-width" aria-label="Pocket Office home"></a>
             </div>
             <ul class="navbar-nav default-blue">
                 <li class="mega-menu-item">

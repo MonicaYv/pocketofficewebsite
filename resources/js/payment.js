@@ -780,6 +780,26 @@ document.addEventListener("DOMContentLoaded", function () {
         return valid;
     }
 
+    function scrollToFirstValidationError() {
+        const firstVisibleError = Array.from(
+            document.querySelectorAll("#formCol .pay-err-text"),
+        ).find((error) => error.getClientRects().length > 0);
+
+        if (!firstVisibleError) {
+            return;
+        }
+
+        const fieldId = firstVisibleError.id.replace(/-err$/, "");
+        const field = document.getElementById(fieldId);
+        const target =
+            field?.closest(".form-group, .checkbox") || firstVisibleError;
+
+        target.scrollIntoView({
+            behavior: "smooth",
+            block: "center",
+        });
+    }
+
     // MODAL
     const paymentModalForTeam =
         document.getElementById("paymentModalForTeam") ||
@@ -796,6 +816,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const valid = validateForm();
 
         if (!valid) {
+            scrollToFirstValidationError();
             return;
         }
 
