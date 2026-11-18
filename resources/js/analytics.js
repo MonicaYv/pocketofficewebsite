@@ -45,5 +45,23 @@ function initializeMetaPixel(pixelId) {
     window.fbq("track", "PageView");
 }
 
+function scheduleMetaPixel(pixelId) {
+    const scheduleWhenIdle = () => {
+        if ("requestIdleCallback" in window) {
+            window.requestIdleCallback(() => initializeMetaPixel(pixelId), { timeout: 2000 });
+            return;
+        }
+
+        window.setTimeout(() => initializeMetaPixel(pixelId), 0);
+    };
+
+    if (document.readyState === "complete") {
+        scheduleWhenIdle();
+        return;
+    }
+
+    window.addEventListener("load", scheduleWhenIdle, { once: true });
+}
+
 initializeGoogleAnalytics(analyticsConfig.googleMeasurementId);
-initializeMetaPixel(analyticsConfig.metaPixelId);
+scheduleMetaPixel(analyticsConfig.metaPixelId);

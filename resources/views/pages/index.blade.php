@@ -49,14 +49,13 @@
 @endsection
 @section('preload')
     <link rel="preload" href="{{ asset('assets/img/Hero-Section.webp') }}" as="image" type="image/webp"
-        media="(min-width: 769px)" fetchpriority="high">
-    <link rel="preload" href="{{ asset('assets/img/hero_section_mob.webp') }}" as="image" type="image/webp"
-        media="(max-width: 768px)" fetchpriority="high">
+        imagesrcset="{{ asset('assets/img/hero_section_mob.webp') }} 1080w, {{ asset('assets/img/Hero-Section.webp') }} 2500w"
+        imagesizes="(max-width: 768px) 100vw, 1200px" fetchpriority="high">
 @endsection
 @section('styles')
     <style>
         @font-face {
-            font-family: "Font Awesome 6 Free";
+            font-family: "Font Awesome 6 Free Swap";
             font-style: normal;
             font-weight: 900;
             font-display: swap;
@@ -64,11 +63,20 @@
         }
 
         @font-face {
-            font-family: "Font Awesome 6 Brands";
+            font-family: "Font Awesome 6 Brands Swap";
             font-style: normal;
             font-weight: 400;
             font-display: swap;
             src: url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/webfonts/fa-brands-400.woff2") format("woff2");
+        }
+
+        .fa,
+        .fa-solid {
+            font-family: "Font Awesome 6 Free Swap" !important;
+        }
+
+        .fa-brands {
+            font-family: "Font Awesome 6 Brands Swap" !important;
         }
     </style>
 @endsection
@@ -77,11 +85,10 @@
     <section class="hero-header">
         <!-- Background Image -->
         <div class="hero-bg">
-            <img src="assets/img/Hero-Section.webp"
-                srcset="assets/img/hero_section_mob.webp 1080w, 
-        assets/img/Hero-Section.webp 2500w"
+            <img src="{{ asset('assets/img/Hero-Section.webp') }}"
+                srcset="{{ asset('assets/img/hero_section_mob.webp') }} 1080w, {{ asset('assets/img/Hero-Section.webp') }} 2500w"
                 sizes="(max-width: 768px) 100vw, 1200px" alt="Pocket Office cloud desktop workspace interface"
-                width="2500" height="1117" loading="eager" decoding="async" fetchpriority="high" />
+                width="2500" height="1117" loading="eager" decoding="sync" fetchpriority="high" />
         </div>
         <div class="">
             <div class="hero-wrapper">
